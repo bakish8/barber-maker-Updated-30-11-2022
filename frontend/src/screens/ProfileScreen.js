@@ -1,3 +1,4 @@
+import swal from 'sweetalert'
 import React, { useState, useEffect } from 'react'
 import { Table, Form, Button, Row, Col } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -6,7 +7,11 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
+import { listMyTorim } from '../actions/userActions'
+import { CancelMyTor } from '../actions/userActions.js' //***למחוק לשנות לקוניפירם מחיקה */
+
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
+import { Link } from 'react-router-dom'
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -19,6 +24,8 @@ const ProfileScreen = ({ location, history }) => {
 
   const dispatch = useDispatch()
 
+  const CancelTor = useSelector((state) => state.CancelTor)
+  const { cancel } = CancelTor
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
 
@@ -31,6 +38,9 @@ const ProfileScreen = ({ location, history }) => {
   const orderListMy = useSelector((state) => state.orderListMy)
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
 
+  const MyTorim = useSelector((state) => state.MyTorim)
+  const { loading: loadingMyTorim, error: errorMyTorim, clocks } = MyTorim
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
@@ -38,14 +48,15 @@ const ProfileScreen = ({ location, history }) => {
       if (!user || !user.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(getUserDetails('profile'))
-        dispatch(listMyOrders())
       } else {
         setName(user.name)
         setEmail(user.email)
         setPhone(user.phone)
       }
+      dispatch(listMyOrders())
+      dispatch(listMyTorim())
     }
-  }, [dispatch, history, userInfo, user, success])
+  }, [dispatch, history, userInfo, user, success, cancel])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -58,127 +69,230 @@ const ProfileScreen = ({ location, history }) => {
     }
   }
 
+  const submitHandler2 = (id) => {
+    const uid = userInfo._id
+
+    swal('?אתה בטוח שברצונך לבטל את התור', {
+      buttons: {
+        catch: {
+          text: 'כן אני בטוח,בטל את התור',
+          value: 'catch',
+        },
+        cancel: 'לא',
+      },
+    }).then((value) => {
+      switch (value) {
+        case 'defeat':
+          history.goBack()
+
+          break
+
+        case 'catch':
+          swal(
+            'התור בוטל בהצלחה',
+            'אין צורך להגיע ביום ובשעה שקבעת,תודה והמשך יום נעים',
+            'success'
+          ).then(dispatch(CancelMyTor(id, uid)))
+          break
+      }
+    })
+  }
+
   return (
-    <Row>
-      <Col md={9}>
-        <h2 id='headlineme'>ההזמנות שלי</h2>
-        {loadingOrders ? (
-          <Loader />
-        ) : errorOrders ? (
-          <Message variant='danger'>{errorOrders}</Message>
-        ) : (
-          <Table striped bordered hover responsive className='table-sm'>
-            <thead>
-              <tr>
-                <th>קוד הזמנה</th>
-                <th>תאריך</th>
-                <th>סה"כ</th>
-                <th>שולם</th>
-                <th>סטאטוס</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
-                  <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
-                    ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
-                    )}
-                  </td>
-                  <td>
-                    {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
-                    ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
-                    )}
-                  </td>
-                  <td>
-                    <LinkContainer to={`/order/${order._id}`}>
-                      <Button className='btn-sm' variant='light'>
-                        Details
-                      </Button>
-                    </LinkContainer>
-                  </td>
+    <>
+      <Row>
+        <Col md={12}>
+          <Link id='goback' to='/'>
+            <i class='fas fa-angle-double-right'></i>
+          </Link>
+        </Col>
+
+        <Col md={9}>
+          <h2 id='headlineme'>התורים שלי</h2>
+          {loadingMyTorim ? (
+            <Loader />
+          ) : errorMyTorim ? (
+            <Message variant='danger'>{errorMyTorim}</Message>
+          ) : (
+            <Table
+              striped
+              bordered
+              hover
+              responsive
+              className='table-sm'
+              className='whiteme'
+              id='tablewhite'
+            >
+              <thead>
+                <tr>
+                  <th id='tableheadlines'>ספר</th>
+                  <th id='tableheadlines'>שעה</th>
+                  <th id='tableheadlines'>יום בשבוע</th>
+                  <th id='tableheadlines'>תאריך</th>
+                  <th id='tableheadlines'>פעולות</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
-      </Col>
-      <Col md={3}>
-        <h2>פרופיל משתמש</h2>
-        {message && <Message variant='danger'>{message}</Message>}
-        {}
-        {success && <Message variant='success'>Profile Updated</Message>}
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant='danger'>{error}</Message>
-        ) : (
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
-              <Form.Label>שם</Form.Label>
-              <Form.Control
-                type='name'
-                placeholder='Enter name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+              </thead>
+              <tbody>
+                {clocks.map((clock) => (
+                  <tr key={clock._id} id='hoverandblue'>
+                    <td>{clock.sapar}</td>
+                    <td>{clock.owner.dayInWeek}</td>
+                    <td>{clock.time}</td>
+                    <td>{clock.date}</td>
+                    <td>
+                      <Button
+                        onClick={() => submitHandler2(clock._id)}
+                        className='CancelTorSmallbtn'
+                      >
+                        בטל תור{' '}
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          )}
+        </Col>
+        <Col md={3}>
+          <h2 className='whiteme'>הפרופיל שלי</h2>
+          {message && <Message variant='danger'>{message}</Message>}
+          {}
+          {success && <Message variant='success'>הפרופיל עודכן בהצלחה</Message>}
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <Message variant='danger'>{error}</Message>
+          ) : (
+            <div class='login-box'>
+              <Form onSubmit={submitHandler} className='whiteme'>
+                <div class='user-box'>
+                  <Form.Group controlId='name'>
+                    <Form.Control
+                      type='name'
+                      placeholder='Enter name'
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                </div>
 
-            <Form.Group controlId='email'>
-              <Form.Label>אימייל</Form.Label>
-              <Form.Control
-                type='email'
-                placeholder='Enter email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+                <div class='user-box'>
+                  <Form.Group controlId='email'>
+                    <Form.Control
+                      type='email'
+                      placeholder='Enter email'
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                </div>
 
-            <Form.Group controlId='phone'>
-              <Form.Label>נייד</Form.Label>
-              <Form.Control
-                type='phone'
-                placeholder='Enter phone'
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+                <div class='user-box'>
+                  <Form.Group controlId='phone'>
+                    <Form.Control
+                      type='phone'
+                      placeholder='Enter phone'
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                </div>
 
-            <Form.Group controlId='password'>
-              <Form.Label>ססמה</Form.Label>
-              <Form.Control
-                type='password'
-                placeholder='הכנס ססמה'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+                <div class='user-box'>
+                  <Form.Group controlId='password'>
+                    <Form.Control
+                      type='password'
+                      placeholder='הכנס ססמה'
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                </div>
 
-            <Form.Group controlId='confirmPassword'>
-              <Form.Label>אשר ססמה</Form.Label>
-              <Form.Control
-                type='password'
-                placeholder='אשר ססמה'
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Button type='submit' variant='primary'>
-              עדכן
-            </Button>
-          </Form>
-        )}
-      </Col>
-    </Row>
+                <div class='user-box'>
+                  <Form.Group controlId='confirmPassword'>
+                    <Form.Control
+                      type='password'
+                      placeholder='אשר ססמה'
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                </div>
+                <Button type='submit' variant='primary'>
+                  עדכן
+                </Button>
+              </Form>
+            </div>
+          )}
+        </Col>
+        <Col md={9}>
+          <h2 id='headlineme'>ההזמנות שלי</h2>
+          {loadingOrders ? (
+            <Loader />
+          ) : errorOrders ? (
+            <Message variant='danger'>{errorOrders}</Message>
+          ) : (
+            <Table
+              striped
+              bordered
+              hover
+              responsive
+              className='table-sm'
+              className='whiteme'
+              id='tablewhite'
+            >
+              <thead>
+                <tr>
+                  <th id='tableheadlines'>קוד הזמנה</th>
+                  <th id='tableheadlines'>תאריך</th>
+                  <th id='tableheadlines'>סה"כ</th>
+                  <th id='tableheadlines'>שולם</th>
+                  <th id='tableheadlines'>סטאטוס</th>
+                  <th id='tableheadlines'></th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order._id} id='hoverandblue'>
+                    <td>{order._id}</td>
+                    <td>{order.createdAt.substring(0, 10)}</td>
+                    <td>{order.totalPrice}</td>
+                    <td>
+                      {order.isPaid ? (
+                        order.paidAt.substring(0, 10)
+                      ) : (
+                        <i
+                          className='fas fa-times'
+                          style={{ color: 'red' }}
+                        ></i>
+                      )}
+                    </td>
+                    <td>
+                      {order.isDelivered ? (
+                        order.deliveredAt.substring(0, 10)
+                      ) : (
+                        <i
+                          className='fas fa-times'
+                          style={{ color: 'red' }}
+                        ></i>
+                      )}
+                    </td>
+                    <td>
+                      <LinkContainer to={`/order/${order._id}`}>
+                        <Button className='btn-sm' variant='light'>
+                          לפרטים
+                        </Button>
+                      </LinkContainer>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          )}
+        </Col>
+      </Row>
+    </>
   )
 }
 

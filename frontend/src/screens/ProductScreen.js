@@ -59,9 +59,11 @@ const ProductScreen = ({ history, match }) => {
 
   return (
     <>
-      <Link className='btn btn-light my-3' to='/'>
-        חזור
-      </Link>
+      <Col md={12}>
+        <Link id='goback' to='/'>
+          <i class='fas fa-angle-double-right'></i>
+        </Link>
+      </Col>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -69,30 +71,19 @@ const ProductScreen = ({ history, match }) => {
       ) : (
         <>
           <Meta title={product.name} />
+          <h3 className='whiteme15pxmarginTOP'>{product.name}</h3>
+
           <Row>
-            <Col md={6}>
-              <Image src={product.image} alt={product.name} fluid />
+            <Col md={9}>
+              <Image
+                id='productimageonproductPage'
+                src={product.image}
+                alt={product.name}
+                fluid
+              />
             </Col>
             <Col md={3}>
-              <ListGroup variant='flush'>
-                <ListGroup.Item>
-                  <h3>{product.name}</h3>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
-                </ListGroup.Item>
-                <ListGroup.Item>מחיר: ${product.price}</ListGroup.Item>
-                <ListGroup.Item>
-                  <h4 id='block'> :תיאור המוצר</h4>
-                  {product.description}
-                </ListGroup.Item>
-              </ListGroup>
-            </Col>
-            <Col md={3}>
-              <Card>
+              <Card id='produDeetseonproductPage'>
                 <ListGroup variant='flush'>
                   <ListGroup.Item>
                     <Row>
@@ -115,7 +106,7 @@ const ProductScreen = ({ history, match }) => {
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>
+                        <Col id='produDeetseonproductPage'>
                           <Form.Control
                             as='select'
                             value={qty}
@@ -150,8 +141,26 @@ const ProductScreen = ({ history, match }) => {
             </Col>
           </Row>
           <Row>
-            <Col md={6}>
-              <h2 id='centerme'>ביקורות</h2>
+            <Col md={12} id='produDeetseonproductPage'>
+              <ListGroup variant='flush'>
+                <ListGroup.Item>
+                  <h3>{product.name}</h3>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Rating
+                    value={product.rating}
+                    text={`${product.numReviews} reviews`}
+                  />
+                </ListGroup.Item>
+                <ListGroup.Item>מחיר: ${product.price}</ListGroup.Item>
+                <ListGroup.Item>
+                  <h4 id='block'> :תיאור המוצר</h4>
+                  {product.description}
+                </ListGroup.Item>
+              </ListGroup>
+            </Col>
+            <Col md={12}>
+              <h2 className='whiteme'>ביקורות</h2>
               {product.reviews.length === 0 && <Message>No Reviews</Message>}
               <ListGroup variant='flush'>
                 {product.reviews.map((review) => (

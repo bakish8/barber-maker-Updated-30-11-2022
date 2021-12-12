@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
@@ -13,6 +15,9 @@ const RegisterScreen = ({ location, history }) => {
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [image, setImage] = useState('')
+  const [uploading, setUploading] = useState(false)
+
   const [message, setMessage] = useState(null)
 
   const dispatch = useDispatch()
@@ -28,86 +33,123 @@ const RegisterScreen = ({ location, history }) => {
     }
   }, [history, userInfo, redirect])
 
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', file)
+    setUploading(true)
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+
+      const { data } = await axios.post('/api/upload', formData, config)
+
+      setImage(data)
+      setUploading(false)
+    } catch (error) {
+      console.error(error)
+      setUploading(false)
+    }
+  }
+
   const submitHandler = (e) => {
     e.preventDefault()
+    let random = Math.floor(Math.random() * 100000000000) + 1
+
+    let image = random
     if (password !== confirmPassword) {
       setMessage('Passwords do not match')
     } else {
-      dispatch(register(name, email, phone, password))
+      dispatch(register(name, email, phone, password, image))
     }
   }
 
   return (
-    <FormContainer>
-      <h1 id='headlineme'>הירשם</h1>
-      {message && <Message variant='danger'>{message}</Message>}
-      {error && <Message variant='danger'>{error}</Message>}
-      {loading && <Loader />}
-      <Form onSubmit={submitHandler}>
-        <Form.Group controlId='name'>
-          <Form.Label>שם מלא</Form.Label>
-          <Form.Control
-            type='name'
-            placeholder='Enter name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+    <>
+      <div class='login-box'>
+        <FormContainer>
+          <h2 id='headlineme'>הירשם</h2>
+          {message && <Message variant='danger'>{message}</Message>}
+          {error && <Message variant='danger'>{error}</Message>}
+          {loading && <Loader />}
+          <div id='centerme'>
+            <Form onSubmit={submitHandler} className='whitemeandblackbg'>
+              <div class='user-box'>
+                <Form.Group controlId='name'>
+                  <Form.Control
+                    type='name'
+                    placeholder='הכנס שם מלא'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </div>
 
-        <Form.Group controlId='email'>
-          <Form.Label>אמייל</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Enter email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+              <div class='user-box'>
+                <Form.Group controlId='email'>
+                  <Form.Control
+                    type='email'
+                    placeholder='הכנס אימייל'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </div>
+              <div class='user-box'>
+                <Form.Group controlId='phone'>
+                  <Form.Control
+                    type='phone'
+                    placeholder='הכנס נייד'
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </div>
+              <div class='user-box'>
+                <Form.Group controlId='password'>
+                  <Form.Control
+                    type='password'
+                    placeholder='הכנס ססמא'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </div>
+              <div class='user-box'>
+                <Form.Group controlId='confirmPassword'>
+                  <Form.Control
+                    type='password'
+                    placeholder='אשר ססמא'
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </div>
 
-        <Form.Group controlId='phone'>
-          <Form.Label>נייד</Form.Label>
-          <Form.Control
-            type='phone'
-            placeholder='Enter phone number'
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+              <Button type='submit' id='centermebtnlogin'>
+                הירשם
+              </Button>
+            </Form>
+          </div>
 
-        <Form.Group controlId='password'>
-          <Form.Label>ססמה</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Enter password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId='confirmPassword'>
-          <Form.Label>חזור על הססמה</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Confirm password'
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
-        <Button type='submit' id='centermebtn'>
-          הירשם
-        </Button>
-      </Form>
-
-      <Row id='centerme'>
-        <Col>
-          יש לך כבר חשבון?{' '}
-          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
-            התחבר
-          </Link>
-        </Col>
-      </Row>
-    </FormContainer>
+          <Row className='whiteme'>
+            <Col>
+              יש לך כבר חשבון?{' '}
+              <Link
+                id='signUp'
+                className='whiteme'
+                to={redirect ? `/login?redirect=${redirect}` : '/login'}
+              >
+                התחבר
+              </Link>
+            </Col>
+          </Row>
+        </FormContainer>
+      </div>
+    </>
   )
 }
 

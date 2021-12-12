@@ -1,3 +1,5 @@
+import swal from 'sweetalert'
+
 import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Row, Col } from 'react-bootstrap'
@@ -11,6 +13,7 @@ import {
   createProduct,
 } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
+import { Link } from 'react-router-dom'
 
 const ProductListScreen = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1
@@ -61,9 +64,21 @@ const ProductListScreen = ({ history, match }) => {
   ])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure')) {
-      dispatch(deleteProduct(id))
-    }
+    swal({
+      title: '?אתה בטוח',
+      text: 'ברגע שתמחק את מוצר זה לא יהיה ניתן להשיבו למערכת',
+      icon: 'warning',
+      buttons: ['ביטול', 'מחק מוצר'],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal('מוצר זה נמחק בהצלחה מהמערכת', {
+          icon: 'success',
+        }).then(dispatch(deleteProduct(id)))
+      } else {
+        console.log('your product is safe')
+      }
+    })
   }
 
   const createProductHandler = () => {
@@ -72,6 +87,11 @@ const ProductListScreen = ({ history, match }) => {
 
   return (
     <>
+      <Col md={12}>
+        <Link id='goback' to='/'>
+          <i class='fas fa-angle-double-right'></i>
+        </Link>
+      </Col>
       <Row className='align-items-center'>
         <Col>
           <h1 id='headlineme'>מוצרים</h1>
@@ -92,9 +112,9 @@ const ProductListScreen = ({ history, match }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <Table striped bordered hover responsive className='table-sm'>
+          <Table bordered responsive className='whiteme' id='tablewhite'>
             <thead>
-              <tr>
+              <tr id='tableheadlines'>
                 <th>קוד</th>
                 <th>שולם</th>
                 <th>מחיר</th>
@@ -105,7 +125,7 @@ const ProductListScreen = ({ history, match }) => {
             </thead>
             <tbody>
               {products.map((product) => (
-                <tr key={product._id}>
+                <tr key={product._id} id='hoverandblue'>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
                   <td>${product.price}</td>

@@ -8,52 +8,14 @@ import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
-import { Calendar, DateObject } from 'react-multi-date-picker'
-import 'react-multi-date-picker/styles/backgrounds/bg-dark.css'
-import 'react-multi-date-picker/styles/backgrounds/bg-dark.css'
-import gregorian_ar from 'react-date-object/locales/gregorian_ar'
-import { addDays } from 'date-fns'
-
-const MakeTorScreen = ({ location, history }) => {
+const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
-
-  const [startDate, setStartDate] = useState(new Date())
-  const weekDays = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'שבת']
-  const months = [
-    'ינואר',
-    'פבואר',
-    'מרץ',
-    'אפריל',
-    'מאי',
-    'יוני',
-    'יולי',
-    'אוגוסט',
-    'ספטמבר',
-    'אוקטובר',
-    'נובמבר',
-    'דצמבר',
-  ]
-  const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-  const [state, setState] = useState({ format: 'DD/MM/YYYY' })
-
-  const convert = (date, format = state.format) => {
-    let object = { date, format }
-    setState({
-      gregorian: new DateObject(object).format(),
-      jsDate: date.toDate(),
-      ...object,
-    })
-    let day = `${date.weekDay.number}`
-    let dateLink = `${date.day}_${date.month.number}_${date.year}_${date.weekDay.number}`
-    console.log(dateLink)
-    let dateData = `${date.day}/${date.month.number}/${date.year}`
-    console.log(dateData)
-  }
 
   const dispatch = useDispatch()
 
@@ -87,53 +49,70 @@ const MakeTorScreen = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-
-    dispatch(updateUserProfile({ id: user._id, name, email, password, phone }))
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match')
+    } else {
+      dispatch(
+        updateUserProfile({ id: user._id, name, email, password, phone })
+      )
+    }
   }
 
   return (
     <Row>
       <Col md={9}>
-        <h2 id='headlineme'>קבע תור</h2>
+        <h2 id='headlineme'>ההזמנות שלי</h2>
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
           <Message variant='danger'>{errorOrders}</Message>
         ) : (
-          <div id='centerme1'>
-            <Calendar
-              value={state.date}
-              onChange={convert}
-              className='bg-dark'
-              format='DD/MM/YYYY'
-              weekDays={weekDays}
-              months={months}
-              minDate={startDate}
-              maxDate={addDays(new Date(), 30)}
-              locale={gregorian_ar}
-              digits={digits}
-              mapDays={({ date, today }) => {
-                let isWeekend = [6].includes(date.weekDay.index)
-                let props = {}
-                let result = date.toDays() - today.toDays()
-
-                if (isWeekend)
-                  return {
-                    disabled: true,
-                    style: { color: '#6c757d' },
-                  }
-                if (result === -1) props.title = 'אתמול'
-                if (result === 0) props.title = 'היום'
-                if (result === 1) props.title = 'מחר'
-
-                return props
-              }}
-            />
-          </div>
+          <Table striped bordered hover responsive className='table-sm'>
+            <thead>
+              <tr>
+                <th>קוד הזמנה</th>
+                <th>תאריך</th>
+                <th>סה"כ</th>
+                <th>שולם</th>
+                <th>סטאטוס</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order._id}>
+                  <td>{order._id}</td>
+                  <td>{order.createdAt.substring(0, 10)}</td>
+                  <td>{order.totalPrice}</td>
+                  <td>
+                    {order.isPaid ? (
+                      order.paidAt.substring(0, 10)
+                    ) : (
+                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                    )}
+                  </td>
+                  <td>
+                    {order.isDelivered ? (
+                      order.deliveredAt.substring(0, 10)
+                    ) : (
+                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                    )}
+                  </td>
+                  <td>
+                    <LinkContainer to={`/order/${order._id}`}>
+                      <Button className='btn-sm' variant='light'>
+                        Details
+                      </Button>
+                    </LinkContainer>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         )}
       </Col>
       <Col md={3}>
-        <h2 id='headlineme'>משתמש</h2>
+        <h2>פרופיל משתמש</h2>
         {message && <Message variant='danger'>{message}</Message>}
         {}
         {success && <Message variant='success'>Profile Updated</Message>}
@@ -172,6 +151,30 @@ const MakeTorScreen = ({ location, history }) => {
                 onChange={(e) => setPhone(e.target.value)}
               ></Form.Control>
             </Form.Group>
+
+            <Form.Group controlId='password'>
+              <Form.Label>ססמה</Form.Label>
+              <Form.Control
+                type='password'
+                placeholder='הכנס ססמה'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='confirmPassword'>
+              <Form.Label>אשר ססמה</Form.Label>
+              <Form.Control
+                type='password'
+                placeholder='אשר ססמה'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Button type='submit' variant='primary'>
+              עדכן
+            </Button>
           </Form>
         )}
       </Col>
@@ -179,4 +182,4 @@ const MakeTorScreen = ({ location, history }) => {
   )
 }
 
-export default MakeTorScreen
+export default ProfileScreen

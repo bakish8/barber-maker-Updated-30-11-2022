@@ -12,6 +12,10 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    image: {
+      type: String,
+    },
+
     phone: {
       type: Number,
       required: true,
@@ -31,6 +35,12 @@ const userSchema = mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'WorkingDay',
+      },
+    ],
+    torim: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Clock',
       },
     ],
   },

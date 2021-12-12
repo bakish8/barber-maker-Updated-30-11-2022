@@ -17,6 +17,10 @@ const ClockSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    sapar: {
+      type: String,
+      required: true,
+    },
     isPaid: {
       type: Boolean,
       required: true,

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -93,13 +93,11 @@ const ProductEditScreen = ({ match, history }) => {
 
   return (
     <>
-      <Link
-        to='/admin/productlist'
-        className='btn btn-light my-3'
-        id='centerme'
-      >
-        חזור
-      </Link>
+      <Col md={12}>
+        <Link id='goback' to='/admin/productlist'>
+          <i class='fas fa-angle-double-right'></i>
+        </Link>
+      </Col>
       <FormContainer>
         <h1 id='headlineme'>הכנס מוצר חדש</h1>
         {loadingUpdate && <Loader />}
@@ -109,7 +107,7 @@ const ProductEditScreen = ({ match, history }) => {
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <Form onSubmit={submitHandler}>
+          <Form onSubmit={submitHandler} className='whiteme'>
             <Form.Group controlId='name'>
               <Form.Label>שם</Form.Label>
               <Form.Control

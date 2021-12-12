@@ -91,6 +91,11 @@ const OrderScreen = ({ match, history }) => {
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
+      <Col md={12}>
+        <Link id='goback' to='/admin/orderlist'>
+          <i class='fas fa-angle-double-right'></i>
+        </Link>
+      </Col>
       <h1 id='headlineme'>הזמנה {order._id}</h1>
       <Row>
         <Col md={8}>

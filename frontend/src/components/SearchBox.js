@@ -15,7 +15,7 @@ const SearchBox = ({ history }) => {
 
   return (
     <Form onSubmit={submitHandler} inline>
-      <Button type='submit' variant='outline-dark' className='p-2'>
+      <Button type='submit' variant='outline-light' id='tineme'>
         חפש
       </Button>
       <Form.Control
@@ -25,6 +25,9 @@ const SearchBox = ({ history }) => {
         placeholder='חפש מוצרים'
         className=''
       ></Form.Control>
+      <Button type='submit' variant='outline-light' id='tineme2'>
+        חפש
+      </Button>
     </Form>
   )
 }

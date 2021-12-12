@@ -1,0 +1,70 @@
+.btncancel {
+  margin-left: auto;
+  margin-right: auto;
+  width: 450px;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 50px;
+  border: 5px solid rgba(0, 0, 0, 0);
+  color: white;
+}
+
+#userIMGifNotimage {
+  font-size: 60px;
+  transition: 0.6s ease-in;
+}
+
+#userIMGifNotimage:hover {
+  color: #292929;
+  font-size: 55px;
+}
+
+.user-item__image {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 4rem;
+}
+.user-item2__content {
+  padding: 0;
+  width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  background-color: rgba(255, 255, 255, 0.637);
+  height: 280px;
+}
+.user-item2__content:hover {
+  background-color: #00c3ff;
+}
+
+.user-item2__content h1,
+.user-item2__content h1 {
+  color: #ffffff;
+  max-width: 350px;
+  border-radius: 50px;
+  color: #000000;
+  margin-left: auto;
+  margin-right: auto;
+}
+.user-item2__content:hover h1,
+.user-item2__content:active h1 {
+  color: #ffffff;
+  background-color: #292929;
+}
+
+.user-item2__content h2,
+.user-item2__content h2 {
+  text-decoration: none;
+  border-radius: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.3s;
+  transition: background-color 1s;
+  max-width: 300px;
+  margin-bottom: 3px;
+}
+.user-item2__content:hover h2,
+.user-item2__content:active h2 {
+  text-decoration: underline 4px #ffffff;
+  text-underline-position: under;
+  background-color: white;
+}

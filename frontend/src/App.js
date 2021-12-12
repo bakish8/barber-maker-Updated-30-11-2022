@@ -18,9 +18,12 @@ import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
-import MakeTorScreen from './screens/MakeTorScreen'
+import PickDateScreen from './screens/PickDateScreen'
+import PickSaparScreen from './screens/PickSaparScreen'
 import WorkingDaysScreen from './screens/workingDays'
 import SingleWorkDay from './screens/SingleWorkDay'
+import PickHourScreen from './screens/PickHourScreen'
+import CancelTorScreen from './screens/CancelTorScreen'
 
 const App = () => {
   return (
@@ -30,8 +33,12 @@ const App = () => {
         <Container>
           <Route path='/order/:id' component={OrderScreen} />
           <Route path='/shipping' component={ShippingScreen} />
-          <Route path='/maketor' component={MakeTorScreen} />
+          <Route path='/picksapar' component={PickSaparScreen} />
+          <Route path='/:id/maketor' component={PickDateScreen} />
+          <Route path='/maketor/:id' component={PickHourScreen} />
+
           <Route path='/payment' component={PaymentScreen} />
+          <Route path='/cancel' component={CancelTorScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />

@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Table, Button } from 'react-bootstrap'
+import { Table, Button, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listUsers, deleteUser } from '../actions/userActions'
+import { Link } from 'react-router-dom'
+import swal from 'sweetalert'
 
 const UserListScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -27,22 +29,40 @@ const UserListScreen = ({ history }) => {
   }, [dispatch, history, successDelete, userInfo])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure')) {
-      dispatch(deleteUser(id))
-    }
+    swal({
+      title: '?אתה בטוח',
+      text: 'ברגע שתמחק את משתמש זה לא יהיה ניתן להשיבו למערכת',
+      icon: 'warning',
+      buttons: ['ביטול', 'מחק משתמש'],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal('משתמש זה  נמחק בהצלחה מהמערכת', {
+          icon: 'success',
+        }).then(dispatch(deleteUser(id)))
+      } else {
+        console.log('your user is safe')
+      }
+    })
   }
 
   return (
     <>
+      <Col md={12}>
+        <Link id='goback' to='/'>
+          <i class='fas fa-angle-double-right'></i>
+        </Link>
+      </Col>
+
       <h1 id='headlineme'>משתמשים</h1>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <Table striped bordered hover responsive className='table-sm'>
+        <Table bordered responsive className='whiteme' id='tablewhite'>
           <thead>
-            <tr>
+            <tr id='tableheadlines'>
               <th>איידי</th>
               <th>שם</th>
               <th>אימייל</th>
@@ -50,13 +70,15 @@ const UserListScreen = ({ history }) => {
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id='centertext'>
             {users.map((user) => (
-              <tr key={user._id}>
+              <tr key={user._id} id='hoverandblue'>
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>
-                  <a href={`mailto:${user.email}`}>{user.email}</a>
+                  <a id='notextdecoration' href={`mailto:${user.email}`}>
+                    {user.email}
+                  </a>
                 </td>
                 <td>
                   {user.isAdmin ? (

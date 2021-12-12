@@ -62,12 +62,17 @@ const PlaceOrderScreen = ({ history }) => {
 
   return (
     <>
+      <Col md={12}>
+        <Link id='goback' to='/payment'>
+          <i class='fas fa-angle-double-right'></i>
+        </Link>
+      </Col>
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2 id='headlineme'>משלוח</h2>
+              <h2>משלוח</h2>
               <p>
                 <strong>כתובת:</strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
@@ -119,7 +124,7 @@ const PlaceOrderScreen = ({ history }) => {
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <h2 id='headlineme'>סיכום הזמנה</h2>
+                <h2 id='blackme'>סיכום הזמנה</h2>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>

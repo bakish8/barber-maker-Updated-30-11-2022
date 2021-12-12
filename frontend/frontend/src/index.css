@@ -1,0 +1,437 @@
+main {
+  min-height: 80vh;
+}
+
+h3 {
+  padding: 1rem 0;
+}
+
+h1 {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+}
+#navbarHeadline {
+  font-family: cursive;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  transition: 0.3s ease-in;
+}
+#navbarHeadline:hover {
+  color: #68b4ff;
+}
+
+h2 {
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
+}
+
+.rating span {
+  margin: 0.1rem;
+}
+
+/* carousel */
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  display: flex;
+  background-color: rgb(236, 236, 236);
+  background-image: url('https://images.unsplash.com/photo-1519500528352-2d1460418d41?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+}
+.carousel-caption {
+  position: absolute;
+  top: 0;
+}
+.carousel-control-next-icon {
+  width: 40px;
+  height: 40px;
+}
+.carousel-control-prev-icon {
+  width: 40px;
+  height: 40px;
+}
+.carousel-caption h2 {
+  color: rgb(255, 255, 255);
+  background-color: rgb(46, 46, 46);
+  width: 200px;
+  padding: 20px;
+  border-radius: 20px;
+  transition: ease-in 0.1s;
+}
+.carousel-caption h2:hover {
+  background-color: #68b4ff;
+  box-shadow: 5px 10px #001029;
+}
+
+.carousel img {
+  height: 150px;
+  padding: 0px;
+  margin: 40px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 5px 5px 6px #000000;
+  transition: ease-in 0.2s;
+}
+.carousel a {
+  margin: 0 auto;
+}
+@media (max-width: 900px) {
+  .carousel-caption h2 {
+    font-size: 3vw;
+  }
+  .carousel img {
+    margin-top: 100px;
+    height: 150px;
+    width: 150px;
+  }
+}
+body {
+  text-align: right;
+}
+
+body input {
+  text-align: right;
+}
+
+#centerme {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#centerme1 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 150px;
+}
+#centermeANDGREYBACKGROUND {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+}
+#centermebtn {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #343a40;
+  margin-bottom: 10px;
+}
+#clockbtn {
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  width: 150px;
+}
+#clockbtn:hover {
+  background-color: #1d3557;
+}
+#backbtn {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#centermebtnActions {
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #343a40;
+  margin-bottom: 10px;
+}
+#centermebtnwidh100 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #343a40;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#centermebtn:hover,
+#centermebtnwidh100:hover,
+#centermebtnActions:hover {
+  background-color: #68b4ff;
+}
+
+option {
+  text-align: center;
+}
+textarea {
+  text-align: right;
+}
+#block {
+  display: block;
+}
+#maxme {
+  height: 200px;
+  width: 200px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spanush {
+  display: block;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#centerme1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+#centerme2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(238, 238, 238, 0.493);
+}
+
+#marginme {
+  margin-left: 10px;
+}
+
+#marginme:hover {
+  background-color: seashell;
+  color: #343a40;
+}
+
+#sizeme {
+  background-color: rgb(240, 240, 240);
+}
+
+#boldme {
+  font-weight: bolder;
+  color: #68b4ff;
+  font-size: larger;
+}
+#bold {
+  font-weight: bold;
+  font-size: larger;
+}
+.bolder {
+  font-weight: bold;
+  font-size: larger;
+}
+
+#headlineme {
+  color: rgb(255, 255, 255);
+  margin-top: 20px;
+  background-color: #343a40;
+  padding: 10px;
+  text-align: center;
+  padding: 10px;
+}
+#headlinememin {
+  color: rgb(255, 255, 255);
+  margin-top: 20px;
+  background-color: #1d3557;
+  text-align: center;
+  max-width: 350px;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#navbar {
+  background-color: #343a40;
+  color: rgb(0, 0, 0);
+}
+
+#dayinWeek {
+  color: rgb(255, 255, 255);
+  background-color: #68b4ff;
+  padding: 10px;
+  text-align: center;
+}
+#dayinWeekmin {
+  color: rgb(255, 255, 255);
+  background-color: #68b4ff;
+  padding: 10px;
+  text-align: center;
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+#torimAndHahnasot {
+  color: rgb(255, 255, 255);
+  background-color: #1d3557;
+  padding: 10px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/*====================*/
+/* BUZZ OUT
+/*====================*/
+.link {
+  padding: 15px 30px;
+  margin: 10px;
+  color: rgb(255, 255, 255);
+  background: #ffce54;
+  text-decoration: none;
+}
+.link:hover {
+  text-decoration: none;
+  color: #000;
+}
+/*====================*/
+/* BUZZ OUT
+/*====================*/
+
+@-webkit-keyframes buzz-out-on-hover {
+  10% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+  20% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+  30% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+  40% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+  50% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+  60% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  70% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+  80% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  90% {
+    -webkit-transform: translateX(1px) rotate(0);
+    transform: translateX(1px) rotate(0);
+  }
+  100% {
+    -webkit-transform: translateX(-1px) rotate(0);
+    transform: translateX(-1px) rotate(0);
+  }
+}
+@keyframes buzz-out-on-hover {
+  10% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+  20% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+  30% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+  40% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+  50% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+  60% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  70% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+  80% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  90% {
+    -webkit-transform: translateX(1px) rotate(0);
+    transform: translateX(1px) rotate(0);
+  }
+  100% {
+    -webkit-transform: translateX(-1px) rotate(0);
+    transform: translateX(-1px) rotate(0);
+  }
+}
+.buzz-out-on-hover {
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+.buzz-out-on-hover:hover,
+.buzz-out-on-hover:focus,
+.buzz-out-on-hover:active {
+  -webkit-animation-name: buzz-out-on-hover;
+  animation-name: buzz-out-on-hover;
+  -webkit-animation-duration: 0.75s;
+  animation-duration: 0.75s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+
+.healineAnimationNavBAR {
+  /* Set up the hover */
+  /* If you aren't using autoprefix, remember to prefix the gradient for other browsers */
+  background-image: linear-gradient(#68b4ff, #68b4ff),
+    linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+  background-size: 0 5px, auto;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  transition: all 0.2s ease-out;
+}
+
+.healineAnimationNavBAR:hover {
+  /* The following line makes the underline only as wide as the text */
+  /* background-size: calc(100% - 2em) 5px, auto; */
+  background-size: 100% 5px, auto;
+}
+
+#sizemeloadingbtn {
+  height: 10px;
+}

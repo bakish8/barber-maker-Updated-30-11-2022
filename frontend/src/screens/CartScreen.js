@@ -31,8 +31,39 @@ const CartScreen = ({ match, location, history }) => {
 
   return (
     <Row>
+      <Col md={12}>
+        <Link id='goback' to='/'>
+          <i class='fas fa-angle-double-right'></i>
+        </Link>
+      </Col>
+      <Col md={4}>
+        <Card id='cardCartPageRight'>
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              <h2>
+                סה"כ ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                מוצרים
+              </h2>
+              ₪
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .toFixed(2)}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button
+                type='button'
+                className='btn-block'
+                disabled={cartItems.length === 0}
+                onClick={checkoutHandler}
+              >
+                קנה עכשיו
+              </Button>
+            </ListGroup.Item>
+          </ListGroup>
+        </Card>
+      </Col>
       <Col md={8}>
-        <h1>עגלת הקניות</h1>
+        <h1 className='whiteme'>עגלת הקניות</h1>
         {cartItems.length === 0 ? (
           <Message>
             עגלת הקניות שלך ריקה <Link to='/'>חזור</Link>
@@ -80,32 +111,6 @@ const CartScreen = ({ match, location, history }) => {
             ))}
           </ListGroup>
         )}
-      </Col>
-      <Col md={4}>
-        <Card>
-          <ListGroup variant='flush'>
-            <ListGroup.Item>
-              <h2>
-                סה"כ ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
-                מוצרים
-              </h2>
-              ₪
-              {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
-                .toFixed(2)}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Button
-                type='button'
-                className='btn-block'
-                disabled={cartItems.length === 0}
-                onClick={checkoutHandler}
-              >
-                קנה עכשיו
-              </Button>
-            </ListGroup.Item>
-          </ListGroup>
-        </Card>
       </Col>
     </Row>
   )

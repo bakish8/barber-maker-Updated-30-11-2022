@@ -30,48 +30,58 @@ const LoginScreen = ({ location, history }) => {
   }
 
   return (
-    <FormContainer>
-      <h1 id='headlineme'>התחבר</h1>
-      {error && <Message variant='danger'>{error}</Message>}
-      {loading && <Loader />}
-      <Form onSubmit={submitHandler}>
-        <Form.Group controlId='email'>
-          <Form.Label>כתובת אימייל</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='הכנס אימייל'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+    <>
+      <div class='login-box'>
+        <FormContainer>
+          <h2 id='headlineme'>התחבר</h2>
+          {error && <Message variant='danger'>{error}</Message>}
+          {loading && <Loader />}
+          <div id='centerme'>
+            <Form onSubmit={submitHandler} className='whitemeandblackbg'>
+              <div class='user-box'>
+                <Form.Group controlId='email'>
+                  <Form.Control
+                    type='email'
+                    placeholder='הכנס אימייל'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </div>
+              <div class='user-box'>
+                <Form.Group controlId='password'>
+                  <Form.Control
+                    type='password'
+                    placeholder='הכנס ססמא'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
+              </div>
 
-        <Form.Group controlId='password'>
-          <Form.Label>ססמה</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='הכנס ססמא'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+              <Button id='centermebtnlogin' type='submit' variant='primary'>
+                התחבר
+              </Button>
+            </Form>
+          </div>
 
-        <Button id='centermebtn' type='submit' variant='primary'>
-          התחבר
-        </Button>
-      </Form>
-
-      <Row id='centerme' className='py-3'>
-        <Col>
-          ?לקוח חדש{' '}
-          <Link
-            id='centerme'
-            to={redirect ? `/register?redirect=${redirect}` : '/register'}
-          >
-            הירשם
-          </Link>
-        </Col>
-      </Row>
-    </FormContainer>
+          <Row className='py-3'>
+            <Col>
+              <div className='whiteme'>
+                לקוח חדש?{' '}
+                <Link
+                  id='signUp'
+                  className='whiteme'
+                  to={redirect ? `/register?redirect=${redirect}` : '/register'}
+                >
+                  הירשם
+                </Link>
+              </div>
+            </Col>
+          </Row>
+        </FormContainer>
+      </div>
+    </>
   )
 }
 

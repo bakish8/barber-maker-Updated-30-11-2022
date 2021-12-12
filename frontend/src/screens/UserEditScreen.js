@@ -13,6 +13,9 @@ const UserEditScreen = ({ match, history }) => {
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [image, setImage] = useState('')
+  const [phone, setPhone] = useState('')
+
   const [isAdmin, setIsAdmin] = useState(false)
 
   const dispatch = useDispatch()
@@ -37,6 +40,8 @@ const UserEditScreen = ({ match, history }) => {
       } else {
         setName(user.name)
         setEmail(user.email)
+        setImage(user.image)
+        setPhone(user.phone)
         setIsAdmin(user.isAdmin)
       }
     }
@@ -44,7 +49,7 @@ const UserEditScreen = ({ match, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(updateUser({ _id: userId, name, email, isAdmin }))
+    dispatch(updateUser({ _id: userId, name, email, isAdmin, image, phone }))
   }
 
   return (
@@ -53,7 +58,7 @@ const UserEditScreen = ({ match, history }) => {
         חזור חזרה
       </Link>
       <FormContainer>
-        <h1 headlineme>ערוך משתמשים</h1>
+        <h1 id='headlineme'>ערוך משתמשים</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
@@ -61,7 +66,7 @@ const UserEditScreen = ({ match, history }) => {
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <Form onSubmit={submitHandler}>
+          <Form className='whiteme' onSubmit={submitHandler}>
             <Form.Group controlId='name'>
               <Form.Label>שם</Form.Label>
               <Form.Control
@@ -79,6 +84,26 @@ const UserEditScreen = ({ match, history }) => {
                 placeholder='Enter email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='phone'>
+              <Form.Label>נייד</Form.Label>
+              <Form.Control
+                type='phone'
+                placeholder='הכנס נייד'
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='image'>
+              <Form.Label>תמונה </Form.Label>
+              <Form.Control
+                type='string'
+                placeholder='העלה כתובת תמונה (לא חובה)'
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
             </Form.Group>
 

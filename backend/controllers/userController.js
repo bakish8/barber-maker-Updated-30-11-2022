@@ -16,6 +16,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       phone: user.phone,
+      image: user.image,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
     })
@@ -29,7 +30,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, phone, password } = req.body
+  const { name, email, phone, password, image } = req.body
   console.log('phone')
   const userExists = await User.findOne({ email })
 
@@ -37,26 +38,50 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('User already exists')
   }
-
-  const user = await User.create({
-    name,
-    email,
-    phone,
-    password,
-  })
-
-  if (user) {
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+  if (image === null) {
+    const user = await User.create({
+      name,
+      email,
+      phone,
+      password,
+      image: 'https://ibb.co/0V5LJJk',
     })
+    if (user) {
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        isAdmin: user.isAdmin,
+        image: user.image,
+        token: generateToken(user._id),
+      })
+    } else {
+      res.status(400)
+      throw new Error('Invalid user data')
+    }
   } else {
-    res.status(400)
-    throw new Error('Invalid user data')
+    const user = await User.create({
+      name,
+      email,
+      phone,
+      password,
+      image,
+    })
+    if (user) {
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        isAdmin: user.isAdmin,
+        image: user.image,
+        token: generateToken(user._id),
+      })
+    } else {
+      res.status(400)
+      throw new Error('Invalid user data')
+    }
   }
 })
 
@@ -71,6 +96,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      image: user.image,
       phone: user.phone,
       isAdmin: user.isAdmin,
     })
@@ -87,6 +113,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
 
   if (user) {
+    //****להמשיך לעדכן עדכון תמונה בהמשך  */
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
     user.phone = req.body.phone || user.phone
@@ -157,7 +184,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
     user.phone = req.body.phone || user.phone
-
+    user.image = req.body.image || user.image
     user.isAdmin = req.body.isAdmin
 
     const updatedUser = await user.save()
@@ -166,7 +193,8 @@ const updateUser = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
-      phone: user.phone,
+      phone: updatedUser.phone,
+      image: updatedUser.image,
       isAdmin: updatedUser.isAdmin,
     })
   } else {

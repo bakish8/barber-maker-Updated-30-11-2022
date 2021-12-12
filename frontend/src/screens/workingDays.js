@@ -1,3 +1,4 @@
+import swal from 'sweetalert'
 import React, { useEffect, useState } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Row, Col } from 'react-bootstrap'
@@ -8,9 +9,8 @@ import {
   listWorkingDays,
   makeWorkingDay,
   deleteWorkingday,
-  workingDayDetails,
 } from '../actions/userActions'
-
+import { Link } from 'react-router-dom'
 import { Calendar, DateObject } from 'react-multi-date-picker'
 import 'react-multi-date-picker/styles/backgrounds/bg-dark.css'
 import 'react-multi-date-picker/styles/backgrounds/bg-dark.css'
@@ -93,9 +93,23 @@ const WorkingDaysScreen = ({ history }) => {
     }
   }
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure')) {
-      dispatch(deleteWorkingday(id))
-    }
+    swal({
+      title: '?אתה בטוח',
+      text: 'ברגע שתמחק את יום זה כל התורים בתוכו יעלמו ולא יהיה ניתן להשיבם',
+      icon: 'warning',
+      buttons: ['ביטול', 'מחק יום עבודה'],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(deleteWorkingday(id)).then(
+          swal('יום עבודה זה נמחק בהצלחה מהמערכת', {
+            icon: 'success',
+          })
+        )
+      } else {
+        console.log('your workingday is safe')
+      }
+    })
   }
 
   useEffect(() => {
@@ -118,6 +132,11 @@ const WorkingDaysScreen = ({ history }) => {
 
   return (
     <>
+      <Col md={12}>
+        <Link id='goback' to='/'>
+          <i class='fas fa-angle-double-right'></i>
+        </Link>
+      </Col>
       <h1 id='headlineme'>יומן עבודה</h1>
       {loading ? (
         <Loader />
@@ -156,18 +175,24 @@ const WorkingDaysScreen = ({ history }) => {
             />
           </div>
           <Col md={9}>
-            <Table striped bordered hover responsive className='table-sm'>
-              <thead>
-                <tr>
+            <Table
+              bordered
+              hover
+              responsive
+              className='whiteme'
+              id='tablewhite'
+            >
+              <thead id='centertext'>
+                <tr id='tableheadlines'>
                   <th>הכנסות</th>
                   <th>סה"כ תורים</th>
                   <th>תורים פנויים</th>
-                  <th>תאריך</th>
                   <th>יום</th>
-                  <th></th>
+                  <th>תאריך</th>
+                  <th>פעולות</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id='centertext'>
                 {workingdays.length === 0 ? (
                   <Message>
                     {' '}
@@ -175,31 +200,41 @@ const WorkingDaysScreen = ({ history }) => {
                     ליצור יום עבודה
                   </Message>
                 ) : (
-                  workingdays.map((workingday) => (
-                    <tr key={workingday._id}>
-                      <td>{workingday.moneyCount}</td>
-                      <td>{workingday.numTorim}</td>
-                      <td>{workingday.numAvilableTorim}</td>
-                      <td>{workingday.date}</td>
-                      <td>{workingday.dayInWeek}</td>
-                      <td>
-                        <LinkContainer
-                          to={`/admin/workingday/${workingday._id}`}
-                        >
-                          <Button variant='light' className='btn-sm'>
-                            <i className='fas fa-edit'></i>
+                  workingdays
+                    .sort(
+                      (a, b) =>
+                        Date.parse(
+                          new Date(a.date.split('/').reverse().join('-'))
+                        ) -
+                        Date.parse(
+                          new Date(b.date.split('/').reverse().join('-'))
+                        )
+                    )
+                    .map((workingday) => (
+                      <tr key={workingday._id} id='hoverandblue'>
+                        <td>{workingday.moneyCount}</td>
+                        <td>{workingday.numTorim}</td>
+                        <td>{workingday.numAvilableTorim}</td>
+                        <td>{workingday.dayInWeek}</td>
+                        <td>{workingday.date}</td>
+                        <td>
+                          <LinkContainer
+                            to={`/admin/workingday/${workingday._id}`}
+                          >
+                            <Button variant='light' className='btn-sm'>
+                              <i className='fas fa-edit'></i>
+                            </Button>
+                          </LinkContainer>
+                          <Button
+                            variant='danger'
+                            className='btn-sm'
+                            onClick={() => deleteHandler(workingday._id)}
+                          >
+                            <i className='fas fa-trash'></i>
                           </Button>
-                        </LinkContainer>
-                        <Button
-                          variant='danger'
-                          className='btn-sm'
-                          onClick={() => deleteHandler(workingday._id)}
-                        >
-                          <i className='fas fa-trash'></i>
-                        </Button>
-                      </td>
-                    </tr>
-                  ))
+                        </td>
+                      </tr>
+                    ))
                 )}
               </tbody>
             </Table>
