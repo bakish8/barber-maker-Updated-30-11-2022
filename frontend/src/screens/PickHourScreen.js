@@ -1,4 +1,6 @@
 import swal from 'sweetalert'
+import Swal from 'sweetalert2'
+import { useHistory } from 'react-router-dom'
 
 import Modal from '../components/UIelements/Modal'
 import React, { useState, useEffect } from 'react'
@@ -11,6 +13,10 @@ import {
   confirmTor,
   workingDayDetails,
   AvilableWorkingDayTors,
+  SendTorSMS,
+  SendNotificationSMS,
+  BookMEonGoogleCalenderAction,
+  SpecificTipulDeetsAction,
 } from '../actions/userActions.js'
 var date,
   array = []
@@ -21,66 +27,71 @@ while (date.getMinutes() % 15 !== 0) {
 
 const SingleWorkDayScreen = ({ history, match }) => {
   const dispatch = useDispatch()
-
   const [showOK, setShowOK] = useState(false)
   const openOKHandler = () => setShowOK(true)
   const closeOKHandler = () => setShowOK(false)
-
   const WorkDayid = match.params.id
+  const Tipulid = match.params.tipulid
+  console.log(WorkDayid)
+  console.log(Tipulid)
+  console.log('_____________')
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-
   const workingDaySingle = useSelector((state) => state.workingDaySingle)
   const { workingDay, loadingSingle, errorSingle } = workingDaySingle
-
   const AvilableTors = useSelector((state) => state.AvilableTors)
   const { loading, error, clockList } = AvilableTors
-
   const confirmMyTor = useSelector((state) => state.confirmMyTor)
-  const {
-    success: confirmsuccess,
-    confirm,
-    loadingConfirm,
-    errorConfirm,
-  } = confirmMyTor
+  const { success: confirmsuccess, confirm } = confirmMyTor
+  const SEND_SMS = useSelector((state) => state.SEND_SMS)
+  const { loadingSendSMS, errorSendSMS, successSend } = SEND_SMS
+
+  const goback = () => {
+    history.push('/picksapar')
+  }
 
   useEffect(() => {
     if (userInfo) {
       dispatch(workingDayDetails(WorkDayid))
       dispatch(AvilableWorkingDayTors(WorkDayid))
+      dispatch(SpecificTipulDeetsAction(Tipulid))
     } else {
       history.push('/login')
     }
   }, [dispatch, history, userInfo, confirmsuccess, confirm])
 
-  const submitHandler = (id) => {
+  const submitHandler = (id, time, date, sapar) => {
     const uid = userInfo._id
 
-    swal('?לסגור את התור', {
-      buttons: {
-        catch: {
-          text: 'סגור את התור',
-          value: 'catch',
-        },
-        cancel: 'בחר שעה אחרת',
-      },
-    }).then((value) => {
-      switch (value) {
-        case 'defeat':
-          history.goBack()
-
-          break
-
-        case 'catch':
-          dispatch(confirmTor(id, uid)).then(
-            swal(
-              '!התור נקבע בהצלחה',
-              'נא להגיע בזמן תישלח תזכורת ביום התספורת',
-              'success'
-            ).then(history.push('/'))
+    Swal.fire({
+      title: `?לסגור את התור`,
+      text: `שלום ${userInfo.name} , האם ברצונך לקבוע תור ל ${sapar} בשעה ${time} בתאריך ${date}`,
+      confirmButtonText: 'כן',
+      showCancelButton: true,
+      cancelButtonText: 'לא',
+      showLoaderOnConfirm: true,
+      confirmButtonColor: '#90be6d',
+      cancelButtonColor: '#d33',
+      imageUrl: 'https://i.ibb.co/X8gkD61/61c2ce2824f33074352286.gif',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(confirmTor(id, uid, Tipulid))
+          .then(
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: `התור שלך נקבע בהצלחה`,
+              text: ` שובצת לתור בתאריך ${date} ,בשעה ${time}  אנו נתזכר אותך כשעה לפני התספורת , המשך יום נעים`,
+              showConfirmButton: false,
+              timer: 8000,
+            }).then(history.push('/'))
           )
-          break
+          .then(dispatch(SendTorSMS(id, uid)))
+          .then(dispatch(SendNotificationSMS(id, uid)))
+          .then(dispatch(BookMEonGoogleCalenderAction(id, uid)))
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        history.goBack()
       }
     })
   }
@@ -88,6 +99,11 @@ const SingleWorkDayScreen = ({ history, match }) => {
   return (
     <>
       <Row>
+        <Col md={12}>
+          <Link id='goback' to='/picksapar'>
+            <i class='fas fa-angle-double-right'></i>
+          </Link>
+        </Col>
         {loadingSingle ? (
           <Loader />
         ) : errorSingle ? (
@@ -100,11 +116,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
           <>
             <Col md={12}>
               <h2 id='headlineme'>
-                <img
-                  src='https://cdn-icons.flaticon.com/png/512/2241/premium/2241645.png?token=exp=1638891549~hmac=0bca4ac92cbf00ac3e185bb897c8b6d1'
-                  id='miniICON'
-                />{' '}
-                קבע שעה{' '}
+                <img src='https://i.ibb.co/vV1pLtg/clock.png' id='miniICON' />{' '}
+                בחר שעה{' '}
               </h2>
               <h2 id='dayinWeekmin'>
                 ליום {workingDay.dayInWeek} בתאריך
@@ -117,27 +130,49 @@ const SingleWorkDayScreen = ({ history, match }) => {
             <Col md={12}>
               <div>
                 <Table striped bordered hover responsive className='table-sm'>
-                  {clockList
+                  {clockList.length != 0 ? (
+                    clockList
+                      .sort((a, b) => {
+                        const dateA = new Date(` ${a.time}`).valueOf()
+                        const dateB = new Date(` ${b.time}`).valueOf()
+                        if (dateA > dateB) {
+                          return -1 // return -1 here for DESC order
+                        }
+                        return 1 // return 1 here for DESC Order
+                      })
 
-                    .sort((a, b) => {
-                      const dateA = new Date(`${a.date} ${a.time}`).valueOf()
-                      const dateB = new Date(`${b.date} ${b.time}`).valueOf()
-                      if (dateA > dateB) {
-                        return 1 // return -1 here for DESC order
-                      }
-                      return -1 // return 1 here for DESC Order
-                    })
+                      .map((clock) => (
+                        <div id='clockbtndiv' className='scaleAbit'>
+                          <Button
+                            id='clockbtn'
+                            key={clock._id}
+                            onClick={() =>
+                              submitHandler(
+                                clock._id,
+                                clock.time,
+                                clock.date,
+                                clock.sapar
+                              )
+                            }
+                            //onClick={() => openOKHandler(clock.time)}
+                          >
+                            <img
+                              id='clcktimeimg'
+                              src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                            />
+                            <div id='clcktime'> {clock.time}</div>
+                          </Button>
+                        </div>
+                      ))
+                  ) : (
+                    <div id='weSorryAllTafus'>
+                      אנו מצטערים, כל התורים תפוסים ביום זה{' '}
+                      <button onClick={() => goback()} id='anotherday'>
+                        קבע תור ליום אחר
+                      </button>
+                    </div>
+                  )}
 
-                    .map((clock) => (
-                      <Button
-                        id='clockbtn'
-                        key={clock._id}
-                        onClick={() => submitHandler(clock._id)}
-                        //onClick={() => openOKHandler(clock.time)}
-                      >
-                        {clock.time}
-                      </Button>
-                    ))}
                   <Modal
                     show={showOK}
                     onCancel={closeOKHandler}
@@ -146,11 +181,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
                   ></Modal>
                 </Table>
               </div>
-            </Col>
-            <Col md={12}>
-              <Link className='btn btn-light' id='centerme1' to='/picksapar'>
-                חזור
-              </Link>
             </Col>
           </>
         )}

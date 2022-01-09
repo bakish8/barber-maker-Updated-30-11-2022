@@ -38,30 +38,49 @@ const PaymentScreen = ({ history }) => {
         </h1>
         <Form onSubmit={submitHandler} className='whiteme'>
           <Form.Group>
-            <Form.Label as='legend'>Select Method</Form.Label>
+            <Form.Label>
+              אנא בחר את שיטת התשלום איתה אתה מעוניין לבצע את הרכישה
+            </Form.Label>
             <Col>
               <Form.Check
                 type='radio'
-                label='PayPal or Credit Card'
+                label='מזומן'
                 id='PayPal'
                 name='paymentMethod'
                 value='PayPal'
                 checked
                 onChange={(e) => setPaymentMethod(e.target.value)}
               ></Form.Check>
-              {/* <Form.Check
-              type='radio'
-              label='Stripe'
-              id='Stripe'
-              name='paymentMethod'
-              value='Stripe'
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            ></Form.Check> */}
+              <i class='fas fa-money-bill-wave' id='fontsizebiggerIcon'></i>
+            </Col>
+            <Col>
+              <Form.Check
+                type='radio'
+                label='אשראי'
+                id='PayPal'
+                name='paymentMethod'
+                value='PayPal'
+                checked
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              ></Form.Check>
+              <i id='fontsizebiggerIcon' class='far fa-credit-card'></i>
+            </Col>
+            <Col>
+              <Form.Check
+                type='radio'
+                id='PayPal'
+                label='PayPal'
+                name='paymentMethod'
+                value='PayPal'
+                checked
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              ></Form.Check>
+              <i id='fontsizebiggerIcon' class='fab fa-cc-paypal'></i>
             </Col>
           </Form.Group>
 
-          <Button type='submit' variant='primary'>
-            Continue
+          <Button type='submit' id='updateProfileBTN'>
+            המשך{' '}
           </Button>
         </Form>
       </FormContainer>

@@ -11,6 +11,18 @@ const WorkingDaySchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    Dateday: {
+      type: Number,
+      required: true,
+    },
+    Datemonth: {
+      type: Number,
+      required: true,
+    },
+    Dateyear: {
+      type: Number,
+      required: true,
+    },
     avilable: {
       type: Boolean,
       required: true,
@@ -38,6 +50,28 @@ const WorkingDaySchema = mongoose.Schema(
       default: 0,
     },
     moneyCount: {
+      //****יש להוסיף למוני קאוונט רג'יסטר של אחד בכל פעם שיש הכנסה */
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    CASHmoneyCount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    CREDITmoneyCount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    BITmoneyCount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    CupaOpend: {
+      //****יש להוסיף למוני קאוונט רג'יסטר של אחד בכל פעם שיש הכנסה */
       type: Number,
       required: true,
       default: 0,

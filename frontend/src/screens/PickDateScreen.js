@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Form, Button, Row, Col } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
 import { Calendar, DateObject } from 'react-multi-date-picker'
 import 'react-multi-date-picker/styles/backgrounds/bg-dark.css'
 import 'react-multi-date-picker/styles/backgrounds/bg-dark.css'
@@ -89,12 +87,11 @@ const PickDateScreen = ({ location, history, match }) => {
   }
   useEffect(() => {
     if (foundWorkdayInfo && FINDSuccses === true && userInfo) {
-      // history.push(`/${match.params.id}/maketor/${foundWorkdayInfo._id}`)
-      history.push(`/maketor/${foundWorkdayInfo._id}`)
+      //history.push(`/maketor/${foundWorkdayInfo._id}`) //directly to pick hour
+      history.push(`/maketor/${foundWorkdayInfo._id}/picktipul`) //pick tipul
     } else if (foundWorkdayerror) {
-      console.log('בלאגן לא נמאנו את יום העבודה')
       Swal.fire({
-        icon: 'warning',
+        imageUrl: 'https://i.ibb.co/R2f5Yzs/calendar-1-1s-200px.gif',
         title: 'הכל תפוס',
         text: ' בחר תאריך אחר כדי לקבוע תור ',
         confirmButtonText: 'אוקי תודה',

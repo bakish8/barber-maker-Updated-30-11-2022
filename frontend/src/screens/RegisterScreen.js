@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+import Swal from 'sweetalert2'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { register } from '../actions/userActions'
+import './LoginScreen.css'
+
+var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
+var hasNumber = /\d/
 
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -15,56 +19,102 @@ const RegisterScreen = ({ location, history }) => {
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [image, setImage] = useState('')
-  const [uploading, setUploading] = useState(false)
-
   const [message, setMessage] = useState(null)
-
   const dispatch = useDispatch()
-
   const userRegister = useSelector((state) => state.userRegister)
-  const { loading, error, userInfo } = userRegister
-
+  const { success, loading, error, userInfo } = userRegister
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
     if (userInfo) {
       history.push(redirect)
     }
-  }, [history, userInfo, redirect])
-
-  const uploadFileHandler = async (e) => {
-    const file = e.target.files[0]
-    const formData = new FormData()
-    formData.append('image', file)
-    setUploading(true)
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+    if (success === false) {
+      console.log(error)
+      Swal.fire({
+        title: 'משהו השתבש',
+        text: error,
+        icon: 'error',
+        focusConfirm: true,
+        confirmButtonText: 'אוקי, הבנתי',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
         },
-      }
-
-      const { data } = await axios.post('/api/upload', formData, config)
-
-      setImage(data)
-      setUploading(false)
-    } catch (error) {
-      console.error(error)
-      setUploading(false)
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      })
     }
-  }
+  }, [history, userInfo, redirect, message, success])
 
   const submitHandler = (e) => {
     e.preventDefault()
     let random = Math.floor(Math.random() * 100000000000) + 1
 
-    let image = random
+    let image =
+      'https://romancebooks.co.il/wp-content/uploads/2019/06/default-user-image.png'
     if (password !== confirmPassword) {
-      setMessage('Passwords do not match')
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        },
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'הססמאות אינן תואמות',
+        text: 'אנא נסה שנית',
+      })
+    } else if (phone.length != 10 || phone.substring(0, 2) != '05') {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        },
+      })
+      Toast.fire({
+        icon: 'error',
+        title: ' !המספר אינו תקין ',
+        text: ' יש להזין מספר נייד תקין בעל 10 ספרות וקידומת ישראלית',
+      })
+    } else if (
+      name === '' ||
+      hasNumber.test(name) === true ||
+      format.test(name) === true
+    ) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        },
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'השם אינו תקין ',
+        text: 'שדה השם הוא שדה חובה נא להזין את השם המלא שלך בעברית או באנגלית חשוב שהשם לא יכלול מספרים או אותיות מיוחידות כמו:?!@#$%^&*) ',
+      })
     } else {
       dispatch(register(name, email, phone, password, image))
     }
+  }
+  const GoogleSigninsubmitHandler = () => {
+    window.open('http://localhost:5000/api/google', '_self')
+    console.log('ggggggggggggggggggooogle Login TRY')
   }
 
   return (
@@ -76,7 +126,7 @@ const RegisterScreen = ({ location, history }) => {
           {error && <Message variant='danger'>{error}</Message>}
           {loading && <Loader />}
           <div id='centerme'>
-            <Form onSubmit={submitHandler} className='whitemeandblackbg'>
+            <Form onSubmit={submitHandler} className='loginForm'>
               <div class='user-box'>
                 <Form.Group controlId='name'>
                   <Form.Control
@@ -84,6 +134,7 @@ const RegisterScreen = ({ location, history }) => {
                     placeholder='הכנס שם מלא'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    required
                   ></Form.Control>
                 </Form.Group>
               </div>
@@ -95,6 +146,7 @@ const RegisterScreen = ({ location, history }) => {
                     placeholder='הכנס אימייל'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                   ></Form.Control>
                 </Form.Group>
               </div>
@@ -108,23 +160,25 @@ const RegisterScreen = ({ location, history }) => {
                   ></Form.Control>
                 </Form.Group>
               </div>
-              <div class='user-box'>
+              <div className='user-box'>
                 <Form.Group controlId='password'>
                   <Form.Control
                     type='password'
                     placeholder='הכנס ססמא'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                   ></Form.Control>
                 </Form.Group>
               </div>
-              <div class='user-box'>
+              <div className='user-box'>
                 <Form.Group controlId='confirmPassword'>
                   <Form.Control
                     type='password'
                     placeholder='אשר ססמא'
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
                   ></Form.Control>
                 </Form.Group>
               </div>
@@ -132,21 +186,29 @@ const RegisterScreen = ({ location, history }) => {
               <Button type='submit' id='centermebtnlogin'>
                 הירשם
               </Button>
+
+              <Row className='whiteme'>
+                <Col>
+                  יש לך כבר חשבון?{' '}
+                  <Link
+                    id='signUp'
+                    className='whiteme'
+                    to={redirect ? `/login?redirect=${redirect}` : '/login'}
+                  >
+                    התחבר
+                  </Link>
+                </Col>
+                <br />
+              </Row>
+              <btn onClick={GoogleSigninsubmitHandler}>
+                {' '}
+                <img
+                  className='googleSIgnUP'
+                  src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
+                ></img>
+              </btn>
             </Form>
           </div>
-
-          <Row className='whiteme'>
-            <Col>
-              יש לך כבר חשבון?{' '}
-              <Link
-                id='signUp'
-                className='whiteme'
-                to={redirect ? `/login?redirect=${redirect}` : '/login'}
-              >
-                התחבר
-              </Link>
-            </Col>
-          </Row>
         </FormContainer>
       </div>
     </>

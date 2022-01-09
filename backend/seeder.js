@@ -5,9 +5,19 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import users from './data/users.js'
 import products from './data/products.js'
+import workingdays from './data/workingdays.js'
+import clocks from './data/clocks.js'
+import tipulim from './data/tipulim.js'
+
 import User from './models/userModel.js'
 import Product from './models/productModel.js'
 import Order from './models/orderModel.js'
+import WorkingDay from './models/WorkingDay.js'
+import Clock from './models/Clock.js'
+import Appointment from './models/Appointment.js'
+import Reports from './models/Reports.js'
+import Tipul from './models/Tipul.js'
+
 import connectDB from './config/db.js'
 
 dotenv.config()
@@ -19,18 +29,76 @@ const importData = async () => {
     await Order.deleteMany()
     await Product.deleteMany()
     await User.deleteMany()
+    await WorkingDay.deleteMany()
+    await Clock.deleteMany()
+    await Appointment.deleteMany()
+    await Reports.deleteMany()
+    await Tipul.deleteMany()
+
+    const createdTipulim = await Tipul.insertMany(tipulim)
 
     const createdUsers = await User.insertMany(users) //הכנסת כל המשתמשים לדאטה בייס
-
     const adminUser = createdUsers[0]._id //אדמין
 
     const sampleProducts = products.map((product) => {
       return { ...product, user: adminUser } //הופך את כל המוצרים שהבעלים שלהם יהיה האדמין שמצאונ
     })
 
-    await Product.insertMany(sampleProducts) //הכנסת כל המוצרים לדאטה בייס
+    let sampleWorkingdays = workingdays.map((workingday) => {
+      return { ...workingday, owner: adminUser } //הופך את כל את הבעלים של כל ימי העבודה בסידר לאדמין שמצאנו המשתמש הראשון
+    })
 
-    console.log('Data Imported!'.green.inverse)
+    await Product.insertMany(sampleProducts) //הכנסת כל המוצרים לדאטה בייס
+    let createdWorkingdays = await WorkingDay.insertMany(sampleWorkingdays) //הכנסת כל ימי העבודה לדאטה בייס
+
+    for (let i = 0; i < sampleWorkingdays.length; i++) {
+      //לולאה שמכניס לכל ימי העבודה את כל השעות
+
+      let workingday = createdWorkingdays[i] //יום העבודה הראשון שנוצר
+      let workingdayIdOwnerOfClock = workingday._id
+      let workingdayDateOfClock = workingday.date
+      let dayInWeek = workingday.dayInWeek
+
+      if (dayInWeek != 'שישי') {
+        let sampleClocks = clocks.map((clock) => {
+          //****בונה את השעות כך שהבעלים והתאריך שלהם יהיה של התאריך הראשון שמצאנו בהמשך  לללואה  ++ */
+          return {
+            ...clock,
+            owner: workingdayIdOwnerOfClock,
+            date: workingdayDateOfClock,
+          }
+        })
+        await Clock.insertMany(sampleClocks) //****מכניס את השעות לדאטה בייס */
+      }
+
+      let insertedClocks = await Clock.find({
+        owner: workingdayIdOwnerOfClock,
+        date: workingdayDateOfClock,
+      }) //***מוצא את השעות בדאטה בייס כולל האיידי שנוצר להם */
+
+      for (let clock of insertedClocks) {
+        //מכניס את כל ההשעות ליום העבודה ושומר
+        if (workingday.dayInWeek !== 'שישי') {
+          workingday.torim.push(clock)
+        }
+      }
+      await workingday.save()
+    }
+
+    ///******מוצא את הימים החדשים לאחר שהוכנסו אליהם השעות ומכניס אותם למשתמש הראשון האדמין  */
+    let insertedWORKDAYS = await WorkingDay.find({
+      owner: adminUser._id,
+    })
+    console.log(insertedWORKDAYS)
+
+    let AdminUSER = await User.findById(adminUser._id)
+
+    for (let workday of insertedWORKDAYS) {
+      AdminUSER.workingdays.push(workday)
+    }
+    await AdminUSER.save()
+
+    console.log('Data Imported!!!!!!!'.green.inverse) //הדאטה יובאה בהצלחה
     process.exit()
   } catch (error) {
     console.error(`${error}`.red.inverse)
@@ -44,7 +112,11 @@ const destroyData = async () => {
     await Order.deleteMany()
     await Product.deleteMany()
     await User.deleteMany()
-
+    await WorkingDay.deleteMany()
+    await Clock.deleteMany()
+    await Appointment.deleteMany()
+    await Reports.deleteMany()
+    await Tipul.deleteMany()
     console.log('Data Destroyed!'.red.inverse)
     process.exit()
   } catch (error) {

@@ -53,6 +53,7 @@ const CartScreen = ({ match, location, history }) => {
               <Button
                 type='button'
                 className='btn-block'
+                id='updateProfileBTN'
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
               >

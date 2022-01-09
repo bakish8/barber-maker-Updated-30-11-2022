@@ -8,10 +8,15 @@ import {
   getMyTorim,
   PayTor,
   UNPayTor,
+  GetSugeiTipulim,
+  GetTipulDeets,
 } from '../controllers/makeTorController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
 router.route('/unpay/:id').put(protect, admin, UNPayTor)
+
+router.route('/picktipul').get(protect, GetSugeiTipulim)
+router.route('/picktipul/:id').get(protect, GetTipulDeets)
 
 router.route('/mytorim').get(protect, getMyTorim)
 

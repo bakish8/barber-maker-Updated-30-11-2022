@@ -40,8 +40,14 @@ const ShippingScreen = ({ history }) => {
       <Row>
         <Col md={12}>
           <FormContainer>
-            <h1 id='headlineme'>משלוח</h1>
-            <Form onSubmit={submitHandler} className='whiteme'>
+            <h1 id='headlineme' className='whiteme15pxmarginTOP'>
+              משלוח
+            </h1>
+            <Form
+              onSubmit={submitHandler}
+              className='whiteme'
+              id='formlabelBigger'
+            >
               <Form.Group controlId='address'>
                 <Form.Label>כתובת</Form.Label>
                 <Form.Control
@@ -86,7 +92,7 @@ const ShippingScreen = ({ history }) => {
                 ></Form.Control>
               </Form.Group>
 
-              <Button type='submit' variant='primary'>
+              <Button type='submit' id='updateProfileBTN'>
                 המשך
               </Button>
             </Form>

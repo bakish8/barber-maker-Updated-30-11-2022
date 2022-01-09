@@ -1,4 +1,31 @@
 import {
+  SUGEI_TIPULIM_LIST_REQUEST,
+  SUGEI_TIPULIM_LIST_SUCCESS,
+  SUGEI_TIPULIM_LIST_FAIL,
+  MONTHLY_REPORTS_LIST_REQUEST,
+  MONTHLY_REPORTS_LIST_SUCCESS,
+  MONTHLY_REPORTS_LIST_FAIL,
+  Weekly_REPORTS_LIST_REQUEST,
+  Weekly_REPORTS_LIST_SUCCESS,
+  Weekly_REPORTS_LIST_FAIL,
+  DAILY_REPORTS_LIST_REQUEST,
+  DAILY_REPORTS_LIST_SUCCESS,
+  DAILY_REPORTS_LIST_FAIL,
+  ADMIN_CREATE_REPORT_FOR_MONTH_REQUEST,
+  ADMIN_CREATE_REPORT_FOR_MONTH_SUCCESS,
+  ADMIN_CREATE_REPORT_FOR_MONTH_FAIL,
+  ADMIN_CREATE_REPORT_FOR_WEEK_REQUEST,
+  ADMIN_CREATE_REPORT_FOR_WEEK_SUCCESS,
+  ADMIN_CREATE_REPORT_FOR_WEEK_FAIL,
+  ADMIN_CREATE_REPORT_REQUEST,
+  ADMIN_CREATE_REPORT_SUCCESS,
+  ADMIN_CREATE_REPORT_FAIL,
+  ADD_MONEY_FOR_THIS_DAY_REQUEST,
+  ADD_MONEY_FOR_THIS_DAY_SUCCESS,
+  ADD_MONEY_FOR_THIS_DAY_FAIL,
+  OPEN_CUPA_REQUEST,
+  OPEN_CUPA_SUCCESS,
+  OPEN_CUPA_FAIL,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_RESET,
@@ -85,6 +112,56 @@ import {
   USER_REGISTERByADMIN_REQUEST,
   USER_REGISTERByADMIN_SUCCESS,
   USER_REGISTERByADMIN_FAIL,
+  WORKING_DAY_DELETE_RESET,
+  CLOCK_DELETE_RESET,
+  SEND_SMS_TOR_REQUEST,
+  SEND_SMS_TOR_SUCCESS,
+  SEND_SMS_TOR_FAIL,
+  SEND_SMS_TOR_RESET,
+  SEND_NotificationSMS_REQUEST,
+  SEND_NotificationSMS_SUCCESS,
+  SEND_NotificationSMS_FAIL,
+  BookMEonGoogleCalender_REQUEST,
+  BookMEonGoogleCalender_SUCCESS,
+  BookMEonGoogleCalender_FAIL,
+  USER_GOOGLE_LOGIN_REQUEST,
+  USER_GOOGLE_LOGIN_SUCCESS,
+  USER_GOOGLE_LOGIN_FAIL,
+  USER_GOOGLE_LOGIN_RESET,
+  SEND_Cancel_SMS_TOR_REQUEST,
+  SEND_Cancel_SMS_TOR_SUCCESS,
+  SEND_Cancel_SMS_TOR_FAIL,
+  SEND_Cancel_SMS_TOR_RESET,
+  ONE_WORKING_DAY_REQUEST,
+  ONE_WORKING_DAY_SUCCESS,
+  ONE_WORKING_DAY_FAIL,
+  LIST_WORKING_DAYS_FOR_THIS_WEEK_REQUEST,
+  LIST_WORKING_DAYS_FOR_THIS_WEEK_SUCCESS,
+  LIST_WORKING_DAYS_FOR_THIS_WEEK_FAIL,
+  CLOCK_LIST_FOR_TODAY_REQUEST,
+  CLOCK_LIST_FOR_TODAY_SUCCESS,
+  CLOCK_LIST_FOR_TODAY_FAIL,
+  CLOCK_LIST_FOR_THIS_WEEK_REQUEST,
+  CLOCK_LIST_FOR_THIS_WEEK_SUCCESS,
+  CLOCK_LIST_FOR_THIS_WEEK_FAIL,
+  CLOCK_LIST_FOR_THIS_MONTH_REQUEST,
+  CLOCK_LIST_FOR_THIS_MONTH_SUCCESS,
+  CLOCK_LIST_FOR_THIS_MONTH_FAIL,
+  CLOCK_LIST_FOR_THIS_WORK_DAY_REQUEST,
+  CLOCK_LIST_FOR_THIS_WORK_DAY_SUCCESS,
+  CLOCK_LIST_FOR_THIS_WORK_DAY_FAIL,
+  GET_REPORT_DEETS_BY_ID_REQUEST,
+  GET_REPORT_DEETS_BY_ID_SUCCESS,
+  GET_REPORT_DEETS_BY_ID_FAIL,
+  CREATE_NEW_TIPUL_REQUEST,
+  CREATE_NEW_TIPUL_SUCCESS,
+  CREATE_NEW_TIPUL_FAIL,
+  GET_TIPUL_DEETS_REQUEST,
+  GET_TIPUL_DEETS_SUCCESS,
+  GET_TIPUL_DEETS_FAIL,
+  ONE_USER_SEARCH_REQUEST,
+  ONE_USER_SEARCH_SUCCESS,
+  ONE_USER_SEARCH_FAIL,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -102,6 +179,23 @@ export const userLoginReducer = (state = {}, action) => {
   }
 }
 
+export const userGoogleLoginReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_GOOGLE_LOGIN_REQUEST:
+      return { Gloading: true }
+    case USER_GOOGLE_LOGIN_SUCCESS:
+      return { Gsuccess: true, Gloading: false, userGoogleInfo: action.payload }
+    case USER_GOOGLE_LOGIN_FAIL:
+      return { Gloading: false, Gerror: action.payload }
+    case USER_LOGOUT:
+      return {}
+    case USER_GOOGLE_LOGIN_RESET:
+      return { Gsuccess: false }
+    default:
+      return state
+  }
+}
+
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
@@ -109,7 +203,7 @@ export const userRegisterReducer = (state = {}, action) => {
     case USER_REGISTER_SUCCESS:
       return { success: true, loading: false, userInfo: action.payload }
     case USER_REGISTER_FAIL:
-      return { loading: false, error: action.payload }
+      return { success: false, loading: false, error: action.payload }
     case USER_LOGOUT:
       return {}
     default:
@@ -166,11 +260,15 @@ export const confirmTorReducer = (state = {}, action) => {
     case CONFIRM_TOR_REQUEST:
       return { loadingConfirm: true }
     case CONFIRM_TOR_SUCCESS:
-      return { loadingConfirm: false, success: true, confirm: action.payload }
+      return {
+        loadingConfirm: false,
+        CONFIRM_TORsuccess: true,
+        confirm: action.payload,
+      }
     case CONFIRM_TOR_FAIL:
       return { loadingConfirm: false, errorConfirm: action.payload }
     case CONFIRM_TOR_RESET:
-      return { confirm: {}, success: false }
+      return { confirm: {}, CONFIRM_TORsuccess: false }
     default:
       return state
   }
@@ -335,6 +433,43 @@ export const workingDayListReducer = (state = { workingdays: [] }, action) => {
   }
 }
 
+export const OneworkingDayReducer = (state = { workingdays: [] }, action) => {
+  switch (action.type) {
+    case ONE_WORKING_DAY_REQUEST:
+      return { oneloading: true }
+    case ONE_WORKING_DAY_SUCCESS:
+      return {
+        oneloading: false,
+        oneworkingdays: action.payload,
+        onesuccess: true,
+      }
+    case ONE_WORKING_DAY_FAIL:
+      return { oneloading: false, oneerror: action.payload }
+    default:
+      return state
+  }
+}
+
+export const ListworkingDayReducerForThisWeek = (
+  state = { workingdays: [] },
+  action
+) => {
+  switch (action.type) {
+    case LIST_WORKING_DAYS_FOR_THIS_WEEK_REQUEST:
+      return { weekloading: true }
+    case LIST_WORKING_DAYS_FOR_THIS_WEEK_SUCCESS:
+      return {
+        weekloading: false,
+        weekworkingdays: action.payload,
+        weeksuccess: true,
+      }
+    case LIST_WORKING_DAYS_FOR_THIS_WEEK_FAIL:
+      return { weekloading: false, weekerror: action.payload }
+    default:
+      return state
+  }
+}
+
 export const DeleteworkingDayListReducer = (state = {}, action) => {
   switch (action.type) {
     case WORKING_DAY_DELETE_REQUEST:
@@ -343,6 +478,8 @@ export const DeleteworkingDayListReducer = (state = {}, action) => {
       return { loading: false, success: true }
     case WORKING_DAY_DELETE_FAIL:
       return { loading: false, error: action.payload }
+    case WORKING_DAY_DELETE_RESET:
+      return { success: false }
     default:
       return state
   }
@@ -432,6 +569,8 @@ export const DeleteClockReducer = (state = {}, action) => {
       return { loading: false, success: true }
     case CLOCK_DELETE_FAIL:
       return { loading: false, error: action.payload }
+    case CLOCK_DELETE_RESET:
+      return { success: false }
     default:
       return state
   }
@@ -457,6 +596,355 @@ export const MyTorimListMyReducer = (state = { clocks: [] }, action) => {
       }
     case TORIM_LIST_MY_RESET:
       return { clocks: [] }
+    default:
+      return state
+  }
+}
+
+export const SendTorSMSReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SEND_SMS_TOR_REQUEST:
+      return { loadingSendSMS: true }
+    case SEND_SMS_TOR_SUCCESS:
+      return { loadingSendSMS: false, successSend: true, send: action.payload }
+    case SEND_SMS_TOR_FAIL:
+      return { loadingSendSMS: false, errorSendSMS: action.payload }
+    case SEND_SMS_TOR_RESET:
+      return { send: {}, successSend: false }
+    default:
+      return state
+  }
+}
+
+export const SendCancelSMSReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SEND_Cancel_SMS_TOR_REQUEST:
+      return { loadingSendSMS: true }
+    case SEND_Cancel_SMS_TOR_SUCCESS:
+      return { loadingSendSMS: false, successSend: true, send: action.payload }
+    case SEND_Cancel_SMS_TOR_FAIL:
+      return { loadingSendSMS: false, errorSendSMS: action.payload }
+    case SEND_Cancel_SMS_TOR_RESET:
+      return { send: {}, successSend: false }
+    default:
+      return state
+  }
+}
+
+export const SendNotificationSMSReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SEND_NotificationSMS_REQUEST:
+      return { loadingNotificationSMS: true }
+    case SEND_NotificationSMS_SUCCESS:
+      return {
+        loadingNotificationSMS: false,
+        successNotificationSMS: true,
+        sendNotificationSMS: action.payload,
+      }
+    case SEND_NotificationSMS_FAIL:
+      return {
+        loadingNotificationSMS: false,
+        errorNotificationSMS: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const SendBookMEonGoogleCalender = (state = {}, action) => {
+  switch (action.type) {
+    case BookMEonGoogleCalender_REQUEST:
+      return { loadingNotificationSMS: true }
+    case BookMEonGoogleCalender_SUCCESS:
+      return {
+        loadingBookMEonGoogleCalender: false,
+        successBookMEonGoogleCalender: true,
+        sendBookMEonGoogleCalender: action.payload,
+      }
+    case BookMEonGoogleCalender_FAIL:
+      return {
+        loadingBookMEonGoogleCalender: false,
+        errorBookMEonGoogleCalender: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const ClocksReciptOneDayReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CLOCK_LIST_FOR_TODAY_REQUEST:
+      return { loadingClocksReciptOneDay: true }
+    case CLOCK_LIST_FOR_TODAY_SUCCESS:
+      return {
+        loadingClocksReciptOneDay: false,
+        successClocksReciptOneDay: true,
+        result1day: action.payload,
+      }
+    case CLOCK_LIST_FOR_TODAY_FAIL:
+      return {
+        loadingClocksReciptOneDay: false,
+        errorClocksReciptOneDay: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const ClocksReciptWEEKReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CLOCK_LIST_FOR_THIS_WEEK_REQUEST:
+      return { loadingClocksReciptWeek: true }
+    case CLOCK_LIST_FOR_THIS_WEEK_SUCCESS:
+      return {
+        loadingClocksReciptWeek: false,
+        successClocksReciptWeek: true,
+        resultWEEK: action.payload,
+      }
+    case CLOCK_LIST_FOR_THIS_WEEK_FAIL:
+      return {
+        loadingClocksReciptWeek: false,
+        errorClocksReciptWeek: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const ClocksReciptMonthReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CLOCK_LIST_FOR_THIS_MONTH_REQUEST:
+      return { loadingClocksReciptMonth: true }
+    case CLOCK_LIST_FOR_THIS_MONTH_SUCCESS:
+      return {
+        loadingClocksReciptMonth: false,
+        successClocksReciptMonth: true,
+        resultMonth: action.payload,
+      }
+    case CLOCK_LIST_FOR_THIS_MONTH_FAIL:
+      return {
+        loadingClocksReciptMonth: false,
+        errorClocksReciptMonth: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const CLOCK_LIST_FOR_THIS_WORK_DAY_Reducer = (state = {}, action) => {
+  switch (action.type) {
+    case CLOCK_LIST_FOR_THIS_WORK_DAY_REQUEST:
+      return { loadingClocksReciptForThisWorkDay: true }
+    case CLOCK_LIST_FOR_THIS_WORK_DAY_SUCCESS:
+      return {
+        loadingClocksReciptForThisWorkDay: false,
+        successClocksReciptForThisWorkDay: true,
+        resultForThisWorkDay: action.payload,
+      }
+    case CLOCK_LIST_FOR_THIS_WORK_DAY_FAIL:
+      return {
+        loadingClocksReciptForThisWorkDay: false,
+        errorClocksReciptForThisWorkDay: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const ADMIN_CREATE_REPORT_Reducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_CREATE_REPORT_REQUEST:
+      return { loading: true }
+    case ADMIN_CREATE_REPORT_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        result: action.payload,
+      }
+    case ADMIN_CREATE_REPORT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state
+  }
+}
+export const ADMIN_CREATE_REPORT_FOR_WEEK_Reducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_CREATE_REPORT_FOR_WEEK_REQUEST:
+      return { loading: true }
+    case ADMIN_CREATE_REPORT_FOR_WEEK_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        result: action.payload,
+      }
+    case ADMIN_CREATE_REPORT_FOR_WEEK_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const ADMIN_CREATE_REPORT_FOR_MONTH_Reducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_CREATE_REPORT_FOR_MONTH_REQUEST:
+      return { loading: true }
+    case ADMIN_CREATE_REPORT_FOR_MONTH_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        result: action.payload,
+      }
+    case ADMIN_CREATE_REPORT_FOR_MONTH_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const DAILY_REPORTS_LIST_Reducer = (state = {}, action) => {
+  switch (action.type) {
+    case DAILY_REPORTS_LIST_REQUEST:
+      return { loading: true }
+    case DAILY_REPORTS_LIST_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        result_list_daily_Reports: action.payload,
+      }
+    case DAILY_REPORTS_LIST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const Weekly_REPORTS_LIST_Reducer = (state = {}, action) => {
+  switch (action.type) {
+    case Weekly_REPORTS_LIST_REQUEST:
+      return { loading: true }
+    case Weekly_REPORTS_LIST_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        result_list_WEEKLY_Reports: action.payload,
+      }
+    case Weekly_REPORTS_LIST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const MONTHLY_REPORTS_LIST_Reducer = (state = {}, action) => {
+  switch (action.type) {
+    case MONTHLY_REPORTS_LIST_REQUEST:
+      return { loading: true }
+    case MONTHLY_REPORTS_LIST_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        resultReportsMonth: action.payload,
+      }
+    case MONTHLY_REPORTS_LIST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const GET_REPORT_DEETS_BY_ID_Reducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_REPORT_DEETS_BY_ID_REQUEST:
+      return { loading: true }
+    case GET_REPORT_DEETS_BY_ID_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        Reportresult: action.payload,
+      }
+    case GET_REPORT_DEETS_BY_ID_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const RegisterNewTipulReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CREATE_NEW_TIPUL_REQUEST:
+      return { loading: true }
+    case CREATE_NEW_TIPUL_SUCCESS:
+      return { success: true, loading: false, userInfo: action.payload }
+    case CREATE_NEW_TIPUL_FAIL:
+      return { success: false, loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const TipulimListReducer = (state = { users: [] }, action) => {
+  switch (action.type) {
+    case SUGEI_TIPULIM_LIST_REQUEST:
+      return { loading: true }
+    case SUGEI_TIPULIM_LIST_SUCCESS:
+      return { loading: false, tipulimList: action.payload }
+    case SUGEI_TIPULIM_LIST_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const TipulDeetsReducer = (state = { users: [] }, action) => {
+  switch (action.type) {
+    case GET_TIPUL_DEETS_REQUEST:
+      return { loading: true }
+    case GET_TIPUL_DEETS_SUCCESS:
+      return { loading: false, tipulimList: action.payload }
+    case GET_TIPUL_DEETS_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const SearchOneUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ONE_USER_SEARCH_REQUEST:
+      return { loadinguserfound: true }
+    case ONE_USER_SEARCH_SUCCESS:
+      return {
+        loadinguserfound: false,
+        userfound: action.payload,
+        successuserfound: true,
+      }
+    case ONE_USER_SEARCH_FAIL:
+      return {
+        loadinguserfound: false,
+        erroruserfound: action.payload,
+        successuserfound: false,
+      }
     default:
       return state
   }

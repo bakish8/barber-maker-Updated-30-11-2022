@@ -136,8 +136,9 @@ const ProfileScreen = ({ location, history }) => {
                 {clocks.map((clock) => (
                   <tr key={clock._id} id='hoverandblue'>
                     <td>{clock.sapar}</td>
-                    <td>{clock.owner.dayInWeek}</td>
                     <td>{clock.time}</td>
+
+                    <td>{clock.owner.dayInWeek}</td>
                     <td>{clock.date}</td>
                     <td>
                       <Button
@@ -169,7 +170,7 @@ const ProfileScreen = ({ location, history }) => {
                   <Form.Group controlId='name'>
                     <Form.Control
                       type='name'
-                      placeholder='Enter name'
+                      placeholder='הכנס שם '
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                     ></Form.Control>
@@ -180,7 +181,7 @@ const ProfileScreen = ({ location, history }) => {
                   <Form.Group controlId='email'>
                     <Form.Control
                       type='email'
-                      placeholder='Enter email'
+                      placeholder='הכנס אימייל'
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     ></Form.Control>
@@ -191,7 +192,7 @@ const ProfileScreen = ({ location, history }) => {
                   <Form.Group controlId='phone'>
                     <Form.Control
                       type='phone'
-                      placeholder='Enter phone'
+                      placeholder='הכנס נייד'
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                     ></Form.Control>
@@ -219,7 +220,7 @@ const ProfileScreen = ({ location, history }) => {
                     ></Form.Control>
                   </Form.Group>
                 </div>
-                <Button type='submit' variant='primary'>
+                <Button id='updateProfileBTN' type='submit'>
                   עדכן
                 </Button>
               </Form>

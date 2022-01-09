@@ -1,15 +1,13 @@
 import asyncHandler from 'express-async-handler'
 import generateToken from '../utils/generateToken.js'
 import User from '../models/userModel.js'
-
+import Tipul from '../models/Tipul.js'
 // @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
-
   const user = await User.findOne({ email })
-
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -26,6 +24,25 @@ const authUser = asyncHandler(async (req, res) => {
   }
 })
 
+const authGoogleUser = asyncHandler(async (req, res) => {
+  const { email } = req.body
+  const user = await User.findOne({ email })
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      image: user.image,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    })
+  } else {
+    res.status(401)
+    throw new Error('Google LogInFailed')
+  }
+})
+
 // @desc    Register a new user
 // @route   POST /api/users
 // @access  Public
@@ -36,7 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (userExists) {
     res.status(400)
-    throw new Error('User already exists')
+    throw new Error('המשתמש כבר קיים במערכת')
   }
   if (image === null) {
     const user = await User.create({
@@ -44,7 +61,8 @@ const registerUser = asyncHandler(async (req, res) => {
       email,
       phone,
       password,
-      image: 'https://ibb.co/0V5LJJk',
+      image:
+        'https://romancebooks.co.il/wp-content/uploads/2019/06/default-user-image.png',
     })
     if (user) {
       res.status(201).json({
@@ -58,7 +76,7 @@ const registerUser = asyncHandler(async (req, res) => {
       })
     } else {
       res.status(400)
-      throw new Error('Invalid user data')
+      throw new Error('אחד מהפרטים שגוי נסה שנית')
     }
   } else {
     const user = await User.create({
@@ -80,7 +98,7 @@ const registerUser = asyncHandler(async (req, res) => {
       })
     } else {
       res.status(400)
-      throw new Error('Invalid user data')
+      throw new Error('אחד מהפרטים שגוי נסה שנית')
     }
   }
 })
@@ -102,7 +120,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(404)
-    throw new Error('User not found')
+    throw new Error('המשתמש אינו נמצא')
   }
 })
 
@@ -133,7 +151,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(404)
-    throw new Error('User not found')
+    throw new Error('המשתמש אינו נמצא')
   }
 })
 
@@ -153,10 +171,10 @@ const deleteUser = asyncHandler(async (req, res) => {
 
   if (user) {
     await user.remove()
-    res.json({ message: 'User removed' })
+    res.json({ message: 'המשתמש הוסר בהצלחה' })
   } else {
     res.status(404)
-    throw new Error('User not found')
+    throw new Error('המשתמש לא נמצא')
   }
 })
 
@@ -170,7 +188,7 @@ const getUserById = asyncHandler(async (req, res) => {
     res.json(user)
   } else {
     res.status(404)
-    throw new Error('User not found')
+    throw new Error('המשתמש לא נמצא')
   }
 })
 
@@ -199,12 +217,34 @@ const updateUser = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(404)
-    throw new Error('User not found')
+    throw new Error('המשתמש לא נמצא')
+  }
+})
+
+///Make new Kind of tipul
+const registerNewTipul = asyncHandler(async (req, res) => {
+  const { name, time, cost, image } = req.body
+  if (name && time && cost) {
+    const tipul = await Tipul.create({
+      name,
+      time,
+      cost,
+      image,
+    })
+    if (tipul) {
+      res.status(201).json({
+        name,
+        time,
+        cost,
+        image,
+      })
+    }
   }
 })
 
 export {
   authUser,
+  authGoogleUser,
   registerUser,
   getUserProfile,
   updateUserProfile,
@@ -212,4 +252,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  registerNewTipul,
 }

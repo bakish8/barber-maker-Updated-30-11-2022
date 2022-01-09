@@ -39,4 +39,12 @@ const admin = (req, res, next) => {
   }
 }
 
-export { protect, admin }
+const isUserAUTH = (req, res, next) => {
+  if (req.user) {
+    next()
+  } else {
+    res.status(407).send('u must be logged in FIRST')
+  }
+}
+
+export { protect, admin, isUserAUTH }

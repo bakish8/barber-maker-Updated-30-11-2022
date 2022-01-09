@@ -6,10 +6,13 @@ import './bootstrap.min.css'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
+import Context from './actions/Context'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Context>
+      <App />
+    </Context>
   </Provider>,
   document.getElementById('root')
 )

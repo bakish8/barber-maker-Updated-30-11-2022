@@ -11,6 +11,66 @@ main {
     url('https://i.ibb.co/YcGwRv0/2025.jpg');
   background-size: cover;
   height: inherit;
+  width: 100%;
+}
+
+#googleMap {
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  height: 280px;
+  box-shadow: 14px 14px 8px rgba(0, 4, 20, 0.603);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+.contentImage1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
+}
+.contentImagePRODUCTS {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 40vh;
+}
+.imageParalax {
+  position: relative;
+  height: 80vh;
+  width: 100%;
+  border-radius: 50px;
+  margin-bottom: 30px;
+}
+.imageParalaxAdmin {
+  margin-top: 50px;
+  position: relative;
+  width: 90%;
+  border-radius: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.imageParalaxPRODUCTS {
+  position: relative;
+  height: 40vh;
+  width: 100%;
+  border-radius: 50px;
+  margin-bottom: 30px;
+}
+.marker {
+  background-color: red;
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+#dontdisplay {
+  display: none;
 }
 #unshowme {
   color: rgba(0, 0, 0, 0);
@@ -89,7 +149,7 @@ h1 {
 }
 
 #usernameactionsNAV {
-  font-size: 18px;
+  font-size: 22px;
   text-align: center;
 }
 #usernameactionsNAV:hover {
@@ -126,19 +186,45 @@ h1 {
   transition: 0.3s ease-in;
   display: inline;
 }
+#disableView {
+  display: none;
+}
+#showmeinSmallScreeen {
+  display: none;
+}
 
+@media (max-width: 1000px) {
+  #showmeinSmallScreeen {
+    display: inline-flex;
+  }
+  #navlinksCART {
+    width: 200px;
+    margin-right: 20px;
+  }
+}
 #navlinks {
+  padding: 20px;
   text-align: center;
   border-radius: 80px;
   border: 2px solid rgba(255, 255, 255, 0.5);
-  width: 160px;
   color: rgba(255, 255, 255, 0.63);
   font-family: 'Rubik', sans-serif;
   transition: 0.5s;
-  font-size: 16px;
-  justify-content: space-evenly;
+  font-size: 20px;
+}
+#navlinksCART {
+  text-align: center;
+  border-radius: 80px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.63);
+  font-family: 'Rubik', sans-serif;
+  transition: 0.1s;
+  font-size: 20px;
 }
 #navlinksManager {
+  padding: 20px;
+
   text-align: center;
   border-radius: 80px;
   border: 2px solid rgb(255, 255, 255);
@@ -146,17 +232,20 @@ h1 {
   color: rgba(255, 255, 255, 0.63);
   background-color: rgba(255, 255, 255, 0.267);
   font-family: 'Rubik', sans-serif;
-  transition: 0.5s;
-  font-size: 16px;
-  justify-content: space-evenly;
+  transition: 0.1s;
+  font-size: 20px;
 }
+
+#navlinksCART:hover,
 #navlinks:hover {
   color: rgb(255, 255, 255);
   border: 2px solid rgb(255, 255, 255);
+  box-shadow: 4px 4px 5px rgba(255, 255, 255, 0.801);
 }
 #navlinksManager:hover {
-  color: rgb(0, 153, 255);
-  border: 2px solid rgb(0, 153, 255);
+  color: rgb(0, 204, 255);
+  border: 2px solid rgb(0, 204, 255);
+  box-shadow: 4px 4px 5px rgb(0, 204, 255);
 }
 
 #ourproducts {
@@ -172,6 +261,17 @@ h1 {
   border-radius: 12px;
   max-width: 550px;
 }
+#ourproducts2 {
+  margin-top: 50px;
+  font-size: 50px;
+}
+
+@media (max-width: 1100px) {
+  #ourproducts2 {
+    font-size: 25px;
+  }
+}
+
 hr {
   color: #00c3ff;
 }
@@ -183,6 +283,7 @@ h2 {
 
 .rating span {
   margin: 0.1rem;
+  font-size: 25px;
 }
 
 /* carousel */
@@ -252,6 +353,16 @@ h2 {
 }
 #produDeetseonproductPage {
   margin-top: 70px;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+#blackmeb {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-size: 20px;
 }
 
 @media (max-width: 900px) {
@@ -271,7 +382,14 @@ body {
 body input {
   text-align: right;
 }
-
+#centeForm {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
 #centerme {
   text-align: center;
   margin-left: auto;
@@ -305,6 +423,14 @@ body input {
 #centermeAndBlock {
   display: block;
 }
+.scaleAbit {
+  transition: 0.5s ease;
+}
+.scaleAbit:active,
+.scaleAbit:hover {
+  transform: scale(1.07);
+}
+
 #centermeANDGREYBACKGROUND {
   color: white;
   text-align: center;
@@ -343,6 +469,62 @@ body input {
   background-color: #0087b1;
   font-size: 20px;
 }
+
+#reportBTNdiv {
+  cursor: pointer;
+  margin-top: 10px;
+  background-color: black;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50px;
+  max-width: 550px;
+  height: 120px;
+  transition: 0.1s;
+  margin-bottom: 25px;
+  box-shadow: 3px 3px 23px black;
+}
+#reportBTNdiv:hover {
+  background-color: rgb(0, 0, 0);
+  box-shadow: 3px 3px 23px rgb(0, 0, 0);
+}
+#REPORTbtn {
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  max-width: 550px;
+  height: 120px;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 3000;
+  background-color: rgba(255, 255, 255, 0);
+  transition: 0.1s;
+}
+#Reportbtnstextsmall {
+  font-size: 15px;
+}
+#ReportbtnstextBIG {
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+}
+
+#clockbtndiv {
+  background-color: black;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50px;
+  width: 220px;
+  height: 65px;
+  transition: 0.1s;
+  margin-bottom: 25px;
+  box-shadow: 3px 3px 23px black;
+}
+#clockbtndiv:hover {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 3px 3px 23px rgb(255, 255, 255);
+}
 #clockbtn {
   display: block;
   margin-bottom: 10px;
@@ -350,11 +532,28 @@ body input {
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
-  width: 150px;
+  width: 220px;
+  height: 65px;
+  border-radius: 50px;
+  font-size: 30px;
+  font-weight: 3000;
+  background-color: rgba(255, 255, 255, 0);
+  transition: background-color 10ms;
 }
-#clockbtn:hover {
-  background-color: #1d3557;
+#clockbtn:hover #clcktime {
+  display: inline;
+  margin: 0 12px;
+  color: black;
 }
+#clcktimeimg {
+  display: none;
+  margin: auto auto;
+}
+
+#clockbtn:hover > #clcktimeimg {
+  display: inline;
+}
+
 #backbtn {
   margin-left: auto;
   margin-right: auto;
@@ -417,10 +616,32 @@ body input {
   background-color: #68b4ff75;
   font-weight: bolder;
 }
-#lolo {
-  color: white;
-  color: rgba(0, 0, 0, 0.479);
+#arrowleft {
+  font-size: 100px;
+  margin-right: 45px;
+  text-align: center;
+  position: relative;
+  top: 25px;
+  color: rgb(255, 255, 255);
+  animation: neon3 1.5s ease-in-out infinite;
 }
+#arrowright {
+  font-size: 100px;
+  color: blanchedalmond;
+  margin-left: 45px;
+  position: relative;
+  top: 25px;
+  color: rgb(255, 255, 255);
+  animation: neon3 1.5s ease-in-out infinite;
+}
+
+@media (max-width: 800px) {
+  #arrowright,
+  #arrowleft {
+    display: none;
+  }
+}
+
 #formSelect {
   margin-top: 10px;
   font-size: 20px;
@@ -492,6 +713,11 @@ textarea {
   background-color: rgb(240, 240, 240);
 }
 
+#boldmeblack {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 #boldme {
   font-weight: bolder;
   color: #00ff55;
@@ -549,7 +775,17 @@ textarea {
 #navbar {
   background-color: #000000;
   color: rgb(255, 255, 255);
+
   border-bottom: 2px solid rgba(255, 255, 255, 0.253);
+}
+#nabarr {
+  background-color: #000000;
+  display: flex;
+  justify-content: center;
+}
+#navbarContainerItem {
+  display: flex;
+  justify-content: center;
 }
 
 #dayinWeek {
@@ -705,6 +941,9 @@ textarea {
   animation-iteration-count: 1;
 }
 
+#managerOptionsPageHeadLine {
+  font-size: 60px;
+}
 #sizemeloadingbtn {
   height: 10px;
 }
@@ -749,10 +988,24 @@ textarea {
   color: black;
   text-align: center;
 }
+
+.whitemee {
+  color: white;
+  margin-top: 15px;
+  text-align: center;
+  background-color: black;
+  max-width: 450px;
+  border-radius: 50px;
+  border: 5px solid rgba(0, 140, 255, 0.349);
+  margin-bottom: 20px;
+}
 .whiteme {
   color: white;
   margin-top: 15px;
   text-align: center;
+}
+#whitemeeee {
+  color: white;
 }
 
 .whitemeACTIVE {
@@ -768,30 +1021,45 @@ textarea {
   transition: 0.5s;
 }
 
+#productnamescreen2 {
+  font-size: 35px;
+}
+#marginTOPme {
+  margin-top: 15px;
+}
 .whiteme15pxmarginTOP {
   color: white;
   margin-top: 15px;
   text-align: center;
+  font-size: 35px;
+  background-color: black;
+  width: 100%;
+  border: 15px solid rgb(255, 255, 255);
+  border-radius: 30px;
 }
 .whitemeandblackbg {
   color: white;
   text-align: center;
 }
+
 #notextdecoration {
   text-decoration: none;
   color: #ffffff;
 }
 #tablewhite {
   border: 2px solid rgba(255, 255, 255, 0.39);
-  background-color: rgba(52, 58, 64);
+  background-color: rgba(52, 58, 64, 0.527);
   box-shadow: 10px 10px 55px 5px 200px rgba(255, 255, 255, 0.342);
   color: white;
+  width: 85%;
+  margin-left: auto; /****profile pafe bug**/
+  margin-right: auto; /**profile pafe bug****/
 }
 
 .maketorbtn {
+  text-decoration: none;
   border-radius: 13px;
   border: none;
-  display: block;
   text-align: center;
   cursor: pointer;
   text-transform: uppercase;
@@ -808,6 +1076,8 @@ textarea {
   margin-bottom: 70px;
   margin-top: 70px;
   transition: 1s;
+  margin-left: auto;
+  margin-right: auto;
 }
 #singlewirkingdayoptionsbgwhite {
   background-image: linear-gradient(to top, #ffffff44 0%, #0095c741 100%);
@@ -854,10 +1124,42 @@ textarea {
   transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 
+.bgwhite {
+  background-color: rgba(175, 175, 175, 0.822);
+  animation-name: coloWhite;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+#bgwhite {
+  background-color: rgba(175, 175, 175, 0.822);
+  animation-name: coloWhite;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes coloWhite {
+  0% {
+    background-color: #0099ff;
+    color: white;
+  }
+  50% {
+    background-color: #0077ff;
+    color: white;
+  }
+  100% {
+    background-color: #0099ff;
+    color: white;
+  }
+}
+.green {
+  background-color: #0f9e33;
+  color: white;
+}
+
 /***conditional class Names for avilable tors,sapar side**/
 #hoverandblue:hover {
   background-color: #00c3ff9c;
   color: rgb(255, 255, 255);
+  cursor: pointer;
 }
 
 .red:hover {
@@ -937,6 +1239,19 @@ h6 {
     text-shadow: 0 0 5px rgb(11, 113, 230), 0 0 10px #fff, 0 0 15px #fff,
       0 0 20px #f94144, 0 0 35px #f94144, 0 0 40px #f94144, 0 0 50px #f94144,
       0 0 75px #00ffbf;
+  }
+}
+@keyframes neon3 {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw #1041ff, 0 0 3vw #1041ff, 0 0 10vw #1041ff,
+      0 0 10vw #1041ff, 0 0 0.4vw #8bfdfe, 0.5vw 0.5vw 0.1vw #147280;
+    color: #28d7fe;
+  }
+  50% {
+    text-shadow: 0 0 0.5vw #082180, 0 0 1.5vw #082180, 0 0 5vw #082180,
+      0 0 5vw #082180, 0 0 0.2vw #082180, 0.5vw 0.5vw 0.1vw #0a3940;
+    color: #146c80;
   }
 }
 
@@ -1041,9 +1356,9 @@ h6 {
 /**call us btn**/
 .call-to-us {
   position: fixed;
-  margin: 50px;
   width: 90px;
   height: 70px;
+  margin-left: 20px;
   border-radius: 50%;
   text-decoration: none;
   animation: rotating 1.5s infinite;
@@ -1077,6 +1392,7 @@ h6 {
   position: absolute;
   top: 0;
   left: 0;
+
   background-color: rgba(121, 208, 0, 1);
   width: 100%;
   height: 100%;
@@ -1157,40 +1473,44 @@ h6 {
   width: 40px;
   display: inline;
 }
+#miniICON2 {
+  height: 60px;
+  width: 60px;
+  padding: 3px;
+}
+#miniICON2:hover {
+  padding: 0px;
+}
 
-/* login*/
-
-.login-box {
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 15px 25px rgb(0, 0, 0);
-  width: 400px;
+#updateProfileBTN {
+  background-color: #0095c7;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 30px;
+  text-align: center;
   margin-left: auto;
   margin-right: auto;
-}
-.login-box h2 {
-  color: #fff;
-  text-align: center;
-}
-.login-box .user-box {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.login-box .user-box input {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 30px;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
+#updateProfileBTN:hover {
+  background-color: #00c3ff;
+  color: black;
 }
 
-#haveUSERsign {
-  display: inline;
+#fontsizebiggerIcon {
+  font-size: 60px;
+  margin-bottom: 15px;
 }
+#formlabelBigger {
+  background-color: black;
+  margin-top: 25px;
+  font-size: 20px;
+  font-weight: bold;
+}
+/* login*/
 #signUp {
   font-size: 18px;
   color: rgba(255, 255, 255, 0.589);
@@ -1201,6 +1521,10 @@ h6 {
 #signUp:hover {
   color: white;
 }
+#haveUSERsign {
+  display: inline;
+}
+
 #inline {
   display: inline;
 }
@@ -1246,4 +1570,314 @@ h6 {
 }
 .CancelTorSmallbtn:hover {
   background-color: red;
+}
+#weSorryAllTafus {
+  width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: white;
+  font-size: 35px;
+  font-weight: bolder;
+  text-shadow: 4px 4px 4px black;
+  background-color: rgba(0, 0, 0, 0.514);
+  padding: 40px;
+  border-radius: 20px;
+}
+#anotherday {
+  font-weight: bolder;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  border-radius: 20px;
+  padding: 10px 20px;
+  background-color: rgb(20, 165, 76);
+  font-size: 20px;
+  transition: 0.1s ease-in;
+}
+#anotherday:hover {
+  background-color: rgb(50, 205, 71);
+  box-shadow: 4px 4px 15px rgb(50, 205, 71);
+}
+#BarberMENU {
+  background-color: rgba(0, 0, 0, 0.281);
+  height: 95px;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  border-radius: 10px;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+}
+.BARBERMENUBTN {
+  transition: 0.5s ease;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  height: 45px;
+  width: 200px;
+  margin-right: 20px;
+  margin-left: 20px;
+  border: 2px solid #03e9f4;
+  color: #03e9f4;
+  font-weight: bolder;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 0);
+  border-color: #03e9f4;
+  color: #03e9f4;
+  background-image: -webkit-linear-gradient(
+    45deg,
+    #f1c40f 50%,
+    transparent 50%
+  );
+  background-image: linear-gradient(45deg, #03e9f4 50%, transparent 50%);
+  background-position: 100%;
+  background-size: 400%;
+  -webkit-transition: 300ms ease-in-out;
+  transition: 245ms ease-in-out;
+}
+
+.BARBERMENUBTN:focus,
+.BARBERMENUBTN:active {
+  transform: scale(1.07);
+  background-position: 0;
+  color: black;
+  box-shadow: 4px 4px 34px #03e9f4;
+}
+.BARBERMENUBTN:hover {
+  background-position: 0;
+  color: black;
+  box-shadow: 4px 4px 34px #03e9f4;
+}
+.BARBERMENUBTNSICUM {
+  transition: 0.5s ease;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  height: 45px;
+  width: 200px;
+  margin-right: 20px;
+  margin-left: 20px;
+  border: 2px solid #f4d003;
+  color: #f4d003;
+  font-weight: bolder;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 0);
+  border-color: #f4d003;
+  color: #f4d003;
+  background-image: -webkit-linear-gradient(
+    45deg,
+    #f1c40f 50%,
+    transparent 50%
+  );
+  background-image: linear-gradient(45deg, #f4d003 50%, transparent 50%);
+  background-position: 100%;
+  background-size: 400%;
+  -webkit-transition: 300ms ease-in-out;
+  transition: 245ms ease-in-out;
+}
+
+.BARBERMENUBTNSICUM:focus,
+.BARBERMENUBTNSICUM:active {
+  transform: scale(1.07);
+  background-position: 0;
+  color: black;
+  box-shadow: 4px 4px 34px #f4d003;
+}
+.BARBERMENUBTNSICUM:hover {
+  background-position: 0;
+  color: black;
+  box-shadow: 4px 4px 34px #f4d003;
+}
+
+.BARBERMENUBTNmonth {
+  transform: scale(1.07);
+
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  height: 45px;
+  width: 200px;
+  margin-right: 20px;
+  margin-left: 20px;
+  border: 2px solid #03e9f4;
+  color: #03e9f4;
+  font-weight: bolder;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 0);
+  border-color: #03e9f4;
+  color: #03e9f4;
+  background-image: -webkit-linear-gradient(
+    45deg,
+    #f1c40f 50%,
+    transparent 50%
+  );
+  background-image: linear-gradient(45deg, #03e9f4 50%, transparent 50%);
+  background-position: 100%;
+  background-size: 400%;
+  -webkit-transition: 300ms ease-in-out;
+  transition: 245ms ease-in-out;
+  background-position: 0;
+  color: black;
+  box-shadow: 4px 4px 34px #03e9f4;
+}
+
+#sizemefortable {
+  border-radius: 20px;
+  width: 15px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+#idid {
+  margin-right: 10px;
+}
+#tipulimCooseOptions {
+  display: block;
+  width: 250px;
+  font-size: 25px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10px;
+}
+#h1SugTipul {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/*******Modal******/
+#reciptcloseNav {
+  width: 100.4%;
+  height: 30px;
+  background-color: rgb(0, 132, 255);
+  position: relative;
+  bottom: 2px;
+  right: 1px;
+}
+#reciptcloseNavX {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  font-size: 15px;
+}
+#reciptcloseNavX:hover {
+  background-color: rgb(255, 0, 0);
+}
+@media (max-width: 900px) {
+  #BOXlStyle {
+    width: 400px;
+  }
+  #BOXlStyle h7,
+  h8,
+  h4 {
+    font-size: 12px;
+  }
+}
+
+#recipttable1 {
+  font-size: 12px;
+}
+#BOXlStyleForChooseTipul {
+  max-width: 600px;
+  height: 320px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 3px 3px 15px #000;
+  margin-left: auto;
+  margin-right: auto;
+}
+#BOXlStyleForCreditCard {
+  max-width: 600px;
+  height: 320px;
+  background-image: url('https://i.ibb.co/SNqtkSj/creditcard-bg.png');
+  border: 2px solid #000;
+  border-radius: 20px;
+  box-shadow: 3px 3px 15px #000;
+  margin-left: auto;
+  margin-right: auto;
+}
+#BOXlStyle {
+  max-width: 800px;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid #000;
+  border-radius: 20px;
+  box-shadow: 3px 3px 15px #000;
+  margin-left: auto;
+  margin-right: auto;
+}
+#BOXlStyle h7 {
+  display: block;
+  color: rgb(0, 0, 0);
+  margin-top: 2px;
+  margin-right: 40px;
+}
+#BOXlStyle h8 {
+  color: rgb(0, 0, 0);
+  margin-top: 2px;
+  margin-left: 20px;
+  font-weight: bolder;
+  font-size: 15px;
+}
+#BOXlStyle h2 {
+  display: block;
+  color: rgb(0, 0, 0);
+  margin-top: 2px;
+  text-align: center;
+}
+#BOXlStyle h4,
+h5 {
+  display: block;
+  color: rgb(0, 0, 0);
+  margin-top: 20px;
+  text-align: center;
+}
+#paymentsystemrecive {
+  display: flex;
+  justify-content: center;
+}
+
+#ModalStyle {
+  margin-top: 20px;
+}
+
+#BOXlStyle {
+  margin-top: 20px;
+  max-height: calc(120vh - 210px);
+  max-width: 21cm;
+  overflow-y: auto;
+  size: A4;
+}
+
+#RECIPT_ABSULUTE_TABLE {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+#divFontsizebigger {
+  font-size: 18px;
+  display: block;
+}
+
+#rEportDeets {
+  background-color: rgba(0, 0, 0, 0.486);
+  padding: 10px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+  font-size: 18px;
+  text-align: center;
+  color: white;
+}
+
+#blink {
+  background-color: rgba(255, 255, 255, 0.829);
+  border: 50%;
 }

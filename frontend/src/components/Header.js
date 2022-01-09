@@ -1,5 +1,4 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
@@ -8,18 +7,31 @@ import logo from '../D.gif'
 
 const Header = () => {
   const dispatch = useDispatch()
-
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
+  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
+  const { userGoogleInfo, Gsuccess } = userGoogleLogin
 
   const logoutHandler = () => {
     dispatch(logout())
   }
 
+  console.log(userInfo)
+  console.log(userGoogleInfo)
+
+  if (Gsuccess) {
+    window.onload = function () {
+      if (!window.location.hash) {
+        window.location = window.location + '#loaded'
+        window.location.reload()
+      }
+    }
+  }
   return (
     <header id='navbar'>
       <Navbar variant='dark' expand='lg' collapseOnSelect>
-        <Container>
+        <Container id='nabarr'>
           <LinkContainer to='/'>
             <Navbar.Brand>
               {' '}
@@ -35,18 +47,49 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ml-auto'>
-              <LinkContainer to='/cart'>
-                <Nav.Link>
-                  <h3 id='navlinks'>
-                    עגלה <i class='fas fa-shopping-cart'></i>
-                  </h3>
-                </Nav.Link>
-              </LinkContainer>
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown
+                  id='navbarContainerItem'
+                  title={
+                    <h3 id='navlinksManager'>
+                      מנהל <i className='fas fa-user-shield'></i>
+                    </h3>
+                  }
+                >
+                  <LinkContainer id='usernameactionsNAV' to='/admin'>
+                    <NavDropdown.Item>אפשרויות</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer id='usernameactionsNAV' to='/admin/torim'>
+                    <NavDropdown.Item>תורים</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer id='usernameactionsNAV' to='/admin/reports'>
+                    <NavDropdown.Item>סיכומים</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer id='usernameactionsNAV' to='/admin/userlist'>
+                    <NavDropdown.Item>לקוחות</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <LinkContainer
+                    id='usernameactionsNAV'
+                    to='/admin/productlist'
+                  >
+                    <NavDropdown.Item>מוצרים</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer id='usernameactionsNAV' to='/admin/orderlist'>
+                    <NavDropdown.Item>הזמנות</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer id='usernameactionsNAV' to='/admin/settings'>
+                    <NavDropdown.Item>הגדרות</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
+
               {userInfo ? (
                 <NavDropdown
+                  id='navbarContainerItem'
                   title={
                     <h3 id='navlinks'>
-                      {userInfo.name} <i class='far fa-user'></i>
+                      {userInfo.name} <i className='far fa-user'></i>
                     </h3>
                   }
                 >
@@ -76,31 +119,15 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
               )}
-              {userInfo && userInfo.isAdmin && (
-                <NavDropdown
-                  title={
-                    <h3 id='navlinksManager'>
-                      מנהל <i class='fas fa-user-shield'></i>
-                    </h3>
-                  }
-                >
-                  <LinkContainer id='usernameactionsNAV' to='/admin/userlist'>
-                    <NavDropdown.Item>משתמשים</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer id='usernameactionsNAV' to='/admin/torim'>
-                    <NavDropdown.Item>תורים</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer
-                    id='usernameactionsNAV'
-                    to='/admin/productlist'
-                  >
-                    <NavDropdown.Item>מוצרים</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer id='usernameactionsNAV' to='/admin/orderlist'>
-                    <NavDropdown.Item>הזמנות</NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
-              )}
+
+              <LinkContainer to='/cart'>
+                <Nav.Link id='navbarContainerItem'>
+                  <h3 id='navlinksCART'>
+                    <span id='showmeinSmallScreeen'> עגלה</span>
+                    <i className='fas fa-shopping-cart'></i>
+                  </h3>
+                </Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Container>

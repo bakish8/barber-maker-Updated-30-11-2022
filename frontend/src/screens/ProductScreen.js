@@ -85,7 +85,7 @@ const ProductScreen = ({ history, match }) => {
             <Col md={3}>
               <Card id='produDeetseonproductPage'>
                 <ListGroup variant='flush'>
-                  <ListGroup.Item>
+                  <ListGroup.Item id='blackmeb'>
                     <Row>
                       <Col>
                         <strong>${product.price}</strong>
@@ -93,8 +93,7 @@ const ProductScreen = ({ history, match }) => {
                       <Col>:מחיר</Col>
                     </Row>
                   </ListGroup.Item>
-
-                  <ListGroup.Item>
+                  <ListGroup.Item id='blackmeb'>
                     <Row>
                       <Col>
                         {product.countInStock > 0 ? 'במלאי' : 'לא במלאי'}
@@ -102,34 +101,29 @@ const ProductScreen = ({ history, match }) => {
                       <Col>:זמינות</Col>
                     </Row>
                   </ListGroup.Item>
-
                   {product.countInStock > 0 && (
-                    <ListGroup.Item>
-                      <Row>
-                        <Col id='produDeetseonproductPage'>
-                          <Form.Control
-                            as='select'
-                            value={qty}
-                            onChange={(e) => setQty(e.target.value)}
-                          >
-                            {[...Array(product.countInStock).keys()].map(
-                              (x) => (
-                                <option key={x + 1} value={x + 1}>
-                                  {x + 1}
-                                </option>
-                              )
-                            )}
-                          </Form.Control>
-                        </Col>
-                        <Col>:כמות</Col>
-                      </Row>
+                    <ListGroup.Item id='blackmeb'>
+                      <Col>
+                        <h1 id='centerme'>כמות</h1>
+                        <Form.Control
+                          as='select'
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
+                        >
+                          {[...Array(product.countInStock).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </Col>
                     </ListGroup.Item>
                   )}
-
                   <ListGroup.Item>
                     <Button
                       onClick={addToCartHandler}
                       className='btn-block'
+                      id='updateProfileBTN'
                       type='button'
                       disabled={product.countInStock === 0}
                     >
@@ -144,13 +138,11 @@ const ProductScreen = ({ history, match }) => {
             <Col md={12} id='produDeetseonproductPage'>
               <ListGroup variant='flush'>
                 <ListGroup.Item>
-                  <h3>{product.name}</h3>
+                  <h3 id='productnamescreen2'>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
+                  <Rating value={product.rating} />
+                  <p id='blackmeb'>מתוך {product.numReviews} ביקורות</p>
                 </ListGroup.Item>
                 <ListGroup.Item>מחיר: ${product.price}</ListGroup.Item>
                 <ListGroup.Item>
@@ -160,8 +152,10 @@ const ProductScreen = ({ history, match }) => {
               </ListGroup>
             </Col>
             <Col md={12}>
-              <h2 className='whiteme'>ביקורות</h2>
-              {product.reviews.length === 0 && <Message>No Reviews</Message>}
+              <h2 className='whiteme15pxmarginTOP'>ביקורות</h2>
+              {product.reviews.length === 0 && (
+                <Message>לא נמצאו ביקורות עבור מוצר זה </Message>
+              )}
               <ListGroup variant='flush'>
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
@@ -209,7 +203,7 @@ const ProductScreen = ({ history, match }) => {
                         ></Form.Control>
                       </Form.Group>
                       <Button
-                        id='centerme'
+                        id='updateProfileBTN'
                         disabled={loadingProductReview}
                         type='submit'
                         variant='primary'

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import Header from './components/Header'
@@ -24,23 +24,42 @@ import WorkingDaysScreen from './screens/workingDays'
 import SingleWorkDay from './screens/SingleWorkDay'
 import PickHourScreen from './screens/PickHourScreen'
 import CancelTorScreen from './screens/CancelTorScreen'
+import ReportsScreen from './screens/ReportsScreen'
+import SettingsScreen from './screens/SettingsScreen'
+import NewTipulScreen from './screens/NewTipulScreen'
+import SingleReportScreen from './screens/SingleReportScreen'
+import Admin from './screens/Admin'
+import PickTipulScreen from './screens/PickTipulScreen'
+import { myContext } from './actions/Context'
 
 const App = () => {
+  const userObject = useContext(myContext)
+  console.log(userObject)
   return (
     <Router>
       <Header />
+      <div> </div>
       <main className='py-3'>
         <Container>
           <Route path='/order/:id' component={OrderScreen} />
           <Route path='/shipping' component={ShippingScreen} />
           <Route path='/picksapar' component={PickSaparScreen} />
           <Route path='/:id/maketor' component={PickDateScreen} />
-          <Route path='/maketor/:id' component={PickHourScreen} />
+          <Route
+            path='/maketorr/:id/:tipulid'
+            component={PickHourScreen}
+            exact
+          />
+          <Route
+            path='/maketor/:id/picktipul'
+            component={PickTipulScreen}
+            exact
+          />
 
           <Route path='/payment' component={PaymentScreen} />
           <Route path='/cancel' component={CancelTorScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
-          <Route path='/login' component={LoginScreen} />
+          <Route path='/login/' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/product/:id' component={ProductScreen} />
@@ -59,6 +78,12 @@ const App = () => {
           />
           <Route path='/admin/torim/' component={WorkingDaysScreen} exact />
           <Route path='/admin/workingday/:id' component={SingleWorkDay} />
+          <Route path='/admin/settings' component={SettingsScreen} exact />
+          <Route
+            path='/admin/settings/newtipul'
+            component={NewTipulScreen}
+            exact
+          />
 
           <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
           <Route path='/admin/orderlist' component={OrderListScreen} />
@@ -69,9 +94,18 @@ const App = () => {
             component={HomeScreen}
             exact
           />
+          <Route
+            path='/admin/reports/:id'
+            component={SingleReportScreen}
+            exact
+          />
+          <Route path='/admin/reports' component={ReportsScreen} exact />
+          <Route path='/admin' component={Admin} exact />
+
           <Route path='/' component={HomeScreen} exact />
         </Container>
       </main>
+
       <Footer />
     </Router>
   )

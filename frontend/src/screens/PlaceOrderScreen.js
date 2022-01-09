@@ -83,8 +83,9 @@ const PlaceOrderScreen = ({ history }) => {
 
             <ListGroup.Item>
               <h2 id='headlineme'>שיטת תשלום</h2>
-              <strong>שיטה: </strong>
               {cart.paymentMethod}
+
+              <strong> :שיטה </strong>
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -110,7 +111,7 @@ const PlaceOrderScreen = ({ history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.qty} x {item.price}₪ = {item.qty * item.price}₪
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -128,26 +129,27 @@ const PlaceOrderScreen = ({ history }) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>מוצרים</Col>
-                  <Col>${cart.itemsPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
+                  {' '}
+                  <Col>{cart.itemsPrice}₪</Col>
                   <Col>משלוח</Col>
-                  <Col>${cart.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
+                  <Col>{cart.shippingPrice}₪</Col>
+                  <Col>מוצרים</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>{cart.taxPrice}₪</Col>
                   <Col>מס</Col>
-                  <Col>${cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
+                  <Col>{cart.totalPrice}₪</Col>
                   <Col>סה"כ</Col>
-                  <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
@@ -157,6 +159,7 @@ const PlaceOrderScreen = ({ history }) => {
                 <Button
                   type='button'
                   className='btn-block'
+                  id='updateProfileBTN'
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >

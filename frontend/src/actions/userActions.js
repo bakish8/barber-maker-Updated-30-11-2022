@@ -1,5 +1,24 @@
 import axios from 'axios'
+
 import {
+  SUGEI_TIPULIM_LIST_REQUEST,
+  SUGEI_TIPULIM_LIST_SUCCESS,
+  SUGEI_TIPULIM_LIST_FAIL,
+  MONTHLY_REPORTS_LIST_REQUEST,
+  MONTHLY_REPORTS_LIST_SUCCESS,
+  MONTHLY_REPORTS_LIST_FAIL,
+  Weekly_REPORTS_LIST_REQUEST,
+  Weekly_REPORTS_LIST_SUCCESS,
+  Weekly_REPORTS_LIST_FAIL,
+  DAILY_REPORTS_LIST_REQUEST,
+  DAILY_REPORTS_LIST_SUCCESS,
+  DAILY_REPORTS_LIST_FAIL,
+  ADMIN_CREATE_REPORT_FOR_MONTH_REQUEST,
+  ADMIN_CREATE_REPORT_FOR_MONTH_SUCCESS,
+  ADMIN_CREATE_REPORT_FOR_MONTH_FAIL,
+  ADMIN_CREATE_REPORT_REQUEST,
+  ADMIN_CREATE_REPORT_SUCCESS,
+  ADMIN_CREATE_REPORT_FAIL,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -80,8 +99,59 @@ import {
   USER_REGISTERByADMIN_REQUEST,
   USER_REGISTERByADMIN_SUCCESS,
   USER_REGISTERByADMIN_FAIL,
+  WORKING_DAY_DELETE_RESET,
+  CLOCK_DELETE_RESET,
+  SEND_SMS_TOR_REQUEST,
+  SEND_SMS_TOR_SUCCESS,
+  SEND_SMS_TOR_FAIL,
+  SEND_NotificationSMS_REQUEST,
+  SEND_NotificationSMS_SUCCESS,
+  SEND_NotificationSMS_FAIL,
+  BookMEonGoogleCalender_REQUEST,
+  BookMEonGoogleCalender_SUCCESS,
+  BookMEonGoogleCalender_FAIL,
+  USER_GOOGLE_LOGIN_REQUEST,
+  USER_GOOGLE_LOGIN_SUCCESS,
+  USER_GOOGLE_LOGIN_FAIL,
+  SEND_Cancel_SMS_TOR_REQUEST,
+  SEND_Cancel_SMS_TOR_SUCCESS,
+  SEND_Cancel_SMS_TOR_FAIL,
+  ONE_WORKING_DAY_REQUEST,
+  ONE_WORKING_DAY_SUCCESS,
+  ONE_WORKING_DAY_FAIL,
+  LIST_WORKING_DAYS_FOR_THIS_WEEK_REQUEST,
+  LIST_WORKING_DAYS_FOR_THIS_WEEK_SUCCESS,
+  LIST_WORKING_DAYS_FOR_THIS_WEEK_FAIL,
+  CLOCK_LIST_FOR_TODAY_REQUEST,
+  CLOCK_LIST_FOR_TODAY_SUCCESS,
+  CLOCK_LIST_FOR_TODAY_FAIL,
+  CLOCK_LIST_FOR_THIS_WEEK_REQUEST,
+  CLOCK_LIST_FOR_THIS_WEEK_SUCCESS,
+  CLOCK_LIST_FOR_THIS_WEEK_FAIL,
+  CLOCK_LIST_FOR_THIS_MONTH_REQUEST,
+  CLOCK_LIST_FOR_THIS_MONTH_SUCCESS,
+  CLOCK_LIST_FOR_THIS_MONTH_FAIL,
+  CLOCK_LIST_FOR_THIS_WORK_DAY_REQUEST,
+  CLOCK_LIST_FOR_THIS_WORK_DAY_SUCCESS,
+  CLOCK_LIST_FOR_THIS_WORK_DAY_FAIL,
+  ADMIN_CREATE_REPORT_FOR_WEEK_REQUEST,
+  ADMIN_CREATE_REPORT_FOR_WEEK_SUCCESS,
+  ADMIN_CREATE_REPORT_FOR_WEEK_FAIL,
+  GET_REPORT_DEETS_BY_ID_REQUEST,
+  GET_REPORT_DEETS_BY_ID_SUCCESS,
+  GET_REPORT_DEETS_BY_ID_FAIL,
+  CREATE_NEW_TIPUL_REQUEST,
+  CREATE_NEW_TIPUL_SUCCESS,
+  CREATE_NEW_TIPUL_FAIL,
+  GET_TIPUL_DEETS_REQUEST,
+  GET_TIPUL_DEETS_SUCCESS,
+  GET_TIPUL_DEETS_FAIL,
+  ONE_USER_SEARCH_REQUEST,
+  ONE_USER_SEARCH_SUCCESS,
+  ONE_USER_SEARCH_FAIL,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
+import { useState } from 'react'
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -94,7 +164,6 @@ export const login = (email, password) => async (dispatch) => {
         'Content-Type': 'application/json',
       },
     }
-
     const { data } = await axios.post(
       '/api/users/login',
       { email, password },
@@ -118,7 +187,41 @@ export const login = (email, password) => async (dispatch) => {
   }
 }
 
-export const logout = () => (dispatch) => {
+export const Googlelogin = (email) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_GOOGLE_LOGIN_REQUEST,
+    })
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+    const { data } = await axios.post(
+      '/api/users/googlelogin',
+      { email },
+      config
+    )
+
+    dispatch({
+      type: USER_GOOGLE_LOGIN_SUCCESS,
+      payload: data,
+    })
+
+    localStorage.setItem('userInfo', JSON.stringify(data))
+  } catch (error) {
+    dispatch({
+      type: USER_GOOGLE_LOGIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const logout = () => async (dispatch, req, res) => {
   localStorage.removeItem('userInfo')
   localStorage.removeItem('cartItems')
   localStorage.removeItem('shippingAddress')
@@ -128,6 +231,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: ORDER_LIST_MY_RESET })
   dispatch({ type: TORIM_LIST_MY_RESET })
   dispatch({ type: USER_LIST_RESET }) //**להוסיף את כל הריסטים בעת התנתקות */
+  await axios.post('/logout')
   document.location.href = '/login'
 }
 
@@ -433,7 +537,8 @@ export const updateUser = (user) => async (dispatch, getState) => {
 }
 
 export const makeWorkingDay =
-  (dateData, day, id) => async (dispatch, getState) => {
+  (dateData, day, id, Dateday, Datemonth, Dateyear) =>
+  async (dispatch, getState) => {
     try {
       dispatch({
         type: MAKE_WORKINGDAY_REQUEST,
@@ -452,7 +557,7 @@ export const makeWorkingDay =
 
       const { data } = await axios.post(
         '/api/workingday',
-        { dateData, day, id },
+        { dateData, day, id, Dateday, Datemonth, Dateyear },
         config
       )
 
@@ -474,6 +579,8 @@ export const makeWorkingDay =
   }
 
 export const listWorkingDays = () => async (dispatch, getState) => {
+  dispatch({ type: WORKING_DAY_DELETE_RESET })
+
   try {
     dispatch({
       type: WORKING_DAYS_REQUEST,
@@ -505,6 +612,84 @@ export const listWorkingDays = () => async (dispatch, getState) => {
     }
     dispatch({
       type: WORKING_DAYS_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const listWorkingDaysFORthisWEEK = () => async (dispatch, getState) => {
+  dispatch({ type: WORKING_DAY_DELETE_RESET })
+
+  try {
+    dispatch({
+      type: LIST_WORKING_DAYS_FOR_THIS_WEEK_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/workingday/thisweek`, config)
+
+    dispatch({
+      type: LIST_WORKING_DAYS_FOR_THIS_WEEK_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: LIST_WORKING_DAYS_FOR_THIS_WEEK_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const listOneWorkingDay = () => async (dispatch, getState) => {
+  dispatch({ type: WORKING_DAY_DELETE_RESET })
+
+  try {
+    dispatch({
+      type: ONE_WORKING_DAY_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/workingday/thisday`, config)
+
+    dispatch({
+      type: ONE_WORKING_DAY_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: ONE_WORKING_DAY_FAIL,
       payload: message,
     })
   }
@@ -722,7 +907,7 @@ export const PICKWorkingDay =
     }
   }
 
-export const confirmTor = (id, uid) => async (dispatch, getState) => {
+export const confirmTor = (id, uid, Tipulid) => async (dispatch, getState) => {
   try {
     dispatch({
       type: CONFIRM_TOR_REQUEST,
@@ -738,7 +923,7 @@ export const confirmTor = (id, uid) => async (dispatch, getState) => {
     }
     const { data } = await axios.put(
       `/api/maketor/${id}/${uid}`,
-      { id },
+      { Tipulid },
       config
     )
     dispatch({
@@ -785,35 +970,41 @@ export const CancelMyTor = (id, uid) => async (dispatch, getState) => {
   }
 }
 
-export const PayMyTor = (id) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: PAY_TOR_REQUEST,
-    })
-    const {
-      userLogin: { userInfo },
-    } = getState()
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+export const PayMyTor =
+  (id, paymentMethod, creditLastDigits, ReciptNumber, tipulId) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: PAY_TOR_REQUEST,
+      })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const { data } = await axios.put(
+        `/api/maketor/${id}`,
+        { id, paymentMethod, creditLastDigits, ReciptNumber, tipulId },
+        config
+      )
+      dispatch({
+        type: PAY_TOR_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: PAY_TOR_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
     }
-    const { data } = await axios.put(`/api/maketor/${id}`, { id }, config)
-    dispatch({
-      type: PAY_TOR_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: PAY_TOR_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
   }
-}
 
 export const UNPayMyTor = (id) => async (dispatch, getState) => {
   try {
@@ -875,6 +1066,8 @@ export const AvilableWorkingDayTors = (id) => async (dispatch, getState) => {
 
 export const WorkingDayTors = (id) => async (dispatch, getState) => {
   try {
+    dispatch({ type: CLOCK_DELETE_RESET })
+
     dispatch({ type: CLOCK_LIST_REQUEST })
     const {
       userLogin: { userInfo },
@@ -900,6 +1093,127 @@ export const WorkingDayTors = (id) => async (dispatch, getState) => {
     })
   }
 }
+
+export const ReciptForThisWorkingDay = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: CLOCK_LIST_FOR_THIS_WORK_DAY_REQUEST })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/workingday/recipt/${id}`, config)
+
+    dispatch({
+      type: CLOCK_LIST_FOR_THIS_WORK_DAY_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: CLOCK_LIST_FOR_THIS_WORK_DAY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+export const getCLOCKSForTodayReciptAction =
+  () => async (dispatch, getState) => {
+    try {
+      dispatch({ type: CLOCK_LIST_FOR_TODAY_REQUEST })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(`/api/workingday/reciptoneday`, config)
+
+      dispatch({
+        type: CLOCK_LIST_FOR_TODAY_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: CLOCK_LIST_FOR_TODAY_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
+export const getCLOCKSForThisWeekReciptAction =
+  () => async (dispatch, getState) => {
+    try {
+      dispatch({ type: CLOCK_LIST_FOR_THIS_WEEK_REQUEST })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(`/api/workingday/recipt_week`, config)
+
+      dispatch({
+        type: CLOCK_LIST_FOR_THIS_WEEK_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: CLOCK_LIST_FOR_THIS_WEEK_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
+export const getCLOCKSForThisMonthReciptAction =
+  () => async (dispatch, getState) => {
+    try {
+      dispatch({ type: CLOCK_LIST_FOR_THIS_MONTH_REQUEST })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const { data } = await axios.get(`/api/workingday/recipt_month`, config)
+
+      dispatch({
+        type: CLOCK_LIST_FOR_THIS_MONTH_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: CLOCK_LIST_FOR_THIS_MONTH_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
 
 export const listMyTorim = () => async (dispatch, getState) => {
   try {
@@ -933,6 +1247,615 @@ export const listMyTorim = () => async (dispatch, getState) => {
     }
     dispatch({
       type: TORIM_LIST_MY_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const SendTorSMS = (id, uid) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SEND_SMS_TOR_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+        'Access-Control-Allow-Origin': '*',
+      },
+    }
+
+    const { data } = await axios.post(`/api/messages/${id}/${uid}`, config)
+    dispatch({
+      type: SEND_SMS_TOR_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: SEND_SMS_TOR_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+export const SendCancelTorSMS = (id, uid) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SEND_Cancel_SMS_TOR_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+        'Access-Control-Allow-Origin': '*',
+      },
+    }
+
+    const { data } = await axios.put(`/api/messages/${id}/${uid}`, config)
+    dispatch({
+      type: SEND_Cancel_SMS_TOR_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: SEND_Cancel_SMS_TOR_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const SendNotificationSMS = (id, uid) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SEND_NotificationSMS_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+        'Access-Control-Allow-Origin': '*',
+      },
+    }
+
+    const { data } = await axios.post(`/api/appointments/${id}/${uid}`, config)
+    dispatch({
+      type: SEND_NotificationSMS_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: SEND_NotificationSMS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const BookMEonGoogleCalenderAction =
+  (id, uid) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: BookMEonGoogleCalender_REQUEST,
+      })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
+
+      const { data } = await axios.post(
+        `/api/appointments/bookmeongooglecalender/${id}/${uid}`,
+        config
+      )
+      dispatch({
+        type: BookMEonGoogleCalender_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: BookMEonGoogleCalender_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
+export const createReport =
+  (
+    id,
+    type,
+    date,
+    afterdate,
+    numAllTorim,
+    numAvilableTorim,
+    numNOTAvilableTorim,
+    num_canceled_torim,
+    moneyCount,
+    dayClocks,
+    createatDate,
+    createdAtTime
+  ) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: ADMIN_CREATE_REPORT_REQUEST })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.post(
+        '/api/reports',
+        {
+          id,
+          type,
+          date,
+          afterdate,
+          numAllTorim,
+          numAvilableTorim,
+          numNOTAvilableTorim,
+          num_canceled_torim,
+          moneyCount,
+          dayClocks,
+          createatDate,
+          createdAtTime,
+        },
+        config
+      )
+
+      dispatch({
+        type: ADMIN_CREATE_REPORT_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: ADMIN_CREATE_REPORT_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+export const createReportForWeek =
+  (
+    id,
+    type,
+    date,
+    afterdate,
+    numOfWorkDays,
+    numAllTorim,
+    numAvilableTorim,
+    numNOTAvilableTorim,
+    num_canceled_torim,
+    moneyCount,
+    weekClocks,
+    createatDate,
+    createdAtTime
+  ) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: ADMIN_CREATE_REPORT_FOR_WEEK_REQUEST })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.post(
+        '/api/reports/weeks',
+        {
+          id,
+          type,
+          date,
+          afterdate,
+          numOfWorkDays,
+          numAllTorim,
+          numAvilableTorim,
+          numNOTAvilableTorim,
+          num_canceled_torim,
+          moneyCount,
+          weekClocks,
+          createatDate,
+          createdAtTime,
+        },
+        config
+      )
+
+      dispatch({
+        type: ADMIN_CREATE_REPORT_FOR_WEEK_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: ADMIN_CREATE_REPORT_FOR_WEEK_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+export const createReportForMonth =
+  (
+    id,
+    type,
+    date,
+    afterdate,
+    numOfWorkDays,
+    numAllTorim,
+    numAvilableTorim,
+    numNOTAvilableTorim,
+    num_canceled_torim,
+    moneyCount,
+    MonthClocks,
+    createatDate,
+    createdAtTime
+  ) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: ADMIN_CREATE_REPORT_FOR_MONTH_REQUEST })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.post(
+        '/api/reports/months',
+        {
+          id,
+          type,
+          date,
+          afterdate,
+          numOfWorkDays,
+          numAllTorim,
+          numAvilableTorim,
+          numNOTAvilableTorim,
+          num_canceled_torim,
+          moneyCount,
+          MonthClocks,
+          createatDate,
+          createdAtTime,
+        },
+        config
+      )
+
+      dispatch({
+        type: ADMIN_CREATE_REPORT_FOR_MONTH_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: ADMIN_CREATE_REPORT_FOR_MONTH_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
+export const listDailyReports = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: DAILY_REPORTS_LIST_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/reports/${id}`, config)
+
+    dispatch({
+      type: DAILY_REPORTS_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: DAILY_REPORTS_LIST_FAIL,
+      payload: message,
+    })
+  }
+}
+export const listWeeklyReports = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: Weekly_REPORTS_LIST_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/reports/weeks/${id}`, config)
+
+    dispatch({
+      type: Weekly_REPORTS_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: Weekly_REPORTS_LIST_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const listMonthlyReports = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: MONTHLY_REPORTS_LIST_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/reports/months/${id}`, config)
+
+    dispatch({
+      type: MONTHLY_REPORTS_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: MONTHLY_REPORTS_LIST_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const getReportDeetsById = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: GET_REPORT_DEETS_BY_ID_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/reports/single/${id}`, config)
+
+    dispatch({
+      type: GET_REPORT_DEETS_BY_ID_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: GET_REPORT_DEETS_BY_ID_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const registerNewTipul =
+  (name, time, cost, image) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: CREATE_NEW_TIPUL_REQUEST,
+      })
+
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const { data } = await axios.post(
+        '/api/users/tipulim',
+        { name, time, cost, image },
+        config
+      )
+
+      dispatch({
+        type: CREATE_NEW_TIPUL_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: CREATE_NEW_TIPUL_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
+export const SugeiTipulimAction = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SUGEI_TIPULIM_LIST_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/maketor/picktipul/`, config)
+
+    dispatch({
+      type: SUGEI_TIPULIM_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: SUGEI_TIPULIM_LIST_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const SpecificTipulDeetsAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: GET_TIPUL_DEETS_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.get(`/api/maketor/picktipul/${id}`, config)
+
+    dispatch({
+      type: GET_TIPUL_DEETS_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: GET_TIPUL_DEETS_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const SearchOneUserAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ONE_USER_SEARCH_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.get(`/api/search/users/${id}`, config)
+
+    dispatch({
+      type: ONE_USER_SEARCH_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: ONE_USER_SEARCH_FAIL,
       payload: message,
     })
   }
