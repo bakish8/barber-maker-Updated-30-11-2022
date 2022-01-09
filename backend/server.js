@@ -20,7 +20,7 @@ import appointmentsRoutes from './routes/appointmentsRoutes.js'
 import moment from 'moment'
 import notificationsWorker from './intervalWorkers/notificationsWorker.js'
 import relvantTimeWorker from './intervalWorkers/relvantTimeWorker.js'
-import session from 'express-session'
+import session from 'cookie-session'
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 
