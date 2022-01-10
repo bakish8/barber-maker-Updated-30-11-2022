@@ -114,7 +114,7 @@ const PickDateScreen = ({ location, history, match }) => {
             <h2 id='headlineme'>
               {' '}
               <img
-                src='https://cdn-icons.flaticon.com/png/512/4619/premium/4619935.png?token=exp=1638891414~hmac=0ccc7dc4c1e3455a2797e75ce5cf202d'
+                src='https://i.ibb.co/Dk7MrTF/appointment.png'
                 id='miniICON'
               />
               בחר תאריך

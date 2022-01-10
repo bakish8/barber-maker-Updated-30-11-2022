@@ -21,6 +21,8 @@ import moment from 'moment'
 import notificationsWorker from './intervalWorkers/notificationsWorker.js'
 import relvantTimeWorker from './intervalWorkers/relvantTimeWorker.js'
 import session from 'cookie-session'
+import MongoStore from 'connect-mongo'
+
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 
@@ -41,6 +43,7 @@ app.use(
     secret: `${random}`,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({ mongooseConnection: mongoose.connection }),
   })
 )
 //  ██████╗  ██████╗  ██████╗  ██████╗ ██╗     ███████╗    ██████╗  █████╗ ███████╗███████╗██████╗  ██████╗ ██████╗ ████████╗
