@@ -1,4 +1,4 @@
-# ProShop eCommerce Platform
+# BarberMsker
 
 > Apoointment Maker platform built with the MERN stack & Redux.
 
