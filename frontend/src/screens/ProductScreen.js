@@ -75,12 +75,12 @@ const ProductScreen = ({ history, match }) => {
 
           <Row>
             <Col md={9}>
-              <Image
-                id='productimageonproductPage'
+              <img
                 src={product.image}
+                id='productimageonproductPage'
                 alt={product.name}
                 fluid
-              />
+              ></img>
             </Col>
             <Col md={3}>
               <Card id='produDeetseonproductPage'>

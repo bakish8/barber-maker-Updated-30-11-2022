@@ -25,7 +25,7 @@ const HomeScreen = ({ match }) => {
   const { loading, error, products, page, pages } = productList
 
   useEffect(() => {
-    Aos.init({ duration: 2000 })
+    Aos.init({ duration: 700 })
   }, [])
   return (
     <>
@@ -39,13 +39,13 @@ const HomeScreen = ({ match }) => {
       </div>
       <div className='grids'>
         {' '}
-        <div data-aos='fade-up' className='BOXS'>
+        <div data-aos='zoom-out' className='BOXS'>
           <ImageTWO />
         </div>
         <div data-aos='flip-left' className='BOXS'>
           <ImageThree />
         </div>
-        <div data-aos='flip-left' className='BOXS'>
+        <div data-aos='flip-right' className='BOXS'>
           {!keyword ? (
             <ProductCarousel />
           ) : (
