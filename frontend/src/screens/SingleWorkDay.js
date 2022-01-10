@@ -1654,16 +1654,15 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
           <Col md={9}>
             <div>
-              <Table bordered hover responsive id='tablewhite'>
+              <Table bordered hover responsive id='tablewhiteSingle'>
                 <thead id='centertext'>
                   <tr>
-                    <th id='tableheadlines'>שולם ב</th>
+                    <th id='tableheadlines'>שולם</th>
                     <th id='tableheadlines'>מחיר</th>
                     <th id='tableheadlines'>טיפול</th>
-                    <th id='tableheadlines'>נייד</th>
                     <th id='tableheadlines'>לקוח/ה</th>
                     <th id='tableheadlines'>שעה</th>
-                    <th id='tableheadlines'>פעולות</th>
+                    <th id='tableheadlines'></th>
                   </tr>
                 </thead>
 
@@ -1750,13 +1749,19 @@ const SingleWorkDayScreen = ({ history, match }) => {
                         </td>
                         <td>{clock.tipul ? clock.tipul.cost : ''}</td>
                         <td>{clock.tipul ? clock.tipul.name : ''}</td>
-                        <td>{clock.mistaper && '0' + clock.mistaper.phone}</td>
 
-                        <td>{clock.mistaper && clock.mistaper.name}</td>
+                        <td>
+                          {clock.mistaper && clock.mistaper.name}
+                          <br />
+                          <div id='phonetable'>
+                            {' '}
+                            {clock.mistaper && '0' + clock.mistaper.phone}
+                          </div>
+                        </td>
                         <td>{clock.time}</td>
                         <td id='optionsBlack'>
                           <Button
-                            id='displaynone'
+                            id='sizemefortable'
                             variant='light'
                             className='btn-sm'
                             onClick={() => {
@@ -1781,12 +1786,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
                             <i className='fas fa-edit'></i>
                           </Button>
                           <Button
-                            id='displaynone'
+                            id='sizemefortable'
                             variant='danger'
                             className='btn-sm'
                             onClick={() => deleteHandler(clock._id)}
                           >
-                            <i className='fas fa-trash'></i>
+                            <i id='trashicon' className='fas fa-trash'></i>
                           </Button>
                         </td>
                       </tr>
@@ -1934,7 +1939,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
                       <br></br>**************
                     </h2>
                     <div id='reciptTable'>
-                      <Table bordered hover responsive id=''>
+                      <Table bordered hover responsive>
                         <thead id='centertext'>
                           <tr>
                             <th id='recipttable1'>דרך תשלום</th>

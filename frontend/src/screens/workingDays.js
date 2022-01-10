@@ -1272,7 +1272,9 @@ const WorkingDaysScreen = ({ history }) => {
                             <td>{workingday.numTorim}</td>
                             <td>{workingday.numAvilableTorim}</td>
                             <td>{workingday.dayInWeek}</td>
-                            <td>{workingday.date}</td>
+                            <td>
+                              {workingday.Dateday}/{workingday.Datemonth}
+                            </td>
                             <td>
                               <Button
                                 id='sizemefortable'
@@ -1280,7 +1282,7 @@ const WorkingDaysScreen = ({ history }) => {
                                 className='btn-sm'
                                 onClick={() => deleteHandler(workingday._id)}
                               >
-                                <i className='fas fa-trash'></i>
+                                <i id='trashicon' className='fas fa-trash'></i>
                               </Button>
                             </td>
                           </tr>
@@ -1350,7 +1352,9 @@ const WorkingDaysScreen = ({ history }) => {
                             <td>{workingday.numTorim}</td>
                             <td>{workingday.numAvilableTorim}</td>
                             <td>{workingday.dayInWeek}</td>
-                            <td>{workingday.date}</td>
+                            <td>
+                              {workingday.Dateday}/{workingday.Datemonth}
+                            </td>
                             <td>
                               <Button
                                 id='sizemefortable'
@@ -1428,7 +1432,9 @@ const WorkingDaysScreen = ({ history }) => {
                             <td>{workingday.numTorim}</td>
                             <td>{workingday.numAvilableTorim}</td>
                             <td>{workingday.dayInWeek}</td>
-                            <td>{workingday.date}</td>
+                            <td>
+                              {workingday.Dateday}/{workingday.Datemonth}
+                            </td>
                             <td>
                               <Button
                                 id='sizemefortable'

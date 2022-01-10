@@ -344,13 +344,9 @@ h2 {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  opacity: 80%;
   border: 30px solid rgba(255, 255, 255, 0.39);
-  transition: all 0.5s;
 }
-#productimageonproductPage:hover {
-  opacity: 100%;
-}
+
 #produDeetseonproductPage {
   margin-top: 70px;
   background-color: rgb(255, 255, 255);
@@ -951,6 +947,7 @@ textarea {
 #centertext {
   text-align: center;
   font-weight: 600;
+  align-items: center;
 }
 #tableheadlines {
   background-color: #28a2ff6b;
@@ -969,7 +966,6 @@ textarea {
 }
 
 #displaynone {
-  opacity: 50%;
   width: 10px;
   align-items: center;
   text-align: center;
@@ -978,12 +974,7 @@ textarea {
   margin-left: auto;
   margin-right: auto;
 }
-#displaynone:hover {
-  opacity: 100%;
-}
-#optionsBlack {
-  width: 20px;
-}
+
 #blackme {
   color: black;
   text-align: center;
@@ -1046,14 +1037,22 @@ textarea {
   text-decoration: none;
   color: #ffffff;
 }
+
 #tablewhite {
   border: 2px solid rgba(255, 255, 255, 0.39);
   background-color: rgba(52, 58, 64, 0.527);
   box-shadow: 10px 10px 55px 5px 200px rgba(255, 255, 255, 0.342);
   color: white;
-  width: 85%;
   margin-left: auto; /****profile pafe bug**/
   margin-right: auto; /**profile pafe bug****/
+  table-layout: fixed;
+  width: 100%;
+  max-width: 900px;
+}
+#tablewhiteSingle {
+  color: white;
+  table-layout: fixed;
+  width: 100%;
 }
 
 .maketorbtn {
@@ -1085,6 +1084,10 @@ textarea {
 }
 #whiteplease {
   color: rgb(0, 0, 0);
+}
+
+.centerTableText {
+  text-align: center;
 }
 .whitemeandrightaligen {
   text-align: center;
@@ -1731,6 +1734,7 @@ h6 {
 }
 
 #sizemefortable {
+  margin: auto auto;
   border-radius: 20px;
   width: 15px;
   align-items: center;
@@ -1738,9 +1742,58 @@ h6 {
   display: flex;
   justify-content: center;
 }
+#trashicon {
+  margin-bottom: 7px;
+}
 #idid {
   margin-right: 10px;
 }
+#phonetable {
+  position: static;
+  font-size: 12px;
+  margin-top: 5px;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.438);
+}
+
+@media (max-width: 1100px) {
+  #tablewhiteSingle {
+    font-size: smaller;
+  }
+  #phonetable {
+    font-size: 10px;
+    position: relative;
+    right: 18px;
+  }
+  #tableheadlines {
+    font-size: 10px;
+  }
+  #miniICON2 {
+    width: 40px;
+    height: 40px;
+  }
+  #idid {
+    display: none;
+  }
+  .BARBERMENUBTN {
+    margin-right: 5px;
+    margin-left: 5px;
+    height: 45px;
+    width: 150px;
+  }
+  .BARBERMENUBTNmonth {
+    margin-right: 5px;
+    margin-left: 5px;
+    height: 45px;
+    width: 150px;
+  }
+  .BARBERMENUBTNSICUM {
+    margin-right: 5px;
+    margin-left: 5px;
+    height: 45px;
+    width: 150px;
+  }
+}
+
 #tipulimCooseOptions {
   display: block;
   width: 250px;
