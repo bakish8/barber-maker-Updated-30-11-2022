@@ -20,7 +20,7 @@ const Adds_2 = () => {
                 <i className='question-iconblue'></i>
 
                 <h3 className='name'>רישיון אישי מתחדש</h3>
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>גישה חופשית לכלל האפשרויות במערכת</div>
             </details>
@@ -30,7 +30,7 @@ const Adds_2 = () => {
 
                 <h3 className='name'>עדכונים בחינם</h3>
 
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>
                 תזכורות אישיות למשתמשים ,מערכת אס.אם.אסים אוטומטית שתזכיר ללקוח
@@ -42,7 +42,7 @@ const Adds_2 = () => {
                 <i className='question-iconblue'></i>
                 <h3 className='name'>ניהול יומן עבודה</h3>
 
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>
                 {' '}
@@ -55,7 +55,7 @@ const Adds_2 = () => {
                 <i className='question-iconblue'></i>
                 <h3 className='name'>ניהול דוחו"ת</h3>
 
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>
                 סיכומים חודשיים,שבועיים ויומיים ,דוח"ות כספיים ועוד
@@ -66,7 +66,7 @@ const Adds_2 = () => {
                 <i className='question-iconblue'></i>
                 <h3 className='name'>אבטחה מקסימלית</h3>
 
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>
                 כאן בברבר מייקר אנחנו דואגים לאבטחה של הלקוחות שלך ושלך עם
@@ -78,7 +78,7 @@ const Adds_2 = () => {
                 <i className='question-iconblue'></i>
                 <h3 className='name'>אפשרויות סליקה</h3>
 
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>
                 אפשרויות סליקה,קבלת כסף באשראי בביט או במזומן וניהול קופה
@@ -88,7 +88,7 @@ const Adds_2 = () => {
               <summary>
                 <i className='question-iconblue'></i>
                 <h3 className='name'>ניהול עובדים</h3>
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>נהל את העובדים שלך</div>
             </details>

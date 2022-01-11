@@ -13,7 +13,7 @@ const Adds_3 = () => {
 
           <p className='description3'>!נסה את המערכת ללא עלות</p>
           <div className='features'>
-            <details className='feature'>
+            <details id='checkmark' className='feature'>
               <summary>
                 <i className='question-iconRed'></i>
 
@@ -26,7 +26,7 @@ const Adds_3 = () => {
               </summary>
               <div className='answer'>גישה חופשית לכלל האפשרויות במערכת</div>
             </details>
-            <details className='feature'>
+            <details id='checkmark' className='feature'>
               <summary>
                 <i className='question-iconRed'></i>
 
@@ -48,7 +48,7 @@ const Adds_3 = () => {
                 <i className='question-iconRed'></i>
                 <h3 className='nameRed'>ניהול יומן עבודה</h3>
 
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>
                 {' '}
@@ -61,7 +61,7 @@ const Adds_3 = () => {
                 <i className='question-iconRed'></i>
                 <h3 className='nameRed'>ניהול דוחו"ת</h3>
 
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>
                 סיכומים חודשיים,שבועיים ויומיים ,דוח"ות כספיים ועוד
@@ -69,17 +69,17 @@ const Adds_3 = () => {
             </details>
             <details className='feature'>
               <summary>
-                <i className='question-iconRed'></i>
+                <i id='checkmark' className='question-iconRed'></i>
                 <h3 className='nameRed'>אבטחה מקסימלית</h3>
 
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>
                 כאן בברבר מייקר אנחנו דואגים לאבטחה של הלקוחות שלך ושלך עם
                 שירותי הסליקה והאבטחה המתקדמים בעולם
               </div>
             </details>
-            <details className='feature'>
+            <details id='checkmark' className='feature'>
               <summary>
                 <i className='question-iconRed'></i>
                 <h3 className='nameRed'>אפשרויות סליקה</h3>
@@ -98,7 +98,7 @@ const Adds_3 = () => {
               <summary>
                 <i className='question-iconRed'></i>
                 <h3 className='nameRed'>ניהול עובדים</h3>
-                <i className='checkmark'></i>
+                <i className='checkmark' id='checkmark'></i>
               </summary>
               <div className='answer'>נהל את העובדים שלך</div>
             </details>

@@ -14,7 +14,7 @@ const ClientEffect = () => {
 
   const testimonials = [
     {
-      name: '!מייקל בטיטו',
+      name: 'מייקל בטיטו',
       position: 'בעל מספרה',
       photo:
         'https://images.unsplash.com/photo-1512353087810-25dfcd100962?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80',
@@ -28,8 +28,8 @@ const ClientEffect = () => {
       text: 'משלם 200 ש"ח בחודש שזה עלות של 4 לקוחות שמסתפרים אצלי ,אני מספר בחודש בין 300 ל-400 לקוחות ,השקעה של 1% מההכנסות של העסק למערכת שתנהל את הכל וגם תחסוך לכם את המזכירה,חבל על הזמן שווה את הכסף',
     },
     {
-      name: 'רפי "מאטסרו" כהן',
-      position: 'ספר ובעל מספרה',
+      name: 'רפי כהן',
+      position: 'ספר',
       photo:
         'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80',
       text: 'מערכת האס אם אסים מקלה על הספר ועל הלקוח ומונעת "הברזת תורים" מה שמאפשר לעסק להתקדם',
