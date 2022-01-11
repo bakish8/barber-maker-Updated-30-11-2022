@@ -4,7 +4,7 @@ import MakeTorBtn from './makeTorBtn'
 import { Parallax } from 'react-parallax'
 
 const ImageOne = () => (
-  <Parallax className='imageParalax' bgImage={mistaper2} strength={800}>
+  <Parallax className='imageParalax' bgImage={mistaper2} strength={400}>
     <div className='contentImage1'>
       <MakeTorBtn />
     </div>{' '}

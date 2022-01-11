@@ -109,6 +109,10 @@ main {
   padding: 7px;
   border-radius: 40%;
 }
+
+#Add1_div {
+  margin-top: 150px;
+}
 #goback:hover {
   background-color: black;
 }
@@ -1316,19 +1320,7 @@ h6 {
   width: 3.6rem;
   z-index: 10;
 }
-.icon-button .icon-facebook {
-  color: #3b5998;
-}
 
-.icon-button:hover .icon-facebook {
-  color: white;
-}
-#FacebookF {
-  color: #4267b2;
-}
-#FacebookF:hover {
-  color: #ffffff;
-}
 #centerSocialICONS {
   margin-top: 50px;
   text-align: center;

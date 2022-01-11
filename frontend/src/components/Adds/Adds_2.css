@@ -1,0 +1,193 @@
+:root {
+  --c-blue-900: #081030;
+  --c-blue-800: #111b40;
+  --c-blue-700: #152148;
+  --c-blue-500: #1d7bdb;
+  --c-blue-300: #293359;
+  --c-blue-200: #4e5985;
+  --c-blue-100: #dfe8ff;
+
+  --c-green-400: #4ade80;
+}
+
+/* Some basic CSS overrides */
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+.features {
+  margin: 15px 30px;
+}
+
+a {
+  color: inherit;
+}
+/* End basic CSS override */
+#innerrYear {
+  background: rgba(0, 0, 0, 0.788);
+}
+.price-tableYear {
+  margin: 0 auto;
+  max-width: 375px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 15px 45px 0 rgba(#000, 0.15);
+  position: relative;
+  background-size: 100% 100%, 0% 0%;
+  background: linear-gradient(to top, #8135c086, #4086ee);
+
+  border: 6px solid transparent;
+
+  border-image: linear-gradient(
+    45deg,
+    rgb(255, 255, 255, 0.5),
+    rgba(0, 255, 255, 0.5),
+    #8135c07e
+  );
+  border-image-slice: 1;
+  transition: 0.5s ease;
+}
+.price-tableYear:hover {
+  transform: scale(1.07);
+
+  border: 6px solid transparent;
+
+  border-image: linear-gradient(
+    45deg,
+    #8135c086,
+    rgba(0, 255, 255, 0.534),
+    rgba(255, 255, 255, 0.548)
+  );
+  border-image-slice: 1;
+  box-shadow: 2px 2px 12px rgba(94, 255, 0, 0.199);
+}
+
+.priceYear {
+  margin-top: 15px;
+  font-size: 3rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  color: rgb(0, 225, 255);
+}
+.pricedivYear {
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .price {
+    font-weight: 400;
+    font-size: 30px;
+  }
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  color: #fff;
+}
+
+.description {
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 18px;
+  color: white;
+  color: rgb(0, 183, 255);
+}
+
+.feature {
+  position: relative;
+  margin-top: 16px;
+}
+
+summary {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  color: white;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  margin-bottom: 15px;
+}
+
+.question-iconblue {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: rgba(0, 88, 170, 0.404);
+  margin-bottom: 15px;
+}
+.question-iconblue:active,
+.question-iconblue:hover {
+  color: rgba(0, 255, 255, 0.5);
+}
+
+.answer {
+  padding: 12px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 6px;
+  position: absolute;
+  top: -12px;
+  z-index: 100;
+  transform: translatey(-100%) translatex(-50%);
+  transform-origin: bottom center;
+  width: 50%;
+  left: -10%;
+  top: 40%;
+  border: 1px solid var(--c-blue-300);
+  box-shadow: 0 15px 30px 0 rgba(#000, 0.1);
+  color: white;
+}
+
+@keyframes scale {
+  0% {
+    transform: translatey(-100%) translatex(-50%) scale(0);
+  }
+  100% {
+    transform: translatey(-100%) translatex(-50%) scale(1);
+  }
+}
+
+.name {
+  color: white;
+  font-size: 15px;
+  padding-bottom: 8px; /*the space for the gradient*/
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.233),
+      rgba(0, 204, 255, 0.685)
+    )
+    center bottom; /*OR bottom right OR bottom left*/
+  background-size: 0% 2px; /*width:0% height:2px*/
+  background-repeat: no-repeat; /* Don't repeat !!*/
+  transition: all 0.45s;
+}
+
+.name:active,
+.name:hover {
+  -webkit-transform: scale(1.1) rotate(2deg);
+  transform: scale(1.1) rotate(2deg);
+  background: linear-gradient(rgba(0, 74, 134, 0.349), rgba(0, 116, 161, 0.521))
+    center bottom; /*OR bottom right OR bottom left*/
+  background-size: 0% 2px; /*width:0% height:2px*/
+  background-repeat: no-repeat; /* Don't repeat !!*/
+  transition: all 0.45s;
+  background-size: 100% 2px; /*width:100% height:2px*/
+  scale: 0.5;
+}

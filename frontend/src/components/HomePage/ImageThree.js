@@ -10,7 +10,7 @@ import { Route } from 'react-router-dom'
 import SearchBox from '../SearchBox'
 
 const ImageThree = () => (
-  <Parallax className='imageParalaxPRODUCTS' bgImage={poll} strength={800}>
+  <Parallax className='imageParalaxPRODUCTS' bgImage={poll} strength={500}>
     <div className='contentImagePRODUCTS'>
       <Route render={({ history }) => <SearchBox history={history} />} />
     </div>{' '}

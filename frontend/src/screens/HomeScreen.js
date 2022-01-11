@@ -14,6 +14,12 @@ import ImageTWO from '../components/HomePage/ImageTWO'
 import ImageThree from '../components/HomePage/ImageThree'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
+import LinkedinSpinnerIcon from '../components/icons/LinkedinSpinnerIcon.js'
+import InstagramSpinnerIcon from '../components/icons/InstagramSpinnerIcon.js'
+import FacebookIcon from '../components/icons/FacebookIcon.js'
+import Adds_1 from '../components/Adds/Adds_1.js'
+import Adds_2 from '../components/Adds/Adds_2.js'
+import Adds_3 from '../components/Adds/Adds_3.js'
 import { duration } from 'moment'
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -42,10 +48,10 @@ const HomeScreen = ({ match }) => {
         <div data-aos='zoom-out' className='BOXS'>
           <ImageTWO />
         </div>
-        <div data-aos='flip-left' className='BOXS'>
+        <div data-aos='fade-right' className='BOXS'>
           <ImageThree />
         </div>
-        <div data-aos='flip-right' className='BOXS'>
+        <div data-aos='fade-left' className='BOXS'>
           {!keyword ? (
             <ProductCarousel />
           ) : (
@@ -76,21 +82,31 @@ const HomeScreen = ({ match }) => {
                   </Col>
                 ))}
               </Row>
-
-              <div id='centerSocialICONS'>
-                <a
-                  href='https://www.facebook.com/omri.bakish.9'
-                  className='icon-button facebook'
-                >
-                  <i className='icon-facebook'>
-                    <i id='FacebookF' className='fab fa-facebook-f'></i>
-                  </i>
-                  <span></span>
-                </a>
-              </div>
             </>
-          )}{' '}
+          )}
         </div>
+        <Row>
+          <Col>
+            <div data-aos='fade-right' id='Add1_div'>
+              <Adds_3 />
+            </div>{' '}
+          </Col>
+          <Col>
+            <div data-aos='fade-down' id='Add1_div'>
+              <Adds_1 />
+            </div>{' '}
+          </Col>
+          <Col>
+            <div data-aos='fade-left' id='Add1_div'>
+              <Adds_2 />
+            </div>{' '}
+          </Col>
+        </Row>
+        <div data-aos='fade-up' id='centerSocialICONS'>
+          <LinkedinSpinnerIcon />
+          <FacebookIcon />
+          <InstagramSpinnerIcon />
+        </div>{' '}
       </div>
     </>
   )
