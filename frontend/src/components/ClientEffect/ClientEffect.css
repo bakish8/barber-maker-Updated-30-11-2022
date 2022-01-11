@@ -1,0 +1,114 @@
+.testimonial-container {
+  background-image: linear-gradient(#000a18a1, #002d47a8, #008cff63);
+
+  border-radius: 50px;
+  margin: 20px auto;
+  padding: 50px 80px;
+  max-width: 768;
+  position: relative;
+}
+
+#smileee {
+  font-size: 45px;
+  color: rgba(0, 217, 255, 0.123);
+}
+
+.fa-quote-right {
+  color: rgb(255, 255, 255);
+  font-size: 28px;
+  position: absolute;
+  left: 40px;
+  top: 40px;
+}
+.fa-quote-left {
+  color: rgb(255, 255, 255);
+  font-size: 28px;
+  position: absolute;
+  right: 40px;
+  top: 40px;
+}
+
+.progress-Bar {
+  background: white;
+  height: 2px;
+  width: 100%;
+  margin-top: 10px;
+  animation: grow 10s linear infinite;
+  transform-origin: right;
+}
+@keyframes grow {
+  0% {
+    transform: scaleX(0);
+  }
+}
+.user-Say {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-details-Say {
+  margin-right: 10px;
+}
+.user-Name-Say {
+  margin: 0;
+  font-size: 20px;
+  color: white;
+}
+.Role-User-Say {
+  margin-top: 65px;
+  display: block;
+  font-weight: normal;
+  position: relative;
+  left: 120px;
+  color: rgb(0, 217, 255);
+  font-size: 18px;
+}
+
+.user-Image-Say {
+  border-radius: 50%;
+  height: 95px;
+  width: 95px;
+  object-fit: cover;
+}
+
+.testmonial {
+  font-size: 15px;
+  line-height: 28px;
+  text-align: right;
+  font-weight: 400;
+  color: white;
+}
+
+.user-details-Say {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 786px) {
+  .testimonial-container {
+    padding: 20px 30px;
+  }
+  .fa-quote-right,
+  .fa-quote-left {
+    font-size: 10px;
+    top: 60px;
+  }
+  .fa-quote-left {
+    right: 15px;
+  }
+  .fa-quote-right {
+    left: 20px;
+  }
+  .testmonial {
+    font-size: 13px;
+    font-weight: 300;
+  }
+  #smileee {
+    display: none;
+  }
+  .Role-User-Say {
+    font-size: 13px;
+    margin-right: 10px;
+  }
+}

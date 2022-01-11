@@ -18,6 +18,10 @@ select,
 textarea {
   font: inherit;
 }
+
+summary {
+  display: inline;
+}
 .features {
   margin: 15px 30px;
 }
@@ -30,8 +34,8 @@ a {
   background: rgba(0, 0, 0, 0.788);
 }
 .price-tableRed {
+  cursor: pointer;
   margin: 0 auto;
-  max-width: 375px;
   padding: 8px;
   display: flex;
   flex-direction: column;
@@ -194,4 +198,10 @@ summary {
   transition: all 0.45s;
   background-size: 100% 2px; /*width:100% height:2px*/
   scale: 0.5;
+}
+
+@media (max-width: 786px) {
+  .price-tableRed {
+    width: 300px;
+  }
 }

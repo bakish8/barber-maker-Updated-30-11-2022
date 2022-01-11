@@ -1926,3 +1926,23 @@ h5 {
   background-color: rgba(255, 255, 255, 0.829);
   border: 50%;
 }
+
+#RowAdds:hover .price-tableRed {
+  opacity: 0.6;
+  filter: blur(1px);
+}
+#RowAdds:hover .price-tableYear {
+  opacity: 0.6;
+  filter: blur(1px);
+}
+#RowAdds:hover .price-table {
+  opacity: 0.6;
+  filter: blur(1px);
+}
+
+#RowAdds .price-tableRed:hover,
+#RowAdds .price-tableYear:hover,
+#RowAdds .price-table:hover {
+  opacity: 1;
+  filter: blur(0px);
+}

@@ -20,7 +20,10 @@ import FacebookIcon from '../components/icons/FacebookIcon.js'
 import Adds_1 from '../components/Adds/Adds_1.js'
 import Adds_2 from '../components/Adds/Adds_2.js'
 import Adds_3 from '../components/Adds/Adds_3.js'
+import ClientEffect from '../components/ClientEffect/ClientEffect'
 import { duration } from 'moment'
+import Tilt from 'react-parallax-tilt'
+
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1
@@ -48,6 +51,9 @@ const HomeScreen = ({ match }) => {
         <div data-aos='zoom-out' className='BOXS'>
           <ImageTWO />
         </div>
+        <div data-aos='flip-left'>
+          <ClientEffect />
+        </div>{' '}
         <div data-aos='fade-right' className='BOXS'>
           <ImageThree />
         </div>
@@ -85,21 +91,27 @@ const HomeScreen = ({ match }) => {
             </>
           )}
         </div>
-        <Row>
+        <Row id='RowAdds'>
           <Col>
-            <div data-aos='fade-right' id='Add1_div'>
-              <Adds_3 />
-            </div>{' '}
+            <Tilt className='TILT'>
+              <div data-aos='fade-right' id='Add1_div'>
+                <Adds_3 className='cardAdd' />
+              </div>{' '}
+            </Tilt>
           </Col>
           <Col>
-            <div data-aos='fade-down' id='Add1_div'>
-              <Adds_1 />
-            </div>{' '}
+            <Tilt className='TILT'>
+              <div data-aos='fade-down' id='Add1_div'>
+                <Adds_1 className='cardAdd' />
+              </div>{' '}
+            </Tilt>
           </Col>
           <Col>
-            <div data-aos='fade-left' id='Add1_div'>
-              <Adds_2 />
-            </div>{' '}
+            <Tilt className='TILT'>
+              <div data-aos='fade-left' id='Add1_div'>
+                <Adds_2 className='cardAdd' />
+              </div>{' '}
+            </Tilt>
           </Col>
         </Row>
         <div data-aos='fade-up' id='centerSocialICONS'>

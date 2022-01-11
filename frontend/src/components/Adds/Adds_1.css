@@ -22,6 +22,9 @@ textarea {
   margin: 15px 30px;
 }
 
+summary {
+  display: inline;
+}
 h3 {
   color: white;
   font-size: 15px;
@@ -56,8 +59,8 @@ a {
   background: rgba(0, 0, 0, 0.788);
 }
 .price-table {
+  cursor: pointer;
   margin: 0 auto;
-  max-width: 375px;
   padding: 8px;
   display: flex;
   flex-direction: column;
@@ -194,5 +197,11 @@ summary {
   }
   100% {
     transform: translatey(-100%) translatex(-50%) scale(1);
+  }
+}
+
+@media (max-width: 786px) {
+  .price-table {
+    width: 300px;
   }
 }
