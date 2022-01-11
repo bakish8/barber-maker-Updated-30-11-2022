@@ -14,7 +14,7 @@ const ClientEffect = () => {
 
   const testimonials = [
     {
-      name: 'מייקל בטיטו',
+      name: '!מייקל בטיטו',
       position: 'בעל מספרה',
       photo:
         'https://images.unsplash.com/photo-1512353087810-25dfcd100962?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80',
