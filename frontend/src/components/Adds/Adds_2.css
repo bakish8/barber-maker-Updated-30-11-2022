@@ -201,3 +201,6 @@ summary {
     width: 300px;
   }
 }
+details summary::-webkit-details-marker {
+  display: none;
+}

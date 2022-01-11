@@ -31,18 +31,18 @@ h3 {
   margin-right: 10px;
   margin-left: 10px;
   padding-bottom: 8px; /*the space for the gradient*/
-  background: linear-gradient(rgba(0, 153, 20, 0.404), rgba(0, 117, 16, 0.685))
+  background: linear-gradient(rgba(0, 255, 34, 0.404), rgba(0, 194, 26, 0.685))
     center bottom; /*OR bottom right OR bottom left*/
   background-size: 0% 2px; /*width:0% height:2px*/
   background-repeat: no-repeat; /* Don't repeat !!*/
   transition: all 0.45s;
 }
 
-h3:hover,
+h3:active,
 h3:hover {
   -webkit-transform: scale(1.1) rotate(2deg);
   transform: scale(1.1) rotate(2deg);
-  background: linear-gradient(rgba(0, 112, 9, 0.349), rgba(0, 83, 7, 0.267))
+  background: linear-gradient(rgba(0, 255, 21, 0.349), rgba(0, 255, 21, 0.267))
     center bottom; /*OR bottom right OR bottom left*/
   background-size: 0% 2px; /*width:0% height:2px*/
   background-repeat: no-repeat; /* Don't repeat !!*/
@@ -210,7 +210,10 @@ summary {
   #checkmark {
     display: none;
   }
-  h3:hover {
+  h3:active h3:hover {
     scale: 1.1;
   }
+}
+details summary::-webkit-details-marker {
+  display: none;
 }
