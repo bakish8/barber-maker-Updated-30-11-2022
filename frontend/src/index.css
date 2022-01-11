@@ -56,7 +56,26 @@ main {
 
 .imageParalaxPRODUCTS {
   position: relative;
-  height: 40vh;
+  height: 25vh;
+  width: 100%;
+  border-radius: 50px;
+  margin-bottom: 30px;
+  margin-top: 100px;
+}
+#barbermaker-system-headline {
+  font-size: 55px;
+  text-shadow: 1px 5px 5px #000;
+}
+@media (max-width: 786px) {
+  #barbermaker-system-headline {
+    font-size: 35px;
+    margin: 25px auto;
+  }
+}
+
+.imageParalxSystemHeadNEIMAGE {
+  position: relative;
+  height: 20vh;
   width: 100%;
   border-radius: 50px;
   margin-bottom: 30px;
@@ -1945,4 +1964,12 @@ h5 {
 #RowAdds .price-table:hover {
   opacity: 1;
   filter: blur(0px);
+}
+
+#ClientEffect {
+  margin-top: 30px;
+  margin-bottom: 80px;
+}
+#image4 {
+  margin-top: 80px;
 }

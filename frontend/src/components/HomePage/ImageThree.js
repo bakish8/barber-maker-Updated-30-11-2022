@@ -11,9 +11,6 @@ import SearchBox from '../SearchBox'
 
 const ImageThree = () => (
   <Parallax className='imageParalaxPRODUCTS' bgImage={poll} strength={500}>
-    <div className='contentImagePRODUCTS'>
-      <Route render={({ history }) => <SearchBox history={history} />} />
-    </div>{' '}
     <h1 id='ourproducts2' className='whiteme'>
       המוצרים שלנו
     </h1>
@@ -21,3 +18,7 @@ const ImageThree = () => (
 )
 
 export default ImageThree
+
+/**חיפוש מוצרים****   // <div className='contentImagePRODUCTS'>
+    //   <Route render={({ history }) => <SearchBox history={history} />} />
+    // </div>{' '} */

@@ -12,6 +12,7 @@ import { listProducts } from '../actions/productActions' //ייבוא של הא�
 import ImageOne from '../components/HomePage/ImageOne'
 import ImageTWO from '../components/HomePage/ImageTWO'
 import ImageThree from '../components/HomePage/ImageThree'
+import ImageFour from '../components/HomePage/ImageFour'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 import LinkedinSpinnerIcon from '../components/icons/LinkedinSpinnerIcon.js'
@@ -23,6 +24,11 @@ import Adds_3 from '../components/Adds/Adds_3.js'
 import ClientEffect from '../components/ClientEffect/ClientEffect'
 import { duration } from 'moment'
 import Tilt from 'react-parallax-tilt'
+
+//* RPODUCTS DISPLAY IF U WANT THEM   {products.map((product) => (
+//** */ <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+//* <Product product={product} />
+/** * </Col>))}*/
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -51,7 +57,10 @@ const HomeScreen = ({ match }) => {
         <div data-aos='zoom-out' className='BOXS'>
           <ImageTWO />
         </div>
-        <div data-aos='flip-left'>
+        <div data-aos='zoom-in' id='image4'>
+          <ImageFour />
+        </div>{' '}
+        <div data-aos='flip-left' id='ClientEffect'>
           <ClientEffect />
         </div>{' '}
         <div data-aos='fade-right' className='BOXS'>
@@ -65,6 +74,30 @@ const HomeScreen = ({ match }) => {
               חזור
             </Link>
           )}
+          <Row id='RowAdds'>
+            <Col>
+              <Tilt className='TILT'>
+                <div data-aos='fade-right' id='Add1_div'>
+                  <Adds_3 className='cardAdd' />
+                </div>{' '}
+              </Tilt>
+            </Col>
+            <Col>
+              <Tilt className='TILT'>
+                <div data-aos='fade-down' id='Add1_div'>
+                  <Adds_1 className='cardAdd' />
+                </div>{' '}
+              </Tilt>
+            </Col>
+            <Col>
+              <Tilt className='TILT'>
+                <div data-aos='fade-left' id='Add1_div'>
+                  <Adds_2 className='cardAdd' />
+                </div>{' '}
+              </Tilt>
+            </Col>
+          </Row>
+
           {loading ? (
             <Loader />
           ) : error ? (
@@ -81,39 +114,10 @@ const HomeScreen = ({ match }) => {
                     />
                   </div>
                 </Col>
-
-                {products.map((product) => (
-                  <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                    <Product product={product} />
-                  </Col>
-                ))}
               </Row>
             </>
           )}
         </div>
-        <Row id='RowAdds'>
-          <Col>
-            <Tilt className='TILT'>
-              <div data-aos='fade-right' id='Add1_div'>
-                <Adds_3 className='cardAdd' />
-              </div>{' '}
-            </Tilt>
-          </Col>
-          <Col>
-            <Tilt className='TILT'>
-              <div data-aos='fade-down' id='Add1_div'>
-                <Adds_1 className='cardAdd' />
-              </div>{' '}
-            </Tilt>
-          </Col>
-          <Col>
-            <Tilt className='TILT'>
-              <div data-aos='fade-left' id='Add1_div'>
-                <Adds_2 className='cardAdd' />
-              </div>{' '}
-            </Tilt>
-          </Col>
-        </Row>
         <div data-aos='fade-up' id='centerSocialICONS'>
           <LinkedinSpinnerIcon />
           <FacebookIcon />
