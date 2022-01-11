@@ -25,11 +25,6 @@ import ClientEffect from '../components/ClientEffect/ClientEffect'
 import { duration } from 'moment'
 import Tilt from 'react-parallax-tilt'
 
-//* RPODUCTS DISPLAY IF U WANT THEM   {products.map((product) => (
-//** */ <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-//* <Product product={product} />
-/** * </Col>))}*/
-
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1
@@ -57,7 +52,7 @@ const HomeScreen = ({ match }) => {
         <div data-aos='zoom-out' className='BOXS'>
           <ImageTWO />
         </div>
-        <div data-aos='zoom-in' id='image4'>
+        <div data-aos='flip-left' id='image4'>
           <ImageFour />
         </div>{' '}
         <div data-aos='flip-left' id='ClientEffect'>
