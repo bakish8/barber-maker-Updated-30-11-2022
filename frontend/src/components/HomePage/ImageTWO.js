@@ -4,7 +4,7 @@ import { Parallax } from 'react-parallax'
 import HowtoGetHERE from './HowtoGetHERE'
 
 const ImageTWO = () => (
-  <Parallax className='imageParalax' bgImage={mistaper1} strength={800}>
+  <Parallax className='imageParalax2' bgImage={mistaper1} strength={800}>
     <HowtoGetHERE />
   </Parallax>
 )

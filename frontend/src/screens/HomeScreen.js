@@ -41,7 +41,12 @@ const HomeScreen = ({ match }) => {
     <>
       <Meta />
       <Link to='/picksapar' className='call-to-us'>
-        <div className='call-to-us__label'>קבע תור </div>
+        <div className='call-to-us__label'>
+          <div className='callTousFIXED2'>
+            <span id='callTousFIXED'> קבע </span>
+            <span id='callTousFIXED'> תור </span>
+          </div>
+        </div>
       </Link>
 
       <div>
@@ -49,7 +54,7 @@ const HomeScreen = ({ match }) => {
       </div>
       <div className='grids'>
         {' '}
-        <div data-aos='zoom-out' className='BOXS'>
+        <div data-aos='fade-up' className='BOXS'>
           <ImageTWO />
         </div>
         <div data-aos='flip-left' id='image4'>

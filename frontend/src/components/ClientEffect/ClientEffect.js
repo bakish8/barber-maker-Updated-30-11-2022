@@ -84,8 +84,9 @@ const ClientEffect = () => {
           <i id='smileee' class='far fa-smile'></i>
 
           <div className='user-details-Say'>
-            <p className='Role-User-Say'>{statetextRoll}</p>{' '}
-            <h4 className='user-Name-Say'>{state}</h4>
+            <text className='user-Name-Say'>{statetextRoll}</text>
+
+            <h4 className='user-Name-Say2'>{state}</h4>
           </div>
           <img className='user-Image-Say' src={statepic} />
         </div>
