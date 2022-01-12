@@ -14,14 +14,14 @@ const ClientEffect = () => {
 
   const testimonials = [
     {
-      name: 'מייקל בטיטו',
+      name: 'מייקל אטיאס',
       position: 'בעל מספרה',
       photo:
         'https://images.unsplash.com/photo-1512353087810-25dfcd100962?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80',
       text: 'עבדתי קשה כל החיים,עכשיו יש לי זמן לשתות קפה,כולם באים בזמן ואני מתעסק בלספר אנשים היום אני גם מוכר מוצרים דרך האתר שלי ת',
     },
     {
-      name: 'דניאל עמרן',
+      name: 'דניאל גולדשטיין',
       position: 'מעצב שיער',
       photo:
         'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
@@ -33,6 +33,13 @@ const ClientEffect = () => {
       photo:
         'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80',
       text: 'מערכת האס אם אסים מקלה על הספר ועל הלקוח ומונעת "הברזת תורים" מה שמאפשר לעסק להתקדם',
+    },
+    {
+      name: 'אלכס סירקין',
+      position: 'איש עסקים',
+      photo:
+        'https://images.unsplash.com/photo-1474293507615-951863a0f942?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80',
+      text: 'בתור מנהל רשת סלוני יופי ארצית ,מצאתי שימוש רב במערכת שכל כך נוח לנהל דרכה את הכל כולל לעקוב אחרי ההכנסה בכל יום',
     },
   ]
 
