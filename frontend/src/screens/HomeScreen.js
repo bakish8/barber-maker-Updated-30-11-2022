@@ -21,6 +21,7 @@ import FacebookIcon from '../components/icons/FacebookIcon.js'
 import Adds_1 from '../components/Adds/Adds_1.js'
 import Adds_2 from '../components/Adds/Adds_2.js'
 import Adds_3 from '../components/Adds/Adds_3.js'
+import ExpendingCards from '../components/ExpendingCards/ExpendingCards.js'
 import ClientEffect from '../components/ClientEffect/ClientEffect'
 import { duration } from 'moment'
 import Tilt from 'react-parallax-tilt'
@@ -48,7 +49,6 @@ const HomeScreen = ({ match }) => {
           </div>
         </div>
       </Link>
-
       <div>
         <ImageOne />
       </div>
@@ -60,13 +60,16 @@ const HomeScreen = ({ match }) => {
         <div data-aos='flip-left' id='image4'>
           <ImageFour />
         </div>{' '}
-        <div data-aos='flip-left' id='ClientEffect'>
+        <div data-aos='zoom-in' id='ClientEffect'>
+          <ExpendingCards />
+        </div>{' '}
+        <div data-aos='flip-right' id='ClientEffect'>
           <ClientEffect />
         </div>{' '}
         <div data-aos='fade-right' className='BOXS'>
           <ImageThree />
         </div>
-        <div data-aos='fade-left' className='BOXS'>
+        <div data-aos='fade-right' className='BOXS'>
           {!keyword ? (
             <ProductCarousel />
           ) : (
