@@ -87,7 +87,7 @@ const HomeScreen = ({ match }) => {
             </Col>
             <Col>
               <Tilt className='TILT'>
-                <div data-aos='fade-down' id='Add1_div'>
+                <div data-aos='fade-up' id='Add1_div'>
                   <Adds_1 className='cardAdd' />
                 </div>{' '}
               </Tilt>

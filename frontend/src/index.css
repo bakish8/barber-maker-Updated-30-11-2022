@@ -66,8 +66,10 @@ main {
   height: 22vh;
   width: 100%;
   border-radius: 50px;
-  margin-bottom: 30px;
   margin-top: 100px;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 50px;
 }
 #barbermaker-system-headline {
   font-size: 55px;
@@ -82,7 +84,8 @@ main {
 .imageParalxSystemHeadNEIMAGE {
   position: relative;
   height: 22vh;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
   border-radius: 50px;
   margin-bottom: 30px;
   margin-top: 100px;
@@ -136,8 +139,10 @@ main {
   border-radius: 40%;
 }
 
+.scaleonlymAdd-Card {
+}
 #Add1_div {
-  margin-top: 150px;
+  margin-top: 60px;
 }
 #goback:hover {
   background-color: black;
@@ -145,6 +150,10 @@ main {
 #footer {
   background-color: black;
   color: white;
+}
+.caruserl-div {
+  width: 80%;
+  margin: 0 auto;
 }
 #carusel {
   border-radius: 50px;
