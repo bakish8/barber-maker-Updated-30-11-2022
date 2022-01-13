@@ -47,48 +47,64 @@ const OrderListScreen = ({ history }) => {
         >
           <thead id='centertext'>
             <tr>
-              <th id='tableheadlines'>מספר הזמנה</th>
-              <th id='tableheadlines'>משתמש</th>
-              <th id='tableheadlines'>תאריך</th>
-              <th id='tableheadlines'>סה"כ</th>
-              <th id='tableheadlines'>סטאטוס תשלום</th>
+              <th className='OrderDeetsTD' id='tableheadlines'>
+                פרטים
+              </th>
               <th id='tableheadlines'>סטאטוס משלוח</th>
-              <th id='tableheadlines'></th>
+
+              <th id='tableheadlines'>סטאטוס תשלום</th>
+
+              <th id='tableheadlines'>סה"כ</th>
+
+              <th id='tableheadlines'>תאריך</th>
+
+              <th id='tableheadlines'>משתמש</th>
+
+              <th id='tableheadlines'>מספר הזמנה</th>
             </tr>
           </thead>
           <tbody id='centertext'>
             {orders.map((order) => (
-              <tr key={order._id} id='hoverandblue'>
-                <td style={{ wordBreak: 'break-word' }}>{order._id}</td>
-                <td>{order.user && order.user.name}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
-                <td>{order.totalPrice}₪</td>
-                <td>
-                  {order.isPaid ? (
-                    order.paidAt.substring(0, 10)
-                  ) : (
-                    <i className='fas fa-times' style={{ color: 'red' }}></i>
-                  )}
-                </td>
-                <td>
-                  {order.isDelivered ? (
-                    order.deliveredAt.substring(0, 10)
-                  ) : (
-                    <i className='fas fa-times' style={{ color: 'red' }}></i>
-                  )}
-                </td>
-                <td>
-                  <LinkContainer to={`/order/${order._id}`}>
-                    <Button
-                      id='OrderDeetsBtn'
-                      variant='light'
-                      className='btn-sm'
-                    >
-                      פרטים
-                    </Button>
-                  </LinkContainer>
-                </td>
-              </tr>
+              <LinkContainer to={`/order/${order._id}`}>
+                <tr key={order._id} id='hoverandblue' className='TR_CLASS'>
+                  <td
+                    style={{ wordBreak: 'break-word' }}
+                    className='OrderDeetsTD'
+                  >
+                    <LinkContainer to={`/order/${order._id}`}>
+                      <Button
+                        id='OrderDeetsBtn'
+                        variant='light'
+                        className='btn-sm'
+                      >
+                        פרטים
+                      </Button>
+                    </LinkContainer>
+                  </td>
+
+                  <td>
+                    {order.isDelivered ? (
+                      order.deliveredAt.substring(0, 10)
+                    ) : (
+                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                    )}
+                  </td>
+                  <td>
+                    {order.isPaid ? (
+                      order.paidAt.substring(0, 10)
+                    ) : (
+                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                    )}
+                  </td>
+                  <td id='PhoneTD'>{order.totalPrice}₪</td>
+
+                  <td>{order.createdAt.substring(0, 10)}</td>
+
+                  <td>{order.user && order.user.name}</td>
+
+                  <td style={{ wordBreak: 'break-word' }}>{order._id}</td>
+                </tr>
+              </LinkContainer>
             ))}
           </tbody>
         </Table>

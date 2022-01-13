@@ -1663,11 +1663,19 @@ const SingleWorkDayScreen = ({ history, match }) => {
               >
                 <thead id='centertext'>
                   <tr>
-                    <th id='tableheadlines'>שולם</th>
-                    <th id='tableheadlines'>מחיר</th>
+                    <th id='tableheadlines' className='PRICE_TH'>
+                      שולם
+                    </th>
+                    <th id='tableheadlines' className='PRICE_TH'>
+                      מחיר
+                    </th>
                     <th id='tableheadlines'>טיפול</th>
-                    <th id='tableheadlines'>לקוח/ה</th>
-                    <th id='tableheadlines'>שעה</th>
+                    <th id='tableheadlines' className='CLIENT_TH'>
+                      לקוח/ה
+                    </th>
+                    <th id='tableheadlines' className='hour_TH'>
+                      שעה
+                    </th>
                   </tr>
                 </thead>
 

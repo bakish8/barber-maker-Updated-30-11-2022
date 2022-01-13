@@ -45,7 +45,9 @@ const UserListScreen = ({ history }) => {
       }
     })
   }
-
+  const CreateClientHandler = () => {
+    console.log('מכניס לקוח חדש למערכת')
+  }
   return (
     <>
       <Col md={12}>
@@ -53,8 +55,12 @@ const UserListScreen = ({ history }) => {
           <i class='fas fa-angle-double-right'></i>
         </Link>
       </Col>
-
-      <h1 id='headlineme'>לקוחות</h1>
+      <h1 id='headlineme'>לקוחות</h1>{' '}
+      <Col className='text-right'>
+        <Button id='centermebtnwidh100' onClick={CreateClientHandler}>
+          <i className='fas fa-plus'></i> הכנס לקוח חדש
+        </Button>
+      </Col>
       {loading ? (
         <Loader />
       ) : error ? (

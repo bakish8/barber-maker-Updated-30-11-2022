@@ -51,20 +51,13 @@ const UserEditScreen = ({ match, history }) => {
     e.preventDefault()
     dispatch(updateUser({ _id: userId, name, email, isAdmin, image, phone }))
   }
-  const CreateClientHandler = () => {
-    console.log('מכניס לקוח חדש למערכת')
-  }
+
   return (
     <>
       <Col md={12}>
         <Link id='goback' to='/admin/userlist'>
           <i class='fas fa-angle-double-right'></i>
         </Link>
-        <Col className='text-right'>
-          <Button id='centermebtnwidh100' onClick={CreateClientHandler}>
-            <i className='fas fa-plus'></i> הכנס לקוח חדש
-          </Button>
-        </Col>
       </Col>
       <FormContainer>
         <h1 id='headlineme'>ערוך משתמשים</h1>

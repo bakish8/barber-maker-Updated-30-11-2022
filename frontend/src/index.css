@@ -647,6 +647,7 @@ body input {
   background-color: #343a40;
   width: 82%;
   margin-bottom: 10px;
+  border-radius: 50px;
 }
 
 #centermebtn:hover,
@@ -829,6 +830,12 @@ textarea {
   border-bottom: 2px solid rgba(255, 255, 255, 0.253);
 }
 @media (max-width: 786px) {
+  .TR_CLASS {
+    font-size: 10px;
+  }
+  .OrderDeetsTD {
+    display: none;
+  }
   #navbar-brand {
     margin-right: 100px;
   }
@@ -1844,20 +1851,42 @@ h6 {
   margin-right: 10px;
 }
 #phonetable {
-  position: static;
-  font-size: 12px;
-  margin-top: 5px;
-  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.438);
+  margin: 0 auto;
+  font-size: 14px;
+  margin-top: 4px;
+  background-color: rgba(0, 75, 21, 0.309);
+  border-radius: 15px;
+  width: 110px;
+}
+#phonetable:hover {
+  background-color: rgba(0, 255, 8, 0.507);
+}
+.PRICE_TH {
+  width: 100px;
+}
+.hour_TH {
+  width: 100px;
+}
+.CLIENT_TH {
+  width: 220px;
 }
 
 @media (max-width: 1100px) {
+  .CLIENT_TH {
+    width: 120px;
+  }
+  .PRICE_TH {
+    width: 80px;
+  }
+  .hour_TH {
+    width: 90px;
+  }
   #tablewhiteSingle {
     font-size: smaller;
   }
   #phonetable {
-    font-size: 10px;
-    position: relative;
-    right: 18px;
+    font-size: 9px;
+    width: 90px;
   }
   #tableheadlines {
     font-size: 10px;
