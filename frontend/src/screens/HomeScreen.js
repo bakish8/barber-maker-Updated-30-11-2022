@@ -25,7 +25,6 @@ import ExpendingCards from '../components/ExpendingCards/ExpendingCards.js'
 import ClientEffect from '../components/ClientEffect/ClientEffect'
 import { duration } from 'moment'
 import Tilt from 'react-parallax-tilt'
-
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1

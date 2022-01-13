@@ -1,0 +1,106 @@
+.cool-nav-logo {
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+.cool-nav-bar-div {
+  align-items: center;
+  position: absolute;
+  z-index: 100;
+  justify-content: center;
+  height: 100vh;
+}
+
+#iiie {
+  position: relative;
+  margin-bottom: 15px;
+}
+.cool-open-btn {
+  position: fixed;
+  z-index: 101;
+
+  top: 58px;
+  right: 25px;
+  color: white;
+  font-size: 22px;
+  background-color: transparent;
+  border: none;
+  background-color: rgb(0, 0, 0);
+  justify-content: center;
+  text-align: center;
+  padding: 10px 10px;
+  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+}
+
+.cool-close-btn {
+  position: fixed;
+  z-index: 101;
+
+  top: 58px;
+  right: 25px;
+  color: white;
+  font-size: 25px;
+  background-color: transparent;
+  border: none;
+  background-color: rgb(0, 0, 0);
+  justify-content: center;
+  text-align: center;
+  padding: 10px 10px;
+  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.cool-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  transform: translateX(200%);
+}
+
+.cool-nav .visible {
+  transform: translateX(0);
+}
+
+.cool-nav-blue {
+  background-color: rgb(0, 195, 255);
+  width: 60%;
+  max-width: 480px;
+  min-width: 290px;
+  border-left: 8px solid rgb(255, 255, 255);
+  transition: 0.2s ease-in-out;
+}
+
+.cool-nav-black {
+  justify-content: center;
+  text-align: center;
+  background-color: rgb(0, 0, 0);
+  width: 50%;
+  max-width: 450px;
+  min-width: 270px;
+  transition: 0.4s ease-in-out;
+}
+
+p {
+  cursor: pointer;
+  font-size: 20px;
+  color: rgb(172, 172, 172);
+}
+p:hover {
+  color: white;
+  font-weight: 400;
+}
+#manager {
+  color: white;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  p {
+    font-size: 17px;
+  }
+}

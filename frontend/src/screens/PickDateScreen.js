@@ -104,13 +104,13 @@ const PickDateScreen = ({ location, history, match }) => {
       {foundWorkdayloading ? (
         <Loader />
       ) : (
-        <Row>
+        <Row id=''>
           <Col md={12}>
             <Link id='goback' to='/picksapar'>
               <i class='fas fa-angle-double-right'></i>
             </Link>
           </Col>
-          <Col md={12}>
+          <Col id='z-index-back' md={12}>
             <h2 id='headlineme'>
               {' '}
               <img
@@ -119,35 +119,37 @@ const PickDateScreen = ({ location, history, match }) => {
               />
               בחר תאריך
             </h2>
-            <div id='centerme1'>
-              <Calendar
-                value={state.date}
-                onChange={convert}
-                className='bg-dark'
-                format='DD/MM/YYYY'
-                weekDays={weekDays}
-                months={months}
-                minDate={startDate}
-                maxDate={addDays(new Date(), 30)}
-                locale={gregorian_ar}
-                digits={digits}
-                mapDays={({ date, today }) => {
-                  let isWeekend = [6].includes(date.weekDay.index)
-                  let props = {}
-                  let result = date.toDays() - today.toDays()
+            <div id=''>
+              <div id='centerme1'>
+                <Calendar
+                  value={state.date}
+                  onChange={convert}
+                  className='bg-dark'
+                  format='DD/MM/YYYY'
+                  weekDays={weekDays}
+                  months={months}
+                  minDate={startDate}
+                  maxDate={addDays(new Date(), 30)}
+                  locale={gregorian_ar}
+                  digits={digits}
+                  mapDays={({ date, today }) => {
+                    let isWeekend = [6].includes(date.weekDay.index)
+                    let props = {}
+                    let result = date.toDays() - today.toDays()
 
-                  if (isWeekend)
-                    return {
-                      disabled: true,
-                      style: { color: '#6c757d' },
-                    }
-                  if (result === -1) props.title = 'אתמול'
-                  if (result === 0) props.title = 'היום'
-                  if (result === 1) props.title = 'מחר'
+                    if (isWeekend)
+                      return {
+                        disabled: true,
+                        style: { color: '#6c757d' },
+                      }
+                    if (result === -1) props.title = 'אתמול'
+                    if (result === 0) props.title = 'היום'
+                    if (result === 1) props.title = 'מחר'
 
-                  return props
-                }}
-              />
+                    return props
+                  }}
+                />
+              </div>
             </div>
           </Col>
         </Row>
