@@ -1247,6 +1247,7 @@ textarea {
 .green {
   background-color: #0f9e33;
   color: white;
+  cursor: pointer;
 }
 
 /***conditional class Names for avilable tors,sapar side**/
@@ -1261,6 +1262,7 @@ textarea {
   animation-name: colored;
   animation-duration: 2s;
   animation-iteration-count: infinite;
+  cursor: pointer;
 }
 #Tableblue {
   background-color: rgb(72, 74, 204);
@@ -1824,6 +1826,7 @@ h6 {
   text-align: center;
   display: flex;
   justify-content: center;
+  font-size: 7px;
 }
 #trashicon {
   margin-bottom: 7px;

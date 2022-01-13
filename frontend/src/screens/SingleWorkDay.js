@@ -1662,7 +1662,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
                     <th id='tableheadlines'>טיפול</th>
                     <th id='tableheadlines'>לקוח/ה</th>
                     <th id='tableheadlines'>שעה</th>
-                    <th id='tableheadlines'></th>
                   </tr>
                 </thead>
 
@@ -1683,6 +1682,24 @@ const SingleWorkDayScreen = ({ history, match }) => {
                         key={clock._id}
                         className={clock.avilable ? 'red' : 'green'}
                         id={FunctionBlingThisTime(clock.time)}
+                        onClick={() => {
+                          setChoosenClock(clock._id)
+
+                          preshowTorHandler(
+                            clock.time,
+                            clock.date,
+                            clock.avilable,
+                            clock.mistaper,
+                            clock._id,
+                            WorkDayid,
+                            tipulimList,
+                            clock.isPaid,
+                            clock.TotalAmmountPaid,
+                            clock.paymentMethod,
+                            clock.creditLastDigits,
+                            clock.ReciptNumber
+                          )
+                        }}
                       >
                         <td style={{ wordBreak: 'break-word' }}>
                           {clock.isPaid && clock.paymentMethod === 'cash' ? (
@@ -1758,41 +1775,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
                           </div>
                         </td>
                         <td>{clock.time}</td>
-                        <td id='optionsBlack'>
-                          <Button
-                            id='sizemefortable'
-                            variant='light'
-                            className='btn-sm'
-                            onClick={() => {
-                              setChoosenClock(clock._id)
-
-                              preshowTorHandler(
-                                clock.time,
-                                clock.date,
-                                clock.avilable,
-                                clock.mistaper,
-                                clock._id,
-                                WorkDayid,
-                                tipulimList,
-                                clock.isPaid,
-                                clock.TotalAmmountPaid,
-                                clock.paymentMethod,
-                                clock.creditLastDigits,
-                                clock.ReciptNumber
-                              )
-                            }}
-                          >
-                            <i className='fas fa-edit'></i>
-                          </Button>
-                          <Button
-                            id='sizemefortable'
-                            variant='danger'
-                            className='btn-sm'
-                            onClick={() => deleteHandler(clock._id)}
-                          >
-                            <i id='trashicon' className='fas fa-trash'></i>
-                          </Button>
-                        </td>
                       </tr>
                     ))}
                 </tbody>
