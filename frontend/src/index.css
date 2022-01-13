@@ -794,6 +794,14 @@ textarea {
   padding: 4px;
   border-radius: 50%;
 }
+#boldme1 {
+  font-weight: bolder;
+  color: #009231;
+  font-size: larger;
+  padding: 2px;
+  margin: 0 3px;
+  border-radius: 50%;
+}
 
 #boldmered {
   font-weight: bolder;
@@ -874,7 +882,7 @@ textarea {
   background-color: #0096c7;
   padding: 10px;
   text-align: center;
-  width: 350px;
+  width: 250px;
   margin-left: auto;
   margin-right: auto;
   border-radius: 50px;
@@ -2113,4 +2121,12 @@ h5 {
 
 #z-index-back {
   z-index: 0;
+}
+
+#smallSicumScreen {
+  margin-top: 15px;
+  font-size: 11px;
+  color: white;
+  text-align: center;
+  display: inline-table;
 }

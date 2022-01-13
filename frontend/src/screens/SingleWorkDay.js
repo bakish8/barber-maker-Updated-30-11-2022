@@ -1210,7 +1210,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
               changeWordImage={(wordImage) => setWordImage(wordImage)}
             />
           )}
-
           {SHOWchooseTipul && (
             <Modal
               id='ModalStyle'
@@ -1376,7 +1375,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
               </Box>
             </Modal>
           )}
-
           <form id='disableView' method='post' ref={form} onSubmit={sendEmail}>
             <input type='email' name='user_email' value={emailToSendTo} />
 
@@ -1424,6 +1422,22 @@ const SingleWorkDayScreen = ({ history, match }) => {
           <Col md={12}>
             <h2 id='headlineme'>יום {workingDay.dayInWeek}</h2>
             <h2 id='dayinWeek'> {workingDay.date}</h2>
+          </Col>
+
+          <Col md={12}>
+            <div id='smallSicumScreen'>
+              {' '}
+              <text>
+                תורים סה"כ
+                <span id='boldme1'>{clockList.length}</span>
+                תורים פנויים
+                <span id='boldme1'>
+                  {clockList.filter((clock) => clock.avilable === true).length}
+                </span>{' '}
+                הכנסה צפויה <span id='boldme1'> {PredictedIncome()}₪</span>{' '}
+                הכנסה בפועל <span id='boldme1'>{workingDay.moneyCount}₪</span>{' '}
+              </text>
+            </div>
           </Col>
 
           <Col md={3} id='singlewirkingdayoptionsbgwhite'>
@@ -1649,7 +1663,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
               </div>
             </div>
           </Col>
-
           <Col md={9}>
             <div>
               <Table
