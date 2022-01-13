@@ -189,6 +189,7 @@ const CoolNavBar = () => {
                     >
                       <p>הגדרות</p>
                     </LinkContainer>
+                    <p onClick={logoutHandler}>התנתק</p>
                   </Col>
                 </Row>
               </div>

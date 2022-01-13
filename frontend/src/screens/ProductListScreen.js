@@ -125,7 +125,7 @@ const ProductListScreen = ({ history, match }) => {
             <tbody>
               {products.map((product) => (
                 <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                  <tr key={product._id} id='hoverandblue'>
+                  <tr key={product._id} id='hoverandblue' className='TR_CLASS'>
                     <td>{product.name}</td>
                     <td>${product.price}</td>
                     <td>{product.category}</td>

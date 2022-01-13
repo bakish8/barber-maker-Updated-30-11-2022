@@ -1621,13 +1621,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
                   </h4>
                   <h5 id='block' className='whitemeandrightaligen'>
                     {' '}
-                    סה"כ <span id='boldme'>{clockList.length}</span>
-                    תורים
+                    <span id='boldme'>{clockList.length}</span>
+                    תורים סה"כ
                   </h5>
 
                   <h5 id='block' className='whitemeandrightaligen'>
                     {' '}
-                    מתוכם{' '}
                     <span id='boldmered'>
                       {
                         clockList.filter((clock) => clock.avilable === true)
@@ -1640,8 +1639,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
                     <span id='torimAndHahnasot'>סיכום הכנסות</span>
                   </h4>
                   <h5 id='block' className='whitemeandrightaligen'>
-                    הכנסה יומית צפויה{' '}
-                    <span id='boldme'> {PredictedIncome()}₪</span>{' '}
+                    הכנסה צפויה <span id='boldme'> {PredictedIncome()}₪</span>{' '}
                   </h5>
                   <h5 id='block' className='whitemeandrightaligen'>
                     הכנסה בפועל{' '}
