@@ -61,6 +61,11 @@ const UserListScreen = ({ history }) => {
           <i className='fas fa-plus'></i> הכנס לקוח חדש
         </Button>
       </Col>
+      <Col className='text-right'>
+        <Button id='centermebtnwidh100' onClick={CreateClientHandler}>
+          <i class='fas fa-search'></i> חפש לקוח קיים
+        </Button>
+      </Col>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -83,7 +88,7 @@ const UserListScreen = ({ history }) => {
           <tbody id='centertext'>
             {users.map((user) => (
               <LinkContainer to={`/admin/user/${user._id}/edit`}>
-                <tr key={user._id} id='hoverandblue'>
+                <tr key={user._id} id='hoverandblue' className='TR_CLASS'>
                   <td id='PhoneTD'>0{user.phone}</td>
 
                   <td>{user.name}</td>

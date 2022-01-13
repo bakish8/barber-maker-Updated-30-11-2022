@@ -32,6 +32,17 @@ const OrderListScreen = ({ history }) => {
         </Link>
       </Col>
       <h1 id='headlineme'>הזמנות</h1>
+      <Col className='text-right'>
+        <Button id='centermebtnwidh100'>
+          <i className='fas fa-plus'></i> צור הזמנה חדשה
+        </Button>
+      </Col>
+      <Col className='text-right'>
+        <Button id='centermebtnwidh100'>
+          <i class='fas fa-search'></i>
+          חפש הזמנה קיימת
+        </Button>
+      </Col>
       {loading ? (
         <Loader />
       ) : error ? (

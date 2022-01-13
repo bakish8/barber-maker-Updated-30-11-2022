@@ -102,6 +102,11 @@ const ProductListScreen = ({ history, match }) => {
           <i className='fas fa-plus'></i> הכנס מוצר חדש
         </Button>
       </Col>
+      <Col className='text-right'>
+        <Button id='centermebtnwidh100' onClick={createProductHandler}>
+          <i class='fas fa-search'></i> חפש מוצר קיים
+        </Button>
+      </Col>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
       {loadingCreate && <Loader />}
@@ -126,10 +131,11 @@ const ProductListScreen = ({ history, match }) => {
               {products.map((product) => (
                 <LinkContainer to={`/admin/product/${product._id}/edit`}>
                   <tr key={product._id} id='hoverandblue' className='TR_CLASS'>
-                    <td>{product.name}</td>
-                    <td>${product.price}</td>
-                    <td>{product.category}</td>
                     <td>{product.brand}</td>
+                    <td>{product.price}₪</td>
+                    <td>{product.category}</td>
+                    <td>{product.name}</td>
+
                     <td>
                       <Button
                         id='sizemefortable'
