@@ -9,7 +9,7 @@ import './CoolNavBar.css'
 import logo from '../../D.gif'
 import { Link } from 'react-router-dom'
 const CoolNavBar = () => {
-  const [isSmall, setisSmall] = useState(true)
+  const [isSmall, setisSmall] = useState(false)
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin

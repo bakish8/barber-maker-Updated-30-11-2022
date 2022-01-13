@@ -1684,7 +1684,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
                         className={clock.avilable ? 'red' : 'green'}
                         id={FunctionBlingThisTime(clock.time)}
                       >
-                        <td>
+                        <td style={{ wordBreak: 'break-word' }}>
                           {clock.isPaid && clock.paymentMethod === 'cash' ? (
                             <img
                               id='miniICON2'
@@ -1739,10 +1739,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   )
                                 }}
                               >
-                                <i
-                                  className='fas fa-times'
-                                  style={{ color: 'red' }}
-                                ></i>
+                                <p style={{ fontSize: '25px', color: 'red' }}>
+                                  x
+                                </p>
                               </button>
                             )
                           )}

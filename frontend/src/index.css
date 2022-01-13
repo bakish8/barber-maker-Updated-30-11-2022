@@ -1105,10 +1105,45 @@ textarea {
   width: 100%;
   max-width: 900px;
 }
+#tablewhiteUserLIST_table {
+  border: 2px solid rgba(255, 255, 255, 0.39);
+  background-color: rgba(52, 58, 64, 0.527);
+  box-shadow: 10px 10px 55px 5px 200px rgba(255, 255, 255, 0.342);
+  color: white;
+  margin-left: auto; /****profile pafe bug**/
+  margin-right: auto; /**profile pafe bug****/
+  table-layout: fixed;
+  width: 100%;
+  max-width: 900px;
+  word-break: break-word;
+}
+
+#showmeonlyOnSmallScreen {
+  color: white;
+  text-align: center;
+  display: none;
+  background-color: #0096c7;
+  border-radius: 50px;
+  padding: 20px 30px;
+}
 #tablewhiteSingle {
   color: white;
   table-layout: fixed;
-  width: 100%;
+  font-size: 15px;
+}
+
+@media (max-width: 786px) {
+  #tablewhiteSingle {
+    margin-top: 25px;
+  }
+  #showmeonlyOnSmallScreen {
+    margin-top: 25px;
+
+    display: block;
+  }
+  #singlewirkingdayoptionsbgwhite {
+    display: none;
+  }
 }
 
 .maketorbtn {
