@@ -194,10 +194,14 @@ h1 {
 #usernameactionsNAV {
   font-size: 22px;
   text-align: center;
+  width: 200px;
+  border-radius: 10px;
 }
 #usernameactionsNAV:hover {
-  background-color: black;
+  background-color: rgb(0, 174, 255);
   color: white;
+  transform: scale(1.1);
+  border-radius: 10px;
 }
 #navlogo {
   width: 130px;
@@ -270,25 +274,36 @@ h1 {
 
   text-align: center;
   border-radius: 80px;
-  border: 2px solid rgb(255, 255, 255);
+  border: 2px solid rgba(255, 255, 255, 0.624);
   width: 160px;
   color: rgba(255, 255, 255, 0.63);
-  background-color: rgba(255, 255, 255, 0.267);
   font-family: 'Rubik', sans-serif;
   transition: 0.1s;
   font-size: 20px;
 }
 
-#navlinksCART:hover,
+#navlinksCART:hover {
+  color: rgb(255, 255, 255);
+  border: 2px solid rgb(255, 255, 255);
+  box-shadow: 4px 4px 5px rgba(255, 255, 255, 0.801);
+  transform: scale(1.1);
+}
+#navlinks:active,
+#navlinks:focus,
 #navlinks:hover {
   color: rgb(255, 255, 255);
   border: 2px solid rgb(255, 255, 255);
   box-shadow: 4px 4px 5px rgba(255, 255, 255, 0.801);
+  transform: scale(1.3);
 }
+#navlinksManager:focus,
+#navlinksManager:active,
 #navlinksManager:hover {
   color: rgb(0, 204, 255);
   border: 2px solid rgb(0, 204, 255);
   box-shadow: 4px 4px 5px rgb(0, 204, 255);
+  background-color: rgb(0, 0, 0);
+  transform: scale(1.3);
 }
 
 #ourproducts {
@@ -1870,8 +1885,14 @@ h6 {
 .CLIENT_TH {
   width: 220px;
 }
+.TIPUL_TH {
+  width: 180px;
+}
 
 @media (max-width: 1100px) {
+  .TIPUL_TH {
+    width: 100px;
+  }
   .CLIENT_TH {
     width: 120px;
   }

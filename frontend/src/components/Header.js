@@ -53,9 +53,9 @@ const Header = () => {
                   <NavDropdown
                     id='navbarContainerItem'
                     title={
-                      <h3 id='navlinksManager'>
+                      <h4 id='navlinksManager'>
                         מנהל <i className='fas fa-user-shield'></i>
-                      </h3>
+                      </h4>
                     }
                   >
                     <LinkContainer id='usernameactionsNAV' to='/admin'>
@@ -93,9 +93,9 @@ const Header = () => {
                   <NavDropdown
                     id='navbarContainerItem'
                     title={
-                      <h3 id='navlinks'>
+                      <h4 id='navlinks'>
                         {userInfo.name} <i className='far fa-user'></i>
-                      </h3>
+                      </h4>
                     }
                   >
                     <LinkContainer id='usernameactionsNAV' to='/profile'>
