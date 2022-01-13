@@ -1902,17 +1902,21 @@ h6 {
 
 @media (max-width: 1100px) {
   .TIPUL_TH {
-    width: 100px;
+    width: 20%;
   }
   .CLIENT_TH {
-    width: 120px;
+    width: 30%;
   }
   .PRICE_TH {
-    width: 80px;
+    width: 10%;
+  }
+  .Payd_TH {
+    width: 15%;
   }
   .hour_TH {
-    width: 90px;
+    width: 15%;
   }
+
   #tablewhiteSingle {
     font-size: smaller;
   }
@@ -2124,9 +2128,8 @@ h5 {
 }
 
 #smallSicumScreen {
-  margin-top: 15px;
-  font-size: 11px;
+  margin: 15px;
+  font-size: 10px;
   color: white;
   text-align: center;
-  display: inline-table;
 }

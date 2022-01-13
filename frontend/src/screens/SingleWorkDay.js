@@ -1665,16 +1665,10 @@ const SingleWorkDayScreen = ({ history, match }) => {
           </Col>
           <Col md={9}>
             <div>
-              <Table
-                style={{ wordBreak: 'break-word' }}
-                bordered
-                hover
-                responsive
-                id='tablewhiteSingle'
-              >
+              <Table bordered hover responsive id='tablewhiteSingle'>
                 <thead id='centertext'>
                   <tr>
-                    <th id='tableheadlines' className='PRICE_TH'>
+                    <th id='tableheadlines' className='Payd_TH'>
                       שולם
                     </th>
                     <th id='tableheadlines' className='PRICE_TH'>
