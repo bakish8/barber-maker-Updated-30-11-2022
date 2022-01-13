@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -51,12 +51,21 @@ const UserEditScreen = ({ match, history }) => {
     e.preventDefault()
     dispatch(updateUser({ _id: userId, name, email, isAdmin, image, phone }))
   }
-
+  const CreateClientHandler = () => {
+    console.log('מכניס לקוח חדש למערכת')
+  }
   return (
     <>
-      <Link to='/admin/userlist' className='btn btn-light my-3' id='centerme'>
-        חזור חזרה
-      </Link>
+      <Col md={12}>
+        <Link id='goback' to='/admin/userlist'>
+          <i class='fas fa-angle-double-right'></i>
+        </Link>
+        <Col className='text-right'>
+          <Button id='centermebtnwidh100' onClick={CreateClientHandler}>
+            <i className='fas fa-plus'></i> הכנס לקוח חדש
+          </Button>
+        </Col>
+      </Col>
       <FormContainer>
         <h1 id='headlineme'>ערוך משתמשים</h1>
         {loadingUpdate && <Loader />}
@@ -66,7 +75,11 @@ const UserEditScreen = ({ match, history }) => {
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <Form className='whiteme' onSubmit={submitHandler}>
+          <Form
+            id='formlabelBigger'
+            className='whiteme'
+            onSubmit={submitHandler}
+          >
             <Form.Group controlId='name'>
               <Form.Label>שם</Form.Label>
               <Form.Control
@@ -110,7 +123,7 @@ const UserEditScreen = ({ match, history }) => {
             <Form.Group controlId='isadmin'>
               <Form.Check
                 type='checkbox'
-                label='Is Admin'
+                label='?מנהל'
                 checked={isAdmin}
                 onChange={(e) => setIsAdmin(e.target.checked)}
               ></Form.Check>

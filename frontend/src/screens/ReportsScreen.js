@@ -1079,19 +1079,19 @@ const ReportsScreen = ({ history }) => {
                 onClick={SearchReportShowMenuFunction}
                 className='BARBERMENUBTNSICUM'
               >
-                חפש סיכומים קיימים
+                חפש
               </button>
               <button
                 onClick={CreateSicumShowTable}
                 className='BARBERMENUBTNSICUM'
               >
-                צור סיכום
+                צור
               </button>
               <button
                 onClick={WatchReportShowMenuFunction}
                 className='BARBERMENUBTNSICUM'
               >
-                צפה בסיכומים קיימים{' '}
+                צפה{' '}
               </button>
             </div>
           </Col>
@@ -1296,26 +1296,26 @@ const ReportsScreen = ({ history }) => {
                   onClick={DisplayDailyReportsFunction}
                   className='BARBERMENUBTN'
                 >
-                  סיכומים יומיים
+                  יומיים
                 </button>
 
                 <button
                   onClick={DisplayWeeklyReportsFunction}
                   className='BARBERMENUBTN'
                 >
-                  סיכומים שבועיים
+                  שבועיים
                 </button>
                 <button
                   onClick={DisplayMonthlyReportsFunction}
                   className='BARBERMENUBTN'
                 >
-                  סיכומים חודשיים
+                  חודשיים
                 </button>
                 <button
                   onClick={DisplayMonthlyReportsFunction}
                   className='BARBERMENUBTN'
                 >
-                  סיכומים שנתיים
+                  שנתיים
                 </button>
               </div>
             </Col>

@@ -47,7 +47,7 @@ const OrderListScreen = ({ history }) => {
         >
           <thead id='centertext'>
             <tr>
-              <th id='tableheadlines'>אידי</th>
+              <th id='tableheadlines'>מספר הזמנה</th>
               <th id='tableheadlines'>משתמש</th>
               <th id='tableheadlines'>תאריך</th>
               <th id='tableheadlines'>סה"כ</th>
@@ -59,10 +59,10 @@ const OrderListScreen = ({ history }) => {
           <tbody id='centertext'>
             {orders.map((order) => (
               <tr key={order._id} id='hoverandblue'>
-                <td>{order._id}</td>
+                <td style={{ wordBreak: 'break-word' }}>{order._id}</td>
                 <td>{order.user && order.user.name}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
-                <td>${order.totalPrice}</td>
+                <td>{order.totalPrice}₪</td>
                 <td>
                   {order.isPaid ? (
                     order.paidAt.substring(0, 10)
@@ -79,7 +79,11 @@ const OrderListScreen = ({ history }) => {
                 </td>
                 <td>
                   <LinkContainer to={`/order/${order._id}`}>
-                    <Button variant='light' className='btn-sm'>
+                    <Button
+                      id='OrderDeetsBtn'
+                      variant='light'
+                      className='btn-sm'
+                    >
                       פרטים
                     </Button>
                   </LinkContainer>

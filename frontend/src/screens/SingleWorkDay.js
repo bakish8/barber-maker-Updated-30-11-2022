@@ -1654,7 +1654,13 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
           <Col md={9}>
             <div>
-              <Table bordered hover responsive id='tablewhiteSingle'>
+              <Table
+                style={{ wordBreak: 'break-word' }}
+                bordered
+                hover
+                responsive
+                id='tablewhiteSingle'
+              >
                 <thead id='centertext'>
                   <tr>
                     <th id='tableheadlines'>שולם</th>
@@ -1701,7 +1707,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
                           )
                         }}
                       >
-                        <td style={{ wordBreak: 'break-word' }}>
+                        <td>
                           {clock.isPaid && clock.paymentMethod === 'cash' ? (
                             <img
                               id='miniICON2'

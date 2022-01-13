@@ -54,7 +54,7 @@ const UserListScreen = ({ history }) => {
         </Link>
       </Col>
 
-      <h1 id='headlineme'>משתמשים</h1>
+      <h1 id='headlineme'>לקוחות</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -68,36 +68,32 @@ const UserListScreen = ({ history }) => {
         >
           <thead>
             <tr id='tableheadlines'>
-              <th>אימייל</th>
-              <th>נייד</th> <th>שם</th>
+              <th>נייד</th>
+
+              <th>שם</th>
               <th></th>
             </tr>
           </thead>
           <tbody id='centertext'>
             {users.map((user) => (
-              <tr key={user._id} id='hoverandblue'>
-                <td>{user.name}</td>
-                <td>
-                  <a id='notextdecoration' href={`mailto:${user.email}`}>
-                    {user.email}
-                  </a>
-                </td>
-                <td>{user.phone}</td>
-                <td>
-                  <LinkContainer to={`/admin/user/${user._id}/edit`}>
-                    <Button variant='light' className='btn-sm'>
-                      <i className='fas fa-edit'></i>
+              <LinkContainer to={`/admin/user/${user._id}/edit`}>
+                <tr key={user._id} id='hoverandblue'>
+                  <td id='PhoneTD'>0{user.phone}</td>
+
+                  <td>{user.name}</td>
+
+                  <td>
+                    <Button
+                      id='sizemefortable'
+                      variant='danger'
+                      className='btn-sm'
+                      onClick={() => deleteHandler(user._id)}
+                    >
+                      <i className='fas fa-trash'></i>
                     </Button>
-                  </LinkContainer>
-                  <Button
-                    variant='danger'
-                    className='btn-sm'
-                    onClick={() => deleteHandler(user._id)}
-                  >
-                    <i className='fas fa-trash'></i>
-                  </Button>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              </LinkContainer>
             ))}
           </tbody>
         </Table>
