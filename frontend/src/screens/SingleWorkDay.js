@@ -1428,14 +1428,15 @@ const SingleWorkDayScreen = ({ history, match }) => {
             <div id='smallSicumScreen'>
               {' '}
               <text>
+                הכנסה צפויה <span id='boldme1'> {PredictedIncome()}₪</span>{' '}
+                הכנסה בפועל <span id='boldme1'>{workingDay.moneyCount}₪</span>{' '}
+                <br />
                 תורים סה"כ
                 <span id='boldme1'>{clockList.length}</span>
                 תורים פנויים
                 <span id='boldme1'>
                   {clockList.filter((clock) => clock.avilable === true).length}
                 </span>{' '}
-                הכנסה צפויה <span id='boldme1'> {PredictedIncome()}₪</span>{' '}
-                הכנסה בפועל <span id='boldme1'>{workingDay.moneyCount}₪</span>{' '}
               </text>
             </div>
           </Col>

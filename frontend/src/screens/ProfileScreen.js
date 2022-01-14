@@ -262,8 +262,8 @@ const ProfileScreen = ({ location, history }) => {
               </thead>
               <tbody>
                 {orders.map((order) => (
-                  <tr key={order._id} id='hoverandblue'>
-                    <LinkContainer to={`/order/${order._id}`}>
+                  <LinkContainer to={`/order/${order._id}`}>
+                    <tr key={order._id} id='hoverandblue'>
                       <td className='OrderDeetsTD'>
                         <LinkContainer to={`/order/${order._id}`}>
                           <Button className='btn-sm' variant='light'>
@@ -299,8 +299,8 @@ const ProfileScreen = ({ location, history }) => {
                       <td>{order.createdAt.substring(0, 10)}</td>
 
                       <td style={{ wordBreak: 'break-word' }}>{order._id}</td>
-                    </LinkContainer>
-                  </tr>
+                    </tr>
+                  </LinkContainer>
                 ))}
               </tbody>
             </Table>
