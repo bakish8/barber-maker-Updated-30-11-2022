@@ -33,6 +33,8 @@ import ReactToPdf from 'react-to-pdf' //pdf
 import emailjs from 'emailjs-com'
 import CreditCard from '../components/CreditCard/CreditCard'
 import Cards from 'react-credit-cards'
+import NewsTicker from 'react-advanced-news-ticker'
+
 //?
 var date,
   array = []
@@ -1427,17 +1429,43 @@ const SingleWorkDayScreen = ({ history, match }) => {
           <Col md={12}>
             <div id='smallSicumScreen'>
               {' '}
-              <text>
-                הכנסה צפויה <span id='boldme1'> {PredictedIncome()}₪</span>{' '}
-                הכנסה בפועל <span id='boldme1'>{workingDay.moneyCount}₪</span>{' '}
-                <br />
-                תורים סה"כ
-                <span id='boldme1'>{clockList.length}</span>
-                תורים פנויים
-                <span id='boldme1'>
-                  {clockList.filter((clock) => clock.avilable === true).length}
-                </span>{' '}
-              </text>
+              <div id='actionsSmallScreen'>
+                <span id='thePlusIcon'>+</span>
+              </div>
+              <div className='bigSicumBTNForSmallScreen'>סיכום</div>{' '}
+              <div className='text-update'>
+                <NewsTicker
+                  id='styleNoBULLETS'
+                  rowHeight={12}
+                  maxRows={2}
+                  speed={300}
+                  duration={2500}
+                  autoStart={true}
+                  pauseOnHover={true}
+                >
+                  <div id='styleNoBULLETS'>
+                    <span id='boldme1'> {PredictedIncome()}₪</span> הכנסה צפויה{' '}
+                  </div>
+                  <div>
+                    {' '}
+                    <span id='boldme1'>{workingDay.moneyCount}₪</span> הכנסה
+                    בפועל{' '}
+                  </div>
+                  <div>
+                    <span id='boldme1'>{clockList.length}</span> תורים סה"כ{' '}
+                  </div>
+                  <div>
+                    {' '}
+                    <span id='boldme1'>
+                      {
+                        clockList.filter((clock) => clock.avilable === true)
+                          .length
+                      }{' '}
+                    </span>{' '}
+                    תורים פנויים{' '}
+                  </div>
+                </NewsTicker>
+              </div>
             </div>
           </Col>
 
