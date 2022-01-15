@@ -82,6 +82,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
+  const [SHOW_TH_CHHOSE, setSHOW_TH_CHHOSE] = useState(false)
+
   const [word, setWord] = useState('') /****סטייט שמתקבל מקומפוננט שהוא ילד* */
   const [wordname, setWordName] = useState('') /***** */
   const [wordphone, setWordphone] = useState('') /***** */
@@ -223,6 +225,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
   // ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
   // ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
 
+  const setSHOW_TH_CHHOSE_FUNCTION = () => {
+    setSHOW_TH_CHHOSE(!SHOW_TH_CHHOSE)
+  }
   const OpenSmallScreenOptions_Swal = () => {
     swalWithBootstrapButtons
       .fire({
@@ -1708,6 +1713,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
           <Col md={12}>
             <div id='smallSicumScreen'>
               {' '}
+              <div
+                onClick={setSHOW_TH_CHHOSE_FUNCTION}
+                className='CHOOSETORIM_BTNForSmallScreen'
+              >
+                בחר
+              </div>{' '}
               <div onClick={showSicumNow} className='bigSicumBTNForSmallScreen'>
                 סיכום
               </div>{' '}
@@ -1990,6 +2001,18 @@ const SingleWorkDayScreen = ({ history, match }) => {
                     <th id='tableheadlines' className='hour_TH'>
                       שעה
                     </th>
+                    <th
+                      id={`${
+                        SHOW_TH_CHHOSE
+                          ? 'tableTHdisplayNoneCHOOSEDISPLAY'
+                          : 'tableTHdisplayNoneCHOOSE'
+                      }`}
+                      className='classFOrTHdisplay'
+                    >
+                      <form>
+                        <input type='checkbox'></input>
+                      </form>{' '}
+                    </th>
                   </tr>
                 </thead>
 
@@ -2010,24 +2033,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
                         key={clock._id}
                         className={clock.avilable ? 'red' : 'green'}
                         id={FunctionBlingThisTime(clock.time)}
-                        onClick={() => {
-                          setChoosenClock(clock._id)
-
-                          preshowTorHandler(
-                            clock.time,
-                            clock.date,
-                            clock.avilable,
-                            clock.mistaper,
-                            clock._id,
-                            WorkDayid,
-                            tipulimList,
-                            clock.isPaid,
-                            clock.TotalAmmountPaid,
-                            clock.paymentMethod,
-                            clock.creditLastDigits,
-                            clock.ReciptNumber
-                          )
-                        }}
                       >
                         <td>
                           {clock.isPaid && clock.paymentMethod === 'cash' ? (
@@ -2091,10 +2096,71 @@ const SingleWorkDayScreen = ({ history, match }) => {
                             )
                           )}
                         </td>
-                        <td>{clock.tipul ? clock.tipul.cost : ''}</td>
-                        <td>{clock.tipul ? clock.tipul.name : ''}</td>
+                        <td
+                          onClick={() => {
+                            setChoosenClock(clock._id)
 
-                        <td>
+                            preshowTorHandler(
+                              clock.time,
+                              clock.date,
+                              clock.avilable,
+                              clock.mistaper,
+                              clock._id,
+                              WorkDayid,
+                              tipulimList,
+                              clock.isPaid,
+                              clock.TotalAmmountPaid,
+                              clock.paymentMethod,
+                              clock.creditLastDigits,
+                              clock.ReciptNumber
+                            )
+                          }}
+                        >
+                          {clock.tipul ? clock.tipul.cost : ''}
+                        </td>
+                        <td
+                          onClick={() => {
+                            setChoosenClock(clock._id)
+
+                            preshowTorHandler(
+                              clock.time,
+                              clock.date,
+                              clock.avilable,
+                              clock.mistaper,
+                              clock._id,
+                              WorkDayid,
+                              tipulimList,
+                              clock.isPaid,
+                              clock.TotalAmmountPaid,
+                              clock.paymentMethod,
+                              clock.creditLastDigits,
+                              clock.ReciptNumber
+                            )
+                          }}
+                        >
+                          {clock.tipul ? clock.tipul.name : ''}
+                        </td>
+
+                        <td
+                          onClick={() => {
+                            setChoosenClock(clock._id)
+
+                            preshowTorHandler(
+                              clock.time,
+                              clock.date,
+                              clock.avilable,
+                              clock.mistaper,
+                              clock._id,
+                              WorkDayid,
+                              tipulimList,
+                              clock.isPaid,
+                              clock.TotalAmmountPaid,
+                              clock.paymentMethod,
+                              clock.creditLastDigits,
+                              clock.ReciptNumber
+                            )
+                          }}
+                        >
                           {clock.mistaper && clock.mistaper.name}
                           <br />
                           <div id='phonetable'>
@@ -2102,7 +2168,39 @@ const SingleWorkDayScreen = ({ history, match }) => {
                             {clock.mistaper && '0' + clock.mistaper.phone}
                           </div>
                         </td>
-                        <td>{clock.time}</td>
+                        <td
+                          onClick={() => {
+                            setChoosenClock(clock._id)
+
+                            preshowTorHandler(
+                              clock.time,
+                              clock.date,
+                              clock.avilable,
+                              clock.mistaper,
+                              clock._id,
+                              WorkDayid,
+                              tipulimList,
+                              clock.isPaid,
+                              clock.TotalAmmountPaid,
+                              clock.paymentMethod,
+                              clock.creditLastDigits,
+                              clock.ReciptNumber
+                            )
+                          }}
+                        >
+                          {clock.time}
+                        </td>
+                        <td
+                          id={`${
+                            SHOW_TH_CHHOSE
+                              ? 'tableTHdisplayNoneCHOOSEDISPLAY'
+                              : 'tableTHdisplayNoneCHOOSE'
+                          }`}
+                        >
+                          <form>
+                            <input type='checkbox' value={clock._id}></input>
+                          </form>{' '}
+                        </td>
                       </tr>
                     ))}
                 </tbody>
