@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Loader2 from '../components/Loader2'
+
 import {
   deleteClock,
   createClocks,
@@ -102,6 +103,14 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const [ShowUserFilter, setShowUserFilter] = useState(false)
   const [SHOWcreditForm, setSHOWcreditForm] = useState(false)
   const [SHOWchooseTipul, setSHOWchooseTipul] = useState(false)
+  const [
+    SHOWsmallSCreenPick2HoursForCREATEION,
+    setSHOWsmallSCreenPick2HoursForCREATEION,
+  ] = useState(false)
+  const [
+    SHOWsmallSCreenPick1HoursForCREATEION,
+    setSHOWsmallSCreenPick1HoursForCREATEION,
+  ] = useState(false)
 
   const handleCloseCreditForm = () => {
     setSHOWcreditForm(false)
@@ -213,6 +222,71 @@ const SingleWorkDayScreen = ({ history, match }) => {
   // ██╔══╝  ██║   ██║██║╚██╗██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║
   // ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
   // ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+
+  const OpenSmallScreenOptions_Swal = () => {
+    swalWithBootstrapButtons
+      .fire({
+        title: 'בחר סוג פעולה',
+        text: `   בחר את סוג הפעולה שברצונך לבצע`,
+        icon: 'question',
+        color: 'black',
+        showCancelButton: true,
+        showDenyButton: true,
+        denyButtonText: `סכם יום עבודה`,
+        denyButtonColor: 'rgb(254, 142, 18)',
+
+        cancelButtonText: 'מחק',
+        cancelButtonColor: 'rgb(222, 0, 0)',
+        confirmButtonColor: 'rgb(0, 132, 255)',
+        confirmButtonText: 'הוסף תורים',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons
+            .fire({
+              title: 'בחר פעולה',
+              text: ` באפשרותך האפשרויות הבאות `,
+              color: 'black',
+              showCancelButton: true,
+              showDenyButton: true,
+              denyButtonText: `  + הוסף תורים`,
+              denyButtonColor: 'rgb(21, 21, 21)',
+              cancelButtonText: `+ הוסף תור`,
+              cancelButtonColor: 'rgb(21, 21, 21)',
+              confirmButtonColor: 'rgb(21, 21, 21)',
+              confirmButtonText: ` <i class='fas fa-bolt'></i> הוספה מהירה`,
+            })
+            .then((result) => {
+              if (result.isConfirmed) {
+                submitHandler3()
+              } else if (result.isDenied) {
+                setSHOWsmallSCreenPick2HoursForCREATEION(true)
+              } else if (result.dismiss === Swal.DismissReason.cancel) {
+                setSHOWsmallSCreenPick1HoursForCREATEION(true)
+              }
+            })
+        } else if (result.isDenied) {
+          showSicumNow()
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'בחר סוג פעולה',
+            text: `   בחר את סוג הפעולה שברצונך לבצע`,
+            icon: 'warning',
+            color: 'black',
+            showCancelButton: true,
+            showDenyButton: true,
+            denyButtonText: `מחק טווח תורים`,
+            denyButtonColor: 'rgb(222, 0, 0)',
+
+            cancelButtonText: 'מחק יום עבודה זה',
+            cancelButtonColor: 'rgb(222, 0, 0)',
+            confirmButtonColor: 'rgb(222, 0, 0)',
+            confirmButtonText: 'מחק תור',
+          })
+        }
+      })
+  }
+
   const PredictedIncome = () => {
     let sum = 0
     for (let clock of clockList) {
@@ -399,6 +473,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   /*send one hour function */
   const submitHandler = (e) => {
+    setSHOWsmallSCreenPick1_CLOSE()
     e.preventDefault()
 
     Swal.fire({
@@ -418,6 +493,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
   }
   //***sende rande of hours function */
   const submitHandler2 = (e) => {
+    setSHOWsmallSCreenPick2_CLOSE()
     e.preventDefault()
     console.log(WorkDayid)
     console.log(time)
@@ -441,7 +517,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
   }
   //send all torim function
   const submitHandler3 = (e) => {
-    e.preventDefault()
+    if (e) {
+      e.preventDefault()
+    }
     Swal.fire({
       text: 'מוסיף תורים למערכת אנא המתן',
 
@@ -1176,6 +1254,20 @@ const SingleWorkDayScreen = ({ history, match }) => {
     )
   }
 
+  const setSHOWsmallSCreenPick2_OPEN = () => {
+    setSHOWsmallSCreenPick2HoursForCREATEION(true)
+  }
+  const setSHOWsmallSCreenPick2_CLOSE = () => {
+    setSHOWsmallSCreenPick2HoursForCREATEION(false)
+  }
+
+  const setSHOWsmallSCreenPick1_OPEN = () => {
+    setSHOWsmallSCreenPick1HoursForCREATEION(true)
+  }
+  const setSHOWsmallSCreenPick1_CLOSE = () => {
+    setSHOWsmallSCreenPick1HoursForCREATEION(false)
+  }
+
   // ██████╗ ███████╗████████╗██╗   ██╗██████╗ ███╗   ██╗
   // ██╔══██╗██╔════╝╚══██╔══╝██║   ██║██╔══██╗████╗  ██║
   // ██████╔╝█████╗     ██║   ██║   ██║██████╔╝██╔██╗ ██║
@@ -1212,6 +1304,184 @@ const SingleWorkDayScreen = ({ history, match }) => {
               changeWordImage={(wordImage) => setWordImage(wordImage)}
             />
           )}
+
+          {SHOWsmallSCreenPick1HoursForCREATEION && (
+            <Modal
+              id='ModalStyle'
+              open={setSHOWsmallSCreenPick1_OPEN}
+              close={setSHOWsmallSCreenPick1_CLOSE}
+            >
+              <Box id='BOXlStyleForChooseTipul'>
+                <div id='reciptcloseNav'>
+                  <button
+                    onClick={setSHOWsmallSCreenPick1_CLOSE}
+                    id='reciptcloseNavX'
+                  >
+                    X
+                  </button>
+                  <div>
+                    <Col md={12}>
+                      <h1 id='h1SugTipul'>בחר טווח שעות</h1>
+                    </Col>
+                    <Col md={12}>
+                      <Form onSubmit={submitHandler}>
+                        <Form.Group
+                          controlId='time'
+                          type='time'
+                          value={time}
+                          onChange={(e) => setTime(e.target.value)}
+                        >
+                          <Form.Control as='select' id='formSelect'>
+                            <option id='custom-select1'>בחר שעה</option>
+                            <option id='custom-select'>10:00</option>
+                            <option id='custom-select'>10:30</option>
+                            <option id='custom-select'>11:00</option>
+                            <option id='custom-select'>11:30</option>
+                            <option id='custom-select'>12:00</option>
+                            <option id='custom-select'>12:30</option>
+                            <option id='custom-select'>13:00</option>
+                            <option id='custom-select'>13:30</option>
+                            <option id='custom-select'>14:00</option>
+                            <option id='custom-select'>14:30</option>
+                            <option id='custom-select'>15:00</option>
+                            <option id='custom-select'>15:30</option>
+                            <option id='custom-select'>16:00</option>
+                            <option id='custom-select'>16:30</option>
+                            <option id='custom-select'>17:00</option>
+                            <option id='custom-select'>17:30</option>
+                            <option id='custom-select'>18:00</option>
+                            <option id='custom-select'>18:30</option>
+                            <option id='custom-select'>19:00</option>
+                            <option id='custom-select'>19:30</option>
+                          </Form.Control>
+                        </Form.Group>
+
+                        <Button
+                          className='link buzz-out-on-hover'
+                          id='centermebtnHOsef'
+                          type='submit'
+                        >
+                          <i className='fas fa-plus'></i> הוסף
+                          {NewClockloading ? (
+                            <Loader2 />
+                          ) : NewClockerror ? (
+                            <Message variant='danger'>{error}</Message>
+                          ) : (
+                            <div></div>
+                          )}
+                        </Button>
+                      </Form>
+                    </Col>
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          )}
+
+          {SHOWsmallSCreenPick2HoursForCREATEION && (
+            <Modal
+              id='ModalStyle'
+              open={setSHOWsmallSCreenPick2_OPEN}
+              close={setSHOWsmallSCreenPick2_CLOSE}
+            >
+              <Box id='BOXlStyleForChooseTipul'>
+                <div id='reciptcloseNav'>
+                  <button
+                    onClick={setSHOWsmallSCreenPick2_CLOSE}
+                    id='reciptcloseNavX'
+                  >
+                    X
+                  </button>
+                  <div>
+                    <Col md={12}>
+                      <h1 id='h1SugTipul'>בחר טווח שעות</h1>
+                    </Col>
+                    <Col md={12}>
+                      {' '}
+                      <Form onSubmit={submitHandler2}>
+                        <Form.Group
+                          controlId='time'
+                          type='time'
+                          value={time}
+                          onChange={(e) => setTime(e.target.value)}
+                        >
+                          <Form.Control as='select' id='formSelect'>
+                            <option id='custom-select1'>משעה</option>
+                            <option id='custom-select'>10:00</option>
+                            <option id='custom-select'>10:30</option>
+                            <option id='custom-select'>11:00</option>
+                            <option id='custom-select'>11:30</option>
+                            <option id='custom-select'>12:00</option>
+                            <option id='custom-select'>12:30</option>
+                            <option id='custom-select'>13:00</option>
+                            <option id='custom-select'>13:30</option>
+                            <option id='custom-select'>14:00</option>
+                            <option id='custom-select'>14:30</option>
+                            <option id='custom-select'>15:00</option>
+                            <option id='custom-select'>15:30</option>
+                            <option id='custom-select'>16:00</option>
+                            <option id='custom-select'>16:30</option>
+                            <option id='custom-select'>17:00</option>
+                            <option id='custom-select'>17:30</option>
+                            <option id='custom-select'>18:00</option>
+                            <option id='custom-select'>18:30</option>
+                            <option id='custom-select'>19:00</option>
+                            <option id='custom-select'>19:30</option>
+                          </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group
+                          controlId='time2'
+                          type='time2'
+                          value={time2}
+                          onChange={(e) => setTime2(e.target.value)}
+                        >
+                          <Form.Control as='select' id='formSelect'>
+                            <option id='custom-select1'>עד שעה</option>
+                            <option id='custom-select'>10:30</option>
+                            <option id='custom-select'>11:00</option>
+                            <option id='custom-select'>11:30</option>
+                            <option id='custom-select'>12:00</option>
+                            <option id='custom-select'>12:30</option>
+                            <option id='custom-select'>13:00</option>
+                            <option id='custom-select'>13:30</option>
+                            <option id='custom-select'>14:00</option>
+                            <option id='custom-select'>14:30</option>
+                            <option id='custom-select'>15:00</option>
+                            <option id='custom-select'>15:30</option>
+                            <option id='custom-select'>16:00</option>
+                            <option id='custom-select'>16:30</option>
+                            <option id='custom-select'>17:00</option>
+                            <option id='custom-select'>17:30</option>
+                            <option id='custom-select'>18:00</option>
+                            <option id='custom-select'>18:30</option>
+                            <option id='custom-select'>19:00</option>
+                            <option id='custom-select'>19:30</option>
+                          </Form.Control>
+                        </Form.Group>
+
+                        <Button
+                          className='link buzz-out-on-hover'
+                          id='centermebtnHOsef'
+                          type='submit'
+                        >
+                          <i className='fas fa-plus'></i> הוסף
+                          {NewClocksloading ? (
+                            <Loader2 />
+                          ) : NewClockserror ? (
+                            <Message variant='danger'>{error}</Message>
+                          ) : (
+                            <div></div>
+                          )}
+                        </Button>
+                      </Form>
+                    </Col>
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          )}
+
           {SHOWchooseTipul && (
             <Modal
               id='ModalStyle'
@@ -1425,14 +1695,18 @@ const SingleWorkDayScreen = ({ history, match }) => {
             <h2 id='headlineme'>יום {workingDay.dayInWeek}</h2>
             <h2 id='dayinWeek'> {workingDay.date}</h2>
           </Col>
+          <div onClick={OpenSmallScreenOptions_Swal} id='SMALL_SCREEN_ACTIONS'>
+            <div id='actionsSmallScreen'>
+              <span id='thePlusIcon'>+פעולות</span>
+            </div>
+          </div>
 
           <Col md={12}>
             <div id='smallSicumScreen'>
               {' '}
-              <div id='actionsSmallScreen'>
-                <span id='thePlusIcon'>+</span>
-              </div>
-              <div className='bigSicumBTNForSmallScreen'>סיכום</div>{' '}
+              <div onClick={showSicumNow} className='bigSicumBTNForSmallScreen'>
+                סיכום
+              </div>{' '}
               <div className='text-update'>
                 <NewsTicker
                   id='styleNoBULLETS'

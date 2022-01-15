@@ -21,6 +21,8 @@
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@react-google-maps/api": "^2.7.0",
     "@react-pdf/renderer": "^2.0.21",
+    "@sweetalert2/theme-dark": "^5.0.8",
+    "@sweetalert2/themes": "^5.0.8",
     "aos": "^2.3.4",
     "aws-amplify": "^4.3.12",
     "aws-amplify-react": "^5.1.9",
@@ -73,6 +75,7 @@
     "react-to-pdf": "^0.0.14",
     "react-to-print": "^2.14.3",
     "react-vanilla-tilt": "^1.0.0",
+    "sweetalert2": "^11.3.5",
     "twilio": "^3.71.3",
     "vanilla-tilt": "^1.7.2"
   },

@@ -91,6 +91,19 @@ const workingdays = [
     numAvilableTorim: 0,
     moneyCount: 0,
   },
+  {
+    owner: '',
+    date: '15/1/2022',
+    Dateday: '15',
+    Datemonth: '1',
+    Dateyear: '2022',
+    avilable: true,
+    dayInWeek: 'שבת',
+    torim: [],
+    numTorim: 0,
+    numAvilableTorim: 0,
+    moneyCount: 0,
+  },
 
   {
     owner: '',
