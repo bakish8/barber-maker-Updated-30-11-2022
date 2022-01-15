@@ -97,22 +97,35 @@ main {
   position: fixed;
   color: white;
   width: 100%;
-  height: 30px;
-  background-color: #000000;
+  height: 8%;
+  background-image: linear-gradient(#242424, #161616, #000000, #000000);
+
   bottom: 0px;
   left: 0px;
   cursor: pointer;
   z-index: 2;
   text-align: center;
-  transition: 0.2s ease-in;
+  transition: 0.3s ease-in;
   display: none;
+  font-size: 22px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-top-color: rgb(68, 68, 68);
+  border-top-width: 3px;
+  border-top-style: solid;
 }
+
 #actionsSmallScreen:hover {
-  background-color: #1f1f1f;
+  background-image: linear-gradient(#004e8d, #001f63);
+}
+
+#actions123123div {
+  margin-top: 3%;
 }
 #thePlusIcon {
+  position: relative;
   color: white;
-  font-size: 20px;
+  margin-top: 25px;
   width: 100px;
   height: 100px;
 }
@@ -747,6 +760,8 @@ body input {
   font-size: 20px;
   background-color: #68b4ff75;
   font-weight: bolder;
+
+  direction: rtl;
 }
 #arrowleft {
   font-size: 100px;
@@ -779,6 +794,8 @@ body input {
   font-size: 20px;
   color: rgb(255, 255, 255);
   background-color: #282d31;
+  text-align: center;
+  direction: rtl;
 }
 #custom-select1 {
   font-size: 22px;
@@ -786,9 +803,11 @@ body input {
   font-weight: bolder;
   color: white;
   border: 2px solid red;
+
+  direction: rtl;
 }
 option {
-  text-align: center;
+  direction: rtl;
 }
 textarea {
   text-align: right;
@@ -2025,6 +2044,7 @@ h6 {
   margin-right: auto;
   margin-left: auto;
   margin-top: 10px;
+  direction: rtl;
 }
 #h1SugTipul {
   text-align: center;

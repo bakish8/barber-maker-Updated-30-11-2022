@@ -233,12 +233,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
         showCancelButton: true,
         showDenyButton: true,
         denyButtonText: `סכם יום עבודה`,
-        denyButtonColor: 'rgb(254, 142, 18)',
+        denyButtonColor: 'rgb(21, 21, 21)',
 
         cancelButtonText: 'מחק',
         cancelButtonColor: 'rgb(222, 0, 0)',
-        confirmButtonColor: 'rgb(0, 132, 255)',
-        confirmButtonText: 'הוסף תורים',
+        confirmButtonColor: 'rgb(21, 21, 21)',
+        confirmButtonText: ' + הוסף תורים',
       })
       .then((result) => {
         if (result.isConfirmed) {
@@ -1697,7 +1697,11 @@ const SingleWorkDayScreen = ({ history, match }) => {
           </Col>
           <div onClick={OpenSmallScreenOptions_Swal} id='SMALL_SCREEN_ACTIONS'>
             <div id='actionsSmallScreen'>
-              <span id='thePlusIcon'>+פעולות</span>
+              {' '}
+              <div id='actions123123div'>
+                {' '}
+                <span id='thePlusIcon'>+ פעולות</span>
+              </div>
             </div>
           </div>
 
