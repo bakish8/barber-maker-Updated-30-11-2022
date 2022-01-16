@@ -231,6 +231,15 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   let checkboxes = document.querySelectorAll('.checkboxxx')
 
+  const FunctionForFilteringTheCheched = (id) => {
+    let Index = ArrayOfSelectedTors.indexOf(id)
+    console.log(Index)
+    ArrayOfSelectedTors.splice(Index, 1)
+
+    console.log('after Function')
+    console.log(ArrayOfSelectedTors)
+  }
+
   const selectAllTors = () => {
     if (stateChecked === false) {
       setstateChecked(true)
@@ -263,9 +272,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
       console.log('before')
       console.log(ArrayOfSelectedTors)
       console.log('after')
-
-      ArrayOfSelectedTors.splice(id)
-      console.log(ArrayOfSelectedTors)
+      FunctionForFilteringTheCheched(id)
 
       if (ArrayOfSelectedTors.length === 0) {
         setselect_OneTor(false)
@@ -1357,11 +1364,20 @@ const SingleWorkDayScreen = ({ history, match }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          {stateChecked || select_OneTor ? (
+          {(SHOW_TH_CHHOSE && stateChecked) ||
+          (SHOW_TH_CHHOSE && select_OneTor) ? (
             <div id='DELETE_cirecle'>
               <span id='trash_iconXXX'>
                 <i class='fas fa-trash'></i>
               </span>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {(SHOW_TH_CHHOSE && stateChecked) ||
+          (SHOW_TH_CHHOSE && select_OneTor) ? (
+            <div id='PINUI_cirecle'>
+              <span id='PINUI_iconXXX'>פינוי</span>
             </div>
           ) : (
             <div></div>

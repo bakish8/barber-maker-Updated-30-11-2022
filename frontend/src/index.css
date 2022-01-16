@@ -1442,6 +1442,20 @@ textarea {
   color: black;
 }
 
+@keyframes coloblue {
+  0% {
+    background-color: #00b7ff;
+    color: white;
+  }
+  50% {
+    background-color: #0042f8;
+    color: white;
+  }
+  100% {
+    background-color: #00a2ff;
+    color: white;
+  }
+}
 @keyframes cologreen {
   0% {
     background-color: #0f9e33;
@@ -2263,6 +2277,25 @@ h5 {
   display: none;
 }
 
+#PINUI_cirecle {
+  width: 50px;
+  height: 50px;
+  background: rgb(220, 133, 20);
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  position: fixed;
+  z-index: 10;
+  bottom: 18%;
+  left: 10px;
+}
+
+#PINUI_cirecle:active,
+#PINUI_cirecle:focus,
+#PINUI_cirecle:hover {
+  background: rgb(255, 94, 0);
+  transform: scale(1.2);
+}
 #DELETE_cirecle {
   width: 50px;
   height: 50px;
@@ -2284,4 +2317,9 @@ h5 {
 #trash_iconXXX {
   position: relative;
   top: 23%;
+}
+#PINUI_iconXXX {
+  position: relative;
+  top: 30%;
+  font-weight: 400;
 }
