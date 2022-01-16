@@ -82,6 +82,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
+  const [StateForPinuiBTN, setStateForPinuiBTN] = useState(false)
   const [stateChecked, setstateChecked] = useState(false)
   const [select_OneTor, setselect_OneTor] = useState(false)
   const [ArrayOfSelectedTors, setArrayOfSelectedTors] = useState([])
@@ -243,37 +244,28 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const selectAllTors = () => {
     if (stateChecked === false) {
       setstateChecked(true)
-      console.log(checkboxes)
       for (let checkbox of checkboxes) {
-        console.log(checkbox.value)
-        console.log(checkbox)
         checkbox.checked = true
         ArrayOfSelectedTors.push(checkbox.value)
-        console.log(ArrayOfSelectedTors)
       }
     } else {
       setstateChecked(false)
       for (let checkbox of checkboxes) {
-        console.log(checkbox.value)
-        console.log(checkbox)
         checkbox.checked = false
         ArrayOfSelectedTors.splice(checkbox.value)
       }
-      console.log(ArrayOfSelectedTors)
     }
   }
 
-  const selectOneTor = (id) => {
-    console.log(id)
-    console.log(ArrayOfSelectedTors)
-
+  let numberush = 0
+  const selectOneTor = (id, avilable) => {
     if (ArrayOfSelectedTors.includes(id)) {
-      console.log('includes')
-      console.log('before')
-      console.log(ArrayOfSelectedTors)
-      console.log('after')
-      FunctionForFilteringTheCheched(id)
+      if (!avilable) {
+        numberush = numberush - 1
+      }
 
+      console.log('includes')
+      FunctionForFilteringTheCheched(id)
       if (ArrayOfSelectedTors.length === 0) {
         setselect_OneTor(false)
       } else {
@@ -281,13 +273,20 @@ const SingleWorkDayScreen = ({ history, match }) => {
       }
     } else {
       console.log(' not includes')
-
+      if (!avilable) {
+        numberush = numberush + 1
+      }
       ArrayOfSelectedTors.push(id)
       console.log(ArrayOfSelectedTors)
       if (ArrayOfSelectedTors.length === 0) {
         setselect_OneTor(false)
       } else {
         setselect_OneTor(true)
+      }
+      if (numberush > 0) {
+        setStateForPinuiBTN(true)
+      } else {
+        setStateForPinuiBTN(false)
       }
     }
   }
@@ -1374,8 +1373,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
           ) : (
             <div></div>
           )}
-          {(SHOW_TH_CHHOSE && stateChecked) ||
-          (SHOW_TH_CHHOSE && select_OneTor) ? (
+          {SHOW_TH_CHHOSE &&
+          StateForPinuiBTN &&
+          ArrayOfSelectedTors.length != 0 ? (
             <div id='PINUI_cirecle'>
               <span id='PINUI_iconXXX'>פינוי</span>
             </div>
@@ -2290,7 +2290,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
                         >
                           <form>
                             <input
-                              onClick={() => selectOneTor(clock._id)}
+                              onClick={() =>
+                                selectOneTor(clock._id, clock.avilable)
+                              }
                               type='checkbox'
                               id='checkbox'
                               aria-checked='false'

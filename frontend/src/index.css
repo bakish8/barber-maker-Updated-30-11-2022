@@ -1154,7 +1154,7 @@ textarea {
 #tableheadlines {
   background-color: #28a2ff6b;
   color: #ffffff;
-  font-size: larger;
+  font-size: 12px;
 }
 
 @mixin button($bcolor, $url, $x1, $y1, $bor, $col) {
@@ -1728,8 +1728,8 @@ h6 {
   display: inline;
 }
 #miniICON2 {
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
   padding: 3px;
 }
 #miniICON2:hover {
@@ -2286,8 +2286,9 @@ h5 {
   text-align: center;
   position: fixed;
   z-index: 10;
-  bottom: 18%;
+  bottom: 20%;
   left: 10px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.788);
 }
 
 #PINUI_cirecle:active,
@@ -2295,6 +2296,7 @@ h5 {
 #PINUI_cirecle:hover {
   background: rgb(255, 94, 0);
   transform: scale(1.2);
+  z-index: 3;
 }
 #DELETE_cirecle {
   width: 50px;
@@ -2307,12 +2309,14 @@ h5 {
   z-index: 10;
   bottom: 10%;
   left: 10px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.788);
 }
 #DELETE_cirecle:active,
 #DELETE_cirecle:focus,
 #DELETE_cirecle:hover {
   background: rgb(158, 15, 44);
   transform: scale(1.2);
+  z-index: 3;
 }
 #trash_iconXXX {
   position: relative;
