@@ -82,6 +82,10 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
+  const [stateChecked, setstateChecked] = useState(false)
+  const [select_OneTor, setselect_OneTor] = useState(false)
+  const [ArrayOfSelectedTors, setArrayOfSelectedTors] = useState([])
+
   const [SHOW_TH_CHHOSE, setSHOW_TH_CHHOSE] = useState(false)
 
   const [word, setWord] = useState('') /****סטייט שמתקבל מקומפוננט שהוא ילד* */
@@ -224,6 +228,62 @@ const SingleWorkDayScreen = ({ history, match }) => {
   // ██╔══╝  ██║   ██║██║╚██╗██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║
   // ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
   // ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+
+  let checkboxes = document.querySelectorAll('.checkboxxx')
+
+  const selectAllTors = () => {
+    if (stateChecked === false) {
+      setstateChecked(true)
+      console.log(checkboxes)
+      for (let checkbox of checkboxes) {
+        console.log(checkbox.value)
+        console.log(checkbox)
+        checkbox.checked = true
+        ArrayOfSelectedTors.push(checkbox.value)
+        console.log(ArrayOfSelectedTors)
+      }
+    } else {
+      setstateChecked(false)
+      for (let checkbox of checkboxes) {
+        console.log(checkbox.value)
+        console.log(checkbox)
+        checkbox.checked = false
+        ArrayOfSelectedTors.splice(checkbox.value)
+      }
+      console.log(ArrayOfSelectedTors)
+    }
+  }
+
+  const selectOneTor = (id) => {
+    console.log(id)
+    console.log(ArrayOfSelectedTors)
+
+    if (ArrayOfSelectedTors.includes(id)) {
+      console.log('includes')
+      console.log('before')
+      console.log(ArrayOfSelectedTors)
+      console.log('after')
+
+      ArrayOfSelectedTors.splice(id)
+      console.log(ArrayOfSelectedTors)
+
+      if (ArrayOfSelectedTors.length === 0) {
+        setselect_OneTor(false)
+      } else {
+        setselect_OneTor(true)
+      }
+    } else {
+      console.log(' not includes')
+
+      ArrayOfSelectedTors.push(id)
+      console.log(ArrayOfSelectedTors)
+      if (ArrayOfSelectedTors.length === 0) {
+        setselect_OneTor(false)
+      } else {
+        setselect_OneTor(true)
+      }
+    }
+  }
 
   const setSHOW_TH_CHHOSE_FUNCTION = () => {
     setSHOW_TH_CHHOSE(!SHOW_TH_CHHOSE)
@@ -1297,6 +1357,16 @@ const SingleWorkDayScreen = ({ history, match }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
+          {stateChecked || select_OneTor ? (
+            <div id='DELETE_cirecle'>
+              <span id='trash_iconXXX'>
+                <i class='fas fa-trash'></i>
+              </span>
+            </div>
+          ) : (
+            <div></div>
+          )}
+
           {ShowUserFilter && (
             <UserFilter
               ChoosenClock={ChoosenClock}
@@ -2010,7 +2080,11 @@ const SingleWorkDayScreen = ({ history, match }) => {
                       className='classFOrTHdisplay'
                     >
                       <form>
-                        <input type='checkbox'></input>
+                        <input
+                          onClick={selectAllTors}
+                          type='checkbox'
+                          checked={stateChecked}
+                        ></input>
                       </form>{' '}
                     </th>
                   </tr>
@@ -2196,9 +2270,17 @@ const SingleWorkDayScreen = ({ history, match }) => {
                               ? 'tableTHdisplayNoneCHOOSEDISPLAY'
                               : 'tableTHdisplayNoneCHOOSE'
                           }`}
+                          className='classFOrTHdisplay2'
                         >
                           <form>
-                            <input type='checkbox' value={clock._id}></input>
+                            <input
+                              onClick={() => selectOneTor(clock._id)}
+                              type='checkbox'
+                              id='checkbox'
+                              aria-checked='false'
+                              className='checkboxxx'
+                              value={clock._id}
+                            ></input>
                           </form>{' '}
                         </td>
                       </tr>
