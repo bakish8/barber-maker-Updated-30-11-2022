@@ -728,7 +728,7 @@ body input {
   justify-content: center;
   align-items: center;
   background-color: #343a40;
-  width: 200px;
+  width: 80%;
   border-radius: 20px;
   font-size: 20px;
   margin-left: auto;
@@ -740,12 +740,14 @@ body input {
   justify-content: center;
   align-items: center;
   background-color: #343a40;
-  width: 220px;
+  width: 80%;
   border-radius: 20px;
   font-size: 20px;
   margin-left: auto;
   margin-right: auto;
   color: #ffd60a;
+  margin-top: 15px;
+  margin-bottom: 2px;
 }
 #HOSAFAmehiraBtn:hover {
   color: black;
@@ -1007,15 +1009,31 @@ textarea {
   margin-right: auto;
   margin-bottom: 15px;
 }
-
+.SacemYOM {
+  margin-bottom: 15px;
+}
 #torimAndHahnasot {
+  display: block;
   color: rgb(255, 255, 255);
-  background-color: #0096c7;
+  background-color: #000000;
   border-radius: 50px;
   padding: 20px 30px;
   text-align: center;
-  margin-top: 25px;
+  margin-top: 15px;
   font-size: larger;
+  width: 80%;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+#torimAndHahnasot:active,
+#torimAndHahnasot:focus,
+#torimAndHahnasot:hover {
+  background-color: #0096c7;
+  transform: scale(1.1);
+  box-shadow: 2px 3px 14px #0096c7;
 }
 
 /*====================*/
@@ -1321,9 +1339,18 @@ textarea {
   margin-left: auto;
   margin-right: auto;
 }
+.whitemeForActionsBig {
+  font-size: 30px;
+  color: white;
+  margin-top: 25px;
+}
 #singlewirkingdayoptionsbgwhite {
+  position: relative;
   background-image: linear-gradient(to top, #ffffff44 0%, #0095c741 100%);
   border-radius: 50px;
+  height: 100%;
+  left: 0;
+  top: 0;
 }
 #whiteplease {
   color: rgb(0, 0, 0);
@@ -1339,6 +1366,8 @@ textarea {
   padding: 5px;
   border-radius: 20px;
   margin-top: 12px;
+  width: 80%;
+  margin: 15px auto;
 }
 
 .maketorbtn span {

@@ -82,6 +82,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
+  const [ShowActionsBig, setShowActionsBig] = useState(false)
+  const [ShowSicumForThisDay, setShowSicumForThisDay] = useState(false)
+
   const [StateForPinuiBTN, setStateForPinuiBTN] = useState(false)
   const [stateChecked, setstateChecked] = useState(false)
   const [select_OneTor, setselect_OneTor] = useState(false)
@@ -389,6 +392,13 @@ const SingleWorkDayScreen = ({ history, match }) => {
     } else {
       setStateForPinuiBTN(false)
     }
+  }
+
+  const setShowActionsBig_FUNCTION = () => {
+    setShowActionsBig(!ShowActionsBig)
+  }
+  const setShowSicumForThisDay_FUNCTION = () => {
+    setShowSicumForThisDay(!ShowSicumForThisDay)
   }
 
   const setSHOW_TH_CHHOSE_FUNCTION = () => {
@@ -1955,56 +1965,53 @@ const SingleWorkDayScreen = ({ history, match }) => {
               </div>
             </div>
           </Col>
-
           <Col md={3} id='singlewirkingdayoptionsbgwhite'>
+            <h4 id='centerme' className='whitemeForActionsBig'>
+              אפשרויות
+            </h4>
+
             <div>
-              <h4 id='centerme'>
-                <span id='torimAndHahnasot'>פעולות</span>
-              </h4>
-              <div id='centerme'>
-                <Row>
-                  <Col md={12}>
-                    <Button
-                      className='link buzz-out-on-hover'
-                      onClick={submitHandler3}
-                      id='HOSAFAmehiraBtn'
-                    >
-                      <i class='fas fa-bolt'></i> הוספה מהירה
-                    </Button>
-                  </Col>
-
-                  <Col md={12}>
-                    <Button
-                      onClick={showFormNow2}
-                      id='centermebtnActions'
-                      className='my-1'
-                    >
-                      <i className='fas fa-plus'></i> הוסף תורים
-                    </Button>
-                  </Col>
-                  <Col md={12}>
-                    <Button
-                      onClick={showFormNow}
-                      id='centermebtnActions'
-                      className='my-1'
-                    >
-                      <i className='fas fa-plus'></i> הוסף תור
-                    </Button>{' '}
-                  </Col>
-
-                  <Col md={12}>
-                    <div id='BarberMENU'>
-                      <button
-                        onClick={showSicumNow}
-                        className='BARBERMENUBTNSICUM'
-                      >
-                        <i id='idid' class='fas fa-file-invoice-dollar'></i>
-                        סיכום
-                      </button>
-                    </div>
-                  </Col>
-                </Row>
+              <div onClick={setSHOW_TH_CHHOSE_FUNCTION} id='centerme'>
+                <span id='torimAndHahnasot'>בחר</span>
               </div>
+
+              <div onClick={setShowActionsBig_FUNCTION} id='centerme'>
+                <span id='torimAndHahnasot'>הוספה</span>
+              </div>
+              {ShowActionsBig && (
+                <div id='centerme'>
+                  <Row>
+                    <Col md={12}>
+                      <Button
+                        className='link buzz-out-on-hover'
+                        onClick={submitHandler3}
+                        id='HOSAFAmehiraBtn'
+                      >
+                        <i class='fas fa-bolt'></i> הוספה מהירה
+                      </Button>
+                    </Col>
+
+                    <Col md={12}>
+                      <Button
+                        onClick={showFormNow2}
+                        id='centermebtnActions'
+                        className='my-1'
+                      >
+                        <i className='fas fa-plus'></i> הוסף תורים
+                      </Button>
+                    </Col>
+                    <Col md={12}>
+                      <Button
+                        onClick={showFormNow}
+                        id='centermebtnActions'
+                        className='my-1'
+                      >
+                        <i className='fas fa-plus'></i> הוסף תור
+                      </Button>{' '}
+                    </Col>
+                  </Row>
+                </div>
+              )}
 
               {showForm && (
                 <div id='sizeme'>
@@ -2144,41 +2151,58 @@ const SingleWorkDayScreen = ({ history, match }) => {
                 </div>
               )}
 
-              <div id='centerme'>
-                <div id='block'>
-                  <h4 id='centerme'>
-                    <span id='torimAndHahnasot'>סיכום תורים</span>
-                  </h4>
-                  <h5 id='block' className='whitemeandrightaligen'>
-                    {' '}
-                    <span id='boldme'>{clockList.length}</span>
-                    תורים סה"כ
-                  </h5>
-
-                  <h5 id='block' className='whitemeandrightaligen'>
-                    {' '}
-                    <span id='boldmered'>
-                      {
-                        clockList.filter((clock) => clock.avilable === true)
-                          .length
-                      }
-                    </span>{' '}
-                    תורים פנויים
-                  </h5>
-                  <h4 id='centerme'>
-                    <span id='torimAndHahnasot'>סיכום הכנסות</span>
-                  </h4>
-                  <h5 id='block' className='whitemeandrightaligen'>
-                    הכנסה צפויה <span id='boldme'> {PredictedIncome()}₪</span>{' '}
-                  </h5>
-                  <h5 id='block' className='whitemeandrightaligen'>
-                    הכנסה בפועל{' '}
-                    <span id='boldme'>{workingDay.moneyCount}₪</span>{' '}
-                  </h5>
-                </div>
+              <div onClick={setShowSicumForThisDay_FUNCTION} id='centerme'>
+                <span id='torimAndHahnasot'>סיכום</span>
               </div>
+              {ShowSicumForThisDay && (
+                <div id='centerme'>
+                  <div id='block'>
+                    <h5 id='block' className='whitemeandrightaligen'>
+                      {' '}
+                      <span id='boldme'>{clockList.length}</span>
+                      תורים סה"כ
+                    </h5>
+
+                    <h5 id='block' className='whitemeandrightaligen'>
+                      {' '}
+                      <span id='boldmered'>
+                        {
+                          clockList.filter((clock) => clock.avilable === true)
+                            .length
+                        }
+                      </span>{' '}
+                      תורים פנויים
+                    </h5>
+
+                    <h5 id='block' className='whitemeandrightaligen'>
+                      הכנסה צפויה <span id='boldme'> {PredictedIncome()}₪</span>{' '}
+                    </h5>
+                    <h5 id='block' className='whitemeandrightaligen'>
+                      הכנסה בפועל{' '}
+                      <span id='boldme'>{workingDay.moneyCount}₪</span>{' '}
+                    </h5>
+
+                    <Col md={12}>
+                      <div id='BarberMENU'>
+                        <button
+                          onClick={showSicumNow}
+                          className='BARBERMENUBTNSICUM'
+                        >
+                          <i
+                            id='idid'
+                            className='SacemYOM'
+                            class='fas fa-file-invoice-dollar'
+                          ></i>
+                          סכם יום זה
+                        </button>
+                      </div>
+                    </Col>
+                  </div>
+                </div>
+              )}
             </div>
           </Col>
+
           <Col md={9}>
             <div>
               <Table bordered hover responsive id='tablewhiteSingle'>
