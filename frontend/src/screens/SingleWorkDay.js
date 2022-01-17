@@ -27,7 +27,6 @@ import {
   workingDayDetails,
   ReciptForThisWorkingDay,
   SugeiTipulimAction,
-  getmeuseridForThisClockAction,
 } from '../actions/userActions'
 import { Link } from 'react-router-dom'
 import ReactToPrint from 'react-to-print'
@@ -134,12 +133,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const SearchOneUser = useSelector((state) => state.SearchOneUser)
   const { loadinguserfound, userfound, successuserfound, erroruserfound } =
     SearchOneUser
-
-  const GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_STORE = useSelector(
-    (state) => state.GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_STORE
-  )
-  const { userfound_for_no_avilable_tor } =
-    GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_STORE
 
   const ClocksReciptOneDay = useSelector((state) => state.ClocksReciptOneDay)
   const { result1day } = ClocksReciptOneDay
@@ -314,7 +307,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
   }
 
   const FunctionForFilteringTheCheched = (id) => {
-    let Index = ArrayOfSelectedTors.indexOf(id)
+    let Index = ArrayOfSelectedTors.findIndex((x) => x.id === id)
     console.log(Index)
     console.log(Index)
     console.log(Index)
@@ -326,17 +319,23 @@ const SingleWorkDayScreen = ({ history, match }) => {
     console.log(ArrayOfSelectedTors)
   }
 
-  const selectAllTors = async () => {
+  const selectAllTors = () => {
     setStateForPinuiBTN(true)
     if (stateChecked === false) {
       setstateChecked(true)
       for (let checkbox of checkboxes) {
         checkbox.checked = true
+        var valuetwo = checkbox.getAttribute('data-valuetwo')
+        const object = { id: checkbox.value, uid: valuetwo }
 
-        await dispatch(getmeuseridForThisClockAction(checkbox.value))
-        console.log(userfound_for_no_avilable_tor)
-
-        ArrayOfSelectedTors.push(checkbox.value)
+        let magenicVendor = ArrayOfSelectedTors.find(
+          (vendor) => vendor['id'] === object.id
+        )
+        if (!magenicVendor) {
+          ArrayOfSelectedTors.push(object)
+        } else {
+          console.log('לא מוסיף קיים כבר')
+        }
       }
     } else {
       setstateChecked(false)
@@ -2415,6 +2414,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
                               aria-checked='false'
                               className='checkboxxx'
                               value={clock._id}
+                              data-valuetwo={clock._id}
                             ></input>
                           </form>{' '}
                         </td>

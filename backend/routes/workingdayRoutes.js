@@ -15,7 +15,6 @@ import {
   getCLOCKSForThisWeekRECIPT,
   getCLOCKSForThisMonthRECIPT,
   getCLOCKSForTHISdayRECIPT,
-  returnmeUserIDforNotAvilableClock,
 } from '../controllers/workingDayController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
@@ -25,9 +24,6 @@ router
   .route('/')
   .post(protect, admin, createWorkingDay)
   .get(protect, admin, getWorkingDays)
-router
-  .route('/getmeuserfornoavilableclock')
-  .post(returnmeUserIDforNotAvilableClock)
 
 router.route('/thisday').get(protect, admin, getWorkingDayForToday)
 router.route('/thisweek').get(protect, admin, getWorkingDaysForThisWEEK)

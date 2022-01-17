@@ -149,9 +149,6 @@ import {
   ONE_USER_SEARCH_REQUEST,
   ONE_USER_SEARCH_SUCCESS,
   ONE_USER_SEARCH_FAIL,
-  GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_REQUEST,
-  GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_SUCCESS,
-  GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_FAIL,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 import { useState } from 'react'
@@ -1863,47 +1860,3 @@ export const SearchOneUserAction = (id) => async (dispatch, getState) => {
     })
   }
 }
-
-export const getmeuseridForThisClockAction =
-  (id) => async (dispatch, getState) => {
-    try {
-      console.log(id)
-      console.log(id)
-      console.log(id)
-      console.log(id)
-      console.log(id)
-      dispatch({
-        type: GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_REQUEST,
-      })
-      const {
-        userLogin: { userInfo },
-      } = getState()
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      }
-      const { data } = await axios.post(
-        `/api/workingday/getmeuserfornoavilableclock}`,
-        { id },
-        config
-      )
-
-      dispatch({
-        type: GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_SUCCESS,
-        payload: data,
-      })
-    } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
-      if (message === 'Not authorized, token failed') {
-        dispatch(logout())
-      }
-      dispatch({
-        type: GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_FAIL,
-        payload: message,
-      })
-    }
-  }
