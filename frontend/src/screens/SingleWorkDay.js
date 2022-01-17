@@ -82,6 +82,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
+  const [SHOW_SINUN_CHHOSE, setSHOW_SINUN_CHHOSE] = useState(false)
   const [Somthing, setSomthing] = useState(false)
   const [ShowActionsBig, setShowActionsBig] = useState(false)
   const [ShowSicumForThisDay, setShowSicumForThisDay] = useState(false)
@@ -227,6 +228,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   //***states for Email Adress sending Sicum */
   const [emailToSendTo, SetemailToSendTo] = useState(userInfo.email)
+
+  /**states for sinun */
+  const [SHOWAllToirmForToday, setSHOWAllToirmForToday] = useState(true)
+  const [SHOWonlyAvilable, setSHOWonlyAvilable] = useState(false)
+  const [SHOWonlyNotAvilable, setSHOWonlyNotAvilable] = useState(false)
+
   // ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
   // ██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
   // █████╗  ██║   ██║██╔██╗ ██║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗
@@ -236,6 +243,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   let checkboxes = document.querySelectorAll('.checkboxxx')
 
+  const setSHOW_SINUN_CHHOSE_FUNCTION = () => {
+    setSHOW_SINUN_CHHOSE(!SHOW_SINUN_CHHOSE)
+  }
   const ARE_U_sure_PINUI_selected = () => {
     console.log(ArrayOfSelectedTors)
     Swal.fire({
@@ -2009,6 +2019,43 @@ const SingleWorkDayScreen = ({ history, match }) => {
               <div onClick={setSHOW_TH_CHHOSE_FUNCTION} id='centerme'>
                 <span id='torimAndHahnasot'>בחר</span>
               </div>
+              <div onClick={setSHOW_SINUN_CHHOSE_FUNCTION} id='centerme'>
+                <span id='torimAndHahnasot'>סנן</span>
+              </div>
+              {SHOW_SINUN_CHHOSE && (
+                <div id='centerme'>
+                  <Row>
+                    <Col md={12}>
+                      <Button
+                        onClick={() => setSHOWonlyAvilable(true)}
+                        id='centermebtnActions'
+                        className='my-1'
+                      >
+                        <i class='fas fa-scroll'></i>
+                        כל התורים{' '}
+                      </Button>
+                      <Button
+                        onClick={() => setSHOWonlyAvilable(true)}
+                        id='centermebtnActions'
+                        className='my-1'
+                      >
+                        <i class='fas fa-user-slash'></i>
+                        תורים פנויים
+                      </Button>
+                    </Col>
+                    <Col md={12}>
+                      <Button
+                        onClick={() => setSHOWonlyNotAvilable(true)}
+                        id='centermebtnActions'
+                        className='my-1'
+                      >
+                        <i class='fas fa-user-friends'></i>
+                        תורים תפוסים
+                      </Button>{' '}
+                    </Col>
+                  </Row>
+                </div>
+              )}
 
               <div onClick={setShowActionsBig_FUNCTION} id='centerme'>
                 <span id='torimAndHahnasot'>הוספה</span>
