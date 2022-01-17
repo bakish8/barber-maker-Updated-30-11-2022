@@ -82,6 +82,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
+  const [Somthing, setSomthing] = useState(false)
   const [ShowActionsBig, setShowActionsBig] = useState(false)
   const [ShowSicumForThisDay, setShowSicumForThisDay] = useState(false)
 
@@ -351,6 +352,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
   }
 
   const selectOneTor = (id, avilable, mistaper) => {
+    setSomthing(!Somthing)
+
     let magenicVendor = ArrayOfSelectedTors.find(
       (vendor) => vendor['id'] === id
     )
@@ -1274,6 +1277,38 @@ const SingleWorkDayScreen = ({ history, match }) => {
       return ''
     }
   }
+
+  let returnClassNameForCheckedTR = (avilable) => {
+    console.log(avilable)
+    if (!avilable) {
+      return 'green'
+    } else {
+      return 'red'
+    }
+  }
+
+  const returnClassNameForCheckedTRFUNCTION = (id, avilable) => {
+    let magenicVendor = ArrayOfSelectedTors.find(
+      (vendor) => vendor['id'] === id
+    )
+    if (!magenicVendor) {
+      const result = ''
+      console.log(result)
+      if (avilable) {
+        return 'red'
+      } else {
+        return 'green'
+      }
+    } else {
+      if (avilable) {
+        const result = 'checkboxcheckcolorblueandRed'
+        return `red` + ' ' + result
+      } else {
+        return `green` + ' ' + 'checkboxcheckcolorblueandGreen'
+      }
+    }
+  }
+
   // ██╗   ██╗███████╗███████╗    ███████╗███████╗███████╗███████╗ ██████╗████████╗
   // ██║   ██║██╔════╝██╔════╝    ██╔════╝██╔════╝██╔════╝██╔════╝██╔════╝╚══██╔══╝
   // ██║   ██║███████╗█████╗      █████╗  █████╗  █████╗  █████╗  ██║        ██║
@@ -2233,6 +2268,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
                     >
                       <form>
                         <input
+                          id='checkbox'
                           onClick={selectAllTors}
                           type='checkbox'
                           checked={stateChecked}
@@ -2257,7 +2293,14 @@ const SingleWorkDayScreen = ({ history, match }) => {
                     .map((clock) => (
                       <tr
                         key={clock._id}
-                        className={clock.avilable ? 'red' : 'green'}
+                        className={
+                          SHOW_TH_CHHOSE
+                            ? `${returnClassNameForCheckedTRFUNCTION(
+                                clock._id,
+                                clock.avilable
+                              )}`
+                            : `${returnClassNameForCheckedTR(clock.avilable)}`
+                        }
                         id={FunctionBlingThisTime(clock.time)}
                       >
                         <td>

@@ -1449,6 +1449,35 @@ textarea {
   background-color: rgb(72, 74, 204);
   color: white;
 }
+
+@keyframes colorblueandGreen {
+  0% {
+    background-color: rgba(11, 159, 228, 0.61);
+    color: white;
+  }
+  50% {
+    background-color: rgba(0, 255, 13, 0.267);
+    color: white;
+  }
+  100% {
+    background-color: rgba(11, 159, 228, 0.61);
+    color: white;
+  }
+}
+@keyframes colorblueandRed {
+  0% {
+    background-color: rgba(11, 159, 228, 0.61);
+    color: white;
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.185);
+    color: white;
+  }
+  100% {
+    background-color: rgba(11, 159, 228, 0.61);
+    color: white;
+  }
+}
 @keyframes colored {
   0% {
     background-color: rgb(160, 20, 20);
@@ -2058,23 +2087,33 @@ h6 {
   width: 180px;
 }
 
-@media (max-width: 1100px) {
-  .TIPUL_TH {
-    width: 20%;
-  }
-  .CLIENT_TH {
-    width: 30%;
-  }
-  .PRICE_TH {
-    width: 10%;
-  }
-  .Payd_TH {
-    width: 15%;
-  }
-  .hour_TH {
-    width: 15%;
-  }
+.TIPUL_TH {
+  width: 20%;
+}
+.CLIENT_TH {
+  width: 30%;
+}
+.PRICE_TH {
+  width: 10%;
+}
+.Payd_TH {
+  width: 15%;
+}
+.hour_TH {
+  width: 15%;
+}
+#checkbox {
+  position: relative;
+  right: 10px;
+}
+.checkboxcheckcolorblueandGreen {
+  background-color: #00ff807a;
+}
+.checkboxcheckcolorblueandRed {
+  background-color: #ff00b33d;
+}
 
+@media (max-width: 1100px) {
   #tablewhiteSingle {
     font-size: smaller;
   }
