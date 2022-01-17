@@ -162,6 +162,9 @@ import {
   ONE_USER_SEARCH_REQUEST,
   ONE_USER_SEARCH_SUCCESS,
   ONE_USER_SEARCH_FAIL,
+  GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_REQUEST,
+  GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_SUCCESS,
+  GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_FAIL,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -944,6 +947,30 @@ export const SearchOneUserReducer = (state = {}, action) => {
         loadinguserfound: false,
         erroruserfound: action.payload,
         successuserfound: false,
+      }
+    default:
+      return state
+  }
+}
+
+export const GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCKReducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_REQUEST:
+      return { loadinguserfound_for_no_avilable_tor: true }
+    case GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_SUCCESS:
+      return {
+        loadinguserfound_for_no_avilable_tor: false,
+        userfound_for_no_avilable_tor: action.payload,
+        successuserfound_for_no_avilable_tor: true,
+      }
+    case GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_FAIL:
+      return {
+        loadinguserfound_for_no_avilable_tor: false,
+        erroruserfound_for_no_avilable_tor: action.payload,
+        successuserfound_for_no_avilable_tor: false,
       }
     default:
       return state

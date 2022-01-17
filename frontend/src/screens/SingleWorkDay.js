@@ -27,6 +27,7 @@ import {
   workingDayDetails,
   ReciptForThisWorkingDay,
   SugeiTipulimAction,
+  getmeuseridForThisClockAction,
 } from '../actions/userActions'
 import { Link } from 'react-router-dom'
 import ReactToPrint from 'react-to-print'
@@ -134,6 +135,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const { loadinguserfound, userfound, successuserfound, erroruserfound } =
     SearchOneUser
 
+  const GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_STORE = useSelector(
+    (state) => state.GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_STORE
+  )
+  const { userfound_for_no_avilable_tor } =
+    GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_STORE
+
   const ClocksReciptOneDay = useSelector((state) => state.ClocksReciptOneDay)
   const { result1day } = ClocksReciptOneDay
 
@@ -232,20 +239,103 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   let checkboxes = document.querySelectorAll('.checkboxxx')
 
+  const ARE_U_sure_PINUI_selected = () => {
+    console.log(ArrayOfSelectedTors)
+    Swal.fire({
+      title: '?אתה בטוח',
+      text: `?האם אתה בטוח שברצונך לפנות את השעות המסומנות`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'כן אני בטוח',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('dispatcching action')
+        if (!ArrayOfSelectedTors.length) {
+          console.log('array is emty please choose')
+        } else {
+          for (let i of ArrayOfSelectedTors) {
+            if (!i.uid) {
+              console.log('אי אפשר לפננות כי אין מה התור פנוי המשך הלאה')
+            } else {
+              let id = i.id
+              let uid = i.uid
+              dispatch(CancelMyTor(id, uid))
+            }
+          }
+
+          Swal.fire({
+            position: 'top-end',
+            cancelButtonColor: 'rgb(194, 0, 0)',
+            confirmButtonColor: 'rgb(3, 148, 39)',
+            icon: 'success',
+            title: `בוצע בהצלחה`,
+            text: `התורים שביקשת לפנות פונו בהצלחה מהמערכת וכעת זמינים ללקוחות אחרים`,
+            showConfirmButton: false,
+            timer: 8000,
+          })
+          setSHOW_TH_CHHOSE(false)
+          setstateChecked(false)
+          setselect_OneTor(false)
+        }
+      }
+    })
+  }
+
+  const ARE_U_sure_delete_selected = () => {
+    console.log(ArrayOfSelectedTors)
+    Swal.fire({
+      title: '?אתה בטוח',
+      text: `?האם אתה בטוח שברצונך למחוק את השעות המסומנות`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'כן אני בטוח',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('dispatcching action')
+        if (!ArrayOfSelectedTors.length) {
+          console.log('array is emty please choose')
+        } else {
+          for (let i of ArrayOfSelectedTors) {
+            let id = i.id
+            dispatch(deleteClock(WorkDayid, id))
+          }
+          setSHOW_TH_CHHOSE(false)
+          setstateChecked(false)
+          setselect_OneTor(false)
+        }
+      }
+    })
+  }
+
   const FunctionForFilteringTheCheched = (id) => {
     let Index = ArrayOfSelectedTors.indexOf(id)
     console.log(Index)
+    console.log(Index)
+    console.log(Index)
+    console.log(Index)
+
     ArrayOfSelectedTors.splice(Index, 1)
 
     console.log('after Function')
     console.log(ArrayOfSelectedTors)
   }
 
-  const selectAllTors = () => {
+  const selectAllTors = async () => {
+    setStateForPinuiBTN(true)
     if (stateChecked === false) {
       setstateChecked(true)
       for (let checkbox of checkboxes) {
         checkbox.checked = true
+
+        await dispatch(getmeuseridForThisClockAction(checkbox.value))
+        console.log(userfound_for_no_avilable_tor)
+
         ArrayOfSelectedTors.push(checkbox.value)
       }
     } else {
@@ -255,15 +345,15 @@ const SingleWorkDayScreen = ({ history, match }) => {
         ArrayOfSelectedTors.splice(checkbox.value)
       }
     }
+    console.log(ArrayOfSelectedTors)
   }
 
-  let numberush = 0
-  const selectOneTor = (id, avilable) => {
-    if (ArrayOfSelectedTors.includes(id)) {
-      if (!avilable) {
-        numberush = numberush - 1
-      }
+  const selectOneTor = (id, avilable, mistaper) => {
+    let magenicVendor = ArrayOfSelectedTors.find(
+      (vendor) => vendor['id'] === id
+    )
 
+    if (magenicVendor) {
       console.log('includes')
       FunctionForFilteringTheCheched(id)
       if (ArrayOfSelectedTors.length === 0) {
@@ -274,25 +364,44 @@ const SingleWorkDayScreen = ({ history, match }) => {
     } else {
       console.log(' not includes')
       if (!avilable) {
-        numberush = numberush + 1
-      }
-      ArrayOfSelectedTors.push(id)
-      console.log(ArrayOfSelectedTors)
-      if (ArrayOfSelectedTors.length === 0) {
-        setselect_OneTor(false)
+        console.log(mistaper._id)
+        const uid = mistaper._id
+
+        ArrayOfSelectedTors.push({ id: id, uid: uid })
+        console.log(ArrayOfSelectedTors)
+        if (ArrayOfSelectedTors.length === 0) {
+          setselect_OneTor(false)
+        } else {
+          setselect_OneTor(true)
+        }
       } else {
-        setselect_OneTor(true)
+        ArrayOfSelectedTors.push({ id: id })
+        console.log(ArrayOfSelectedTors)
+        if (ArrayOfSelectedTors.length === 0) {
+          setselect_OneTor(false)
+        } else {
+          setselect_OneTor(true)
+        }
       }
-      if (numberush > 0) {
-        setStateForPinuiBTN(true)
-      } else {
-        setStateForPinuiBTN(false)
-      }
+    }
+    let magicVendor2 = ArrayOfSelectedTors.find((vendor) => vendor['uid'])
+    if (magicVendor2) {
+      setStateForPinuiBTN(true)
+    } else {
+      setStateForPinuiBTN(false)
     }
   }
 
   const setSHOW_TH_CHHOSE_FUNCTION = () => {
     setSHOW_TH_CHHOSE(!SHOW_TH_CHHOSE)
+    setStateForPinuiBTN(false) //**משנה את ההצהרה למה שהיא לא הייתה ומאפס את  כל הדברים הבאים */
+    setstateChecked(false)
+    setselect_OneTor(false)
+    setArrayOfSelectedTors([])
+    console.log(ArrayOfSelectedTors)
+    for (let checkbox of checkboxes) {
+      checkbox.checked = false
+    }
   }
   const OpenSmallScreenOptions_Swal = () => {
     swalWithBootstrapButtons
@@ -798,8 +907,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
     creditLastDigits,
     ReciptNumber
   ) => {
-    const uid = userInfo._id
-
     if (avilable === false && !isPaid) {
       swalWithBootstrapButtons
         .fire({
@@ -826,31 +933,37 @@ const SingleWorkDayScreen = ({ history, match }) => {
           if (result.isConfirmed) {
             makeClockPAIDHandler(id, time, date)
           } else if (result.isDenied) {
-            Swal.fire({
-              title: '?אתה בטוח',
-              text: `ברגע שתהפוך את התור בשעה ${time} זה לזמין לא תהיה לך את האפשרות להחזיר את פרטי המשתמש שסגר את התור בשעה זו`,
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              cancelButtonText: 'ביטול',
-              confirmButtonText: 'כן אני בטוח',
-            }).then((result) => {
-              if (result.isConfirmed) {
-                dispatch(CancelMyTor(id, uid)).then(
-                  Swal.fire({
-                    position: 'top-end',
-                    cancelButtonColor: 'rgb(194, 0, 0)',
-                    confirmButtonColor: 'rgb(3, 148, 39)',
-                    icon: 'success',
-                    title: `התור בשעה ${time} פנוי כעת`,
-                    text: `שינוי סטאטוס התור בוצע בהצלחה`,
-                    showConfirmButton: false,
-                    timer: 8000,
-                  })
-                )
-              }
-            })
+            if (mistaper) {
+              const uid = mistaper._id
+              console.log(mistaper._id)
+              console.log(mistaper._id)
+              console.log(mistaper._id)
+              Swal.fire({
+                title: '?אתה בטוח',
+                text: `ברגע שתהפוך את התור בשעה ${time} זה לזמין לא תהיה לך את האפשרות להחזיר את פרטי המשתמש שסגר את התור בשעה זו`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'ביטול',
+                confirmButtonText: 'כן אני בטוח',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  dispatch(CancelMyTor(id, uid)).then(
+                    Swal.fire({
+                      position: 'top-end',
+                      cancelButtonColor: 'rgb(194, 0, 0)',
+                      confirmButtonColor: 'rgb(3, 148, 39)',
+                      icon: 'success',
+                      title: `התור בשעה ${time} פנוי כעת`,
+                      text: `שינוי סטאטוס התור בוצע בהצלחה`,
+                      showConfirmButton: false,
+                      timer: 8000,
+                    })
+                  )
+                }
+              })
+            }
           }
         })
     } else if (avilable === false && isPaid === true) {
@@ -1365,7 +1478,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
         <>
           {(SHOW_TH_CHHOSE && stateChecked) ||
           (SHOW_TH_CHHOSE && select_OneTor) ? (
-            <div id='DELETE_cirecle'>
+            <div onClick={ARE_U_sure_delete_selected} id='DELETE_cirecle'>
               <span id='trash_iconXXX'>
                 <i class='fas fa-trash'></i>
               </span>
@@ -1376,7 +1489,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           {SHOW_TH_CHHOSE &&
           StateForPinuiBTN &&
           ArrayOfSelectedTors.length != 0 ? (
-            <div id='PINUI_cirecle'>
+            <div onClick={ARE_U_sure_PINUI_selected} id='PINUI_cirecle'>
               <span id='PINUI_iconXXX'>פינוי</span>
             </div>
           ) : (
@@ -2291,7 +2404,11 @@ const SingleWorkDayScreen = ({ history, match }) => {
                           <form>
                             <input
                               onClick={() =>
-                                selectOneTor(clock._id, clock.avilable)
+                                selectOneTor(
+                                  clock._id,
+                                  clock.avilable,
+                                  clock.mistaper
+                                )
                               }
                               type='checkbox'
                               id='checkbox'

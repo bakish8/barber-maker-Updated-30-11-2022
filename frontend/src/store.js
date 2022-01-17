@@ -58,6 +58,7 @@ import {
   RegisterNewTipulReducer,
   TipulimListReducer,
   SearchOneUserReducer,
+  GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCKReducer,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -128,6 +129,8 @@ const reducer = combineReducers({
   RegisterNewTipul: RegisterNewTipulReducer,
   TipulimList: TipulimListReducer,
   SearchOneUser: SearchOneUserReducer,
+  GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCK_STORE:
+    GET_ME_USER_ID_FOR_NO_AVILABLE_CLOCKReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

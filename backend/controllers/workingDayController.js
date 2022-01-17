@@ -986,6 +986,15 @@ const deleteClock = asyncHandler(async (req, res) => {
   }
 })
 
+const returnmeUserIDforNotAvilableClock = asyncHandler(async (req, res) => {
+  console.log('merd')
+  console.log('merd')
+  console.log('merd')
+  console.log('merd')
+  console.log('merd')
+  console.log('merd')
+})
+
 export {
   createWorkingDay,
   getWorkingDays, //ימי העבודה -החודש- עבור הספר
@@ -1004,4 +1013,5 @@ export {
   getCLOCKSForThisWeekRECIPT /* מחזיר את השעות עבור שבוע אחד לקבלה*/,
   getCLOCKSForThisMonthRECIPT, //*******מחזיר את כל השעות עבור החודש הזה */
   getCLOCKSForTHISdayRECIPT /*****מחזיר את שעות הקבלה ליום הספציפי */,
+  returnmeUserIDforNotAvilableClock /*****מחזיר את המששתמש של שעה תפוסה */,
 }
