@@ -153,11 +153,19 @@ main {
 }
 
 #colorgreenme {
-  color: chartreuse;
+  color: rgb(35, 167, 68);
   font-size: 15px;
+  position: relative;
+  bottom: 4px;
+  right: 4px;
 }
 #coloredmePlease {
   color: red;
+  font-size: 15px;
+
+  position: relative;
+  bottom: 4px;
+  right: 4px;
 }
 
 .SINUN-BTN-ALL {
@@ -182,7 +190,20 @@ main {
   padding: 3.5px 8px;
   z-index: 2;
   transform: scale(0.9) skew(-15deg);
-  right: 270px;
+  right: 216px;
+  top: 40px;
+  transition: 0.2s ease-in;
+}
+.SINUN-BTN-PAYD {
+  cursor: pointer;
+  font-size: 14px;
+  position: absolute;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 3.5px 8px;
+  z-index: 2;
+  transform: scale(0.9) skew(-15deg);
+  right: 283px;
   top: 40px;
   transition: 0.2s ease-in;
 }
@@ -214,6 +235,9 @@ main {
   transition: 0.2s ease-in;
 }
 
+.SINUN-BTN-PAYD:focus,
+.SINUN-BTN-PAYD:hover,
+.SINUN-BTN-PAYD:active,
 .SINUN-BTN-ALL:focus,
 .SINUN-BTN-ALL:hover,
 .SINUN-BTN-ALL:active,
@@ -1314,6 +1338,9 @@ textarea {
   color: $col;
 }
 
+#displaynonePlease {
+  display: none;
+}
 #displaynone {
   width: 10px;
   align-items: center;
