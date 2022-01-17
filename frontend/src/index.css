@@ -151,6 +151,92 @@ main {
   color: #ffffff;
   z-index: 3;
 }
+
+#colorgreenme {
+  color: chartreuse;
+  font-size: 15px;
+}
+#coloredmePlease {
+  color: red;
+}
+
+.SINUN-BTN-ALL {
+  cursor: pointer;
+  font-size: 14px;
+  position: absolute;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 3.5px 8px;
+  z-index: 2;
+  transform: scale(0.9) skew(-15deg);
+  right: 100px;
+  top: 40px;
+  transition: 0.2s ease-in;
+}
+.SINUN-BTN-NOT-AVILABLE {
+  cursor: pointer;
+  font-size: 14px;
+  position: absolute;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 3.5px 8px;
+  z-index: 2;
+  transform: scale(0.9) skew(-15deg);
+  right: 270px;
+  top: 40px;
+  transition: 0.2s ease-in;
+}
+.SINUN-BTN-AVILABLE {
+  cursor: pointer;
+  font-size: 14px;
+  position: absolute;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 3.5px 8px;
+  z-index: 2;
+  transform: scale(0.9) skew(-15deg);
+  right: 159px;
+  top: 40px;
+  transition: 0.2s ease-in;
+}
+.SINUN-BTN {
+  cursor: pointer;
+  font-size: 14px;
+  position: absolute;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 3.5px 8px;
+  font-weight: 500;
+  z-index: 2;
+  transform: skew(-15deg);
+  right: 30px;
+  top: 40px;
+  transition: 0.2s ease-in;
+}
+
+.SINUN-BTN-ALL:focus,
+.SINUN-BTN-ALL:hover,
+.SINUN-BTN-ALL:active,
+.SINUN-BTN-NOT-AVILABLE:focus,
+.SINUN-BTN-NOT-AVILABLE:hover,
+.SINUN-BTN-NOT-AVILABLE:active,
+.SINUN-BTN-AVILABLE:focus,
+.SINUN-BTN-AVILABLE:hover,
+.SINUN-BTN-AVILABLE:active {
+  font-weight: 500;
+  background-color: #e4e4e4;
+  color: rgb(0, 0, 0);
+  box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.233);
+}
+.SINUN-BTN:active,
+.SINUN-BTN:focus,
+.SINUN-BTN:hover {
+  font-size: 14px;
+  background-color: #e4e4e4;
+  color: rgb(0, 0, 0);
+  box-shadow: 4px 5px 6px rgba(0, 0, 0, 0.233);
+}
+
 .bigSicumBTNForSmallScreen {
   cursor: pointer;
   font-size: 14px;
@@ -722,7 +808,50 @@ body input {
   margin-right: auto;
 }
 
+#centermebtnActionsGREEN {
+  transition: 0.2s ease-in;
+
+  text-align: center;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  background-color: #076e32;
+  width: 80%;
+  border-radius: 20px;
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#centermebtnActionsGREEN:hover {
+  background-color: #20a720;
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+  box-shadow: 2px 4px 10px rgba(0, 255, 13, 0.329);
+}
+#centermebtnActionsRed {
+  transition: 0.2s ease-in;
+
+  text-align: center;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  background-color: #6e0707;
+  width: 80%;
+  border-radius: 20px;
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#centermebtnActionsRed:hover {
+  background-color: #c50000;
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+  box-shadow: 2px 4px 10px rgba(255, 0, 0, 0.493);
+}
+
 #centermebtnActions {
+  transition: 0.2s ease-in;
   text-align: center;
   display: block;
   justify-content: center;
@@ -776,7 +905,7 @@ body input {
 #centermebtnHOsef:hover,
 #centermebtnActions:hover {
   background-color: #68b4ff;
-  font-size: 16px;
+  font-size: 18px;
   color: rgb(0, 0, 0);
 }
 

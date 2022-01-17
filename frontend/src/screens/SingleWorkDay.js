@@ -230,9 +230,29 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const [emailToSendTo, SetemailToSendTo] = useState(userInfo.email)
 
   /**states for sinun */
+  const [showFilterForSmallScreen, setshowFilterForSmallScreen] =
+    useState(false) //for small screen
+
   const [SHOWAllToirmForToday, setSHOWAllToirmForToday] = useState(true)
   const [SHOWonlyAvilable, setSHOWonlyAvilable] = useState(false)
   const [SHOWonlyNotAvilable, setSHOWonlyNotAvilable] = useState(false)
+
+  const setSHOWAllToirmForTodayFUNCTION = () => {
+    setSHOWAllToirmForToday(true)
+    setSHOWonlyAvilable(false)
+    setSHOWonlyNotAvilable(false)
+  }
+
+  const setSHOWonlyAvilableFUNCTION = () => {
+    setSHOWonlyAvilable(true)
+    setSHOWAllToirmForToday(false)
+    setSHOWonlyNotAvilable(false)
+  }
+  const setSHOWonlyNotAvilableFUNCTION = () => {
+    setSHOWonlyNotAvilable(true)
+    setSHOWonlyAvilable(false)
+    setSHOWAllToirmForToday(false)
+  }
 
   // ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
   // ██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
@@ -243,6 +263,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   let checkboxes = document.querySelectorAll('.checkboxxx')
 
+  const showFilterForSmallScreenFunction = () => {
+    setshowFilterForSmallScreen(!showFilterForSmallScreen)
+  }
   const setSHOW_SINUN_CHHOSE_FUNCTION = () => {
     setSHOW_SINUN_CHHOSE(!SHOW_SINUN_CHHOSE)
   }
@@ -409,6 +432,10 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const setShowActionsBig_FUNCTION = () => {
     setShowActionsBig(!ShowActionsBig)
+    if (showForm || showForm2) {
+      setShowForm(false)
+      setShowForm2(false)
+    }
   }
   const setShowSicumForThisDay_FUNCTION = () => {
     setShowSicumForThisDay(!ShowSicumForThisDay)
@@ -1975,6 +2002,42 @@ const SingleWorkDayScreen = ({ history, match }) => {
               <div onClick={showSicumNow} className='bigSicumBTNForSmallScreen'>
                 סיכום
               </div>{' '}
+              <div
+                onClick={showFilterForSmallScreenFunction}
+                className='SINUN-BTN'
+              >
+                <i class='fas fa-filter'></i> סינון
+              </div>{' '}
+              {showFilterForSmallScreen && (
+                <div>
+                  <div
+                    onClick={setSHOWAllToirmForTodayFUNCTION}
+                    className='SINUN-BTN-ALL'
+                  >
+                    <i class='fas fa-filter'></i> הכל
+                  </div>{' '}
+                  <div
+                    onClick={setSHOWonlyAvilableFUNCTION}
+                    className='SINUN-BTN-AVILABLE'
+                  >
+                    <span id='colorgreenme'>
+                      {' '}
+                      <i class='fas fa-circle'></i>{' '}
+                    </span>
+                    תורים פנויים{' '}
+                  </div>{' '}
+                  <div
+                    onClick={setSHOWonlyNotAvilableFUNCTION}
+                    className='SINUN-BTN-NOT-AVILABLE'
+                  >
+                    <span id='coloredmePlease'>
+                      {' '}
+                      <i class='fas fa-circle'></i>{' '}
+                    </span>
+                    תורים תפוסים
+                  </div>{' '}
+                </div>
+              )}
               <div className='text-update'>
                 <NewsTicker
                   id='styleNoBULLETS'
@@ -2017,17 +2080,17 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
             <div>
               <div onClick={setSHOW_TH_CHHOSE_FUNCTION} id='centerme'>
-                <span id='torimAndHahnasot'>בחר</span>
+                <span id='torimAndHahnasot'>בחירה</span>
               </div>
               <div onClick={setSHOW_SINUN_CHHOSE_FUNCTION} id='centerme'>
-                <span id='torimAndHahnasot'>סנן</span>
+                <span id='torimAndHahnasot'>סינון</span>
               </div>
               {SHOW_SINUN_CHHOSE && (
                 <div id='centerme'>
                   <Row>
                     <Col md={12}>
                       <Button
-                        onClick={() => setSHOWonlyAvilable(true)}
+                        onClick={setSHOWAllToirmForTodayFUNCTION}
                         id='centermebtnActions'
                         className='my-1'
                       >
@@ -2035,8 +2098,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                         כל התורים{' '}
                       </Button>
                       <Button
-                        onClick={() => setSHOWonlyAvilable(true)}
-                        id='centermebtnActions'
+                        onClick={setSHOWonlyAvilableFUNCTION}
+                        id='centermebtnActionsRed'
                         className='my-1'
                       >
                         <i class='fas fa-user-slash'></i>
@@ -2045,8 +2108,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                     </Col>
                     <Col md={12}>
                       <Button
-                        onClick={() => setSHOWonlyNotAvilable(true)}
-                        id='centermebtnActions'
+                        onClick={setSHOWonlyNotAvilableFUNCTION}
+                        id='centermebtnActionsGREEN'
                         className='my-1'
                       >
                         <i class='fas fa-user-friends'></i>
@@ -2285,259 +2348,798 @@ const SingleWorkDayScreen = ({ history, match }) => {
             </div>
           </Col>
 
-          <Col md={9}>
-            <div>
-              <Table bordered hover responsive id='tablewhiteSingle'>
-                <thead id='centertext'>
-                  <tr>
-                    <th id='tableheadlines' className='Payd_TH'>
-                      שולם
-                    </th>
-                    <th id='tableheadlines' className='PRICE_TH'>
-                      מחיר
-                    </th>
-                    <th id='tableheadlines' className='TIPUL_TH'>
-                      טיפול
-                    </th>
-                    <th id='tableheadlines' className='CLIENT_TH'>
-                      לקוח/ה
-                    </th>
-                    <th id='tableheadlines' className='hour_TH'>
-                      שעה
-                    </th>
-                    <th
-                      id={`${
-                        SHOW_TH_CHHOSE
-                          ? 'tableTHdisplayNoneCHOOSEDISPLAY'
-                          : 'tableTHdisplayNoneCHOOSE'
-                      }`}
-                      className='classFOrTHdisplay'
-                    >
-                      <form>
-                        <input
-                          id='checkbox'
-                          onClick={selectAllTors}
-                          type='checkbox'
-                          checked={stateChecked}
-                        ></input>
-                      </form>{' '}
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody id='centertext'>
-                  {clockList
-
-                    .sort((a, b) => {
-                      const TimeA = ` ${a.time}`.valueOf()
-                      const TimeB = ` ${b.time}`.valueOf()
-                      if (TimeA > TimeB) {
-                        return 1 // return -1 here for DESC order
-                      }
-                      return -1 // return 1 here for DESC Order
-                    })
-
-                    .map((clock) => (
-                      <tr
-                        key={clock._id}
-                        className={
+          {SHOWAllToirmForToday && (
+            <Col md={9}>
+              <div>
+                <Table bordered hover responsive id='tablewhiteSingle'>
+                  <thead id='centertext'>
+                    <tr>
+                      <th id='tableheadlines' className='Payd_TH'>
+                        שולם
+                      </th>
+                      <th id='tableheadlines' className='PRICE_TH'>
+                        מחיר
+                      </th>
+                      <th id='tableheadlines' className='TIPUL_TH'>
+                        טיפול
+                      </th>
+                      <th id='tableheadlines' className='CLIENT_TH'>
+                        לקוח/ה
+                      </th>
+                      <th id='tableheadlines' className='hour_TH'>
+                        שעה
+                      </th>
+                      <th
+                        id={`${
                           SHOW_TH_CHHOSE
-                            ? `${returnClassNameForCheckedTRFUNCTION(
-                                clock._id,
-                                clock.avilable
-                              )}`
-                            : `${returnClassNameForCheckedTR(clock.avilable)}`
-                        }
-                        id={FunctionBlingThisTime(clock.time)}
+                            ? 'tableTHdisplayNoneCHOOSEDISPLAY'
+                            : 'tableTHdisplayNoneCHOOSE'
+                        }`}
+                        className='classFOrTHdisplay'
                       >
-                        <td>
-                          {clock.isPaid && clock.paymentMethod === 'cash' ? (
-                            <img
-                              id='miniICON2'
-                              src='https://i.ibb.co/tZ081v3/CASH.png'
-                              onClick={() =>
-                                makeClockUnpaidHandler(
+                        <form>
+                          <input
+                            id='checkbox'
+                            onClick={selectAllTors}
+                            type='checkbox'
+                            checked={stateChecked}
+                          ></input>
+                        </form>{' '}
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody id='centertext'>
+                    {clockList
+
+                      .sort((a, b) => {
+                        const TimeA = ` ${a.time}`.valueOf()
+                        const TimeB = ` ${b.time}`.valueOf()
+                        if (TimeA > TimeB) {
+                          return 1 // return -1 here for DESC order
+                        }
+                        return -1 // return 1 here for DESC Order
+                      })
+
+                      .map((clock) => (
+                        <tr
+                          key={clock._id}
+                          className={
+                            SHOW_TH_CHHOSE
+                              ? `${returnClassNameForCheckedTRFUNCTION(
                                   clock._id,
-                                  clock.time,
-                                  clock.date,
                                   clock.avilable
-                                )
-                              }
-                            ></img>
-                          ) : clock.isPaid &&
-                            clock.paymentMethod === 'credit' ? (
-                            <img
-                              id='miniICON2'
-                              src='https://i.ibb.co/GV1sk89/CREDITCARDS.png'
-                              onClick={() =>
-                                makeClockUnpaidHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.avilable
-                                )
-                              }
-                            ></img>
-                          ) : clock.isPaid && clock.paymentMethod === 'bit' ? (
-                            <img
-                              id='miniICON2'
-                              src='https://i.ibb.co/88DGRYk/BITTTT.png'
-                              onClick={() =>
-                                makeClockUnpaidHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.avilable
-                                )
-                              }
-                            ></img>
-                          ) : (
-                            !clock.isPaid &&
-                            !clock.avilable && (
-                              <button
-                                id='Xunshowme'
-                                onClick={() => {
-                                  setChoosenClock(clock._id)
-                                  makeClockPAIDHandler(
+                                )}`
+                              : `${returnClassNameForCheckedTR(clock.avilable)}`
+                          }
+                          id={FunctionBlingThisTime(clock.time)}
+                        >
+                          <td>
+                            {clock.isPaid && clock.paymentMethod === 'cash' ? (
+                              <img
+                                id='miniICON2'
+                                src='https://i.ibb.co/tZ081v3/CASH.png'
+                                onClick={() =>
+                                  makeClockUnpaidHandler(
                                     clock._id,
                                     clock.time,
-                                    clock.date
+                                    clock.date,
+                                    clock.avilable
                                   )
-                                }}
-                              >
-                                <p style={{ fontSize: '25px', color: 'red' }}>
-                                  x
-                                </p>
-                              </button>
-                            )
-                          )}
-                        </td>
-                        <td
-                          onClick={() => {
-                            setChoosenClock(clock._id)
+                                }
+                              ></img>
+                            ) : clock.isPaid &&
+                              clock.paymentMethod === 'credit' ? (
+                              <img
+                                id='miniICON2'
+                                src='https://i.ibb.co/GV1sk89/CREDITCARDS.png'
+                                onClick={() =>
+                                  makeClockUnpaidHandler(
+                                    clock._id,
+                                    clock.time,
+                                    clock.date,
+                                    clock.avilable
+                                  )
+                                }
+                              ></img>
+                            ) : clock.isPaid &&
+                              clock.paymentMethod === 'bit' ? (
+                              <img
+                                id='miniICON2'
+                                src='https://i.ibb.co/88DGRYk/BITTTT.png'
+                                onClick={() =>
+                                  makeClockUnpaidHandler(
+                                    clock._id,
+                                    clock.time,
+                                    clock.date,
+                                    clock.avilable
+                                  )
+                                }
+                              ></img>
+                            ) : (
+                              !clock.isPaid &&
+                              !clock.avilable && (
+                                <button
+                                  id='Xunshowme'
+                                  onClick={() => {
+                                    setChoosenClock(clock._id)
+                                    makeClockPAIDHandler(
+                                      clock._id,
+                                      clock.time,
+                                      clock.date
+                                    )
+                                  }}
+                                >
+                                  <p style={{ fontSize: '25px', color: 'red' }}>
+                                    x
+                                  </p>
+                                </button>
+                              )
+                            )}
+                          </td>
+                          <td
+                            onClick={() => {
+                              setChoosenClock(clock._id)
 
-                            preshowTorHandler(
-                              clock.time,
-                              clock.date,
-                              clock.avilable,
-                              clock.mistaper,
-                              clock._id,
-                              WorkDayid,
-                              tipulimList,
-                              clock.isPaid,
-                              clock.TotalAmmountPaid,
-                              clock.paymentMethod,
-                              clock.creditLastDigits,
-                              clock.ReciptNumber
-                            )
-                          }}
-                        >
-                          {clock.tipul ? clock.tipul.cost : ''}
-                        </td>
-                        <td
-                          onClick={() => {
-                            setChoosenClock(clock._id)
+                              preshowTorHandler(
+                                clock.time,
+                                clock.date,
+                                clock.avilable,
+                                clock.mistaper,
+                                clock._id,
+                                WorkDayid,
+                                tipulimList,
+                                clock.isPaid,
+                                clock.TotalAmmountPaid,
+                                clock.paymentMethod,
+                                clock.creditLastDigits,
+                                clock.ReciptNumber
+                              )
+                            }}
+                          >
+                            {clock.tipul ? clock.tipul.cost : ''}
+                          </td>
+                          <td
+                            onClick={() => {
+                              setChoosenClock(clock._id)
 
-                            preshowTorHandler(
-                              clock.time,
-                              clock.date,
-                              clock.avilable,
-                              clock.mistaper,
-                              clock._id,
-                              WorkDayid,
-                              tipulimList,
-                              clock.isPaid,
-                              clock.TotalAmmountPaid,
-                              clock.paymentMethod,
-                              clock.creditLastDigits,
-                              clock.ReciptNumber
-                            )
-                          }}
-                        >
-                          {clock.tipul ? clock.tipul.name : ''}
-                        </td>
+                              preshowTorHandler(
+                                clock.time,
+                                clock.date,
+                                clock.avilable,
+                                clock.mistaper,
+                                clock._id,
+                                WorkDayid,
+                                tipulimList,
+                                clock.isPaid,
+                                clock.TotalAmmountPaid,
+                                clock.paymentMethod,
+                                clock.creditLastDigits,
+                                clock.ReciptNumber
+                              )
+                            }}
+                          >
+                            {clock.tipul ? clock.tipul.name : ''}
+                          </td>
 
-                        <td
-                          onClick={() => {
-                            setChoosenClock(clock._id)
+                          <td
+                            onClick={() => {
+                              setChoosenClock(clock._id)
 
-                            preshowTorHandler(
-                              clock.time,
-                              clock.date,
-                              clock.avilable,
-                              clock.mistaper,
-                              clock._id,
-                              WorkDayid,
-                              tipulimList,
-                              clock.isPaid,
-                              clock.TotalAmmountPaid,
-                              clock.paymentMethod,
-                              clock.creditLastDigits,
-                              clock.ReciptNumber
-                            )
-                          }}
-                        >
-                          {clock.mistaper && clock.mistaper.name}
-                          <br />
-                          <div id='phonetable'>
-                            {' '}
-                            {clock.mistaper && '0' + clock.mistaper.phone}
-                          </div>
-                        </td>
-                        <td
-                          onClick={() => {
-                            setChoosenClock(clock._id)
+                              preshowTorHandler(
+                                clock.time,
+                                clock.date,
+                                clock.avilable,
+                                clock.mistaper,
+                                clock._id,
+                                WorkDayid,
+                                tipulimList,
+                                clock.isPaid,
+                                clock.TotalAmmountPaid,
+                                clock.paymentMethod,
+                                clock.creditLastDigits,
+                                clock.ReciptNumber
+                              )
+                            }}
+                          >
+                            {clock.mistaper && clock.mistaper.name}
+                            <br />
+                            <div id='phonetable'>
+                              {' '}
+                              {clock.mistaper && '0' + clock.mistaper.phone}
+                            </div>
+                          </td>
+                          <td
+                            onClick={() => {
+                              setChoosenClock(clock._id)
 
-                            preshowTorHandler(
-                              clock.time,
-                              clock.date,
-                              clock.avilable,
-                              clock.mistaper,
-                              clock._id,
-                              WorkDayid,
-                              tipulimList,
-                              clock.isPaid,
-                              clock.TotalAmmountPaid,
-                              clock.paymentMethod,
-                              clock.creditLastDigits,
-                              clock.ReciptNumber
-                            )
-                          }}
-                        >
-                          {clock.time}
-                        </td>
-                        <td
-                          id={`${
-                            SHOW_TH_CHHOSE
-                              ? 'tableTHdisplayNoneCHOOSEDISPLAY'
-                              : 'tableTHdisplayNoneCHOOSE'
-                          }`}
-                          className='classFOrTHdisplay2'
-                        >
-                          <form>
-                            <input
-                              onClick={() =>
-                                selectOneTor(
-                                  clock._id,
-                                  clock.avilable,
-                                  clock.mistaper
+                              preshowTorHandler(
+                                clock.time,
+                                clock.date,
+                                clock.avilable,
+                                clock.mistaper,
+                                clock._id,
+                                WorkDayid,
+                                tipulimList,
+                                clock.isPaid,
+                                clock.TotalAmmountPaid,
+                                clock.paymentMethod,
+                                clock.creditLastDigits,
+                                clock.ReciptNumber
+                              )
+                            }}
+                          >
+                            {clock.time}
+                          </td>
+                          <td
+                            id={`${
+                              SHOW_TH_CHHOSE
+                                ? 'tableTHdisplayNoneCHOOSEDISPLAY'
+                                : 'tableTHdisplayNoneCHOOSE'
+                            }`}
+                            className='classFOrTHdisplay2'
+                          >
+                            <form>
+                              <input
+                                onClick={() =>
+                                  selectOneTor(
+                                    clock._id,
+                                    clock.avilable,
+                                    clock.mistaper
+                                  )
+                                }
+                                type='checkbox'
+                                id='checkbox'
+                                aria-checked='false'
+                                className='checkboxxx'
+                                value={clock._id}
+                                data-valuetwo={clock._id}
+                              ></input>
+                            </form>{' '}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </Table>
+              </div>
+            </Col>
+          )}
+
+          {SHOWonlyAvilable && (
+            <Col md={9}>
+              <div>
+                <Table bordered hover responsive id='tablewhiteSingle'>
+                  <thead id='centertext'>
+                    <tr>
+                      <th id='tableheadlines' className='Payd_TH'>
+                        שולם
+                      </th>
+                      <th id='tableheadlines' className='PRICE_TH'>
+                        מחיר
+                      </th>
+                      <th id='tableheadlines' className='TIPUL_TH'>
+                        טיפול
+                      </th>
+                      <th id='tableheadlines' className='CLIENT_TH'>
+                        לקוח/ה
+                      </th>
+                      <th id='tableheadlines' className='hour_TH'>
+                        שעה
+                      </th>
+                      <th
+                        id={`${
+                          SHOW_TH_CHHOSE
+                            ? 'tableTHdisplayNoneCHOOSEDISPLAY'
+                            : 'tableTHdisplayNoneCHOOSE'
+                        }`}
+                        className='classFOrTHdisplay'
+                      >
+                        <form>
+                          <input
+                            id='checkbox'
+                            onClick={selectAllTors}
+                            type='checkbox'
+                            checked={stateChecked}
+                          ></input>
+                        </form>{' '}
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody id='centertext'>
+                    {clockList
+
+                      .sort((a, b) => {
+                        const TimeA = ` ${a.time}`.valueOf()
+                        const TimeB = ` ${b.time}`.valueOf()
+                        if (TimeA > TimeB) {
+                          return 1 // return -1 here for DESC order
+                        }
+                        return -1 // return 1 here for DESC Order
+                      })
+
+                      .map((clock) =>
+                        clock.avilable ? (
+                          <tr
+                            key={clock._id}
+                            className={
+                              SHOW_TH_CHHOSE
+                                ? `${returnClassNameForCheckedTRFUNCTION(
+                                    clock._id,
+                                    clock.avilable
+                                  )}`
+                                : `${returnClassNameForCheckedTR(
+                                    clock.avilable
+                                  )}`
+                            }
+                            id={FunctionBlingThisTime(clock.time)}
+                          >
+                            <td>
+                              {clock.isPaid &&
+                              clock.paymentMethod === 'cash' ? (
+                                <img
+                                  id='miniICON2'
+                                  src='https://i.ibb.co/tZ081v3/CASH.png'
+                                  onClick={() =>
+                                    makeClockUnpaidHandler(
+                                      clock._id,
+                                      clock.time,
+                                      clock.date,
+                                      clock.avilable
+                                    )
+                                  }
+                                ></img>
+                              ) : clock.isPaid &&
+                                clock.paymentMethod === 'credit' ? (
+                                <img
+                                  id='miniICON2'
+                                  src='https://i.ibb.co/GV1sk89/CREDITCARDS.png'
+                                  onClick={() =>
+                                    makeClockUnpaidHandler(
+                                      clock._id,
+                                      clock.time,
+                                      clock.date,
+                                      clock.avilable
+                                    )
+                                  }
+                                ></img>
+                              ) : clock.isPaid &&
+                                clock.paymentMethod === 'bit' ? (
+                                <img
+                                  id='miniICON2'
+                                  src='https://i.ibb.co/88DGRYk/BITTTT.png'
+                                  onClick={() =>
+                                    makeClockUnpaidHandler(
+                                      clock._id,
+                                      clock.time,
+                                      clock.date,
+                                      clock.avilable
+                                    )
+                                  }
+                                ></img>
+                              ) : (
+                                !clock.isPaid &&
+                                !clock.avilable && (
+                                  <button
+                                    id='Xunshowme'
+                                    onClick={() => {
+                                      setChoosenClock(clock._id)
+                                      makeClockPAIDHandler(
+                                        clock._id,
+                                        clock.time,
+                                        clock.date
+                                      )
+                                    }}
+                                  >
+                                    <p
+                                      style={{ fontSize: '25px', color: 'red' }}
+                                    >
+                                      x
+                                    </p>
+                                  </button>
                                 )
-                              }
-                              type='checkbox'
-                              id='checkbox'
-                              aria-checked='false'
-                              className='checkboxxx'
-                              value={clock._id}
-                              data-valuetwo={clock._id}
-                            ></input>
-                          </form>{' '}
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </Table>
-            </div>
-          </Col>
+                              )}
+                            </td>
+                            <td
+                              onClick={() => {
+                                setChoosenClock(clock._id)
+
+                                preshowTorHandler(
+                                  clock.time,
+                                  clock.date,
+                                  clock.avilable,
+                                  clock.mistaper,
+                                  clock._id,
+                                  WorkDayid,
+                                  tipulimList,
+                                  clock.isPaid,
+                                  clock.TotalAmmountPaid,
+                                  clock.paymentMethod,
+                                  clock.creditLastDigits,
+                                  clock.ReciptNumber
+                                )
+                              }}
+                            >
+                              {clock.tipul ? clock.tipul.cost : ''}
+                            </td>
+                            <td
+                              onClick={() => {
+                                setChoosenClock(clock._id)
+
+                                preshowTorHandler(
+                                  clock.time,
+                                  clock.date,
+                                  clock.avilable,
+                                  clock.mistaper,
+                                  clock._id,
+                                  WorkDayid,
+                                  tipulimList,
+                                  clock.isPaid,
+                                  clock.TotalAmmountPaid,
+                                  clock.paymentMethod,
+                                  clock.creditLastDigits,
+                                  clock.ReciptNumber
+                                )
+                              }}
+                            >
+                              {clock.tipul ? clock.tipul.name : ''}
+                            </td>
+
+                            <td
+                              onClick={() => {
+                                setChoosenClock(clock._id)
+
+                                preshowTorHandler(
+                                  clock.time,
+                                  clock.date,
+                                  clock.avilable,
+                                  clock.mistaper,
+                                  clock._id,
+                                  WorkDayid,
+                                  tipulimList,
+                                  clock.isPaid,
+                                  clock.TotalAmmountPaid,
+                                  clock.paymentMethod,
+                                  clock.creditLastDigits,
+                                  clock.ReciptNumber
+                                )
+                              }}
+                            >
+                              {clock.mistaper && clock.mistaper.name}
+                              <br />
+                              <div id='phonetable'>
+                                {' '}
+                                {clock.mistaper && '0' + clock.mistaper.phone}
+                              </div>
+                            </td>
+                            <td
+                              onClick={() => {
+                                setChoosenClock(clock._id)
+
+                                preshowTorHandler(
+                                  clock.time,
+                                  clock.date,
+                                  clock.avilable,
+                                  clock.mistaper,
+                                  clock._id,
+                                  WorkDayid,
+                                  tipulimList,
+                                  clock.isPaid,
+                                  clock.TotalAmmountPaid,
+                                  clock.paymentMethod,
+                                  clock.creditLastDigits,
+                                  clock.ReciptNumber
+                                )
+                              }}
+                            >
+                              {clock.time}
+                            </td>
+                            <td
+                              id={`${
+                                SHOW_TH_CHHOSE
+                                  ? 'tableTHdisplayNoneCHOOSEDISPLAY'
+                                  : 'tableTHdisplayNoneCHOOSE'
+                              }`}
+                              className='classFOrTHdisplay2'
+                            >
+                              <form>
+                                <input
+                                  onClick={() =>
+                                    selectOneTor(
+                                      clock._id,
+                                      clock.avilable,
+                                      clock.mistaper
+                                    )
+                                  }
+                                  type='checkbox'
+                                  id='checkbox'
+                                  aria-checked='false'
+                                  className='checkboxxx'
+                                  value={clock._id}
+                                  data-valuetwo={clock._id}
+                                ></input>
+                              </form>{' '}
+                            </td>
+                          </tr>
+                        ) : (
+                          <Message variant='danger'>
+                            לא נמצאו תורים פנויים
+                          </Message>
+                        )
+                      )}
+                  </tbody>
+                </Table>
+              </div>
+            </Col>
+          )}
+          {SHOWonlyNotAvilable && (
+            <Col md={9}>
+              <div>
+                <Table bordered hover responsive id='tablewhiteSingle'>
+                  <thead id='centertext'>
+                    <tr>
+                      <th id='tableheadlines' className='Payd_TH'>
+                        שולם
+                      </th>
+                      <th id='tableheadlines' className='PRICE_TH'>
+                        מחיר
+                      </th>
+                      <th id='tableheadlines' className='TIPUL_TH'>
+                        טיפול
+                      </th>
+                      <th id='tableheadlines' className='CLIENT_TH'>
+                        לקוח/ה
+                      </th>
+                      <th id='tableheadlines' className='hour_TH'>
+                        שעה
+                      </th>
+                      <th
+                        id={`${
+                          SHOW_TH_CHHOSE
+                            ? 'tableTHdisplayNoneCHOOSEDISPLAY'
+                            : 'tableTHdisplayNoneCHOOSE'
+                        }`}
+                        className='classFOrTHdisplay'
+                      >
+                        <form>
+                          <input
+                            id='checkbox'
+                            onClick={selectAllTors}
+                            type='checkbox'
+                            checked={stateChecked}
+                          ></input>
+                        </form>{' '}
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody id='centertext'>
+                    {clockList
+
+                      .sort((a, b) => {
+                        const TimeA = ` ${a.time}`.valueOf()
+                        const TimeB = ` ${b.time}`.valueOf()
+                        if (TimeA > TimeB) {
+                          return 1 // return -1 here for DESC order
+                        }
+                        return -1 // return 1 here for DESC Order
+                      })
+
+                      .map((clock) =>
+                        !clock.avilable ? (
+                          <tr
+                            key={clock._id}
+                            className={
+                              SHOW_TH_CHHOSE
+                                ? `${returnClassNameForCheckedTRFUNCTION(
+                                    clock._id,
+                                    clock.avilable
+                                  )}`
+                                : `${returnClassNameForCheckedTR(
+                                    clock.avilable
+                                  )}`
+                            }
+                            id={FunctionBlingThisTime(clock.time)}
+                          >
+                            <td>
+                              {clock.isPaid &&
+                              clock.paymentMethod === 'cash' ? (
+                                <img
+                                  id='miniICON2'
+                                  src='https://i.ibb.co/tZ081v3/CASH.png'
+                                  onClick={() =>
+                                    makeClockUnpaidHandler(
+                                      clock._id,
+                                      clock.time,
+                                      clock.date,
+                                      clock.avilable
+                                    )
+                                  }
+                                ></img>
+                              ) : clock.isPaid &&
+                                clock.paymentMethod === 'credit' ? (
+                                <img
+                                  id='miniICON2'
+                                  src='https://i.ibb.co/GV1sk89/CREDITCARDS.png'
+                                  onClick={() =>
+                                    makeClockUnpaidHandler(
+                                      clock._id,
+                                      clock.time,
+                                      clock.date,
+                                      clock.avilable
+                                    )
+                                  }
+                                ></img>
+                              ) : clock.isPaid &&
+                                clock.paymentMethod === 'bit' ? (
+                                <img
+                                  id='miniICON2'
+                                  src='https://i.ibb.co/88DGRYk/BITTTT.png'
+                                  onClick={() =>
+                                    makeClockUnpaidHandler(
+                                      clock._id,
+                                      clock.time,
+                                      clock.date,
+                                      clock.avilable
+                                    )
+                                  }
+                                ></img>
+                              ) : (
+                                !clock.isPaid &&
+                                !clock.avilable && (
+                                  <button
+                                    id='Xunshowme'
+                                    onClick={() => {
+                                      setChoosenClock(clock._id)
+                                      makeClockPAIDHandler(
+                                        clock._id,
+                                        clock.time,
+                                        clock.date
+                                      )
+                                    }}
+                                  >
+                                    <p
+                                      style={{ fontSize: '25px', color: 'red' }}
+                                    >
+                                      x
+                                    </p>
+                                  </button>
+                                )
+                              )}
+                            </td>
+                            <td
+                              onClick={() => {
+                                setChoosenClock(clock._id)
+
+                                preshowTorHandler(
+                                  clock.time,
+                                  clock.date,
+                                  clock.avilable,
+                                  clock.mistaper,
+                                  clock._id,
+                                  WorkDayid,
+                                  tipulimList,
+                                  clock.isPaid,
+                                  clock.TotalAmmountPaid,
+                                  clock.paymentMethod,
+                                  clock.creditLastDigits,
+                                  clock.ReciptNumber
+                                )
+                              }}
+                            >
+                              {clock.tipul ? clock.tipul.cost : ''}
+                            </td>
+                            <td
+                              onClick={() => {
+                                setChoosenClock(clock._id)
+
+                                preshowTorHandler(
+                                  clock.time,
+                                  clock.date,
+                                  clock.avilable,
+                                  clock.mistaper,
+                                  clock._id,
+                                  WorkDayid,
+                                  tipulimList,
+                                  clock.isPaid,
+                                  clock.TotalAmmountPaid,
+                                  clock.paymentMethod,
+                                  clock.creditLastDigits,
+                                  clock.ReciptNumber
+                                )
+                              }}
+                            >
+                              {clock.tipul ? clock.tipul.name : ''}
+                            </td>
+
+                            <td
+                              onClick={() => {
+                                setChoosenClock(clock._id)
+
+                                preshowTorHandler(
+                                  clock.time,
+                                  clock.date,
+                                  clock.avilable,
+                                  clock.mistaper,
+                                  clock._id,
+                                  WorkDayid,
+                                  tipulimList,
+                                  clock.isPaid,
+                                  clock.TotalAmmountPaid,
+                                  clock.paymentMethod,
+                                  clock.creditLastDigits,
+                                  clock.ReciptNumber
+                                )
+                              }}
+                            >
+                              {clock.mistaper && clock.mistaper.name}
+                              <br />
+                              <div id='phonetable'>
+                                {' '}
+                                {clock.mistaper && '0' + clock.mistaper.phone}
+                              </div>
+                            </td>
+                            <td
+                              onClick={() => {
+                                setChoosenClock(clock._id)
+
+                                preshowTorHandler(
+                                  clock.time,
+                                  clock.date,
+                                  clock.avilable,
+                                  clock.mistaper,
+                                  clock._id,
+                                  WorkDayid,
+                                  tipulimList,
+                                  clock.isPaid,
+                                  clock.TotalAmmountPaid,
+                                  clock.paymentMethod,
+                                  clock.creditLastDigits,
+                                  clock.ReciptNumber
+                                )
+                              }}
+                            >
+                              {clock.time}
+                            </td>
+                            <td
+                              id={`${
+                                SHOW_TH_CHHOSE
+                                  ? 'tableTHdisplayNoneCHOOSEDISPLAY'
+                                  : 'tableTHdisplayNoneCHOOSE'
+                              }`}
+                              className='classFOrTHdisplay2'
+                            >
+                              <form>
+                                <input
+                                  onClick={() =>
+                                    selectOneTor(
+                                      clock._id,
+                                      clock.avilable,
+                                      clock.mistaper
+                                    )
+                                  }
+                                  type='checkbox'
+                                  id='checkbox'
+                                  aria-checked='false'
+                                  className='checkboxxx'
+                                  value={clock._id}
+                                  data-valuetwo={clock._id}
+                                ></input>
+                              </form>{' '}
+                            </td>
+                          </tr>
+                        ) : (
+                          <Message variant='danger'>
+                            לא נמצאו תורים תפוסים
+                          </Message>
+                        )
+                      )}
+                  </tbody>
+                </Table>
+              </div>
+            </Col>
+          )}
+
           {open1day && (
             <div id='ModalDiv'>
               <Modal id='ModalStyle' open={open1day} onClose={handleClose1day}>
