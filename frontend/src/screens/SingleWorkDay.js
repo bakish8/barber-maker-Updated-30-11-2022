@@ -82,6 +82,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
+  const [ValueScroll, setValueScroll] = useState('test1234')
+
   const [Somthing, setSomthing] = useState(false)
   const [ShowActionsBig, setShowActionsBig] = useState(false)
   const [ShowSicumForThisDay, setShowSicumForThisDay] = useState(false)
@@ -276,6 +278,31 @@ const SingleWorkDayScreen = ({ history, match }) => {
     setshowFilterForSmallScreen(!showFilterForSmallScreen)
   }
 
+  const swalADDfunction = () => {
+    swalWithBootstrapButtons
+      .fire({
+        title: 'בחר פעולה',
+        text: ` באפשרותך האפשרויות הבאות `,
+        color: 'black',
+        showCancelButton: true,
+        showDenyButton: true,
+        denyButtonText: `  + הוסף תורים`,
+        denyButtonColor: 'rgb(21, 21, 21)',
+        cancelButtonText: `+ הוסף תור`,
+        cancelButtonColor: 'rgb(21, 21, 21)',
+        confirmButtonColor: 'rgb(21, 21, 21)',
+        confirmButtonText: ` <i class='fas fa-bolt'></i> הוספה מהירה`,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          submitHandler3()
+        } else if (result.isDenied) {
+          setSHOWsmallSCreenPick2HoursForCREATEION(true)
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          setSHOWsmallSCreenPick1HoursForCREATEION(true)
+        }
+      })
+  }
   const ARE_U_sure_PINUI_selected = () => {
     console.log(ArrayOfSelectedTors)
     Swal.fire({
@@ -439,13 +466,13 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const setShowActionsBig_FUNCTION = () => {
     setShowActionsBig(!ShowActionsBig)
-    if (showForm || showForm2) {
-      setShowForm(false)
-      setShowForm2(false)
-    }
+    setShowForm(false)
+    setShowForm2(false)
+    setShowSicumForThisDay(false)
   }
   const setShowSicumForThisDay_FUNCTION = () => {
     setShowSicumForThisDay(!ShowSicumForThisDay)
+    setShowActionsBig(false)
   }
 
   const setSHOW_TH_CHHOSE_FUNCTION = () => {
@@ -478,29 +505,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          swalWithBootstrapButtons
-            .fire({
-              title: 'בחר פעולה',
-              text: ` באפשרותך האפשרויות הבאות `,
-              color: 'black',
-              showCancelButton: true,
-              showDenyButton: true,
-              denyButtonText: `  + הוסף תורים`,
-              denyButtonColor: 'rgb(21, 21, 21)',
-              cancelButtonText: `+ הוסף תור`,
-              cancelButtonColor: 'rgb(21, 21, 21)',
-              confirmButtonColor: 'rgb(21, 21, 21)',
-              confirmButtonText: ` <i class='fas fa-bolt'></i> הוספה מהירה`,
-            })
-            .then((result) => {
-              if (result.isConfirmed) {
-                submitHandler3()
-              } else if (result.isDenied) {
-                setSHOWsmallSCreenPick2HoursForCREATEION(true)
-              } else if (result.dismiss === Swal.DismissReason.cancel) {
-                setSHOWsmallSCreenPick1HoursForCREATEION(true)
-              }
-            })
+          swalADDfunction()
         } else if (result.isDenied) {
           showSicumNow()
         } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -1370,12 +1375,28 @@ const SingleWorkDayScreen = ({ history, match }) => {
     }
   }
 
+  const fixOptionsDiv = () => {
+    const OptionsDiv = document.getElementById('test1234')
+    console.log(window.scrollY, 284)
+    console.log(window.scrollY, OptionsDiv)
+    if (window.scrollY > 260) {
+      setValueScroll('activeScrollForOptionsDiv')
+    } else {
+      setValueScroll('whitemeForActionsBig')
+    }
+  }
+
   // ██╗   ██╗███████╗███████╗    ███████╗███████╗███████╗███████╗ ██████╗████████╗
   // ██║   ██║██╔════╝██╔════╝    ██╔════╝██╔════╝██╔════╝██╔════╝██╔════╝╚══██╔══╝
   // ██║   ██║███████╗█████╗      █████╗  █████╗  █████╗  █████╗  ██║        ██║
   // ██║   ██║╚════██║██╔══╝      ██╔══╝  ██╔══╝  ██╔══╝  ██╔══╝  ██║        ██║
   // ╚██████╔╝███████║███████╗    ███████╗██║     ██║     ███████╗╚██████╗   ██║
   //  ╚═════╝ ╚══════╝╚══════╝    ╚══════╝╚═╝     ╚═╝     ╚══════╝ ╚═════╝   ╚═╝
+
+  //USE EFFECT  for scrolling options on side
+  useEffect(() => {
+    window.addEventListener('scroll', fixOptionsDiv)
+  }, [])
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -2108,229 +2129,228 @@ const SingleWorkDayScreen = ({ history, match }) => {
             </div>
           </Col>
           <Col md={2} id='singlewirkingdayoptionsbgwhite'>
-            <h4 id='centerme' className='whitemeForActionsBig'>
-              אפשרויות
-            </h4>
+            <div className={ValueScroll}>
+              <div>
+                <div onClick={setShowActionsBig_FUNCTION} id='centerme'>
+                  <span id='torimAndHahnasot'>הוספה</span>
+                </div>
+                {ShowActionsBig && (
+                  <div id='centerme'>
+                    <Row>
+                      <Col md={12}>
+                        <Button
+                          className='link buzz-out-on-hover'
+                          onClick={submitHandler3}
+                          id='HOSAFAmehiraBtn'
+                        >
+                          <i class='fas fa-bolt'></i> הוסף יום
+                        </Button>
+                      </Col>
 
-            <div>
-              <div onClick={setShowActionsBig_FUNCTION} id='centerme'>
-                <span id='torimAndHahnasot'>הוספה</span>
+                      <Col md={12}>
+                        <Button
+                          onClick={showFormNow2}
+                          id='centermebtnActions'
+                          className='my-1'
+                        >
+                          <i className='fas fa-plus'></i> הוסף תורים
+                        </Button>
+                      </Col>
+                      <Col md={12}>
+                        <Button
+                          onClick={showFormNow}
+                          id='centermebtnActions'
+                          className='my-1'
+                        >
+                          <i className='fas fa-plus'></i> הוסף תור
+                        </Button>{' '}
+                      </Col>
+                    </Row>
+                  </div>
+                )}
+
+                {showForm && (
+                  <div id='sizeme'>
+                    <div id='blueme'>
+                      <Form onSubmit={submitHandler}>
+                        <Form.Group
+                          controlId='time'
+                          type='time'
+                          value={time}
+                          onChange={(e) => setTime(e.target.value)}
+                        >
+                          <Form.Control as='select' id='formSelect'>
+                            <option id='custom-select1'>בחר שעה</option>
+                            <option id='custom-select'>10:00</option>
+                            <option id='custom-select'>10:30</option>
+                            <option id='custom-select'>11:00</option>
+                            <option id='custom-select'>11:30</option>
+                            <option id='custom-select'>12:00</option>
+                            <option id='custom-select'>12:30</option>
+                            <option id='custom-select'>13:00</option>
+                            <option id='custom-select'>13:30</option>
+                            <option id='custom-select'>14:00</option>
+                            <option id='custom-select'>14:30</option>
+                            <option id='custom-select'>15:00</option>
+                            <option id='custom-select'>15:30</option>
+                            <option id='custom-select'>16:00</option>
+                            <option id='custom-select'>16:30</option>
+                            <option id='custom-select'>17:00</option>
+                            <option id='custom-select'>17:30</option>
+                            <option id='custom-select'>18:00</option>
+                            <option id='custom-select'>18:30</option>
+                            <option id='custom-select'>19:00</option>
+                            <option id='custom-select'>19:30</option>
+                          </Form.Control>
+                        </Form.Group>
+
+                        <Button
+                          className='link buzz-out-on-hover'
+                          id='centermebtnHOsef'
+                          type='submit'
+                        >
+                          <i className='fas fa-plus'></i> הוסף
+                          {NewClockloading ? (
+                            <Loader2 />
+                          ) : NewClockerror ? (
+                            <Message variant='danger'>{error}</Message>
+                          ) : (
+                            <div></div>
+                          )}
+                        </Button>
+                      </Form>
+                    </div>
+                  </div>
+                )}
+
+                {showForm2 && (
+                  <div id='sizeme'>
+                    <div id='blueme'>
+                      <Form onSubmit={submitHandler2}>
+                        <Form.Group
+                          controlId='time'
+                          type='time'
+                          value={time}
+                          onChange={(e) => setTime(e.target.value)}
+                        >
+                          <Form.Control as='select' id='formSelect'>
+                            <option id='custom-select1'>משעה</option>
+                            <option id='custom-select'>10:00</option>
+                            <option id='custom-select'>10:30</option>
+                            <option id='custom-select'>11:00</option>
+                            <option id='custom-select'>11:30</option>
+                            <option id='custom-select'>12:00</option>
+                            <option id='custom-select'>12:30</option>
+                            <option id='custom-select'>13:00</option>
+                            <option id='custom-select'>13:30</option>
+                            <option id='custom-select'>14:00</option>
+                            <option id='custom-select'>14:30</option>
+                            <option id='custom-select'>15:00</option>
+                            <option id='custom-select'>15:30</option>
+                            <option id='custom-select'>16:00</option>
+                            <option id='custom-select'>16:30</option>
+                            <option id='custom-select'>17:00</option>
+                            <option id='custom-select'>17:30</option>
+                            <option id='custom-select'>18:00</option>
+                            <option id='custom-select'>18:30</option>
+                            <option id='custom-select'>19:00</option>
+                            <option id='custom-select'>19:30</option>
+                          </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group
+                          controlId='time2'
+                          type='time2'
+                          value={time2}
+                          onChange={(e) => setTime2(e.target.value)}
+                        >
+                          <Form.Control as='select' id='formSelect'>
+                            <option id='custom-select1'>עד שעה</option>
+                            <option id='custom-select'>10:30</option>
+                            <option id='custom-select'>11:00</option>
+                            <option id='custom-select'>11:30</option>
+                            <option id='custom-select'>12:00</option>
+                            <option id='custom-select'>12:30</option>
+                            <option id='custom-select'>13:00</option>
+                            <option id='custom-select'>13:30</option>
+                            <option id='custom-select'>14:00</option>
+                            <option id='custom-select'>14:30</option>
+                            <option id='custom-select'>15:00</option>
+                            <option id='custom-select'>15:30</option>
+                            <option id='custom-select'>16:00</option>
+                            <option id='custom-select'>16:30</option>
+                            <option id='custom-select'>17:00</option>
+                            <option id='custom-select'>17:30</option>
+                            <option id='custom-select'>18:00</option>
+                            <option id='custom-select'>18:30</option>
+                            <option id='custom-select'>19:00</option>
+                            <option id='custom-select'>19:30</option>
+                          </Form.Control>
+                        </Form.Group>
+
+                        <Button
+                          className='link buzz-out-on-hover'
+                          id='centermebtnHOsef'
+                          type='submit'
+                        >
+                          <i className='fas fa-plus'></i> הוסף
+                          {NewClocksloading ? (
+                            <Loader2 />
+                          ) : NewClockserror ? (
+                            <Message variant='danger'>{error}</Message>
+                          ) : (
+                            <div></div>
+                          )}
+                        </Button>
+                      </Form>
+                    </div>
+                  </div>
+                )}
+
+                <div onClick={setShowSicumForThisDay_FUNCTION} id='centerme'>
+                  <span id='torimAndHahnasot'>סיכום</span>
+                </div>
+                {ShowSicumForThisDay && (
+                  <div id='centerme'>
+                    <div id='block'>
+                      <h5 id='block' className='whitemeandrightaligen'>
+                        {' '}
+                        <span id='boldme'>{clockList.length}</span>
+                        תורים סה"כ
+                      </h5>
+                      <h5 id='block' className='whitemeandrightaligen'>
+                        {' '}
+                        <span id='boldme'>
+                          {clockList.length -
+                            clockList.filter((clock) => clock.avilable === true)
+                              .length}
+                        </span>
+                        תורים תפוסים{' '}
+                      </h5>
+
+                      <h5 id='block' className='whitemeandrightaligen'>
+                        {' '}
+                        <span id='boldmered'>
+                          {
+                            clockList.filter((clock) => clock.avilable === true)
+                              .length
+                          }
+                        </span>{' '}
+                        תורים פנויים
+                      </h5>
+
+                      <h5 id='block' className='whitemeandrightaligen'>
+                        הכנסה צפויה{' '}
+                        <span id='boldme'> {PredictedIncome()}₪</span>{' '}
+                      </h5>
+                      <h5 id='block' className='whitemeandrightaligen'>
+                        הכנסה בפועל{' '}
+                        <span id='boldme'>{workingDay.moneyCount}₪</span>{' '}
+                      </h5>
+                    </div>
+                  </div>
+                )}
               </div>
-              {ShowActionsBig && (
-                <div id='centerme'>
-                  <Row>
-                    <Col md={12}>
-                      <Button
-                        className='link buzz-out-on-hover'
-                        onClick={submitHandler3}
-                        id='HOSAFAmehiraBtn'
-                      >
-                        <i class='fas fa-bolt'></i> הוסף יום
-                      </Button>
-                    </Col>
-
-                    <Col md={12}>
-                      <Button
-                        onClick={showFormNow2}
-                        id='centermebtnActions'
-                        className='my-1'
-                      >
-                        <i className='fas fa-plus'></i> הוסף תורים
-                      </Button>
-                    </Col>
-                    <Col md={12}>
-                      <Button
-                        onClick={showFormNow}
-                        id='centermebtnActions'
-                        className='my-1'
-                      >
-                        <i className='fas fa-plus'></i> הוסף תור
-                      </Button>{' '}
-                    </Col>
-                  </Row>
-                </div>
-              )}
-
-              {showForm && (
-                <div id='sizeme'>
-                  <div id='blueme'>
-                    <Form onSubmit={submitHandler}>
-                      <Form.Group
-                        controlId='time'
-                        type='time'
-                        value={time}
-                        onChange={(e) => setTime(e.target.value)}
-                      >
-                        <Form.Control as='select' id='formSelect'>
-                          <option id='custom-select1'>בחר שעה</option>
-                          <option id='custom-select'>10:00</option>
-                          <option id='custom-select'>10:30</option>
-                          <option id='custom-select'>11:00</option>
-                          <option id='custom-select'>11:30</option>
-                          <option id='custom-select'>12:00</option>
-                          <option id='custom-select'>12:30</option>
-                          <option id='custom-select'>13:00</option>
-                          <option id='custom-select'>13:30</option>
-                          <option id='custom-select'>14:00</option>
-                          <option id='custom-select'>14:30</option>
-                          <option id='custom-select'>15:00</option>
-                          <option id='custom-select'>15:30</option>
-                          <option id='custom-select'>16:00</option>
-                          <option id='custom-select'>16:30</option>
-                          <option id='custom-select'>17:00</option>
-                          <option id='custom-select'>17:30</option>
-                          <option id='custom-select'>18:00</option>
-                          <option id='custom-select'>18:30</option>
-                          <option id='custom-select'>19:00</option>
-                          <option id='custom-select'>19:30</option>
-                        </Form.Control>
-                      </Form.Group>
-
-                      <Button
-                        className='link buzz-out-on-hover'
-                        id='centermebtnHOsef'
-                        type='submit'
-                      >
-                        <i className='fas fa-plus'></i> הוסף
-                        {NewClockloading ? (
-                          <Loader2 />
-                        ) : NewClockerror ? (
-                          <Message variant='danger'>{error}</Message>
-                        ) : (
-                          <div></div>
-                        )}
-                      </Button>
-                    </Form>
-                  </div>
-                </div>
-              )}
-
-              {showForm2 && (
-                <div id='sizeme'>
-                  <div id='blueme'>
-                    <Form onSubmit={submitHandler2}>
-                      <Form.Group
-                        controlId='time'
-                        type='time'
-                        value={time}
-                        onChange={(e) => setTime(e.target.value)}
-                      >
-                        <Form.Control as='select' id='formSelect'>
-                          <option id='custom-select1'>משעה</option>
-                          <option id='custom-select'>10:00</option>
-                          <option id='custom-select'>10:30</option>
-                          <option id='custom-select'>11:00</option>
-                          <option id='custom-select'>11:30</option>
-                          <option id='custom-select'>12:00</option>
-                          <option id='custom-select'>12:30</option>
-                          <option id='custom-select'>13:00</option>
-                          <option id='custom-select'>13:30</option>
-                          <option id='custom-select'>14:00</option>
-                          <option id='custom-select'>14:30</option>
-                          <option id='custom-select'>15:00</option>
-                          <option id='custom-select'>15:30</option>
-                          <option id='custom-select'>16:00</option>
-                          <option id='custom-select'>16:30</option>
-                          <option id='custom-select'>17:00</option>
-                          <option id='custom-select'>17:30</option>
-                          <option id='custom-select'>18:00</option>
-                          <option id='custom-select'>18:30</option>
-                          <option id='custom-select'>19:00</option>
-                          <option id='custom-select'>19:30</option>
-                        </Form.Control>
-                      </Form.Group>
-
-                      <Form.Group
-                        controlId='time2'
-                        type='time2'
-                        value={time2}
-                        onChange={(e) => setTime2(e.target.value)}
-                      >
-                        <Form.Control as='select' id='formSelect'>
-                          <option id='custom-select1'>עד שעה</option>
-                          <option id='custom-select'>10:30</option>
-                          <option id='custom-select'>11:00</option>
-                          <option id='custom-select'>11:30</option>
-                          <option id='custom-select'>12:00</option>
-                          <option id='custom-select'>12:30</option>
-                          <option id='custom-select'>13:00</option>
-                          <option id='custom-select'>13:30</option>
-                          <option id='custom-select'>14:00</option>
-                          <option id='custom-select'>14:30</option>
-                          <option id='custom-select'>15:00</option>
-                          <option id='custom-select'>15:30</option>
-                          <option id='custom-select'>16:00</option>
-                          <option id='custom-select'>16:30</option>
-                          <option id='custom-select'>17:00</option>
-                          <option id='custom-select'>17:30</option>
-                          <option id='custom-select'>18:00</option>
-                          <option id='custom-select'>18:30</option>
-                          <option id='custom-select'>19:00</option>
-                          <option id='custom-select'>19:30</option>
-                        </Form.Control>
-                      </Form.Group>
-
-                      <Button
-                        className='link buzz-out-on-hover'
-                        id='centermebtnHOsef'
-                        type='submit'
-                      >
-                        <i className='fas fa-plus'></i> הוסף
-                        {NewClocksloading ? (
-                          <Loader2 />
-                        ) : NewClockserror ? (
-                          <Message variant='danger'>{error}</Message>
-                        ) : (
-                          <div></div>
-                        )}
-                      </Button>
-                    </Form>
-                  </div>
-                </div>
-              )}
-
-              <div onClick={setShowSicumForThisDay_FUNCTION} id='centerme'>
-                <span id='torimAndHahnasot'>סיכום</span>
-              </div>
-              {ShowSicumForThisDay && (
-                <div id='centerme'>
-                  <div id='block'>
-                    <h5 id='block' className='whitemeandrightaligen'>
-                      {' '}
-                      <span id='boldme'>{clockList.length}</span>
-                      תורים סה"כ
-                    </h5>
-                    <h5 id='block' className='whitemeandrightaligen'>
-                      {' '}
-                      <span id='boldme'>
-                        {clockList.length -
-                          clockList.filter((clock) => clock.avilable === true)
-                            .length}
-                      </span>
-                      תורים תפוסים{' '}
-                    </h5>
-
-                    <h5 id='block' className='whitemeandrightaligen'>
-                      {' '}
-                      <span id='boldmered'>
-                        {
-                          clockList.filter((clock) => clock.avilable === true)
-                            .length
-                        }
-                      </span>{' '}
-                      תורים פנויים
-                    </h5>
-
-                    <h5 id='block' className='whitemeandrightaligen'>
-                      הכנסה צפויה <span id='boldme'> {PredictedIncome()}₪</span>{' '}
-                    </h5>
-                    <h5 id='block' className='whitemeandrightaligen'>
-                      הכנסה בפועל{' '}
-                      <span id='boldme'>{workingDay.moneyCount}₪</span>{' '}
-                    </h5>
-                  </div>
-                </div>
-              )}
             </div>
           </Col>
 
@@ -2592,7 +2612,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           )}
 
           {SHOWonlyAvilable && (
-            <Col md={9}>
+            <Col md={10}>
               <div>
                 <Table bordered hover responsive id='tablewhiteSingle'>
                   <thead id='centertext'>
@@ -2857,7 +2877,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
             </Col>
           )}
           {SHOWonlyNotAvilable && (
-            <Col md={9}>
+            <Col md={10}>
               <div>
                 <Table bordered hover responsive id='tablewhiteSingle'>
                   <thead id='centertext'>
@@ -3122,7 +3142,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
             </Col>
           )}
           {SHOWonlyPayd && (
-            <Col md={9}>
+            <Col md={10}>
               <div>
                 <Table bordered hover responsive id='tablewhiteSingle'>
                   <thead id='centertext'>

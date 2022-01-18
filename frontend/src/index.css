@@ -900,7 +900,6 @@ body input {
   margin-left: auto;
   margin-right: auto;
   color: #ffd60a;
-  margin-top: 15px;
   margin-bottom: 2px;
 }
 #HOSAFAmehiraBtn:hover {
@@ -930,7 +929,6 @@ body input {
 #centermebtnHOsef:hover,
 #centermebtnActions:hover {
   background-color: #68b4ff;
-  font-size: 18px;
   color: rgb(0, 0, 0);
 }
 
@@ -1181,7 +1179,7 @@ textarea {
   transition: 0.2s ease-in;
   font-size: 25px;
   font-weight: 500;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 #torimAndHahnasot:active,
 #torimAndHahnasot:focus,
@@ -1460,20 +1458,6 @@ textarea {
   }
 }
 
-@media (max-width: 786px) {
-  #tablewhiteSingle {
-    margin-top: 25px;
-  }
-  #showmeonlyOnSmallScreen {
-    margin-top: 25px;
-
-    display: block;
-  }
-  #singlewirkingdayoptionsbgwhite {
-    display: none;
-  }
-}
-
 .maketorbtn {
   text-decoration: none;
   border-radius: 13px;
@@ -1502,14 +1486,16 @@ textarea {
   color: white;
   margin-top: 25px;
 }
-#singlewirkingdayoptionsbgwhite {
+
+.test1234 {
   position: relative;
-  background-image: linear-gradient(to top, #ffffff44 0%, #0095c741 100%);
   border-radius: 50px;
-  height: 100%;
+  height: 250px;
   left: 0;
   top: 0;
+  color: white;
 }
+
 #whiteplease {
   color: rgb(0, 0, 0);
 }
@@ -2582,5 +2568,26 @@ h5 {
   .SINUN-BTN-PAYD {
     right: 283px;
     top: 40px;
+  }
+}
+
+.activeScrollForOptionsDiv {
+  position: sticky;
+  left: 30%;
+  top: 5%;
+  color: red;
+}
+
+@media (max-width: 786px) {
+  #tablewhiteSingle {
+    margin-top: 25px;
+  }
+  #showmeonlyOnSmallScreen {
+    margin-top: 25px;
+
+    display: block;
+  }
+  #singlewirkingdayoptionsbgwhite {
+    display: none;
   }
 }
