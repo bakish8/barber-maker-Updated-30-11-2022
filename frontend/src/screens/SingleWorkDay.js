@@ -85,8 +85,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const [ValueScroll, setValueScroll] = useState('test1234')
 
   const [Somthing, setSomthing] = useState(false)
-  const [ShowActionsBig, setShowActionsBig] = useState(false)
-  const [ShowSicumForThisDay, setShowSicumForThisDay] = useState(false)
 
   const [StateForPinuiBTN, setStateForPinuiBTN] = useState(false)
   const [stateChecked, setstateChecked] = useState(false)
@@ -464,17 +462,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
     }
   }
 
-  const setShowActionsBig_FUNCTION = () => {
-    setShowActionsBig(!ShowActionsBig)
-    setShowForm(false)
-    setShowForm2(false)
-    setShowSicumForThisDay(false)
-  }
-  const setShowSicumForThisDay_FUNCTION = () => {
-    setShowSicumForThisDay(!ShowSicumForThisDay)
-    setShowActionsBig(false)
-  }
-
   const setSHOW_TH_CHHOSE_FUNCTION = () => {
     setSHOW_TH_CHHOSE(!SHOW_TH_CHHOSE)
     setStateForPinuiBTN(false) //**משנה את ההצהרה למה שהיא לא הייתה ומאפס את  כל הדברים הבאים */
@@ -584,7 +571,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
       .fire({
         title: 'בחר דרך חיפוש',
         text: `תוכל לחפש משתמשים קיימים לפי מספר נייד או שם,תוכל גם ליצור משתמש חדש שיקבל את תור זה`,
-        imageUrl: 'https://i.ibb.co/5jDpS2J/icons8-search-100.png',
+        imageUrl: 'https://i.ibb.co/hYWCLW3/output-onlinegiftools-1.gif',
         imageWidth: 100,
         imageHeight: 100,
         imageAlt: 'חיפוש',
@@ -648,7 +635,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
     Swal.fire({
       title: `?תרצה לשמור את דו"ח זה במערכת`,
       text: `האם אתה בטוח שתרצה לשמור דו"ח היומי לתאריך${workingDay.date} במערכת`,
-      imageUrl: 'https://i.ibb.co/7KZpmDV/icons8-save.gif',
+      imageUrl: 'https://i.ibb.co/jGJk9gz/32132.png',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -675,7 +662,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           )
         )
         Swal.fire({
-          imageUrl: 'https://i.ibb.co/vjnbhYB/icons8-save-close.gif',
+          imageUrl: 'https://i.ibb.co/r64Pz53/output-onlinegiftools-8.gif',
           title: `הדו"ח נשמר בהצלחה`,
           showConfirmButton: false,
           timer: 5000,
@@ -702,7 +689,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
     Swal.fire({
       title: '?האם תרצה להפיק דו"ח עבור יום זה',
       text: `חשוב שתדע,הסיכום יופק בהתאם לנתוני המערכת בזמן זה, בתאריך ${date}, בשעה ${time}`,
-      imageUrl: 'https://i.ibb.co/p18YJS2/icons8-combo-chart.gif',
+      imageUrl: 'https://i.ibb.co/jMNthkF/output-onlinegiftools-5.gif',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -990,7 +977,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           scrollbarPadding: true,
           title: `${mistaper.name}--${time}`,
           html: `התור בשעה <b>${time}</b> בתאריך  <b>${date}</b> <br/> תפוס על ידי <b>${mistaper.name}</b>`,
-          imageUrl: 'https://i.ibb.co/M9HkNWs/greenuser.jpg',
+          imageUrl: 'https://i.ibb.co/RPcZDJW/animation-200-kykgn2ol.gif',
           imageWidth: 100,
           imageHeight: 100,
           imageAlt: 'לקוח',
@@ -1098,9 +1085,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
           scrollbarPadding: true,
           title: 'תור פנוי',
           text: `התור בשעה ${time} בתאריך  ${date}  פנוי כרגע`,
-          imageUrl: 'https://i.ibb.co/wNZnS8m/reduser.jpg',
-          imageWidth: 100,
-          imageHeight: 100,
+          imageUrl: 'https://i.ibb.co/YyNg2CQ/user-no-avilable.gif',
+          imageWidth: 130,
+          imageHeight: 115,
           imageAlt: 'לקוח',
           color: 'red',
           showDenyButton: true,
@@ -1431,7 +1418,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           position: 'top-end',
           icon: 'success',
           title: 'הפעולה התבצעה בהצלחה',
-          text: '  התור/ים שביקשת להוסיף נכנסו למערכת בהצלחה!',
+          text: '!התור/ים שביקשת להוסיף נכנסו למערכת בהצלחה',
           showConfirmButton: false,
           timer: 2500,
         })
@@ -1502,7 +1489,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
       if (result.isConfirmed) {
         Swal.fire({
           text: 'שולח עבורך את הד"וח שביקשת אנא המתן',
-          imageUrl: 'https://i.ibb.co/ykdtnvz/icons8-secured-letter.gif',
+          imageUrl: 'https://i.ibb.co/vsqqsZ7/output-onlinegiftools-9.gif',
           imageWidth: 400,
           imageHeight: 400,
           imageAlt: 'Custom image',
@@ -1515,7 +1502,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           .then(sendEmail(e))
           .then(
             Swal.fire({
-              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
+              imageUrl: 'https://i.ibb.co/b17PkwC/output-onlinegiftools-10.gif',
               title: `האימייל נשלח בהצלחה`,
               showConfirmButton: false,
               timer: 5000,
@@ -1523,9 +1510,11 @@ const SingleWorkDayScreen = ({ history, match }) => {
           )
       } else if (result.isDenied) {
         Swal.fire({
-          title: `מה האימייל שאליו תרצה לשלח את הד"וח היומי לתאריך ${workingDay.date}`,
-          text: `הזן את כתובת האימייל שאליה תרצה לשלוח את הד"וח`,
-          imageUrl: 'https://i.ibb.co/ykdtnvz/icons8-secured-letter.gif',
+          title: `הזן כתובת אימייל`,
+          text: `מה האימייל שאליו תרצה לשלח את הד"וח היומי לתאריך ${workingDay.date}`,
+          imageUrl: 'https://i.ibb.co/808cMrj/animation-500-kykfz3p2.gif',
+          imageWidth: 200,
+          imageHeight: 200,
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
@@ -1542,7 +1531,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           if (result.isConfirmed) {
             sendEmail(e) //* */
             Swal.fire({
-              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
+              imageUrl: 'https://i.ibb.co/b17PkwC/output-onlinegiftools-10.gif',
               title: `האימייל נשלח בהצלחה`,
               showConfirmButton: false,
               timer: 5000,
@@ -2037,7 +2026,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
           <Col md={12}>
             <div id='smallSicumScreen'>
-              {' '}
+              <div onClick={swalADDfunction} className='OPTIONS-BTN-HOSEF'>
+                <i id='plusplus' class='fas fa-plus'></i>
+              </div>{' '}
               <div
                 onClick={setSHOW_TH_CHHOSE_FUNCTION}
                 className='CHOOSETORIM_BTNForSmallScreen'
@@ -2131,225 +2122,43 @@ const SingleWorkDayScreen = ({ history, match }) => {
           <Col md={2} id='singlewirkingdayoptionsbgwhite'>
             <div className={ValueScroll}>
               <div>
-                <div onClick={setShowActionsBig_FUNCTION} id='centerme'>
-                  <span id='torimAndHahnasot'>הוספה</span>
+                <div id='centerme'>
+                  <div id='block'>
+                    <h5 id='block' className='whitemeandrightaligen'>
+                      {' '}
+                      <span id='boldme'>{clockList.length}</span>
+                      תורים סה"כ
+                    </h5>
+                    <h5 id='block' className='whitemeandrightaligen'>
+                      {' '}
+                      <span id='boldme'>
+                        {clockList.length -
+                          clockList.filter((clock) => clock.avilable === true)
+                            .length}
+                      </span>
+                      תורים תפוסים{' '}
+                    </h5>
+
+                    <h5 id='block' className='whitemeandrightaligen'>
+                      {' '}
+                      <span id='boldmered'>
+                        {
+                          clockList.filter((clock) => clock.avilable === true)
+                            .length
+                        }
+                      </span>{' '}
+                      תורים פנויים
+                    </h5>
+
+                    <h5 id='block' className='whitemeandrightaligen'>
+                      הכנסה צפויה <span id='boldme'> {PredictedIncome()}₪</span>{' '}
+                    </h5>
+                    <h5 id='block' className='whitemeandrightaligen'>
+                      הכנסה בפועל{' '}
+                      <span id='boldme'>{workingDay.moneyCount}₪</span>{' '}
+                    </h5>
+                  </div>
                 </div>
-                {ShowActionsBig && (
-                  <div id='centerme'>
-                    <Row>
-                      <Col md={12}>
-                        <Button
-                          className='link buzz-out-on-hover'
-                          onClick={submitHandler3}
-                          id='HOSAFAmehiraBtn'
-                        >
-                          <i class='fas fa-bolt'></i> הוסף יום
-                        </Button>
-                      </Col>
-
-                      <Col md={12}>
-                        <Button
-                          onClick={showFormNow2}
-                          id='centermebtnActions'
-                          className='my-1'
-                        >
-                          <i className='fas fa-plus'></i> הוסף תורים
-                        </Button>
-                      </Col>
-                      <Col md={12}>
-                        <Button
-                          onClick={showFormNow}
-                          id='centermebtnActions'
-                          className='my-1'
-                        >
-                          <i className='fas fa-plus'></i> הוסף תור
-                        </Button>{' '}
-                      </Col>
-                    </Row>
-                  </div>
-                )}
-
-                {showForm && (
-                  <div id='sizeme'>
-                    <div id='blueme'>
-                      <Form onSubmit={submitHandler}>
-                        <Form.Group
-                          controlId='time'
-                          type='time'
-                          value={time}
-                          onChange={(e) => setTime(e.target.value)}
-                        >
-                          <Form.Control as='select' id='formSelect'>
-                            <option id='custom-select1'>בחר שעה</option>
-                            <option id='custom-select'>10:00</option>
-                            <option id='custom-select'>10:30</option>
-                            <option id='custom-select'>11:00</option>
-                            <option id='custom-select'>11:30</option>
-                            <option id='custom-select'>12:00</option>
-                            <option id='custom-select'>12:30</option>
-                            <option id='custom-select'>13:00</option>
-                            <option id='custom-select'>13:30</option>
-                            <option id='custom-select'>14:00</option>
-                            <option id='custom-select'>14:30</option>
-                            <option id='custom-select'>15:00</option>
-                            <option id='custom-select'>15:30</option>
-                            <option id='custom-select'>16:00</option>
-                            <option id='custom-select'>16:30</option>
-                            <option id='custom-select'>17:00</option>
-                            <option id='custom-select'>17:30</option>
-                            <option id='custom-select'>18:00</option>
-                            <option id='custom-select'>18:30</option>
-                            <option id='custom-select'>19:00</option>
-                            <option id='custom-select'>19:30</option>
-                          </Form.Control>
-                        </Form.Group>
-
-                        <Button
-                          className='link buzz-out-on-hover'
-                          id='centermebtnHOsef'
-                          type='submit'
-                        >
-                          <i className='fas fa-plus'></i> הוסף
-                          {NewClockloading ? (
-                            <Loader2 />
-                          ) : NewClockerror ? (
-                            <Message variant='danger'>{error}</Message>
-                          ) : (
-                            <div></div>
-                          )}
-                        </Button>
-                      </Form>
-                    </div>
-                  </div>
-                )}
-
-                {showForm2 && (
-                  <div id='sizeme'>
-                    <div id='blueme'>
-                      <Form onSubmit={submitHandler2}>
-                        <Form.Group
-                          controlId='time'
-                          type='time'
-                          value={time}
-                          onChange={(e) => setTime(e.target.value)}
-                        >
-                          <Form.Control as='select' id='formSelect'>
-                            <option id='custom-select1'>משעה</option>
-                            <option id='custom-select'>10:00</option>
-                            <option id='custom-select'>10:30</option>
-                            <option id='custom-select'>11:00</option>
-                            <option id='custom-select'>11:30</option>
-                            <option id='custom-select'>12:00</option>
-                            <option id='custom-select'>12:30</option>
-                            <option id='custom-select'>13:00</option>
-                            <option id='custom-select'>13:30</option>
-                            <option id='custom-select'>14:00</option>
-                            <option id='custom-select'>14:30</option>
-                            <option id='custom-select'>15:00</option>
-                            <option id='custom-select'>15:30</option>
-                            <option id='custom-select'>16:00</option>
-                            <option id='custom-select'>16:30</option>
-                            <option id='custom-select'>17:00</option>
-                            <option id='custom-select'>17:30</option>
-                            <option id='custom-select'>18:00</option>
-                            <option id='custom-select'>18:30</option>
-                            <option id='custom-select'>19:00</option>
-                            <option id='custom-select'>19:30</option>
-                          </Form.Control>
-                        </Form.Group>
-
-                        <Form.Group
-                          controlId='time2'
-                          type='time2'
-                          value={time2}
-                          onChange={(e) => setTime2(e.target.value)}
-                        >
-                          <Form.Control as='select' id='formSelect'>
-                            <option id='custom-select1'>עד שעה</option>
-                            <option id='custom-select'>10:30</option>
-                            <option id='custom-select'>11:00</option>
-                            <option id='custom-select'>11:30</option>
-                            <option id='custom-select'>12:00</option>
-                            <option id='custom-select'>12:30</option>
-                            <option id='custom-select'>13:00</option>
-                            <option id='custom-select'>13:30</option>
-                            <option id='custom-select'>14:00</option>
-                            <option id='custom-select'>14:30</option>
-                            <option id='custom-select'>15:00</option>
-                            <option id='custom-select'>15:30</option>
-                            <option id='custom-select'>16:00</option>
-                            <option id='custom-select'>16:30</option>
-                            <option id='custom-select'>17:00</option>
-                            <option id='custom-select'>17:30</option>
-                            <option id='custom-select'>18:00</option>
-                            <option id='custom-select'>18:30</option>
-                            <option id='custom-select'>19:00</option>
-                            <option id='custom-select'>19:30</option>
-                          </Form.Control>
-                        </Form.Group>
-
-                        <Button
-                          className='link buzz-out-on-hover'
-                          id='centermebtnHOsef'
-                          type='submit'
-                        >
-                          <i className='fas fa-plus'></i> הוסף
-                          {NewClocksloading ? (
-                            <Loader2 />
-                          ) : NewClockserror ? (
-                            <Message variant='danger'>{error}</Message>
-                          ) : (
-                            <div></div>
-                          )}
-                        </Button>
-                      </Form>
-                    </div>
-                  </div>
-                )}
-
-                <div onClick={setShowSicumForThisDay_FUNCTION} id='centerme'>
-                  <span id='torimAndHahnasot'>סיכום</span>
-                </div>
-                {ShowSicumForThisDay && (
-                  <div id='centerme'>
-                    <div id='block'>
-                      <h5 id='block' className='whitemeandrightaligen'>
-                        {' '}
-                        <span id='boldme'>{clockList.length}</span>
-                        תורים סה"כ
-                      </h5>
-                      <h5 id='block' className='whitemeandrightaligen'>
-                        {' '}
-                        <span id='boldme'>
-                          {clockList.length -
-                            clockList.filter((clock) => clock.avilable === true)
-                              .length}
-                        </span>
-                        תורים תפוסים{' '}
-                      </h5>
-
-                      <h5 id='block' className='whitemeandrightaligen'>
-                        {' '}
-                        <span id='boldmered'>
-                          {
-                            clockList.filter((clock) => clock.avilable === true)
-                              .length
-                          }
-                        </span>{' '}
-                        תורים פנויים
-                      </h5>
-
-                      <h5 id='block' className='whitemeandrightaligen'>
-                        הכנסה צפויה{' '}
-                        <span id='boldme'> {PredictedIncome()}₪</span>{' '}
-                      </h5>
-                      <h5 id='block' className='whitemeandrightaligen'>
-                        הכנסה בפועל{' '}
-                        <span id='boldme'>{workingDay.moneyCount}₪</span>{' '}
-                      </h5>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </Col>
