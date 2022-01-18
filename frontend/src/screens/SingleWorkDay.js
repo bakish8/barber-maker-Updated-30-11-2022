@@ -82,7 +82,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
-  const [SHOW_SINUN_CHHOSE, setSHOW_SINUN_CHHOSE] = useState(false)
   const [Somthing, setSomthing] = useState(false)
   const [ShowActionsBig, setShowActionsBig] = useState(false)
   const [ShowSicumForThisDay, setShowSicumForThisDay] = useState(false)
@@ -276,9 +275,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const showFilterForSmallScreenFunction = () => {
     setshowFilterForSmallScreen(!showFilterForSmallScreen)
   }
-  const setSHOW_SINUN_CHHOSE_FUNCTION = () => {
-    setSHOW_SINUN_CHHOSE(!SHOW_SINUN_CHHOSE)
-  }
+
   const ARE_U_sure_PINUI_selected = () => {
     console.log(ArrayOfSelectedTors)
     Swal.fire({
@@ -1148,6 +1145,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
     }
   }
 
+  //****מחזיר את הזמן עכשיו ומוסיף קלאס מתאים כחול מהבהב */
   const FunctionBlingThisTime = (time) => {
     const H = time.substring(0, 2)
     const M = time.substring(3)
@@ -2109,53 +2107,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
               </div>
             </div>
           </Col>
-          <Col md={3} id='singlewirkingdayoptionsbgwhite'>
+          <Col md={2} id='singlewirkingdayoptionsbgwhite'>
             <h4 id='centerme' className='whitemeForActionsBig'>
               אפשרויות
             </h4>
 
             <div>
-              <div onClick={setSHOW_TH_CHHOSE_FUNCTION} id='centerme'>
-                <span id='torimAndHahnasot'>בחירה</span>
-              </div>
-              <div onClick={setSHOW_SINUN_CHHOSE_FUNCTION} id='centerme'>
-                <span id='torimAndHahnasot'>סינון</span>
-              </div>
-              {SHOW_SINUN_CHHOSE && (
-                <div id='centerme'>
-                  <Row>
-                    <Col md={12}>
-                      <Button
-                        onClick={setSHOWAllToirmForTodayFUNCTION}
-                        id='centermebtnActions'
-                        className='my-1'
-                      >
-                        <i class='fas fa-scroll'></i>
-                        כל התורים{' '}
-                      </Button>
-                      <Button
-                        onClick={setSHOWonlyAvilableFUNCTION}
-                        id='centermebtnActionsRed'
-                        className='my-1'
-                      >
-                        <i class='fas fa-user-slash'></i>
-                        תורים פנויים
-                      </Button>
-                    </Col>
-                    <Col md={12}>
-                      <Button
-                        onClick={setSHOWonlyNotAvilableFUNCTION}
-                        id='centermebtnActionsGREEN'
-                        className='my-1'
-                      >
-                        <i class='fas fa-user-friends'></i>
-                        תורים תפוסים
-                      </Button>{' '}
-                    </Col>
-                  </Row>
-                </div>
-              )}
-
               <div onClick={setShowActionsBig_FUNCTION} id='centerme'>
                 <span id='torimAndHahnasot'>הוספה</span>
               </div>
@@ -2168,7 +2125,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
                         onClick={submitHandler3}
                         id='HOSAFAmehiraBtn'
                       >
-                        <i class='fas fa-bolt'></i> הוספה מהירה
+                        <i class='fas fa-bolt'></i> הוסף יום
                       </Button>
                     </Col>
 
@@ -2343,6 +2300,15 @@ const SingleWorkDayScreen = ({ history, match }) => {
                       <span id='boldme'>{clockList.length}</span>
                       תורים סה"כ
                     </h5>
+                    <h5 id='block' className='whitemeandrightaligen'>
+                      {' '}
+                      <span id='boldme'>
+                        {clockList.length -
+                          clockList.filter((clock) => clock.avilable === true)
+                            .length}
+                      </span>
+                      תורים תפוסים{' '}
+                    </h5>
 
                     <h5 id='block' className='whitemeandrightaligen'>
                       {' '}
@@ -2362,22 +2328,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
                       הכנסה בפועל{' '}
                       <span id='boldme'>{workingDay.moneyCount}₪</span>{' '}
                     </h5>
-
-                    <Col md={12}>
-                      <div id='BarberMENU'>
-                        <button
-                          onClick={showSicumNow}
-                          className='BARBERMENUBTNSICUM'
-                        >
-                          <i
-                            id='idid'
-                            className='SacemYOM'
-                            class='fas fa-file-invoice-dollar'
-                          ></i>
-                          סכם יום זה
-                        </button>
-                      </div>
-                    </Col>
                   </div>
                 </div>
               )}
@@ -2385,7 +2335,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           </Col>
 
           {SHOWAllToirmForToday && (
-            <Col md={9}>
+            <Col md={10}>
               <div>
                 <Table bordered hover responsive id='tablewhiteSingle'>
                   <thead id='centertext'>

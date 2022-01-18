@@ -85,7 +85,6 @@ main {
   font-size: 15px;
   color: white;
   text-align: center;
-  display: none;
   width: 100%;
   list-style: none;
 }
@@ -140,11 +139,12 @@ main {
   font-weight: 500;
   z-index: 2;
   transform: skew(-15deg);
-  left: 20px;
+  left: 21%;
   transition: 0.2s ease-in;
   background-color: #cacaca;
   color: rgb(0, 0, 0);
 }
+
 .CHOOSETORIM_BTNForSmallScreen:hover {
   transform: scale(1.3) skew(-20deg);
   background-color: #005d88;
@@ -177,8 +177,8 @@ main {
   padding: 3.5px 8px;
   z-index: 2;
   transform: scale(0.9) skew(-15deg);
-  right: 100px;
-  top: 40px;
+  right: 19%;
+  top: 10%;
   transition: 0.2s ease-in;
 }
 .SINUN-BTN-NOT-AVILABLE {
@@ -190,8 +190,8 @@ main {
   padding: 3.5px 8px;
   z-index: 2;
   transform: scale(0.9) skew(-15deg);
-  right: 216px;
-  top: 40px;
+  right: 29%;
+  top: 10%;
   transition: 0.2s ease-in;
 }
 .SINUN-BTN-PAYD {
@@ -203,8 +203,8 @@ main {
   padding: 3.5px 8px;
   z-index: 2;
   transform: scale(0.9) skew(-15deg);
-  right: 283px;
-  top: 40px;
+  right: 33%;
+  top: 10%;
   transition: 0.2s ease-in;
 }
 .SINUN-BTN-AVILABLE {
@@ -216,8 +216,8 @@ main {
   padding: 3.5px 8px;
   z-index: 2;
   transform: scale(0.9) skew(-15deg);
-  right: 159px;
-  top: 40px;
+  right: 24%;
+  top: 10%;
   transition: 0.2s ease-in;
 }
 .SINUN-BTN {
@@ -230,8 +230,8 @@ main {
   font-weight: 500;
   z-index: 2;
   transform: skew(-15deg);
-  right: 30px;
-  top: 40px;
+  right: 13%;
+  top: 10%;
   transition: 0.2s ease-in;
 }
 
@@ -271,7 +271,7 @@ main {
   font-weight: 500;
   z-index: 2;
   transform: skew(-15deg);
-  left: 68px;
+  left: 25%;
   transition: 0.2s ease-in;
   background-color: #0096c7;
 }
@@ -283,6 +283,7 @@ main {
 @media (max-width: 786px) {
   #actionsSmallScreen {
     display: block;
+    z-index: 4;
   }
   #smallSicumScreen {
     display: block;
@@ -881,9 +882,9 @@ body input {
   justify-content: center;
   align-items: center;
   background-color: #343a40;
-  width: 80%;
+  width: 96%;
   border-radius: 20px;
-  font-size: 20px;
+  font-size: 15px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -893,9 +894,9 @@ body input {
   justify-content: center;
   align-items: center;
   background-color: #343a40;
-  width: 80%;
+  width: 96%;
   border-radius: 20px;
-  font-size: 20px;
+  font-size: 15px;
   margin-left: auto;
   margin-right: auto;
   color: #ffd60a;
@@ -1051,27 +1052,28 @@ textarea {
   margin-bottom: 20px;
 }
 #boldme {
+  display: block;
   font-weight: bolder;
   color: #00ff55;
-  font-size: larger;
-  background-color: rgba(0, 0, 0, 0.322);
+  font-size: 15px;
   padding: 4px;
   border-radius: 50%;
 }
 #boldme1 {
   font-weight: bolder;
   color: #009231;
-  font-size: larger;
+  font-size: 15px;
   padding: 2px;
   margin: 0 3px;
   border-radius: 50%;
 }
 
 #boldmered {
+  display: block;
+
   font-weight: bolder;
   color: #ff6262;
-  font-size: larger;
-  background-color: rgba(0, 0, 0, 0.322);
+  font-size: 15px;
   padding: 4px;
   border-radius: 50%;
 }
@@ -1522,8 +1524,9 @@ textarea {
   padding: 5px;
   border-radius: 20px;
   margin-top: 12px;
-  width: 80%;
+  width: 100%;
   margin: 15px auto;
+  font-size: 12px;
 }
 
 .maketorbtn span {
@@ -2550,4 +2553,34 @@ h5 {
   position: relative;
   top: 30%;
   font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .CHOOSETORIM_BTNForSmallScreen {
+    left: 20px;
+  }
+  .bigSicumBTNForSmallScreen {
+    left: 68px;
+  }
+
+  .SINUN-BTN {
+    right: 30px;
+    top: 40px;
+  }
+  .SINUN-BTN-ALL {
+    right: 100px;
+    top: 40px;
+  }
+  .SINUN-BTN-AVILABLE {
+    right: 159px;
+    top: 40px;
+  }
+  .SINUN-BTN-NOT-AVILABLE {
+    right: 216px;
+    top: 40px;
+  }
+  .SINUN-BTN-PAYD {
+    right: 283px;
+    top: 40px;
+  }
 }
