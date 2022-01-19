@@ -149,7 +149,7 @@ const WorkingDaysScreen = ({ history }) => {
       Swal.fire({
         title: '?האם תרצה להפיק דו"ח עבור חודש זה',
         text: `חשוב שתדע,הסיכום יופק בהתאם לנתוני המערכת בזמן זה, בתאריך ${date}, בשעה ${time}`,
-        imageUrl: 'https://i.ibb.co/p18YJS2/icons8-combo-chart.gif',
+        imageUrl: 'https://i.ibb.co/jMNthkF/output-onlinegiftools-5.gif',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -177,7 +177,7 @@ const WorkingDaysScreen = ({ history }) => {
       Swal.fire({
         title: '?האם תרצה להפיק דו"ח עבור שבוע זה',
         text: `חשוב שתדע,הסיכום יופק בהתאם לנתוני המערכת בזמן זה, בתאריך ${date}, בשעה ${time}`,
-        imageUrl: 'https://i.ibb.co/p18YJS2/icons8-combo-chart.gif',
+        imageUrl: 'https://i.ibb.co/jMNthkF/output-onlinegiftools-5.gif',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -205,7 +205,7 @@ const WorkingDaysScreen = ({ history }) => {
       Swal.fire({
         title: '?האם תרצה להפיק דו"ח עבור יום זה',
         text: `חשוב שתדע,הסיכום יופק בהתאם לנתוני המערכת בזמן זה, בתאריך ${date}, בשעה ${time}`,
-        imageUrl: 'https://i.ibb.co/p18YJS2/icons8-combo-chart.gif',
+        imageUrl: 'https://i.ibb.co/jMNthkF/output-onlinegiftools-5.gif',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',

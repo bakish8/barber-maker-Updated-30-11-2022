@@ -1,0 +1,83 @@
+@keyframes showTopText {
+  0% {
+    transform: translate3d(0, 100%, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(0, 50%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes showBottomText {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.animated-title {
+  color: rgba(255, 255, 255, 0.753);
+  font-family: Roboto, Arial, sans-serif;
+  height: 35vmin;
+  left: 523.8px;
+  top: 122.5px;
+  position: relative;
+  transform: translate(-50%, -50%);
+  width: 90vmin;
+}
+.animated-title > div {
+  height: 53%;
+  overflow: hidden;
+  position: absolute;
+  direction: rtl;
+
+  width: 33%;
+}
+.animated-title > div div {
+  font-size: 35px;
+  padding: 2vmin 0;
+  position: absolute;
+}
+.animated-title > div div span {
+  display: block;
+}
+.animated-title > div.text-top {
+  border-bottom: 0.5vmin solid rgba(199, 199, 199, 0.445);
+  top: 0;
+  width: 33%;
+  z-index: 40;
+}
+.animated-title > div.text-top div {
+  animation: showTopText 1.5s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  bottom: 0;
+  transform: translate(0, 100%);
+}
+.animated-title > div.text-top div span:first-child {
+  color: rgba(255, 255, 255, 0.753);
+}
+.animated-title > div.text-bottom {
+  bottom: 0;
+}
+.animated-title > div.text-bottom div {
+  animation: showBottomText 0.5s;
+  animation-delay: 2.75s;
+  animation-fill-mode: forwards;
+  top: 0;
+  transform: translate(0, -100%);
+}
+
+#kidma {
+  color: rgba(0, 217, 255, 0.699);
+  font-size: 25px;
+}
+
+@media (max-width: 786px) {
+  .animated-title {
+    transform: scale(0.5);
+  }
+}

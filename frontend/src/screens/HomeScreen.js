@@ -24,6 +24,8 @@ import Adds_3 from '../components/Adds/Adds_3.js'
 import ExpendingCards from '../components/ExpendingCards/ExpendingCards.js'
 import ClientEffect from '../components/ClientEffect/ClientEffect'
 import { duration } from 'moment'
+import Kidma from '../components/KidmaTorim/Kidma'
+import Nahel from '../components/Nahel/Nahel'
 import Tilt from 'react-parallax-tilt'
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -56,6 +58,30 @@ const HomeScreen = ({ match }) => {
         <div data-aos='fade-up' className='BOXS'>
           <ImageTWO />
         </div>
+        <Row id='MAINADD'>
+          <Col md={4}>
+            <div data-aos='fade-right' id='Add1_div'>
+              <Kidma />
+            </div>
+          </Col>
+
+          <Col md={4}>
+            <div data-aos='zoom-in'>
+              <div id='circleBlack'>
+                {' '}
+                <img
+                  id='barbershopgif'
+                  src='https://i.ibb.co/tQL6Qrj/ezgif-com-gif-maker-2.gif'
+                />
+              </div>{' '}
+            </div>
+          </Col>
+          <Col md={4}>
+            <div data-aos='fade-left'>
+              <Nahel />
+            </div>
+          </Col>
+        </Row>
         <div data-aos='flip-left' id='image4'>
           <ImageFour />
         </div>{' '}

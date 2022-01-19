@@ -697,6 +697,18 @@ body input {
   justify-content: center;
   align-items: center;
 }
+
+#barbershopgif {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+#circleBlack {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  align-items: center;
+}
 #checkoytstepsNav {
   margin-top: 30px;
   background-color: #ffffff2f;
@@ -2619,4 +2631,27 @@ h5 {
   #singlewirkingdayoptionsbgwhite {
     display: none;
   }
+
+  #MAINADD {
+    display: none;
+  }
+}
+
+#MAINADD {
+  background: linear-gradient(
+    to left,
+    #00001696 0%,
+    #000000bb 30%,
+    #0000008a 50%,
+    rgba(0, 0, 0, 0.377) 70%,
+    #0000001c 100%
+  );
+  border-radius: 50px;
+  width: 1110px;
+  margin: auto auto;
+  border: 1px solid rgba(255, 255, 255, 0.219);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.473);
+  transition: 0.2s ease-in-out;
+  transform: scale(0.8);
+  margin-top: 80px;
 }
