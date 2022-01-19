@@ -38,14 +38,14 @@
 }
 .animated-title > div div {
   font-size: 35px;
-  padding: 2vmin 0;
   position: absolute;
+  padding: 2.5%;
 }
 .animated-title > div div span {
   display: block;
 }
 .animated-title > div.text-top {
-  border-bottom: 0.5vmin solid rgba(255, 255, 255, 0.39);
+  border-bottom: 0.1vmin solid rgba(255, 255, 255, 0);
   top: 0;
   width: 33%;
   z-index: 1000;
@@ -55,6 +55,7 @@
   animation-delay: 1s;
   animation-fill-mode: forwards;
   bottom: 0;
+
   transform: translate(0, 100%);
 }
 .animated-title > div.text-top div span:first-child {
@@ -74,7 +75,7 @@
 
 #kidma {
   color: rgba(0, 217, 255, 0.699);
-  font-size: 25px;
+  font-size: 35px;
 }
 
 @media (max-width: 786px) {

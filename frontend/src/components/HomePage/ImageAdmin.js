@@ -12,36 +12,36 @@ const ImageAdmin = () => (
     <Parallax className='imageParalaxAdmin' bgImage={Admin} strength={800}>
       <div>
         <Link style={{ textDecoration: 'none' }} to='/admin/torim/'>
-          <button id='centermeAndBlock' class='maketorbtn'>
+          <button id='centermeAndBlock1' class='maketorbtn'>
             <span>תורים</span>
           </button>
         </Link>
 
         <Link style={{ textDecoration: 'none' }} to='/admin/reports/'>
-          <button id='centermeAndBlock' class='maketorbtn'>
+          <button id='centermeAndBlock1' class='maketorbtn'>
             <span>סיכומים</span>
           </button>
         </Link>
         <Link style={{ textDecoration: 'none' }} to='/admin/userlist/'>
-          <button id='centermeAndBlock' class='maketorbtn'>
+          <button id='centermeAndBlock1' class='maketorbtn'>
             <span>לקוחות</span>
           </button>
         </Link>
 
         <Link style={{ textDecoration: 'none' }} to='/admin/productlist/'>
-          <button id='centermeAndBlock' class='maketorbtn'>
+          <button id='centermeAndBlock1' class='maketorbtn'>
             <span>מוצרים</span>
           </button>
         </Link>
 
         <Link style={{ textDecoration: 'none' }} to='/admin/orderlist/'>
-          <button id='centermeAndBlock' class='maketorbtn'>
+          <button id='centermeAndBlock1' class='maketorbtn'>
             <span>הזמנות</span>
           </button>
         </Link>
 
         <Link style={{ textDecoration: 'none' }} to='/admin/settings/'>
-          <button id='centermeAndBlock' class='maketorbtn'>
+          <button id='centermeAndBlock1' class='maketorbtn'>
             <span>הגדרות</span>
           </button>
         </Link>

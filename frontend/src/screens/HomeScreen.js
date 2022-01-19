@@ -84,13 +84,17 @@ const HomeScreen = ({ match }) => {
               <div data-aos='zoom-in'>
                 <div id='circleBlack'>
                   <img
+                    id='RollPullsmall'
+                    src='https://i.ibb.co/82t0dzn/ezgif-com-gif-maker-4.gif'
+                  />{' '}
+                  <img
                     onClick={fixScrollHighetForBarberSystem}
                     id='ScrollArrowDownForBarberMakerSystem'
                     src='https://i.ibb.co/XDLjw4r/animation-200-kylde03u.gif'
                   />{' '}
                   <div
                     data-aos='fade-right'
-                    data-aos-offset='300'
+                    data-aos-offset='180'
                     data-aos-easing='ease-in-sine'
                   >
                     <img
@@ -110,6 +114,10 @@ const HomeScreen = ({ match }) => {
               </div>
             </Col>
             <Col md={4}>
+              <img
+                id='underline12'
+                src='https://i.ibb.co/HnHc0hs/ezgif-com-gif-maker-6.gif'
+              />
               <div data-aos='fade-left'>
                 <Nahel />
               </div>
