@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' //מה שישחליט מה לשגר
 import { Row, Col } from 'react-bootstrap'
@@ -35,7 +35,20 @@ const HomeScreen = ({ match }) => {
 
   const productList = useSelector((state) => state.productList) //מושכים מהפרוקדט רדיוסר מההצהרה שלנו את הארור האפשרי את המוצרים ואת הטעינה
   const { loading, error, products, page, pages } = productList
+  const [ValueScrollForBarberSystem, setValueScrollForBarberSystem] =
+    useState(false)
 
+  //functions for scroll highet
+  const fixScrollHighetForBarberSystem = () => {
+    const BarberSystem = document.getElementById('image4')
+    console.log(window.scrollY, BarberSystem.offsetTop)
+    window.scrollTo({
+      top: BarberSystem.offsetTop,
+      behavior: 'smooth',
+    })
+  }
+
+  //USE EFFECT  for Aos Effects
   useEffect(() => {
     Aos.init({ duration: 700 })
   }, [])
@@ -53,35 +66,56 @@ const HomeScreen = ({ match }) => {
       <div>
         <ImageOne />
       </div>
+
       <div className='grids'>
         {' '}
         <div data-aos='fade-up' className='BOXS'>
           <ImageTWO />
         </div>
-        <Row id='MAINADD'>
-          <Col md={4}>
-            <div data-aos='fade-right' id='Add1_div'>
-              <Kidma />
-            </div>
-          </Col>
+        <Tilt>
+          <Row id='MAINADD' onClick={fixScrollHighetForBarberSystem}>
+            <Col md={4}>
+              <div data-aos='fade-right' id='Add1_div'>
+                <Kidma />
+              </div>
+            </Col>
 
-          <Col md={4}>
-            <div data-aos='zoom-in'>
-              <div id='circleBlack'>
-                {' '}
-                <img
-                  id='barbershopgif'
-                  src='https://i.ibb.co/tQL6Qrj/ezgif-com-gif-maker-2.gif'
-                />
-              </div>{' '}
-            </div>
-          </Col>
-          <Col md={4}>
-            <div data-aos='fade-left'>
-              <Nahel />
-            </div>
-          </Col>
-        </Row>
+            <Col md={4}>
+              <div data-aos='zoom-in'>
+                <div id='circleBlack'>
+                  <img
+                    onClick={fixScrollHighetForBarberSystem}
+                    id='ScrollArrowDownForBarberMakerSystem'
+                    src='https://i.ibb.co/XDLjw4r/animation-200-kylde03u.gif'
+                  />{' '}
+                  <div
+                    data-aos='fade-right'
+                    data-aos-offset='300'
+                    data-aos-easing='ease-in-sine'
+                  >
+                    <img
+                      id='CalenerCoins'
+                      src='https://i.ibb.co/f1v07Fb/animation-500-kylh202z.gif'
+                    />{' '}
+                  </div>
+                  <img
+                    id='CoinsFalling'
+                    src='https://i.ibb.co/LgHPZmy/animation-300-kylf8gis.gif'
+                  />{' '}
+                  <img
+                    id='barbershopgif'
+                    src='https://i.ibb.co/tQL6Qrj/ezgif-com-gif-maker-2.gif'
+                  />
+                </div>{' '}
+              </div>
+            </Col>
+            <Col md={4}>
+              <div data-aos='fade-left'>
+                <Nahel />
+              </div>
+            </Col>
+          </Row>
+        </Tilt>
         <div data-aos='flip-left' id='image4'>
           <ImageFour />
         </div>{' '}

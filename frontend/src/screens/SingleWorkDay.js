@@ -1,4 +1,3 @@
-import swal from 'sweetalert'
 import moment from 'moment'
 import UserFilter from '../components/Filters/UserFilter'
 import { Box, Modal } from '@material-ui/core'
@@ -813,15 +812,18 @@ const SingleWorkDayScreen = ({ history, match }) => {
   // make this Hour Un-Payd Function
   const makeClockUnpaidHandler = (id, time, date) => {
     if (id && time && date) {
-      swal({
+      Swal.fire({
         title: '?אתה בטוח',
         text: `תור זה מוגדר כמשולם במערכת,שינוי סטאטוס התשלום ישונה ל-לא שולם, עבור לקוח זה בתור בשעה ${time} בתאריך ${date}`,
         icon: 'warning',
-        buttons: ['ביטול', 'שנה סטאטוס ל-לא שולם'],
-        dangerMode: true,
-      }).then((willDelete) => {
-        if (willDelete) {
-          swal('תור זה הוגדר כלא שולם בהצלחה', {
+        showCancelButton: true,
+        confirmButtonColor: '#B83122',
+
+        cancelButtonText: 'ביטול',
+        confirmButtonText: 'כן אני בטוח',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('תור זה הוגדר כלא שולם בהצלחה', {
             icon: 'success',
           }).then(dispatch(UNPayMyTor(id))) //** */
         } else {
@@ -1061,7 +1063,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
          }
 הסכום ששולם  : <h4 style='display:inline'>${TotalAmmountPaid}₪</h4> <br/>  מספר חשבונית : <h4 style='display:inline'>${ReciptNumber}</h4>`,
 
-          imageUrl: 'https://i.ibb.co/M9HkNWs/greenuser.jpg',
+          imageUrl: 'https://i.ibb.co/RPcZDJW/animation-200-kykgn2ol.gif',
           imageWidth: 100,
           imageHeight: 100,
           imageAlt: 'לקוח',

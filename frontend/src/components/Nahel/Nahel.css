@@ -4,7 +4,7 @@
   font-size: 36px;
   font-weight: 400;
   position: relative;
-  right: 74%;
+  right: 25%;
   top: 40px;
 }
 
@@ -63,7 +63,8 @@
   padding: 0px 20px;
   border-radius: 120px;
 
-  background: #000000;
+  background: #ffffff;
+  color: black;
 }
 #ssss2 {
   background: #10813f;

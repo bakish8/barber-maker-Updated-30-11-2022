@@ -703,12 +703,7 @@ body input {
   margin-left: auto;
   margin-right: auto;
 }
-#circleBlack {
-  height: 220px;
-  display: flex;
-  align-items: center;
-  align-items: center;
-}
+
 #checkoytstepsNav {
   margin-top: 30px;
   background-color: #ffffff2f;
@@ -2638,20 +2633,51 @@ h5 {
 }
 
 #MAINADD {
+  cursor: pointer;
   background: linear-gradient(
     to left,
-    #00001696 0%,
-    #000000bb 30%,
-    #0000008a 50%,
-    rgba(0, 0, 0, 0.377) 70%,
-    #0000001c 100%
+    #2b587671 0%,
+    #0000006e 40%,
+    #0000006e 50%,
+    #0000006e 60%,
+    #4e43766e 100%
   );
   border-radius: 50px;
-  width: 1110px;
+  width: 70%;
   margin: auto auto;
   border: 1px solid rgba(255, 255, 255, 0.219);
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.473);
   transition: 0.2s ease-in-out;
   transform: scale(0.8);
   margin-top: 80px;
+  height: 250px;
+}
+#MAINADD:hover {
+  transform: scale(0.9);
+  box-shadow: 2px 15px 25px rgba(0, 153, 255, 0.178);
+  border: 1px solid rgba(0, 195, 255, 0.404);
+}
+
+#ScrollArrowDownForBarberMakerSystem {
+  cursor: pointer;
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  top: 190px;
+  left: 70px;
+}
+
+#CoinsFalling {
+  position: absolute;
+  z-index: 3;
+  bottom: 26px;
+  right: 200px;
+}
+#CalenerCoins {
+  position: absolute;
+  z-index: 6;
+  width: 300px;
+  height: 300px;
+  top: 60px;
+  right: 332px;
 }

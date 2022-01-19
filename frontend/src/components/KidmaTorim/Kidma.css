@@ -22,8 +22,8 @@
   color: rgba(255, 255, 255, 0.753);
   font-family: Roboto, Arial, sans-serif;
   height: 35vmin;
-  left: 523.8px;
-  top: 122.5px;
+  left: 159%;
+  top: 114.5px;
   position: relative;
   transform: translate(-50%, -50%);
   width: 90vmin;
@@ -45,10 +45,10 @@
   display: block;
 }
 .animated-title > div.text-top {
-  border-bottom: 0.5vmin solid rgba(199, 199, 199, 0.445);
+  border-bottom: 0.5vmin solid rgba(255, 255, 255, 0.39);
   top: 0;
   width: 33%;
-  z-index: 40;
+  z-index: 1000;
 }
 .animated-title > div.text-top div {
   animation: showTopText 1.5s;
@@ -59,6 +59,7 @@
 }
 .animated-title > div.text-top div span:first-child {
   color: rgba(255, 255, 255, 0.753);
+  z-index: 1000;
 }
 .animated-title > div.text-bottom {
   bottom: 0;
