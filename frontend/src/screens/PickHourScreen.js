@@ -73,7 +73,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
       showLoaderOnConfirm: true,
       confirmButtonColor: '#90be6d',
       cancelButtonColor: '#d33',
-      imageUrl: 'https://i.ibb.co/X8gkD61/61c2ce2824f33074352286.gif',
+      imageUrl: 'https://i.ibb.co/F7ytm19/animation-300-kym86n2q.gif',
+      imageWidth: 150,
+      imageHeight: 150,
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(confirmTor(id, uid, Tipulid))

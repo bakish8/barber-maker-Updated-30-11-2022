@@ -91,8 +91,10 @@ const PickDateScreen = ({ location, history, match }) => {
       history.push(`/maketor/${foundWorkdayInfo._id}/picktipul`) //pick tipul
     } else if (foundWorkdayerror) {
       Swal.fire({
-        imageUrl: 'https://i.ibb.co/R2f5Yzs/calendar-1-1s-200px.gif',
-        title: 'הכל תפוס',
+        imageUrl: 'https://i.ibb.co/1dc19XT/animation-300-kym8gjwn.gif',
+        imageWidth: 150,
+        imageHeight: 150,
+        title: 'כל התורים תפוסים ביום זה',
         text: ' בחר תאריך אחר כדי לקבוע תור ',
         confirmButtonText: 'אוקי תודה',
       })

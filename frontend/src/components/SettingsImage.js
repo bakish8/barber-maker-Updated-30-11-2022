@@ -12,18 +12,18 @@ const SettingsImage = () => (
     <Parallax className='imageParalaxAdmin' bgImage={Admin} strength={800}>
       <div>
         <Link style={{ textDecoration: 'none' }} to='/admin/settings/newtipul'>
-          <button id='centermeAndBlock' class='maketorbtn'>
+          <button id='centermeAndBlock1' class='maketorbtn'>
             <span>הוסף טיפול חדש</span>
           </button>
         </Link>
 
         <Link style={{ textDecoration: 'none' }} to='/admin/reports/'>
-          <button id='centermeAndBlock' class='maketorbtn'>
+          <button id='centermeAndBlock1' class='maketorbtn'>
             <span>הגדר יום חופש</span>
           </button>
         </Link>
         <Link style={{ textDecoration: 'none' }} to='/admin/userlist/'>
-          <button id='centermeAndBlock' class='maketorbtn'>
+          <button id='centermeAndBlock1' class='maketorbtn'>
             <span>הגדר ספר חדש</span>
           </button>
         </Link>

@@ -28,7 +28,7 @@ const PickSaparScreen = ({ history }) => {
     } else {
       dispatch(listMyTorim())
       if (clocks) {
-        if (clocks.length === 0) {
+        if (!clocks) {
           Swal.fire({
             title: ` לא נמצאו תורים לביטול עבור ${userInfo.name}`,
             text: `?האם ברצונך לקבוע תור`,
@@ -38,7 +38,7 @@ const PickSaparScreen = ({ history }) => {
             showLoaderOnConfirm: true,
             confirmButtonColor: '#90be6d',
             cancelButtonColor: '#d33',
-            imageUrl: 'https://i.ibb.co/X8gkD61/61c2ce2824f33074352286.gif',
+            imageUrl: 'https://i.ibb.co/fpZL6Px/animation-300-kym7smbo.gif',
           }).then((result) => {
             if (result.isConfirmed) {
               history.push('/picksapar')
@@ -66,7 +66,7 @@ const PickSaparScreen = ({ history }) => {
       showLoaderOnConfirm: true,
       confirmButtonColor: '#90be6d',
       cancelButtonColor: '#d33',
-      imageUrl: 'https://i.ibb.co/8zPtqR0/output-onlinegiftools-2.gif',
+      imageUrl: 'https://i.ibb.co/fpZL6Px/animation-300-kym7smbo.gif',
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(CancelMyTor(id, uid)).then(
