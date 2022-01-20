@@ -2640,17 +2640,16 @@ h5 {
   .CHOOSETORIM_BTNForSmallScreen {
     left: 20px;
     top: 40px;
+    width: 58px;
   }
   .bigSicumBTNForSmallScreen {
-    left: 68px;
-    top: 40px;
+    left: 30px;
   }
   .OPTIONS-BTN-HOSEF {
-    left: 125px;
-    top: 40px;
+    display: none;
   }
   .OPTIONS-BTN-DELETE {
-    top: 40px;
+    display: none;
   }
   .SINUN-BTN {
     right: 30px;
@@ -2832,11 +2831,8 @@ h5 {
   font-weight: 500;
   z-index: 2;
   transition: 0.2s ease-in;
-  background-color: #cacaca;
   color: rgba(255, 255, 255, 0.486);
-
   transform: skew(-15deg);
-
   background-color: #007ea84d;
   border: 2px solid rgba(0, 0, 0, 0.486);
 }
