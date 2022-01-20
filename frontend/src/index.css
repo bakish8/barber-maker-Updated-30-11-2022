@@ -90,6 +90,8 @@ main {
 }
 #styleNoBULLETS {
   list-style: none;
+  position: relative;
+  right: 15px;
 }
 #actionsSmallScreen {
   font-weight: 200;
@@ -135,7 +137,7 @@ main {
   position: absolute;
   background-color: #000000;
   color: rgb(255, 255, 255);
-  padding: 4px 8px;
+  padding: 3px 8px;
   font-weight: 500;
   z-index: 2;
   transform: skew(-15deg);
@@ -271,11 +273,12 @@ main {
   font-weight: 500;
   z-index: 2;
   transform: skew(-15deg);
-  left: 31%;
+  left: 30%;
   transition: 0.2s ease-in;
   background-color: #051857;
   align-items: center;
 }
+
 #plusplus {
   position: static;
   bottom: 100px;
@@ -291,7 +294,6 @@ main {
   cursor: pointer;
   font-size: 14px;
   position: absolute;
-  background-color: #000000;
   color: rgb(255, 255, 255);
   padding: 3.5px 8px;
   font-weight: 500;
@@ -2124,7 +2126,7 @@ h6 {
   box-shadow: 4px 4px 15px rgb(50, 205, 71);
 }
 #BarberMENU {
-  background-color: rgba(0, 0, 0, 0.281);
+  background-color: rgba(0, 0, 0, 0.123);
   height: 95px;
   width: 85%;
   margin-left: auto;
@@ -2546,7 +2548,7 @@ h5 {
 }
 .classFOrTHdisplay {
   background-color: #28a2ff6b;
-  width: 30px;
+  width: 40px;
 }
 .classFOrTHdisplay2 {
   width: 30px;
@@ -2613,12 +2615,15 @@ h5 {
   }
   .CHOOSETORIM_BTNForSmallScreen {
     left: 20px;
+    top: 40px;
   }
   .bigSicumBTNForSmallScreen {
     left: 68px;
+    top: 40px;
   }
   .OPTIONS-BTN-HOSEF {
     left: 125px;
+    top: 40px;
   }
   .SINUN-BTN {
     right: 30px;
@@ -2728,4 +2733,99 @@ h5 {
   position: absolute;
   top: 175px;
   right: 470px;
+}
+
+.CHOOSETORIM_BTNForSmallScreenForWorkingDaysScreen {
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 8px 16px;
+  font-weight: 500;
+  font-size: 20px;
+  z-index: 2;
+  transform: skew(-15deg);
+  transition: 0.2s ease-in;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+}
+
+.CHOOSETORIM_BTNForSmallScreenForWorkingDaysScreen:hover {
+  transform: scale(1.2) skew(-20deg);
+  background-color: #ffffff;
+  color: #000000;
+  z-index: 10;
+}
+.bigSicumBTNForSmallScreenForWorkingDaysScreen {
+  cursor: pointer;
+  width: 80px;
+  font-size: 20px;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 8px 16px;
+  font-weight: 500;
+  font-size: 20px;
+  z-index: 2;
+  transform: skew(-15deg);
+  transition: 0.2s ease-in;
+  color: rgb(255, 255, 255);
+  height: 40px;
+  background-color: #000000;
+}
+
+.bigSicumBTNForSmallScreenForWorkingDaysScreen:hover {
+  transform: scale(1.2) skew(-20deg);
+  background-color: #088a28;
+  color: rgb(0, 0, 0);
+  z-index: 10;
+}
+.SINUN-BTN_ForWorkingDays_Screen {
+  cursor: pointer;
+  font-size: 20px;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 8px 16px;
+  font-weight: 500;
+  transform: skew(-15deg);
+  z-index: 3;
+  transition: 0.2s ease-in;
+}
+.SINUN-BTN_ForWorkingDays_Screen:hover {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  transform: scale(1.2) skew(-20deg);
+}
+
+.OPTIONS-BTN-HOSEF-WORKINGDAYS_SCREEN {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+  padding: 8px 10px;
+  font-weight: 500;
+  z-index: 2;
+  transition: 0.2s ease-in;
+  background-color: #cacaca;
+  color: rgba(255, 255, 255, 0.486);
+
+  transform: skew(-15deg);
+
+  background-color: #007ea84d;
+  border: 2px solid rgba(0, 0, 0, 0.486);
+}
+.OPTIONS-BTN-HOSEF-WORKINGDAYS_SCREEN:hover {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  transform: scale(1.2) skew(-20deg);
+  z-index: 8;
+}
+
+#BoxOF_Options_WorkingDays_Screen {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }

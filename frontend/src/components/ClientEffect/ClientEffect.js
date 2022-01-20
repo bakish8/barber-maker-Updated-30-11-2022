@@ -48,10 +48,6 @@ const ClientEffect = () => {
   function updateTestomonials() {
     const { name, position, photo, text } = testimonials[idx]
 
-    console.log(name)
-    console.log(position)
-    console.log(photo)
-    console.log(text)
     setState(name)
     setStatepic(photo)
     setStatetext(text)
@@ -67,8 +63,6 @@ const ClientEffect = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       updateTestomonials()
-
-      console.log('This will run every second!')
     }, 10000)
   }, [])
 

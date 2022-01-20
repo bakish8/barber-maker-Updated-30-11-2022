@@ -64,15 +64,13 @@ const Header = () => {
           two.contains(e.target) ||
           trhee.contains(e.target)
         ) {
-          console.log('Clicked in Box')
         } else {
-          console.log('Clicked outside Box')
           setstateForActiveUserLINK(false)
           setstateForActiveAdminLINK(false)
           setstateForActiveCARTLINK(false)
         }
       } else {
-        console.log('sdfsd')
+        console.log('')
       }
     })
   }, [one, two, trhee])

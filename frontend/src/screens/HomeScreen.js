@@ -41,7 +41,6 @@ const HomeScreen = ({ match }) => {
   //functions for scroll highet
   const fixScrollHighetForBarberSystem = () => {
     const BarberSystem = document.getElementById('image4')
-    console.log(window.scrollY, BarberSystem.offsetTop)
     window.scrollTo({
       top: BarberSystem.offsetTop,
       behavior: 'smooth',

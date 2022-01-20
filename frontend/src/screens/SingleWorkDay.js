@@ -271,6 +271,80 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   let checkboxes = document.querySelectorAll('.checkboxxx')
 
+  const FuncTionDeleteAllAvilableTors = () => {
+    for (let clock of clockList) {
+      if (clock.avilable) {
+        dispatch(deleteClock(WorkDayid, clock._id)).then(
+          Swal.fire({
+            text: ' מוחק את התורים הזמינים מהמערכת אנא המתן',
+
+            imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
+            imageWidth: 400,
+            imageHeight: 400,
+            imageAlt: 'Custom image',
+            timer: 3000,
+            background: '#68b4ff00',
+            backdrop: 'rgba(0, 0, 0,0.8)',
+            color: 'rgba(255, 255, 255)',
+            showConfirmButton: false,
+          })
+        )
+      }
+    }
+  }
+  const FuncTionDeleteAllATors = () => {
+    for (let clock of clockList) {
+      dispatch(deleteClock(WorkDayid, clock._id)).then(
+        Swal.fire({
+          text: ' מוחק את התורים מהמערכת אנא המתן',
+
+          imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
+          imageWidth: 400,
+          imageHeight: 400,
+          imageAlt: 'Custom image',
+          timer: 3000,
+          background: '#68b4ff00',
+          backdrop: 'rgba(0, 0, 0,0.8)',
+          color: 'rgba(255, 255, 255)',
+          showConfirmButton: false,
+        })
+      )
+    }
+  }
+
+  const SwalFuncTionDeleteAllAvilableTors = () => {
+    Swal.fire({
+      title: 'האם אתה בטוח שברצונך למחוק את התורים הזמינים מיום עבודה זה',
+      text: `חשוב לזכור שברגע שתמחק את תורים אלו מיום עבודה זה הם לא יהיו זמינים ללקוחות שלך`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'מחק',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        FuncTionDeleteAllAvilableTors()
+      }
+    })
+  }
+  const SwalFuncTionDeleteAllTors = () => {
+    Swal.fire({
+      title: '?האם אתה בטוח שברצונך למחוק את כל השעות מיום עבודה זה',
+      text: `שים לב ביצוע פעולה זאת ימחק את כל התורים להיום שים `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'מחק',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        FuncTionDeleteAllATors()
+      }
+    })
+  }
+
   const showFilterForSmallScreenFunction = () => {
     setshowFilterForSmallScreen(!showFilterForSmallScreen)
   }
@@ -503,28 +577,19 @@ const SingleWorkDayScreen = ({ history, match }) => {
               color: 'black',
               showCancelButton: true,
               showDenyButton: true,
-              denyButtonText: `מחק טווח תורים`,
+              denyButtonText: `מחק את התורים הפנויים`,
               denyButtonColor: 'rgb(222, 0, 0)',
 
-              cancelButtonText: 'מחק יום עבודה זה',
+              cancelButtonText: 'מחק את כל התורים',
               cancelButtonColor: 'rgb(222, 0, 0)',
               confirmButtonColor: 'rgb(222, 0, 0)',
-              confirmButtonText: 'מחק תור',
+              confirmButtonText: 'מחיקה ופינוי תורים לפי בחירה',
             })
             .then((result) => {
               if (result.isConfirmed || result.isDenied) {
                 setSHOW_TH_CHHOSE(true)
-              } else
-                Swal.fire({
-                  title: '?האם אתה בטוח שתרצה למחוק את יום עבודה זה',
-                  text: `חשוב שתדע שברגע שתלחץ על אישור על המידע על יום עבודה זה ימחק מהמערכת ולא יהיה ניתו להשיבו`,
-                  icon: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  cancelButtonText: 'ביטול',
-                  confirmButtonText: 'מחק',
-                })
+                SwalFuncTionDeleteAllAvilableTors()
+              } else SwalFuncTionDeleteAllTors()
             })
         }
       })
@@ -1366,8 +1431,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const fixOptionsDiv = () => {
     const OptionsDiv = document.getElementById('test1234')
-    console.log(window.scrollY, 284)
-    console.log(window.scrollY, OptionsDiv)
+
     if (window.scrollY > 260) {
       setValueScroll('activeScrollForOptionsDiv')
     } else {

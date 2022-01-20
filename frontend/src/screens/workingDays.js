@@ -110,6 +110,8 @@ const WorkingDaysScreen = ({ history }) => {
 
   /***states date picker */
   const [message, setMessage] = useState(null)
+
+  const [SHOW_SINUN, setSHOW_SINUN] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
   const weekDays = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'שבת']
   const months = [
@@ -296,6 +298,16 @@ const WorkingDaysScreen = ({ history }) => {
   // ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
   // ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
 
+  let checkboxes = document.querySelectorAll('.checkboxxx')
+
+  const sendMEtoWorkPageFunction = (id) => {
+    console.log(id)
+    history.push(`/admin/workingday/${id}`)
+  }
+
+  const setSHOW_SINUN_FUNCTION = () => {
+    setSHOW_SINUN(!SHOW_SINUN)
+  }
   //**COVERNET DATEPICKER FUNCTION */
   const convert = (date, format = state.format) => {
     let object = { date, format }
@@ -422,6 +434,7 @@ const WorkingDaysScreen = ({ history }) => {
       return count
     }
   }
+
   const weekworkingdaysFunctionCountAvilableTorimForThisWeek = () => {
     if (weekworkingdays) {
       let count = 0
@@ -1194,32 +1207,55 @@ const WorkingDaysScreen = ({ history }) => {
             />
           </div>
           <Col md={12}>
-            <div id='BarberMENU'>
-              <button onClick={showSicumNow} className='BARBERMENUBTNSICUM'>
-                <i id='idid' class='fas fa-file-invoice-dollar'></i>
-                סיכום
-              </button>
-
-              <button onClick={showTable1DayNOW} className='BARBERMENUBTN'>
-                <i id='idid' class='fas fa-calendar-day'></i>
-                היום
-              </button>
-
-              <button onClick={showTableThisWeekNOW} className='BARBERMENUBTN'>
-                <i id='idid' class='fas fa-calendar-week'></i>
-                השבוע
-              </button>
-              <button
-                onClick={showTable30DaysNOW}
-                className={`${
-                  showTable30Days ? 'BARBERMENUBTNmonth' : 'BARBERMENUBTN'
-                }`}
+            <div id='BoxOF_Options_WorkingDays_Screen'>
+              <Button className='OPTIONS-BTN-HOSEF-WORKINGDAYS_SCREEN'>
+                <i id='plusplus' class='fas fa-plus'></i>
+              </Button>{' '}
+              <Button
+                onClick={showSicumNow}
+                className='bigSicumBTNForSmallScreenForWorkingDaysScreen'
               >
-                <i id='idid' class='fas fa-calendar-alt'></i>
-                החודש
-              </button>
+                סיכום
+              </Button>{' '}
+              <Button
+                onClick={setSHOW_SINUN_FUNCTION}
+                className='SINUN-BTN_ForWorkingDays_Screen'
+              >
+                <i class='fas fa-filter'></i> סינון
+              </Button>{' '}
             </div>
           </Col>
+
+          {SHOW_SINUN ? (
+            <Col md={12}>
+              <div id='BarberMENU'>
+                <button onClick={showTable1DayNOW} className='BARBERMENUBTN'>
+                  <i id='idid' class='fas fa-calendar-day'></i>
+                  היום
+                </button>
+
+                <button
+                  onClick={showTableThisWeekNOW}
+                  className='BARBERMENUBTN'
+                >
+                  <i id='idid' class='fas fa-calendar-week'></i>
+                  השבוע
+                </button>
+                <button
+                  onClick={showTable30DaysNOW}
+                  className={`${
+                    showTable30Days ? 'BARBERMENUBTNmonth' : 'BARBERMENUBTN'
+                  }`}
+                >
+                  <i id='idid' class='fas fa-calendar-alt'></i>
+                  החודש
+                </button>
+              </div>
+            </Col>
+          ) : (
+            <div></div>
+          )}
+
           {showTable30Days && (
             <Col id='show30days' md={12}>
               <Table
@@ -1236,7 +1272,6 @@ const WorkingDaysScreen = ({ history }) => {
                     <th>תורים פנויים</th>
                     <th>יום</th>
                     <th>תאריך</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody id='centertext'>
@@ -1258,35 +1293,49 @@ const WorkingDaysScreen = ({ history }) => {
                           )
                       )
                       .map((workingday) => (
-                        <LinkContainer
-                          to={`/admin/workingday/${workingday._id}`}
+                        <tr
+                          key={workingday._id}
+                          id='hoverandblue'
+                          className={`${
+                            workingday.date === date ? 'bgwhite' : ''
+                          }`}
                         >
-                          <tr
-                            key={workingday._id}
-                            id='hoverandblue'
-                            className={`${
-                              workingday.date === date ? 'bgwhite' : ''
-                            }`}
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
                           >
-                            <td>{workingday.moneyCount}</td>
-                            <td>{workingday.numTorim}</td>
-                            <td>{workingday.numAvilableTorim}</td>
-                            <td>{workingday.dayInWeek}</td>
-                            <td>
-                              {workingday.Dateday}/{workingday.Datemonth}
-                            </td>
-                            <td>
-                              <Button
-                                id='sizemefortable'
-                                variant='danger'
-                                className='btn-sm'
-                                onClick={() => deleteHandler(workingday._id)}
-                              >
-                                <i id='trashicon' className='fas fa-trash'></i>
-                              </Button>
-                            </td>
-                          </tr>
-                        </LinkContainer>
+                            {workingday.moneyCount}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.numTorim}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.numAvilableTorim}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.dayInWeek}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.Dateday}/{workingday.Datemonth}
+                          </td>
+                        </tr>
                       ))
                   )}
                 </tbody>
@@ -1316,11 +1365,10 @@ const WorkingDaysScreen = ({ history }) => {
                     <th>תורים פנויים</th>
                     <th>יום</th>
                     <th>תאריך</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody id='centertext'>
-                  {oneworkingdays.length === 0 ? (
+                  {!oneworkingdays || oneworkingdays.length === 0 ? (
                     <Message>
                       {' '}
                       אין תורים במערכת לחץ על התאריך המבוקש ביומן העבודה על מנת
@@ -1338,35 +1386,49 @@ const WorkingDaysScreen = ({ history }) => {
                           )
                       )
                       .map((workingday) => (
-                        <LinkContainer
-                          to={`/admin/workingday/${workingday._id}`}
+                        <tr
+                          key={workingday._id}
+                          id='hoverandblue'
+                          className={`${
+                            workingday.date === date ? 'bgwhite' : ''
+                          }`}
                         >
-                          <tr
-                            key={workingday._id}
-                            id='hoverandblue'
-                            className={`${
-                              workingday.date === date ? 'bgwhite' : ''
-                            }`}
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
                           >
-                            <td>{workingday.moneyCount}</td>
-                            <td>{workingday.numTorim}</td>
-                            <td>{workingday.numAvilableTorim}</td>
-                            <td>{workingday.dayInWeek}</td>
-                            <td>
-                              {workingday.Dateday}/{workingday.Datemonth}
-                            </td>
-                            <td>
-                              <Button
-                                id='sizemefortable'
-                                variant='danger'
-                                className='btn-sm'
-                                onClick={() => deleteHandler(workingday._id)}
-                              >
-                                <i className='fas fa-trash'></i>
-                              </Button>
-                            </td>
-                          </tr>
-                        </LinkContainer>
+                            {workingday.moneyCount}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.numTorim}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.numAvilableTorim}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.dayInWeek}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.Dateday}/{workingday.Datemonth}
+                          </td>
+                        </tr>
                       ))
                   )}
                 </tbody>
@@ -1396,7 +1458,6 @@ const WorkingDaysScreen = ({ history }) => {
                     <th>תורים פנויים</th>
                     <th>יום</th>
                     <th>תאריך</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody id='centertext'>
@@ -1418,35 +1479,49 @@ const WorkingDaysScreen = ({ history }) => {
                           )
                       )
                       .map((workingday) => (
-                        <LinkContainer
-                          to={`/admin/workingday/${workingday._id}`}
+                        <tr
+                          key={workingday._id}
+                          id='hoverandblue'
+                          className={`${
+                            workingday.date === date ? 'bgwhite' : ''
+                          }`}
                         >
-                          <tr
-                            key={workingday._id}
-                            id='hoverandblue'
-                            className={`${
-                              workingday.date === date ? 'bgwhite' : ''
-                            }`}
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
                           >
-                            <td>{workingday.moneyCount}</td>
-                            <td>{workingday.numTorim}</td>
-                            <td>{workingday.numAvilableTorim}</td>
-                            <td>{workingday.dayInWeek}</td>
-                            <td>
-                              {workingday.Dateday}/{workingday.Datemonth}
-                            </td>
-                            <td>
-                              <Button
-                                id='sizemefortable'
-                                variant='danger'
-                                className='btn-sm'
-                                onClick={() => deleteHandler(workingday._id)}
-                              >
-                                <i className='fas fa-trash'></i>
-                              </Button>
-                            </td>
-                          </tr>
-                        </LinkContainer>
+                            {workingday.moneyCount}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.numTorim}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.numAvilableTorim}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.dayInWeek}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.Dateday}/{workingday.Datemonth}
+                          </td>
+                        </tr>
                       ))
                   )}
                 </tbody>
