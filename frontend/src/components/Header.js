@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
@@ -11,6 +11,9 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  const [stateForActiveAdminLINK, setstateForActiveAdminLINK] = useState(false)
+  const [stateForActiveUserLINK, setstateForActiveUserLINK] = useState(false)
+  const [stateForActiveCARTLINK, setstateForActiveCARTLINK] = useState(false)
   const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
   const { userGoogleInfo, Gsuccess } = userGoogleLogin
 
@@ -29,6 +32,51 @@ const Header = () => {
       }
     }
   }
+
+  const ClickOnAdmin = () => {
+    setstateForActiveAdminLINK(!stateForActiveAdminLINK)
+    setstateForActiveUserLINK(false)
+    setstateForActiveCARTLINK(false)
+  }
+  const ClickOnUser = () => {
+    setstateForActiveUserLINK(!stateForActiveUserLINK)
+    setstateForActiveAdminLINK(false)
+    setstateForActiveCARTLINK(false)
+  }
+  const ClickOnCart = () => {
+    setstateForActiveCARTLINK(!stateForActiveCARTLINK)
+    setstateForActiveUserLINK(false)
+    setstateForActiveAdminLINK(false)
+  }
+
+  // */
+
+  const one = document.getElementById('navbarContainerItem')
+  const two = document.getElementById('navbarContainerItem2')
+  const trhee = document.getElementById('navbarContainerItem3')
+
+  //USE EFFECT  for **states for clicking outside div
+  useEffect(() => {
+    window.addEventListener('click', function (e) {
+      if (one && two && trhee) {
+        if (
+          one.contains(e.target) ||
+          two.contains(e.target) ||
+          trhee.contains(e.target)
+        ) {
+          console.log('Clicked in Box')
+        } else {
+          console.log('Clicked outside Box')
+          setstateForActiveUserLINK(false)
+          setstateForActiveAdminLINK(false)
+          setstateForActiveCARTLINK(false)
+        }
+      } else {
+        console.log('sdfsd')
+      }
+    })
+  }, [one, two, trhee])
+
   return (
     <>
       <header id='navbar'>
@@ -51,9 +99,16 @@ const Header = () => {
               <Nav className='ml-auto'>
                 {userInfo && userInfo.isAdmin && (
                   <NavDropdown
+                    onClick={ClickOnAdmin}
                     id='navbarContainerItem'
                     title={
-                      <h4 id='navlinksManager'>
+                      <h4
+                        id={
+                          stateForActiveAdminLINK
+                            ? 'navlinkadminActive'
+                            : 'navlinksManager'
+                        }
+                      >
                         מנהל <i className='fas fa-user-shield'></i>
                       </h4>
                     }
@@ -91,9 +146,16 @@ const Header = () => {
 
                 {userInfo ? (
                   <NavDropdown
-                    id='navbarContainerItem'
+                    onClick={ClickOnUser}
+                    id='navbarContainerItem2'
                     title={
-                      <h4 id='navlinks'>
+                      <h4
+                        id={
+                          stateForActiveUserLINK
+                            ? 'navlinksUserActiveLiNKS'
+                            : 'navlinks'
+                        }
+                      >
                         {userInfo.name} <i className='far fa-user'></i>
                       </h4>
                     }
@@ -125,9 +187,15 @@ const Header = () => {
                   </LinkContainer>
                 )}
 
-                <LinkContainer to='/cart'>
-                  <Nav.Link id='navbarContainerItem'>
-                    <h3 id='navlinksCART'>
+                <LinkContainer to='/cart' onClick={ClickOnCart}>
+                  <Nav.Link id='navbarContainerItem3'>
+                    <h3
+                      id={
+                        stateForActiveCARTLINK
+                          ? 'navlinksCARTAAA'
+                          : 'navlinksCART'
+                      }
+                    >
                       <span id='showmeinSmallScreeen'> עגלה</span>
                       <i className='fas fa-shopping-cart'></i>
                     </h3>
