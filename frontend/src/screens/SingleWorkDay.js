@@ -546,6 +546,32 @@ const SingleWorkDayScreen = ({ history, match }) => {
       checkbox.checked = false
     }
   }
+
+  const swalDeleteChoose = () => {
+    swalWithBootstrapButtons
+      .fire({
+        title: 'בחר סוג פעולה',
+        text: `   בחר את סוג הפעולה שברצונך לבצע`,
+        icon: 'warning',
+        color: 'black',
+        showCancelButton: true,
+        showDenyButton: true,
+        denyButtonText: `מחק את התורים הפנויים`,
+        denyButtonColor: 'rgb(222, 0, 0)',
+
+        cancelButtonText: 'מחק את כל התורים',
+        cancelButtonColor: 'rgb(222, 0, 0)',
+        confirmButtonColor: 'rgb(222, 0, 0)',
+        confirmButtonText: 'מחיקה ופינוי תורים לפי בחירה',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          setSHOW_TH_CHHOSE_FUNCTION()
+        } else if (result.isDenied) {
+          SwalFuncTionDeleteAllAvilableTors()
+        } else SwalFuncTionDeleteAllTors()
+      })
+  }
   const OpenSmallScreenOptions_Swal = () => {
     swalWithBootstrapButtons
       .fire({
@@ -569,28 +595,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
         } else if (result.isDenied) {
           showSicumNow()
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons
-            .fire({
-              title: 'בחר סוג פעולה',
-              text: `   בחר את סוג הפעולה שברצונך לבצע`,
-              icon: 'warning',
-              color: 'black',
-              showCancelButton: true,
-              showDenyButton: true,
-              denyButtonText: `מחק את התורים הפנויים`,
-              denyButtonColor: 'rgb(222, 0, 0)',
-
-              cancelButtonText: 'מחק את כל התורים',
-              cancelButtonColor: 'rgb(222, 0, 0)',
-              confirmButtonColor: 'rgb(222, 0, 0)',
-              confirmButtonText: 'מחיקה ופינוי תורים לפי בחירה',
-            })
-            .then((result) => {
-              if (result.isConfirmed || result.isDenied) {
-                setSHOW_TH_CHHOSE(true)
-                SwalFuncTionDeleteAllAvilableTors()
-              } else SwalFuncTionDeleteAllTors()
-            })
+          swalDeleteChoose()
         }
       })
   }
@@ -2092,6 +2097,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
           <Col md={12}>
             <div id='smallSicumScreen'>
+              <div onClick={swalDeleteChoose} className='OPTIONS-BTN-DELETE'>
+                <i id='plustrash' class='fas fa-trash'></i>
+              </div>{' '}
               <div onClick={swalADDfunction} className='OPTIONS-BTN-HOSEF'>
                 <i id='plusplus' class='fas fa-plus'></i>
               </div>{' '}

@@ -298,17 +298,16 @@ const WorkingDaysScreen = ({ history }) => {
   // ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
   // ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
 
-  let checkboxes = document.querySelectorAll('.checkboxxx')
-
+  //העברה לעמוד יום העבודה הספציפי
   const sendMEtoWorkPageFunction = (id) => {
     console.log(id)
     history.push(`/admin/workingday/${id}`)
   }
-
+  //הראה או הסתר סינון
   const setSHOW_SINUN_FUNCTION = () => {
     setSHOW_SINUN(!SHOW_SINUN)
   }
-  //**COVERNET DATEPICKER FUNCTION */
+  //**COVERNET DATEPICKER FUNCTION המרת דייט פיקר לפורמט קריא*/
   const convert = (date, format = state.format) => {
     let object = { date, format }
     setState({
@@ -463,6 +462,20 @@ const WorkingDaysScreen = ({ history }) => {
     }
   }
 
+  const openSwalForExplain = () => {
+    if (userInfo) {
+      Swal.fire({
+        title: `צור יום עבודה`,
+        text: `לחץ על היום שברצונך לעבוד ביומן העבודה על מנת ליצור יום עבודה`,
+        confirmButtonText: 'אוקי',
+        showLoaderOnConfirm: true,
+        confirmButtonColor: '#114422',
+        imageUrl: 'https://i.ibb.co/F7ytm19/animation-300-kym86n2q.gif',
+        imageWidth: 150,
+        imageHeight: 150,
+      })
+    }
+  }
   // ██╗   ██╗███████╗███████╗    ███████╗███████╗███████╗███████╗ ██████╗████████╗
   // ██║   ██║██╔════╝██╔════╝    ██╔════╝██╔════╝██╔════╝██╔════╝██╔════╝╚══██╔══╝
   // ██║   ██║███████╗█████╗      █████╗  █████╗  █████╗  █████╗  ██║        ██║
@@ -1208,7 +1221,10 @@ const WorkingDaysScreen = ({ history }) => {
           </div>
           <Col md={12}>
             <div id='BoxOF_Options_WorkingDays_Screen'>
-              <Button className='OPTIONS-BTN-HOSEF-WORKINGDAYS_SCREEN'>
+              <Button
+                onClick={openSwalForExplain}
+                className='OPTIONS-BTN-HOSEF-WORKINGDAYS_SCREEN'
+              >
                 <i id='plusplus' class='fas fa-plus'></i>
               </Button>{' '}
               <Button

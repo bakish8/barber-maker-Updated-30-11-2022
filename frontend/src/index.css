@@ -267,7 +267,6 @@ main {
   cursor: pointer;
   font-size: 14px;
   position: absolute;
-  background-color: #000000;
   color: rgb(255, 255, 255);
   padding: 3.5px 8px;
   font-weight: 500;
@@ -278,8 +277,33 @@ main {
   background-color: #051857;
   align-items: center;
 }
+.OPTIONS-BTN-DELETE {
+  cursor: pointer;
+  font-size: 12px;
+  position: absolute;
+  color: rgb(255, 255, 255);
+  padding: 3.5px 8px;
+  font-weight: 500;
+  z-index: 2;
+  transform: skew(-15deg);
+  left: 32.5%;
+  transition: 0.2s ease-in;
+  background-color: #7e1111;
+  align-items: center;
+}
+.OPTIONS-BTN-DELETE:hover {
+  transform: scale(1.3) skew(-20deg);
+  background-color: #bb1818;
+  z-index: 9;
+  font-weight: 800;
+}
 
 #plusplus {
+  position: static;
+  bottom: 100px;
+}
+
+#plustrash {
   position: static;
   bottom: 100px;
 }
@@ -2623,6 +2647,9 @@ h5 {
   }
   .OPTIONS-BTN-HOSEF {
     left: 125px;
+    top: 40px;
+  }
+  .OPTIONS-BTN-DELETE {
     top: 40px;
   }
   .SINUN-BTN {
