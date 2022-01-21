@@ -51,8 +51,7 @@ const RegisterScreen = ({ location, history }) => {
     e.preventDefault()
     let random = Math.floor(Math.random() * 100000000000) + 1
 
-    let image =
-      'https://romancebooks.co.il/wp-content/uploads/2019/06/default-user-image.png'
+    let image = 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif'
     if (password !== confirmPassword) {
       const Toast = Swal.mixin({
         toast: true,

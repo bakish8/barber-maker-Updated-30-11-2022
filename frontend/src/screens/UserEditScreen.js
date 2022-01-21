@@ -60,7 +60,14 @@ const UserEditScreen = ({ match, history }) => {
         </Link>
       </Col>
       <FormContainer>
-        <h1 id='headlineme'>ערוך משתמשים</h1>
+        <h1 id='headlineme'>{name}</h1>
+        <div id='boxforimageDIv'>
+          {' '}
+          <img id='imageForEditScreen' src={image} />
+          <br />
+        </div>
+        <span id='spaNForEditScreenEXPLAIN'>:עדכון פרטי הלקוח/ה</span>
+
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (

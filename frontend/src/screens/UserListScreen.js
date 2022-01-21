@@ -101,7 +101,7 @@ const UserListScreen = ({ history }) => {
       const email = formValues[1]
       const phone = formValues[2]
       const password = formValues[2]
-      const image = formValues[2]
+      const image = 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif'
       await dispatch(registerByADMIN(name, email, phone, password, image))
     }
   }

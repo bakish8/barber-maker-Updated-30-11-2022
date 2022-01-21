@@ -2929,3 +2929,39 @@ h5 {
   position: relative;
   left: 25px;
 }
+
+#settingsSCREENimage {
+  position: absolute;
+  z-index: 1;
+  width: 120px;
+  right: 60%;
+}
+@media (max-width: 786px) {
+  #settingsSCREENimage {
+    width: 75px;
+    right: 75%;
+  }
+}
+
+#boxforimageDIv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#imageForEditScreen {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+}
+
+#spaNForEditScreenEXPLAIN {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 35px;
+  font-size: 20px;
+  font-weight: 400;
+  color: white;
+}

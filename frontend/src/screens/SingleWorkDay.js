@@ -649,7 +649,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
       .fire({
         title: 'בחר דרך חיפוש',
         text: `תוכל לחפש משתמשים קיימים לפי מספר נייד או שם,תוכל גם ליצור משתמש חדש שיקבל את תור זה`,
-        imageUrl: 'https://i.ibb.co/hYWCLW3/output-onlinegiftools-1.gif',
+        imageUrl: 'https://i.ibb.co/k5YCM8z/animation-200-kyobojkk.gif',
         imageWidth: 100,
         imageHeight: 100,
         imageAlt: 'חיפוש',
@@ -699,7 +699,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
             const email = formValues[1]
             const phone = formValues[2]
             const password = formValues[2]
-            const image = formValues[2]
+            const image = 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif'
             await dispatch(registerByADMIN(name, email, phone, password, image))
             await confirmNewUser(phone, name, time, ChoosenClock)
           }

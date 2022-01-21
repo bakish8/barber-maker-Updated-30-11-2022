@@ -61,8 +61,7 @@ const registerUser = asyncHandler(async (req, res) => {
       email,
       phone,
       password,
-      image:
-        'https://romancebooks.co.il/wp-content/uploads/2019/06/default-user-image.png',
+      image: 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif',
     })
     if (user) {
       res.status(201).json({
