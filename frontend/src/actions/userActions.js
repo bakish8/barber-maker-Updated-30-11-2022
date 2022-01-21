@@ -222,6 +222,8 @@ export const Googlelogin = (email) => async (dispatch) => {
 }
 
 export const logout = () => async (dispatch, req, res) => {
+  document.location.href = '/login'
+
   localStorage.removeItem('userInfo')
   localStorage.removeItem('cartItems')
   localStorage.removeItem('shippingAddress')
@@ -232,7 +234,6 @@ export const logout = () => async (dispatch, req, res) => {
   dispatch({ type: TORIM_LIST_MY_RESET })
   dispatch({ type: USER_LIST_RESET }) //**להוסיף את כל הריסטים בעת התנתקות */
   await axios.post('/logout')
-  document.location.href = '/login'
 }
 
 export const registerByADMIN =

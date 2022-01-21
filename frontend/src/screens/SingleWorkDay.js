@@ -82,6 +82,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const dispatch = useDispatch()
 
   const [ValueScroll, setValueScroll] = useState('test1234')
+  const [ValueForArrowUP, setValueForArrowUP] = useState('test12345')
 
   const [Somthing, setSomthing] = useState(false)
 
@@ -270,6 +271,14 @@ const SingleWorkDayScreen = ({ history, match }) => {
   // ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
 
   let checkboxes = document.querySelectorAll('.checkboxxx')
+
+  const FixUP = () => {
+    const Headline = document.getElementById('dayinWeek')
+    window.scrollTo({
+      top: Headline.offsetTop + 150,
+      behavior: 'smooth',
+    })
+  }
 
   const FuncTionDeleteAllAvilableTors = () => {
     for (let clock of clockList) {
@@ -665,6 +674,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
             imageHeight: 100,
             title: 'הוסף משתמש חדש לתור זה',
             footer: `הססמא שהונפקה ללקוח זה מספר הנייד שהזנת`,
+            confirmButtonText: 'רשום משתמש חדש',
 
             html:
               '<input id="swal-input1" class="swal2-input">' +
@@ -1439,8 +1449,10 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
     if (window.scrollY > 260) {
       setValueScroll('activeScrollForOptionsDiv')
+      setValueForArrowUP('arrowUp')
     } else {
       setValueScroll('whitemeForActionsBig')
+      setValueForArrowUP('arrowUPdontDisplay')
     }
   }
 
@@ -1684,6 +1696,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
           {ShowUserFilter && (
             <UserFilter
+              close={() => setShowUserFilter(false)}
               ChoosenClock={ChoosenClock}
               ChoosenClockTIME={ChoosenClockTIME}
               ChoosenClockDATE={ChoosenClockDATE}
@@ -1876,7 +1889,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
             <Modal
               id='ModalStyle'
               open={setSHOWchooseTipul}
-              close={handleCloseShowChooseTipul}
+              onClose={() => {
+                handleCloseShowChooseTipul()
+              }}
             >
               <Box id='BOXlStyleForChooseTipul'>
                 <div id='reciptcloseNav'>
@@ -1937,7 +1952,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
                           )}
                         </select>
                         <Button
-                          id='marginTOPme'
+                          className='ChhoseTipuliBTN'
                           onClick={() => {
                             CHOOSE()
                           }}
@@ -2195,6 +2210,11 @@ const SingleWorkDayScreen = ({ history, match }) => {
           </Col>
           <Col md={2} id='singlewirkingdayoptionsbgwhite'>
             <div className={ValueScroll}>
+              <img
+                onClick={FixUP}
+                id={ValueForArrowUP}
+                src='https://i.ibb.co/RgM5jMf/animation-300-kynpm6sg.gif'
+              />
               <div>
                 <div id='centerme'>
                   <div id='block'>
@@ -2225,11 +2245,11 @@ const SingleWorkDayScreen = ({ history, match }) => {
                     </h5>
 
                     <h5 id='block' className='whitemeandrightaligen'>
-                      הכנסה צפויה <span id='boldme'> {PredictedIncome()}₪</span>{' '}
+                      <span id='boldme'> {PredictedIncome()}₪</span> הכנסה צפויה
                     </h5>
                     <h5 id='block' className='whitemeandrightaligen'>
-                      הכנסה בפועל{' '}
-                      <span id='boldme'>{workingDay.moneyCount}₪</span>{' '}
+                      <span id='boldme'>{workingDay.moneyCount}₪</span> הכנסה
+                      בפועל{' '}
                     </h5>
                   </div>
                 </div>

@@ -5,21 +5,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../Message'
 import Loader from '../Loader'
 import { List, ListItem, ListItemSecondaryAction } from '@material-ui/core'
-import confirmTor from '../../actions/userActions'
-import Swal from 'sweetalert2'
 import { Modal } from '@material-ui/core'
 
-const UserFilter = (props) => {
-  console.log(props.ChoosenClock)
-  console.log(props.selectV)
+const UserFilterForUserList_SCREEN = (props) => {
   const dispatch = useDispatch()
   const userList = useSelector((state) => state.userList)
   const { loading, error, users } = userList
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
   const handleCloseShowUserFilter = () => {
-    setShowUserFilter(false)
+    console.log('closing!')
   }
+
   const [ShowUserFilter, setShowUserFilter] = useState(false)
   const [stateFORshowingModal, setstateFORshowingModal] = useState(true)
 
@@ -27,11 +25,11 @@ const UserFilter = (props) => {
   const filter = document.getElementById('UserFilterfilter')
   const listItems = []
 
-  const functiondeLaRoma = (user, username, userphone, image) => {
-    props.changeWordname(username)
-    props.changeWordphone(userphone)
-    props.changeWordImage(image)
-
+  const functiondeLaRoma = (user) => {
+    console.log(user)
+    console.log(user)
+    console.log(user)
+    console.log(user)
     props.changeWord(user)
   }
 
@@ -43,7 +41,7 @@ const UserFilter = (props) => {
         li.addEventListener('onclick', console.log('ddddddddddd'))
         li.onclick = function (e) {
           console.log(user._id)
-          functiondeLaRoma(user._id, user.name, user.phone, user.image)
+          functiondeLaRoma(user._id)
         }
         listItems.push(li)
         li.innerHTML = `
@@ -62,10 +60,6 @@ const UserFilter = (props) => {
   getData()
 
   const filterData = (searchValue) => {
-    console.log(searchValue)
-    console.log(users)
-    console.log(listItems)
-
     listItems.forEach((user) => {
       if (user.innerText.toLowerCase().includes(searchValue.toLowerCase())) {
         user.classList.remove('hide')
@@ -99,7 +93,7 @@ const UserFilter = (props) => {
             <header className='UserFilterheader'>
               <h4 className='UserFilterTitle'>חיפוש משתמשים</h4>
               <small className='UserFilterSubTitle'>
-                חפש את המשתמש אותו תרצה להכניס לתור{' '}
+                חפש את המשתמש לפי השם או לפי הנייד שלו{' '}
               </small>
               <input
                 type='text'
@@ -131,4 +125,4 @@ const UserFilter = (props) => {
   )
 }
 
-export default UserFilter
+export default UserFilterForUserList_SCREEN
