@@ -303,10 +303,7 @@ const WorkingDaysScreen = ({ history }) => {
     console.log(id)
     history.push(`/admin/workingday/${id}`)
   }
-  //הראה או הסתר סינון
-  const setSHOW_SINUN_FUNCTION = () => {
-    setSHOW_SINUN(!SHOW_SINUN)
-  }
+
   //**COVERNET DATEPICKER FUNCTION המרת דייט פיקר לפורמט קריא*/
   const convert = (date, format = state.format) => {
     let object = { date, format }
@@ -1219,40 +1216,25 @@ const WorkingDaysScreen = ({ history }) => {
               }}
             />
           </div>
-          <Col md={12}>
+          <Col id={'margintop20px'} md={12}>
             <div id='BoxOF_Options_WorkingDays_Screen'>
-              <Button
-                onClick={openSwalForExplain}
-                className='OPTIONS-BTN-HOSEF-WORKINGDAYS_SCREEN'
-              >
-                <i id='plusplus' class='fas fa-plus'></i>
-              </Button>{' '}
-              <Button
-                onClick={showSicumNow}
-                className='bigSicumBTNForSmallScreenForWorkingDaysScreen'
-              >
-                סיכום
-              </Button>{' '}
-              <Button
-                onClick={setSHOW_SINUN_FUNCTION}
-                className='SINUN-BTN_ForWorkingDays_Screen'
-              >
-                <i class='fas fa-filter'></i> סינון
-              </Button>{' '}
-            </div>
-          </Col>
-
-          {SHOW_SINUN ? (
-            <Col md={12}>
-              <div id='BarberMENU'>
-                <button onClick={showTable1DayNOW} className='BARBERMENUBTN'>
+              <Col md={12}>
+                <Button
+                  onClick={showSicumNow}
+                  className='bigSicumBTNForSmallScreenForWorkingDaysScreen'
+                >
+                  סיכום
+                </Button>{' '}
+                <button
+                  onClick={showTable1DayNOW}
+                  className='SINUN-BTN_ForWorkingDays_Screen'
+                >
                   <i id='idid' class='fas fa-calendar-day'></i>
                   היום
                 </button>
-
                 <button
                   onClick={showTableThisWeekNOW}
-                  className='BARBERMENUBTN'
+                  className='SINUN-BTN_ForWorkingDays_Screen'
                 >
                   <i id='idid' class='fas fa-calendar-week'></i>
                   השבוע
@@ -1260,17 +1242,23 @@ const WorkingDaysScreen = ({ history }) => {
                 <button
                   onClick={showTable30DaysNOW}
                   className={`${
-                    showTable30Days ? 'BARBERMENUBTNmonth' : 'BARBERMENUBTN'
+                    showTable30Days
+                      ? 'BARBERMENUBTNmonth2'
+                      : 'SINUN-BTN_ForWorkingDays_Screen'
                   }`}
                 >
                   <i id='idid' class='fas fa-calendar-alt'></i>
                   החודש
                 </button>
-              </div>
-            </Col>
-          ) : (
-            <div></div>
-          )}
+                <Button
+                  onClick={openSwalForExplain}
+                  className='OPTIONS-BTN-HOSEF-WORKINGDAYS_SCREEN'
+                >
+                  <i id='plusplus' class='fas fa-plus'></i>
+                </Button>{' '}
+              </Col>
+            </div>
+          </Col>
 
           {showTable30Days && (
             <Col id='show30days' md={12}>

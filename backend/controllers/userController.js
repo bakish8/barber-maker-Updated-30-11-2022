@@ -219,6 +219,24 @@ const updateUser = asyncHandler(async (req, res) => {
     throw new Error('המשתמש לא נמצא')
   }
 })
+// @desc    Update user comments
+// @route   PUT /api/users/:id
+// @access  Private/Admin
+const updateUserComments = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id)
+
+  if (user) {
+    user.commentsForTipul = req.body.commentsForTipul
+
+    const updatedUser = await user.save()
+    res.json({
+      commentsForTipul: updatedUser.commentsForTipul,
+    })
+  } else {
+    res.status(404)
+    throw new Error('המשתמש לא נמצא')
+  }
+})
 
 ///Make new Kind of tipul
 const registerNewTipul = asyncHandler(async (req, res) => {
@@ -252,4 +270,5 @@ export {
   getUserById,
   updateUser,
   registerNewTipul,
+  updateUserComments,
 }

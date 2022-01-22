@@ -32,6 +32,10 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    commentsForTipul: {
+      type: String,
+      required: false,
+    },
     workingdays: [
       {
         type: mongoose.Schema.Types.ObjectId,

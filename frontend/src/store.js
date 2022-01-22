@@ -58,6 +58,7 @@ import {
   RegisterNewTipulReducer,
   TipulimListReducer,
   SearchOneUserReducer,
+  userUpdateCoomentsForTipulReducer,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -128,6 +129,7 @@ const reducer = combineReducers({
   RegisterNewTipul: RegisterNewTipulReducer,
   TipulimList: TipulimListReducer,
   SearchOneUser: SearchOneUserReducer,
+  userUpdateCoomentsForTipul: userUpdateCoomentsForTipulReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

@@ -2068,9 +2068,9 @@ h6 {
 }
 #formlabelBigger {
   background-color: black;
-  margin-top: 25px;
   font-size: 20px;
   font-weight: bold;
+  border-radius: 20px;
 }
 /* login*/
 #signUp {
@@ -2839,19 +2839,20 @@ h5 {
   transform: skew(-15deg);
   transition: 0.2s ease-in;
   color: rgb(255, 255, 255);
-  height: 40px;
   background-color: #000000;
+  height: 38px;
+  margin-bottom: 5px;
 }
 
 .bigSicumBTNForSmallScreenForWorkingDaysScreen:hover {
   transform: scale(1.2) skew(-20deg);
   background-color: #088a28;
   color: rgb(0, 0, 0);
-  z-index: 10;
+  z-index: 15;
 }
 .SINUN-BTN_ForWorkingDays_Screen {
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
   background-color: #000000;
   color: rgb(255, 255, 255);
   padding: 8px 16px;
@@ -2859,17 +2860,20 @@ h5 {
   transform: skew(-15deg);
   z-index: 3;
   transition: 0.2s ease-in;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .SINUN-BTN_ForWorkingDays_Screen:hover {
   background-color: #ffffff;
   color: rgb(0, 0, 0);
-  transform: scale(1.2) skew(-20deg);
+  transform: scale(1.2) skew(-15deg);
+  z-index: 230;
 }
 
 .OPTIONS-BTN-HOSEF-WORKINGDAYS_SCREEN {
   cursor: pointer;
   width: 40px;
-  height: 40px;
+  height: 38px;
   font-size: 14px;
   padding: 8px 10px;
   font-weight: 500;
@@ -2879,6 +2883,7 @@ h5 {
   transform: skew(-15deg);
   background-color: #007ea84d;
   border: 2px solid rgba(0, 0, 0, 0.486);
+  margin-bottom: 5px;
 }
 .OPTIONS-BTN-HOSEF-WORKINGDAYS_SCREEN:hover {
   background-color: #ffffff;
@@ -2889,12 +2894,9 @@ h5 {
 
 #BoxOF_Options_WorkingDays_Screen {
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
+  position: relative;
+
+  display: inline;
 }
 
 #arrowUPdontDisplay {
@@ -2951,8 +2953,8 @@ h5 {
 
 #imageForEditScreen {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border-radius: 10px;
 }
 
@@ -2960,8 +2962,88 @@ h5 {
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: 35px;
-  font-size: 20px;
+  margin-top: 25px;
+  font-size: 25px;
   font-weight: 400;
   color: white;
+  background-color: rgb(0, 118, 173);
+  transform: skew(-15deg);
+}
+#ISadminBlue {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 25px;
+  font-weight: 500;
+  color: rgb(0, 153, 255);
+}
+
+#filled-basic {
+  color: white;
+  text-align: center;
+}
+#span4312 {
+  position: relative;
+  top: 8px;
+  color: cornflowerblue;
+  font-size: 13.5px;
+}
+#span43125 {
+  position: relative;
+  bottom: 8px;
+  direction: ltr;
+}
+
+#IdForTafusContent {
+  position: relative;
+  bottom: 7px;
+  z-index: 10;
+}
+#IdForPaydContent {
+  position: relative;
+  bottom: 5px;
+  z-index: 10;
+}
+
+#Tafusss {
+  text-decoration: none;
+  color: rgb(22, 202, 91);
+}
+#nameLinkForProFile {
+  text-decoration: none;
+  color: rgb(112, 210, 255);
+}
+#nameLinkForProFile:hover {
+  color: rgb(0, 174, 255);
+
+  transform: scale(1.2);
+}
+
+.BARBERMENUBTNmonth2 {
+  transform: scale(1.07);
+  transform: skew(-15deg);
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  height: 45px;
+  width: 120px;
+  border: 2px solid #03e9f4;
+  color: #03e9f4;
+  font-weight: bolder;
+  font-size: 18px;
+  border-color: #03e9f4;
+  background-image: linear-gradient(45deg, #03e9f4 50%, transparent 50%);
+  background-position: 100%;
+  background-size: 400%;
+  -webkit-transition: 300ms ease-in-out;
+  transition: 245ms ease-in-out;
+  background-position: 0;
+  color: black;
+  box-shadow: 4px 4px 34px #03e9f4;
+}
+
+#margintop20px {
+  margin-top: 20px;
 }

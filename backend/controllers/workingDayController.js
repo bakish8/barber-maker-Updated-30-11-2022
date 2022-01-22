@@ -462,7 +462,7 @@ const getWorkingDayById2 = asyncHandler(async (req, res) => {
   const clocks = await Clock.find({
     owner: req.params.id,
   })
-    .populate('mistaper', 'name phone')
+    .populate('mistaper', 'name phone image commentsForTipul')
     .populate('tipul')
 
     .populate('owner name')

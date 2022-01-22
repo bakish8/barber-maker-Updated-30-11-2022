@@ -5,8 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { getUserDetails, updateUser } from '../actions/userActions'
+import {
+  getUserDetails,
+  updateUser,
+  updateCommentsForTipul,
+} from '../actions/userActions'
 import { USER_UPDATE_RESET } from '../constants/userConstants'
+import { TextField } from '@material-ui/core'
+import Swal from 'sweetalert2'
 
 const UserEditScreen = ({ match, history }) => {
   const userId = match.params.id
@@ -15,6 +21,7 @@ const UserEditScreen = ({ match, history }) => {
   const [email, setEmail] = useState('')
   const [image, setImage] = useState('')
   const [phone, setPhone] = useState('')
+  const [commentsForTipul, setcommentsForTipul] = useState('')
 
   const [isAdmin, setIsAdmin] = useState(false)
 
@@ -22,6 +29,14 @@ const UserEditScreen = ({ match, history }) => {
 
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
+  const userUpdateCoomentsForTipul = useSelector(
+    (state) => state.userUpdateCoomentsForTipul
+  )
+  const {
+    updade_comments_for_tipul_loading,
+    updade_comments_for_tipul_success,
+    updade_comments_for_tipul_error,
+  } = userUpdateCoomentsForTipul
 
   const userUpdate = useSelector((state) => state.userUpdate)
   const {
@@ -43,9 +58,43 @@ const UserEditScreen = ({ match, history }) => {
         setImage(user.image)
         setPhone(user.phone)
         setIsAdmin(user.isAdmin)
+        setcommentsForTipul(user.commentsForTipul)
+      }
+
+      if (updade_comments_for_tipul_success) {
+        dispatch(getUserDetails(userId))
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          },
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: 'ההערות שהוספת עודכנו בהצלחה',
+        })
       }
     }
-  }, [dispatch, history, userId, user, successUpdate])
+  }, [
+    dispatch,
+    history,
+    userId,
+    user,
+    successUpdate,
+    updade_comments_for_tipul_success,
+  ])
+
+  const submitHandlerForUpdatingComments_For_Tipul = (e) => {
+    e.preventDefault()
+    dispatch(updateCommentsForTipul({ _id: userId, commentsForTipul }))
+  }
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -66,7 +115,32 @@ const UserEditScreen = ({ match, history }) => {
           <img id='imageForEditScreen' src={image} />
           <br />
         </div>
-        <span id='spaNForEditScreenEXPLAIN'>:עדכון פרטי הלקוח/ה</span>
+        {isAdmin ? (
+          <span id='ISadminBlue'>ספר</span>
+        ) : (
+          <>
+            {' '}
+            <span id='spaNForEditScreenEXPLAIN'>:הערות הספר</span>
+            <Form onChange={(e) => setcommentsForTipul(e.target.value)}>
+              <TextField
+                multiline
+                fullWidth
+                id='filled-basic'
+                variant='filled'
+                value={commentsForTipul}
+              />
+              <Button
+                onClick={submitHandlerForUpdatingComments_For_Tipul}
+                type='submit'
+                id='centermebtn'
+              >
+                +הוסף
+              </Button>
+            </Form>
+          </>
+        )}
+
+        <span id='spaNForEditScreenEXPLAIN'>:עדכון פרטים</span>
 
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}

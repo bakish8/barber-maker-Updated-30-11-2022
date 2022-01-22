@@ -149,6 +149,11 @@ import {
   ONE_USER_SEARCH_REQUEST,
   ONE_USER_SEARCH_SUCCESS,
   ONE_USER_SEARCH_FAIL,
+  USER_UPDATE_COMMENTS_FOR_TIPUL_REQUEST,
+  USER_UPDATE_COMMENTS_FOR_TIPUL_SUCCESS,
+  USER_DETAILS_COMMENTS_FOR_TIPUL_SUCCESS,
+  USER_DETAILS_COMMENTS_FOR_TIPUL_RESET,
+  USER_UPDATE_COMMENTS_FOR_TIPUL_FAIL,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 import { useState } from 'react'
@@ -503,24 +508,18 @@ export const updateUser = (user) => async (dispatch, getState) => {
     dispatch({
       type: USER_UPDATE_REQUEST,
     })
-
     const {
       userLogin: { userInfo },
     } = getState()
-
     const config = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-
     const { data } = await axios.put(`/api/users/${user._id}`, user, config)
-
     dispatch({ type: USER_UPDATE_SUCCESS })
-
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data })
-
     dispatch({ type: USER_DETAILS_RESET })
   } catch (error) {
     const message =
@@ -532,6 +531,42 @@ export const updateUser = (user) => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_UPDATE_FAIL,
+      payload: message,
+    })
+  }
+}
+export const updateCommentsForTipul = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_COMMENTS_FOR_TIPUL_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.put(
+      `/api/users/updatecomments/${user._id}`,
+      user,
+      config
+    )
+    dispatch({ type: USER_UPDATE_COMMENTS_FOR_TIPUL_SUCCESS })
+    dispatch({ type: USER_DETAILS_COMMENTS_FOR_TIPUL_SUCCESS, payload: data })
+    dispatch({ type: USER_DETAILS_COMMENTS_FOR_TIPUL_RESET })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: USER_UPDATE_COMMENTS_FOR_TIPUL_FAIL,
       payload: message,
     })
   }

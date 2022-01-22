@@ -11,6 +11,7 @@ import {
   updateUser,
   authGoogleUser,
   registerNewTipul,
+  updateUserComments,
 } from '../controllers/userController.js'
 
 import { protect, admin, isUserAUTH } from '../middleware/authMiddleware.js'
@@ -28,6 +29,8 @@ router
   .delete(protect, admin, deleteUser)
   .get(protect, admin, getUserById)
   .put(protect, admin, updateUser)
+
+router.route('/updatecomments/:id').put(protect, admin, updateUserComments)
 
 router.route('/tipulim').post(protect, admin, registerNewTipul)
 

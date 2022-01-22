@@ -649,7 +649,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
       .fire({
         title: 'בחר דרך חיפוש',
         text: `תוכל לחפש משתמשים קיימים לפי מספר נייד או שם,תוכל גם ליצור משתמש חדש שיקבל את תור זה`,
-        imageUrl: 'https://i.ibb.co/k5YCM8z/animation-200-kyobojkk.gif',
+        imageUrl: 'https://i.ibb.co/hYWCLW3/output-onlinegiftools-1.gif',
         imageWidth: 100,
         imageHeight: 100,
         imageAlt: 'חיפוש',
@@ -669,7 +669,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           setShowUserFilter(true)
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           const { value: formValues } = await Swal.fire({
-            imageUrl: 'https://i.ibb.co/NC57M5v/blackkkk.png',
+            imageUrl: 'https://i.ibb.co/k5YCM8z/animation-200-kyobojkk.gif',
             imageWidth: 100,
             imageHeight: 100,
             title: 'הוסף משתמש חדש לתור זה',
@@ -1016,12 +1016,16 @@ const SingleWorkDayScreen = ({ history, match }) => {
     TotalAmmountPaid,
     paymentMethod,
     creditLastDigits,
-    ReciptNumber
+    ReciptNumber,
+    clock
   ) => {
     setChoosenClock(id)
     setChoosenClockTIME(time)
     setChoosenClockDATE(date)
     console.log(`THE COOSEN CLOCK IS:${ChoosenClock}!!!!`)
+    console.log(clock)
+    console.log(clock)
+    console.log(clock)
     showTorHandler(
       time,
       date,
@@ -1034,7 +1038,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
       TotalAmmountPaid,
       paymentMethod,
       creditLastDigits,
-      ReciptNumber
+      ReciptNumber,
+      clock
     )
   }
 
@@ -1051,17 +1056,26 @@ const SingleWorkDayScreen = ({ history, match }) => {
     TotalAmmountPaid,
     paymentMethod,
     creditLastDigits,
-    ReciptNumber
+    ReciptNumber,
+    clock
   ) => {
     if (avilable === false && !isPaid) {
       swalWithBootstrapButtons
         .fire({
           scrollbarPadding: true,
-          title: `${mistaper.name}--${time}`,
-          html: `התור בשעה <b>${time}</b> בתאריך  <b>${date}</b> <br/> תפוס על ידי <b>${mistaper.name}</b>`,
-          imageUrl: 'https://i.ibb.co/RPcZDJW/animation-200-kykgn2ol.gif',
-          imageWidth: 100,
-          imageHeight: 100,
+          title: `<b><span id='span43125'>${time}</span></b><br/><span id='Tafusss'>תפוס</span>`,
+          html: `<div id='IdForTafusContent'> על ידי <b> <a id='nameLinkForProFile' href="/admin/user/${
+            mistaper._id
+          }/edit">${mistaper.name}</a>
+ ל:${clock.tipul.name}</b><br/>    
+               <span id='span4312'>${
+                 mistaper.commentsForTipul ? mistaper.commentsForTipul : ''
+               }</span>  
+          </div>`,
+          imageUrl: mistaper.image,
+          imageWidth: 200,
+          imageHeight: 200,
+
           imageAlt: 'לקוח',
           color: 'green',
           showDenyButton: true,
@@ -1116,36 +1130,36 @@ const SingleWorkDayScreen = ({ history, match }) => {
       swalWithBootstrapButtons
         .fire({
           scrollbarPadding: true,
-          title: `${mistaper.name}--${time}<br/><i class="fas fa-check-circle"></i> התור שולם`,
+          title: `${time}<br/></i> <span id='Tafusss'>שולם</span>`,
 
-          html: `התור בשעה <b>${time}</b> בתאריך   <b>${date}</b> <br/> שולם על ידי <h4 style=display:inline>${
+          html: `<div id='IdForPaydContent'> שולם על ידי <h4 id='Tafusss' style=display:inline>${
             mistaper.name
           }</h4><br/>
-         ,${
+         ${
            paymentMethod === 'cash'
-             ? ' באמצעות <h4 style=display:inline>מזומן</h4><br/>'
+             ? ' באמצעות <h4 id="Tafusss" style=display:inline>מזומן</h4><br/>'
              : ''
          } 
          ${
            paymentMethod === 'bit'
-             ? ' באמצעות העברה <h4 style=display:inline>בביט</h4><br/>'
+             ? ' באמצעות העברה <h4 id="Tafusss" style=display:inline>בביט</h4><br/>'
              : ''
          }
          ${
            paymentMethod === 'credit'
-             ? ' באמצעות <h4 style=display:inline>כרטיס אשראי</h4><br/>'
+             ? ' באמצעות <h4 id="Tafusss" style=display:inline>כרטיס אשראי</h4><br/>'
              : ''
          }
          ${
            paymentMethod === 'credit'
-             ? `  הנגמר בספרות <h4 style='display:inline'>${creditLastDigits}</h4><br/> `
+             ? `  הנגמר בספרות <h4 id="Tafusss" style='display:inline'>${creditLastDigits}</h4><br/> `
              : ''
          }
-הסכום ששולם  : <h4 style='display:inline'>${TotalAmmountPaid}₪</h4> <br/>  מספר חשבונית : <h4 style='display:inline'>${ReciptNumber}</h4>`,
+הסכום ששולם  : <h4 id="Tafusss" style='display:inline'>${TotalAmmountPaid}₪</h4> <br/>  מספר חשבונית : <h4 id="Tafusss" style='display:inline'>${ReciptNumber}</h4></div>`,
 
-          imageUrl: 'https://i.ibb.co/RPcZDJW/animation-200-kykgn2ol.gif',
-          imageWidth: 100,
-          imageHeight: 100,
+          imageUrl: clock.mistaper.image,
+          imageWidth: 180,
+          imageHeight: 180,
           imageAlt: 'לקוח',
           color: 'green',
 
@@ -2402,7 +2416,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock.TotalAmmountPaid,
                                 clock.paymentMethod,
                                 clock.creditLastDigits,
-                                clock.ReciptNumber
+                                clock.ReciptNumber,
+                                clock
                               )
                             }}
                           >
@@ -2424,7 +2439,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock.TotalAmmountPaid,
                                 clock.paymentMethod,
                                 clock.creditLastDigits,
-                                clock.ReciptNumber
+                                clock.ReciptNumber,
+                                clock
                               )
                             }}
                           >
@@ -2447,7 +2463,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock.TotalAmmountPaid,
                                 clock.paymentMethod,
                                 clock.creditLastDigits,
-                                clock.ReciptNumber
+                                clock.ReciptNumber,
+                                clock
                               )
                             }}
                           >
@@ -2474,7 +2491,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock.TotalAmmountPaid,
                                 clock.paymentMethod,
                                 clock.creditLastDigits,
-                                clock.ReciptNumber
+                                clock.ReciptNumber,
+                                clock
                               )
                             }}
                           >
@@ -2665,7 +2683,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   clock.TotalAmmountPaid,
                                   clock.paymentMethod,
                                   clock.creditLastDigits,
-                                  clock.ReciptNumber
+                                  clock.ReciptNumber,
+                                  clock
                                 )
                               }}
                             >
@@ -2687,7 +2706,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   clock.TotalAmmountPaid,
                                   clock.paymentMethod,
                                   clock.creditLastDigits,
-                                  clock.ReciptNumber
+                                  clock.ReciptNumber,
+                                  clock
                                 )
                               }}
                             >
@@ -2930,7 +2950,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   clock.TotalAmmountPaid,
                                   clock.paymentMethod,
                                   clock.creditLastDigits,
-                                  clock.ReciptNumber
+                                  clock.ReciptNumber,
+                                  clock
                                 )
                               }}
                             >
@@ -2952,7 +2973,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   clock.TotalAmmountPaid,
                                   clock.paymentMethod,
                                   clock.creditLastDigits,
-                                  clock.ReciptNumber
+                                  clock.ReciptNumber,
+                                  clock
                                 )
                               }}
                             >
@@ -2975,7 +2997,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   clock.TotalAmmountPaid,
                                   clock.paymentMethod,
                                   clock.creditLastDigits,
-                                  clock.ReciptNumber
+                                  clock.ReciptNumber,
+                                  clock
                                 )
                               }}
                             >
@@ -3002,7 +3025,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   clock.TotalAmmountPaid,
                                   clock.paymentMethod,
                                   clock.creditLastDigits,
-                                  clock.ReciptNumber
+                                  clock.ReciptNumber,
+                                  clock
                                 )
                               }}
                             >
@@ -3195,7 +3219,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   clock.TotalAmmountPaid,
                                   clock.paymentMethod,
                                   clock.creditLastDigits,
-                                  clock.ReciptNumber
+                                  clock.ReciptNumber,
+                                  clock
                                 )
                               }}
                             >
@@ -3217,7 +3242,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   clock.TotalAmmountPaid,
                                   clock.paymentMethod,
                                   clock.creditLastDigits,
-                                  clock.ReciptNumber
+                                  clock.ReciptNumber,
+                                  clock
                                 )
                               }}
                             >
@@ -3240,7 +3266,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   clock.TotalAmmountPaid,
                                   clock.paymentMethod,
                                   clock.creditLastDigits,
-                                  clock.ReciptNumber
+                                  clock.ReciptNumber,
+                                  clock
                                 )
                               }}
                             >
@@ -3267,7 +3294,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                   clock.TotalAmmountPaid,
                                   clock.paymentMethod,
                                   clock.creditLastDigits,
-                                  clock.ReciptNumber
+                                  clock.ReciptNumber,
+                                  clock
                                 )
                               }}
                             >

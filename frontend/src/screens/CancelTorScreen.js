@@ -28,7 +28,7 @@ const PickSaparScreen = ({ history }) => {
     } else {
       dispatch(listMyTorim())
       if (clocks) {
-        if (!clocks) {
+        if (!clocks || clocks.length === 0) {
           Swal.fire({
             title: ` לא נמצאו תורים לביטול עבור ${userInfo.name}`,
             text: `?האם ברצונך לקבוע תור`,
