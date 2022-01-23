@@ -327,8 +327,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
       text: `חשוב לזכור שברגע שתמחק את תורים אלו מיום עבודה זה הם לא יהיו זמינים ללקוחות שלך`,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
       cancelButtonText: 'ביטול',
       confirmButtonText: 'מחק',
     }).then((result) => {
@@ -1103,8 +1103,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                 text: `ברגע שתהפוך את התור בשעה ${time} זה לזמין לא תהיה לך את האפשרות להחזיר את פרטי המשתמש שסגר את התור בשעה זו`,
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
                 cancelButtonText: 'ביטול',
                 confirmButtonText: 'כן אני בטוח',
               }).then((result) => {

@@ -1227,14 +1227,22 @@ const WorkingDaysScreen = ({ history }) => {
                 </Button>{' '}
                 <button
                   onClick={showTable1DayNOW}
-                  className='SINUN-BTN_ForWorkingDays_Screen'
+                  className={`${
+                    showTable1Day
+                      ? 'BARBERMENUBTNmonth2'
+                      : 'SINUN-BTN_ForWorkingDays_Screen'
+                  }`}
                 >
                   <i id='idid' class='fas fa-calendar-day'></i>
                   היום
                 </button>
                 <button
                   onClick={showTableThisWeekNOW}
-                  className='SINUN-BTN_ForWorkingDays_Screen'
+                  className={`${
+                    showTableThisWeek
+                      ? 'BARBERMENUBTNmonth2'
+                      : 'SINUN-BTN_ForWorkingDays_Screen'
+                  }`}
                 >
                   <i id='idid' class='fas fa-calendar-week'></i>
                   השבוע
