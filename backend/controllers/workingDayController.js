@@ -976,13 +976,56 @@ const deleteClock = asyncHandler(async (req, res) => {
     }
     await clock.remove()
 
-    owner.numTorim = owner.numTorim - 1
+    owner.numTorim = owner.torim.length - 1
     owner.numAvilableTorim = owner.numAvilableTorim - 1
     await owner.save()
     res.json({ message: 'clock removed' })
   } else {
     res.status(404)
     throw new Error('clock not found')
+  }
+})
+const deleteallclocksforthisday = asyncHandler(async (req, res) => {
+  const clock = await Clock.findById(req.params.cid)
+  const id = req.params.id
+  const owner = await WorkingDay.findByIdAndUpdate(id, {
+    $pull: { torim: req.params.cid },
+  })
+  if (clock) {
+    if (clock.avilable === false) {
+      const mistaper = await User.findById(clock.mistaper._id)
+      var index = mistaper.torim.indexOf(clock._id)
+      mistaper.torim.splice(index, 1)
+      await mistaper.save()
+      owner.numTorim = owner.torim.length - 1
+      await owner.save()
+    } else {
+      owner.numTorim = owner.torim.length - 1
+      owner.numAvilableTorim = owner.torim.length - 1
+      await owner.save()
+    }
+    await clock.remove()
+    res.json({ message: 'clock removed' })
+  } else {
+    res.status(404)
+    throw new Error('clock not found')
+  }
+})
+const deleteAVILABLEclocksforthisday = asyncHandler(async (req, res) => {
+  const clock = await Clock.findById(req.params.uid)
+  const id = req.params.id
+  if (clock) {
+    const owner = await WorkingDay.findByIdAndUpdate(id, {
+      $pull: { torim: req.params.uid },
+    })
+    owner.numTorim = owner.torim.length - 1
+    owner.numAvilableTorim = 0
+    await owner.save()
+    await clock.remove()
+    res.json({ message: 'clock removed' })
+  } else {
+    res.status(404)
+    throw new Error(`clock not found: ${req.params.cid}`)
   }
 })
 
@@ -1004,4 +1047,6 @@ export {
   getCLOCKSForThisWeekRECIPT /* מחזיר את השעות עבור שבוע אחד לקבלה*/,
   getCLOCKSForThisMonthRECIPT, //*******מחזיר את כל השעות עבור החודש הזה */
   getCLOCKSForTHISdayRECIPT /*****מחזיר את שעות הקבלה ליום הספציפי */,
+  deleteallclocksforthisday,
+  deleteAVILABLEclocksforthisday,
 }

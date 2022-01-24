@@ -15,16 +15,20 @@ import {
   getCLOCKSForThisWeekRECIPT,
   getCLOCKSForThisMonthRECIPT,
   getCLOCKSForTHISdayRECIPT,
+  deleteallclocksforthisday,
 } from '../controllers/workingDayController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
 router.route('/:id/:cid').delete(protect, admin, deleteClock)
 
 router
+  .route('/deleteallclocks/:id/:cid')
+  .delete(protect, admin, deleteallclocksforthisday)
+
+router
   .route('/')
   .post(protect, admin, createWorkingDay)
   .get(protect, admin, getWorkingDays)
-
 router.route('/thisday').get(protect, admin, getWorkingDayForToday)
 router.route('/thisweek').get(protect, admin, getWorkingDaysForThisWEEK)
 

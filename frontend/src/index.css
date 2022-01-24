@@ -338,6 +338,9 @@ main {
 }
 
 @media (max-width: 786px) {
+  #margintop20px {
+    transform: scale(0.8);
+  }
   #actionsSmallScreen {
     display: block;
     z-index: 4;
@@ -3045,4 +3048,16 @@ h5 {
 
 #margintop20px {
   margin-top: 20px;
+}
+
+#deleteworkingDayBTN {
+  width: 100%;
+  padding: 5px;
+  background-color: red;
+  color: white;
+  border-radius: 10px;
+  border: none;
+}
+#deleteworkingDayBTN:hover {
+  background-color: rgb(117, 0, 0);
 }

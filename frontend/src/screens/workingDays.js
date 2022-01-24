@@ -1226,16 +1226,16 @@ const WorkingDaysScreen = ({ history }) => {
                   סיכום
                 </Button>{' '}
                 <button
-                  onClick={showTable1DayNOW}
+                  onClick={showTable30DaysNOW}
                   className={`${
-                    showTable1Day
+                    showTable30Days
                       ? 'BARBERMENUBTNmonth2'
                       : 'SINUN-BTN_ForWorkingDays_Screen'
                   }`}
                 >
-                  <i id='idid' class='fas fa-calendar-day'></i>
-                  היום
-                </button>
+                  <i id='idid' class='fas fa-calendar-alt'></i>
+                  החודש
+                </button>{' '}
                 <button
                   onClick={showTableThisWeekNOW}
                   className={`${
@@ -1246,17 +1246,17 @@ const WorkingDaysScreen = ({ history }) => {
                 >
                   <i id='idid' class='fas fa-calendar-week'></i>
                   השבוע
-                </button>
+                </button>{' '}
                 <button
-                  onClick={showTable30DaysNOW}
+                  onClick={showTable1DayNOW}
                   className={`${
-                    showTable30Days
+                    showTable1Day
                       ? 'BARBERMENUBTNmonth2'
                       : 'SINUN-BTN_ForWorkingDays_Screen'
                   }`}
                 >
-                  <i id='idid' class='fas fa-calendar-alt'></i>
-                  החודש
+                  <i id='idid' class='fas fa-calendar-day'></i>
+                  היום
                 </button>
                 <Button
                   onClick={openSwalForExplain}
@@ -1280,8 +1280,9 @@ const WorkingDaysScreen = ({ history }) => {
                 <thead id='centertext'>
                   <tr id='tableheadlines'>
                     <th>הכנסות</th>
-                    <th>סה"כ תורים</th>
                     <th>תורים פנויים</th>
+                    <th>סה"כ תורים</th>
+
                     <th>יום</th>
                     <th>תאריך</th>
                   </tr>
@@ -1319,19 +1320,20 @@ const WorkingDaysScreen = ({ history }) => {
                           >
                             {workingday.moneyCount}
                           </td>
-                          <td
-                            onClick={() =>
-                              sendMEtoWorkPageFunction(workingday._id)
-                            }
-                          >
-                            {workingday.numTorim}
-                          </td>
+
                           <td
                             onClick={() =>
                               sendMEtoWorkPageFunction(workingday._id)
                             }
                           >
                             {workingday.numAvilableTorim}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.numTorim}
                           </td>
                           <td
                             onClick={() =>
@@ -1373,8 +1375,8 @@ const WorkingDaysScreen = ({ history }) => {
                 <thead id='centertext'>
                   <tr id='tableheadlines'>
                     <th>הכנסות</th>
-                    <th>סה"כ תורים</th>
                     <th>תורים פנויים</th>
+                    <th>סה"כ תורים</th>
                     <th>יום</th>
                     <th>תאריך</th>
                   </tr>
@@ -1412,19 +1414,20 @@ const WorkingDaysScreen = ({ history }) => {
                           >
                             {workingday.moneyCount}
                           </td>
-                          <td
-                            onClick={() =>
-                              sendMEtoWorkPageFunction(workingday._id)
-                            }
-                          >
-                            {workingday.numTorim}
-                          </td>
+
                           <td
                             onClick={() =>
                               sendMEtoWorkPageFunction(workingday._id)
                             }
                           >
                             {workingday.numAvilableTorim}
+                          </td>
+                          <td
+                            onClick={() =>
+                              sendMEtoWorkPageFunction(workingday._id)
+                            }
+                          >
+                            {workingday.numTorim}
                           </td>
                           <td
                             onClick={() =>
@@ -1466,8 +1469,7 @@ const WorkingDaysScreen = ({ history }) => {
                 <thead id='centertext'>
                   <tr id='tableheadlines'>
                     <th>הכנסות</th>
-                    <th>סה"כ תורים</th>
-                    <th>תורים פנויים</th>
+                    <th>תורים פנויים</th> <th>סה"כ תורים</th>
                     <th>יום</th>
                     <th>תאריך</th>
                   </tr>
@@ -1510,14 +1512,14 @@ const WorkingDaysScreen = ({ history }) => {
                               sendMEtoWorkPageFunction(workingday._id)
                             }
                           >
-                            {workingday.numTorim}
-                          </td>
+                            {workingday.numAvilableTorim}
+                          </td>{' '}
                           <td
                             onClick={() =>
                               sendMEtoWorkPageFunction(workingday._id)
                             }
                           >
-                            {workingday.numAvilableTorim}
+                            {workingday.numTorim}
                           </td>
                           <td
                             onClick={() =>

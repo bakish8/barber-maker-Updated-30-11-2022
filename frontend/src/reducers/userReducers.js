@@ -1,4 +1,11 @@
 import {
+  CLOCK_DELETE_AVILABLE_REQUEST,
+  CLOCK_DELETE_AVILABLE_SUCCESS,
+  CLOCK_DELETE_AVILABLE_FAIL,
+  CLOCK_DELETE_ALL_REQUEST,
+  CLOCK_DELETE_ALL_SUCCESS,
+  CLOCK_DELETE_ALL_FAIL,
+  CLOCK_DELETE_ALL_RESET,
   SUGEI_TIPULIM_LIST_REQUEST,
   SUGEI_TIPULIM_LIST_SUCCESS,
   SUGEI_TIPULIM_LIST_FAIL,
@@ -601,6 +608,36 @@ export const DeleteClockReducer = (state = {}, action) => {
     case CLOCK_DELETE_FAIL:
       return { loading: false, error: action.payload }
     case CLOCK_DELETE_RESET:
+      return { success: false }
+    default:
+      return state
+  }
+}
+export const DeleteAllClocksReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CLOCK_DELETE_ALL_REQUEST:
+      return { loading: true }
+    case CLOCK_DELETE_ALL_SUCCESS:
+      return { loading: false, success: true }
+    case CLOCK_DELETE_FAIL:
+      return { loading: false, error: action.payload }
+    case CLOCK_DELETE_ALL_FAIL:
+      return { success: false }
+    case CLOCK_DELETE_ALL_RESET:
+      return { success: false }
+    default:
+      return state
+  }
+}
+export const DeleteAVILABLEClocksReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CLOCK_DELETE_AVILABLE_REQUEST:
+      return { loading: true }
+    case CLOCK_DELETE_AVILABLE_SUCCESS:
+      return { loading: false, success: true }
+    case CLOCK_DELETE_FAIL:
+      return { loading: false, error: action.payload }
+    case CLOCK_DELETE_AVILABLE_FAIL:
       return { success: false }
     default:
       return state

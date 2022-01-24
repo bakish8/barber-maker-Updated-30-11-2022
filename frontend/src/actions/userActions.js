@@ -1,6 +1,13 @@
 import axios from 'axios'
 
 import {
+  CLOCK_DELETE_AVILABLE_REQUEST,
+  CLOCK_DELETE_AVILABLE_SUCCESS,
+  CLOCK_DELETE_AVILABLE_FAIL,
+  CLOCK_DELETE_ALL_REQUEST,
+  CLOCK_DELETE_ALL_SUCCESS,
+  CLOCK_DELETE_ALL_FAIL,
+  CLOCK_DELETE_ALL_RESET,
   SUGEI_TIPULIM_LIST_REQUEST,
   SUGEI_TIPULIM_LIST_SUCCESS,
   SUGEI_TIPULIM_LIST_FAIL,
@@ -766,6 +773,7 @@ export const deleteWorkingday = (id) => async (dispatch, getState) => {
 
 export const workingDayDetails = (id) => async (dispatch, getState) => {
   try {
+    dispatch({ type: CLOCK_DELETE_ALL_RESET })
     dispatch({ type: WORKING_DAY_DETAILS_REQUEST })
     dispatch({ type: MAKE_WORKINGDAY_RESET })
     dispatch({ type: MAKE_CLOCKS_SUCSSES_RESET })
@@ -895,6 +903,77 @@ export const deleteClock = (id, cid) => async (dispatch, getState) => {
     }
     dispatch({
       type: CLOCK_DELETE_FAIL,
+      payload: message,
+    })
+  }
+}
+export const deleteAllClocks = (id, cid) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: CLOCK_DELETE_ALL_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    await axios.delete(`/api/workingday/deleteallclocks/${id}/${cid}`, config)
+
+    dispatch({
+      type: CLOCK_DELETE_ALL_SUCCESS,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: CLOCK_DELETE_ALL_FAIL,
+      payload: message,
+    })
+  }
+}
+export const deleteAvilableClocks = (id, cid) => async (dispatch, getState) => {
+  console.log(id)
+  console.log(cid)
+  console.log(cid)
+  console.log(cid)
+  try {
+    dispatch({
+      type: CLOCK_DELETE_AVILABLE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    await axios.delete(`/api/cancel/${id}/${cid}`, config)
+
+    dispatch({
+      type: CLOCK_DELETE_AVILABLE_SUCCESS,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: CLOCK_DELETE_AVILABLE_FAIL,
       payload: message,
     })
   }

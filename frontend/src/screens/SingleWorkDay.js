@@ -7,6 +7,8 @@ import {
   CancelMyTor,
   registerByADMIN,
   createReport,
+  deleteAllClocks,
+  deleteWorkingday,
 } from '../actions/userActions.js' //***למחוק לשנות לקוניפירם מחיקה */
 import React, { useState, useEffect, useRef } from 'react'
 import { Table, Button, Row, Col, Form } from 'react-bootstrap'
@@ -16,6 +18,7 @@ import Loader from '../components/Loader'
 import Loader2 from '../components/Loader2'
 
 import {
+  deleteAvilableClocks,
   deleteClock,
   createClocks,
   createClock,
@@ -81,6 +84,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
+  const DeleteAllClocks = useSelector((state) => state.DeleteAllClocks)
+  const { success: DeleteAllClockssuccess } = DeleteAllClocks
+
+  const DeleteworkingDay = useSelector((state) => state.DeleteworkingDay)
+  const { success: DeletesuccessWorkday } = DeleteworkingDay
+
   const [ValueScroll, setValueScroll] = useState('test1234')
   const [ValueForArrowUP, setValueForArrowUP] = useState('test12345')
 
@@ -97,6 +106,11 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const [wordname, setWordName] = useState('') /***** */
   const [wordphone, setWordphone] = useState('') /***** */
   const [wordImage, setWordImage] = useState('') /***** */
+
+  const [
+    StateForSwalDeleteingAllAVILABLEtorim,
+    setStateForSwalDeleteingAllAVILABLEtorim,
+  ] = useState(false)
 
   const [ChoosenClock, setChoosenClock] = useState('') /***** */
   const [ChoosenClockTIME, setChoosenClockTIME] = useState('') /***** */
@@ -283,7 +297,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const FuncTionDeleteAllAvilableTors = () => {
     for (let clock of clockList) {
       if (clock.avilable) {
-        dispatch(deleteClock(WorkDayid, clock._id)).then(
+        dispatch(deleteAvilableClocks(WorkDayid, clock._id)).then(
           Swal.fire({
             text: ' מוחק את התורים הזמינים מהמערכת אנא המתן',
 
@@ -301,9 +315,22 @@ const SingleWorkDayScreen = ({ history, match }) => {
       }
     }
   }
+
+  const swalsucsses1 = () => {
+    Swal.fire({
+      position: 'top-end',
+      cancelButtonColor: 'rgb(194, 0, 0)',
+      confirmButtonColor: 'rgb(3, 148, 39)',
+      icon: 'success',
+      title: `בוצע בהצלחה`,
+      text: `כל התורים הזמינים להיום נמחקו בהצלחה`,
+      showConfirmButton: false,
+      timer: 8000,
+    })
+  }
   const FuncTionDeleteAllATors = () => {
     for (let clock of clockList) {
-      dispatch(deleteClock(WorkDayid, clock._id)).then(
+      dispatch(deleteAllClocks(WorkDayid, clock._id)).then(
         Swal.fire({
           text: ' מוחק את התורים מהמערכת אנא המתן',
 
@@ -343,8 +370,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
       text: `שים לב ביצוע פעולה זאת ימחק את כל התורים להיום שים `,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
       cancelButtonText: 'ביטול',
       confirmButtonText: 'מחק',
     }).then((result) => {
@@ -556,6 +583,41 @@ const SingleWorkDayScreen = ({ history, match }) => {
     }
   }
 
+  const deleteHandler23 = (id) => {
+    Swal.fire({
+      title: '?אתה בטוח',
+      text: 'ברגע שתמחק את יום זה כל התורים בתוכו יעלמו ולא יהיה ניתן להשיבם',
+      icon: 'warning',
+      buttons: ['ביטול', 'מחק יום עבודה'],
+
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'כן אני בטוח',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteWorkingday(id)).then(
+          Swal.fire({
+            text: ' מוחק את יום העבודה שביקשת אנא המתן',
+
+            imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
+            imageWidth: 400,
+            imageHeight: 400,
+            imageAlt: 'Custom image',
+            timer: 8000,
+            background: '#68b4ff00',
+            backdrop: 'rgba(0, 0, 0,0.8)',
+            color: 'rgba(255, 255, 255)',
+            showConfirmButton: false,
+          })
+        )
+      } else {
+        console.log('your workingday is safe')
+      }
+    })
+  }
+
   const swalDeleteChoose = () => {
     swalWithBootstrapButtons
       .fire({
@@ -563,6 +625,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
         text: `   בחר את סוג הפעולה שברצונך לבצע`,
         icon: 'warning',
         color: 'black',
+        html: `<button 
+         id='deleteworkingDayBTN'>מחק את יום העבודה</button>
+`,
         showCancelButton: true,
         showDenyButton: true,
         denyButtonText: `מחק את התורים הפנויים`,
@@ -573,13 +638,19 @@ const SingleWorkDayScreen = ({ history, match }) => {
         confirmButtonColor: 'rgb(222, 0, 0)',
         confirmButtonText: 'מחיקה ופינוי תורים לפי בחירה',
       })
+
       .then((result) => {
         if (result.isConfirmed) {
           setSHOW_TH_CHHOSE_FUNCTION()
         } else if (result.isDenied) {
           SwalFuncTionDeleteAllAvilableTors()
-        } else SwalFuncTionDeleteAllTors()
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          SwalFuncTionDeleteAllTors()
+        }
       })
+    document
+      .getElementById('deleteworkingDayBTN')
+      .addEventListener('click', () => deleteHandler23(workingDay._id))
   }
   const OpenSmallScreenOptions_Swal = () => {
     swalWithBootstrapButtons
@@ -1533,6 +1604,21 @@ const SingleWorkDayScreen = ({ history, match }) => {
     } else {
       history.push('/login')
     }
+
+    if (DeletesuccessWorkday) {
+      history.push('/admin/torim')
+    }
+    if (StateForSwalDeleteingAllAVILABLEtorim) {
+      swalsucsses1()
+      setStateForSwalDeleteingAllAVILABLEtorim(false)
+    }
+
+    if (DeleteAllClockssuccess) {
+      dispatch(WorkingDayTors(WorkDayid))
+      dispatch(ReciptForThisWorkingDay(WorkDayid))
+      dispatch(SugeiTipulimAction())
+      dispatch(workingDayDetails(WorkDayid))
+    }
   }, [
     dispatch,
     history,
@@ -1546,6 +1632,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
     confirmsuccess,
     confirm,
     word,
+    DeletesuccessWorkday,
+    DeleteAllClockssuccess,
   ])
 
   //USE EFFECT  FOR RECIPT CREATING-IF PAST? - STATUS
