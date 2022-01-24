@@ -61,6 +61,7 @@ import {
   userUpdateCoomentsForTipulReducer,
   DeleteAllClocksReducer,
   DeleteAVILABLEClocksReducer,
+  DeleteSELECTEDClockReducer,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -134,6 +135,7 @@ const reducer = combineReducers({
   userUpdateCoomentsForTipul: userUpdateCoomentsForTipulReducer,
   DeleteAllClocks: DeleteAllClocksReducer,
   DeleteAVILABLEClocks: DeleteAVILABLEClocksReducer,
+  DeleteSELECTEDClock: DeleteSELECTEDClockReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

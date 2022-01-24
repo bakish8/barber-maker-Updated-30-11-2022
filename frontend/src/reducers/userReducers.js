@@ -1,4 +1,7 @@
 import {
+  CLOCK_DELETE_SELECTED_REQUEST,
+  CLOCK_DELETE_SELECTED_SUCCESS,
+  CLOCK_DELETE_SELECTED_FAIL,
   CLOCK_DELETE_AVILABLE_REQUEST,
   CLOCK_DELETE_AVILABLE_SUCCESS,
   CLOCK_DELETE_AVILABLE_FAIL,
@@ -609,6 +612,19 @@ export const DeleteClockReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case CLOCK_DELETE_RESET:
       return { success: false }
+    default:
+      return state
+  }
+}
+export const DeleteSELECTEDClockReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CLOCK_DELETE_SELECTED_REQUEST:
+      return { loading: true }
+    case CLOCK_DELETE_SELECTED_SUCCESS:
+      return { loading: false, success: true }
+    case CLOCK_DELETE_SELECTED_FAIL:
+      return { loading: false, error: action.payload }
+
     default:
       return state
   }

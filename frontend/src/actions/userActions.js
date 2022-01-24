@@ -1,6 +1,9 @@
 import axios from 'axios'
 
 import {
+  CLOCK_DELETE_SELECTED_REQUEST,
+  CLOCK_DELETE_SELECTED_SUCCESS,
+  CLOCK_DELETE_SELECTED_FAIL,
   CLOCK_DELETE_AVILABLE_REQUEST,
   CLOCK_DELETE_AVILABLE_SUCCESS,
   CLOCK_DELETE_AVILABLE_FAIL,
@@ -935,6 +938,41 @@ export const deleteAllClocks = (id, cid) => async (dispatch, getState) => {
     }
     dispatch({
       type: CLOCK_DELETE_ALL_FAIL,
+      payload: message,
+    })
+  }
+}
+export const deleteSelectedClocks = (id, cid) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: CLOCK_DELETE_SELECTED_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    await axios.delete(
+      `/api/workingday/deleteselectedclocks/${id}/${cid}`,
+      config
+    )
+
+    dispatch({
+      type: CLOCK_DELETE_SELECTED_SUCCESS,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: CLOCK_DELETE_SELECTED_FAIL,
       payload: message,
     })
   }
