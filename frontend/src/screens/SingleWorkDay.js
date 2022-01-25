@@ -238,6 +238,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const sapar = userInfo.name
 
   const [TipulId, setTipulId] = useState('') /***** */
+  const [TipulTime, setTipulTime] = useState('') /***** */
 
   //***states for Email Adress sending Sicum */
   const [emailToSendTo, SetemailToSendTo] = useState(userInfo.email)
@@ -707,10 +708,20 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const CHOOSE = () => {
     let select = document.getElementById('tipulimCooseOptions')
     select.addEventListener('change', function () {
-      setTipulId(select.value)
+      const value1 = select.value.split(',')[0]
+      const value2 = select.value.split(',')[1]
+      setTipulTime(value2)
+      setTipulId(value1)
     })
 
-    let SelectValue = select.value
+    console.log(`thetipul TIME is:${TipulTime}`)
+
+    let SelectTime = select.value.split(',')[1]
+    setTipulTime(SelectTime)
+    console.log(`!!!!!!!!!!!!!!!!:${SelectTime}`)
+    console.log(`!!!!!!!!!!!!!!!!!!!!!:${TipulTime}`)
+
+    let SelectValue = select.value.split(',')[0]
     setTipulId(SelectValue)
     console.log(`thetipul id is:${TipulId}`)
     console.log(`thet coosen clock id is:${ChoosenClock}`)
@@ -2012,42 +2023,66 @@ const SingleWorkDayScreen = ({ history, match }) => {
                         <select name='tipul' id='tipulimCooseOptions'>
                           {tipulimList[0] && (
                             <option
-                              value={tipulimList[0] ? tipulimList[0]._id : ''}
+                              value={
+                                tipulimList[0]
+                                  ? `${tipulimList[0]._id},${tipulimList[0].time}`
+                                  : ''
+                              }
                             >
                               {tipulimList[0] ? tipulimList[0].name : ''}
                             </option>
                           )}
                           {tipulimList[1] && (
                             <option
-                              value={tipulimList[1] ? tipulimList[1]._id : ''}
+                              value={
+                                tipulimList[1]
+                                  ? `${tipulimList[1]._id},${tipulimList[1].time}`
+                                  : ''
+                              }
                             >
                               {tipulimList[1] ? tipulimList[1].name : ''}
                             </option>
                           )}
                           {tipulimList[2] && (
                             <option
-                              value={tipulimList[2] ? tipulimList[2]._id : ''}
+                              value={
+                                tipulimList[2]
+                                  ? `${tipulimList[2]._id},${tipulimList[2].time}`
+                                  : ''
+                              }
                             >
                               {tipulimList[2] ? tipulimList[2].name : ''}
                             </option>
                           )}
                           {tipulimList[3] && (
                             <option
-                              value={tipulimList[3] ? tipulimList[3]._id : ''}
+                              value={
+                                tipulimList[3]
+                                  ? `${tipulimList[3]._id},${tipulimList[3].time}`
+                                  : ''
+                              }
                             >
                               {tipulimList[3] ? tipulimList[3].name : ''}
                             </option>
                           )}
                           {tipulimList[4] && (
                             <option
-                              value={tipulimList[4] ? tipulimList[4]._id : ''}
+                              value={
+                                tipulimList[4]
+                                  ? `${tipulimList[4]._id},${tipulimList[4].time}`
+                                  : ''
+                              }
                             >
                               {tipulimList[4] ? tipulimList[4].name : ''}
                             </option>
                           )}
                           {tipulimList[5] && (
                             <option
-                              value={tipulimList[5] ? tipulimList[5]._id : ''}
+                              value={
+                                tipulimList[5]
+                                  ? `${tipulimList[5]._id},${tipulimList[5].time}`
+                                  : ''
+                              }
                             >
                               {tipulimList[5] ? tipulimList[5].name : ''}
                             </option>

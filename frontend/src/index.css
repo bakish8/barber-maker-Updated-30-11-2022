@@ -338,8 +338,12 @@ main {
 }
 
 @media (max-width: 786px) {
+  .OPTIONS-BTN-HOSEF-WORKINGDAYS_SCREEN {
+    display: none;
+  }
+
   #margintop20px {
-    transform: scale(0.6);
+    transform: scale(0.75);
   }
   #actionsSmallScreen {
     display: block;
