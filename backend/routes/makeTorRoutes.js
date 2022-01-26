@@ -12,6 +12,9 @@ import {
   GetTipulDeets,
   showAvilableTorsForOneHour,
   showAvilableTorsForOneHALFHour,
+  showAvilableTorsFor2Hours,
+  showAvilableTorsFor2HoursHALF,
+  showAvilableTorsFor3Hours,
 } from '../controllers/makeTorController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
@@ -27,6 +30,16 @@ router
 router
   .route('/getavilableforonehourandhalf/:id')
   .get(protect, showAvilableTorsForOneHALFHour)
+router
+  .route('/getavilablefortwohours/:id')
+  .get(protect, showAvilableTorsFor2Hours)
+router
+  .route('/getavilablefortwohoursandhalf/:id')
+  .get(protect, showAvilableTorsFor2HoursHALF)
+
+router
+  .route('/getavilableforthreehours/:id')
+  .get(protect, showAvilableTorsFor3Hours)
 
 router.route('/mytorim').get(protect, getMyTorim)
 

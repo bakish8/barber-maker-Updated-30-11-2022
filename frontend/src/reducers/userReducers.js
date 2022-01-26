@@ -1,4 +1,13 @@
 import {
+  AVILABLE_WORKINGDAY_TORS_FOR_3_HOURS_TIPUL_LIST_REQUEST,
+  AVILABLE_WORKINGDAY_TORS_FOR_3_HOURS_TIPUL_LIST_SUCCESS,
+  AVILABLE_WORKINGDAY_TORS_FOR_3_HOUR_TIPUL_LIST_FAIL,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_REQUEST,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_SUCCESS,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_FAIL,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_REQUEST,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_SUCCESS,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_FAIL,
   AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_REQUEST,
   AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_SUCCESS,
   AAVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_FAIL,
@@ -592,6 +601,72 @@ export const avilableTorsReducerForOneHourHALF = (
       return {
         loadingForOneHALFHour: false,
         errorForOneHALFHour: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const avilableTorsReducerFor2Hours = (
+  state = { clockList: [] },
+  action
+) => {
+  switch (action.type) {
+    case AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_REQUEST:
+      return { loadingFor2Hour: true }
+    case AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_SUCCESS:
+      return {
+        loadingFor2Hour: false,
+        clockListFor2Hour: action.payload,
+      }
+    case AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_FAIL:
+      return {
+        loadingFor2Hour: false,
+        errorFor2Hour: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const avilableTorsReducerFor2Hourshalf = (
+  state = { clockList: [] },
+  action
+) => {
+  switch (action.type) {
+    case AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_REQUEST:
+      return { loadingFor2HourandHALF: true }
+    case AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_SUCCESS:
+      return {
+        loadingFor2HourandHALF: false,
+        clockListFor2HourandHALF: action.payload,
+      }
+    case AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_FAIL:
+      return {
+        loadingFor2HourandHALF: false,
+        errorFor2HourandHALF: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const avilableTorsReducerFor3Hours = (
+  state = { clockList: [] },
+  action
+) => {
+  switch (action.type) {
+    case AVILABLE_WORKINGDAY_TORS_FOR_3_HOURS_TIPUL_LIST_REQUEST:
+      return { loadingFor3Hours: true }
+    case AVILABLE_WORKINGDAY_TORS_FOR_3_HOURS_TIPUL_LIST_SUCCESS:
+      return {
+        loadingFor3Hours: false,
+        clockListFor3Hours: action.payload,
+      }
+    case AVILABLE_WORKINGDAY_TORS_FOR_3_HOUR_TIPUL_LIST_FAIL:
+      return {
+        loadingFor3Hours: false,
+        errorFor3Hours: action.payload,
       }
     default:
       return state

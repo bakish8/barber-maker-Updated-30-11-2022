@@ -1,9 +1,18 @@
 import axios from 'axios'
 
 import {
-AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_REQUEST,
-AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_SUCCESS,
-AAVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_FAIL,
+  AVILABLE_WORKINGDAY_TORS_FOR_3_HOURS_TIPUL_LIST_REQUEST,
+  AVILABLE_WORKINGDAY_TORS_FOR_3_HOURS_TIPUL_LIST_SUCCESS,
+  AVILABLE_WORKINGDAY_TORS_FOR_3_HOUR_TIPUL_LIST_FAIL,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_REQUEST,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_SUCCESS,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_FAIL,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_REQUEST,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_SUCCESS,
+  AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_FAIL,
+  AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_REQUEST,
+  AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_SUCCESS,
+  AAVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_FAIL,
   AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_TIPUL_LIST_REQUEST,
   AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_TIPUL_LIST_SUCCESS,
   AAVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_TIPUL_LIST_FAIL,
@@ -1281,6 +1290,106 @@ export const AvilableWorkingDayTorsForOneHourHALFTipul =
     } catch (error) {
       dispatch({
         type: AAVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+export const AvilableWorkingDayTorsFor2horsTipul =
+  (id) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_REQUEST,
+      })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const { data } = await axios.get(
+        `/api/maketor/getavilablefortwohours/${id}`,
+        config
+      )
+
+      dispatch({
+        type: AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_TIPUL_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+export const AvilableWorkingDayTorsFor2horsHALFTipul =
+  (id) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_REQUEST,
+      })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const { data } = await axios.get(
+        `/api/maketor/getavilablefortwohoursandhalf/${id}`,
+        config
+      )
+
+      dispatch({
+        type: AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: AVILABLE_WORKINGDAY_TORS_FOR_2_HOURS_HALF_TIPUL_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
+export const AvilableWorkingDayTorsFor3hours =
+  (id) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: AVILABLE_WORKINGDAY_TORS_FOR_3_HOURS_TIPUL_LIST_REQUEST,
+      })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const { data } = await axios.get(
+        `/api/maketor/getavilableforthreehours/${id}`,
+        config
+      )
+
+      dispatch({
+        type: AVILABLE_WORKINGDAY_TORS_FOR_3_HOURS_TIPUL_LIST_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: AVILABLE_WORKINGDAY_TORS_FOR_3_HOUR_TIPUL_LIST_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

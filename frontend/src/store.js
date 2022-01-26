@@ -65,6 +65,9 @@ import {
   TipulDeetsReducer,
   avilableTorsReducerForOneHour,
   avilableTorsReducerForOneHourHALF,
+  avilableTorsReducerFor2Hours,
+  avilableTorsReducerFor2Hourshalf,
+  avilableTorsReducerFor3Hours,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -142,6 +145,9 @@ const reducer = combineReducers({
   TipulDeets: TipulDeetsReducer,
   avilableTorsForOneHour: avilableTorsReducerForOneHour,
   avilableTorsForOneHourHALF: avilableTorsReducerForOneHourHALF,
+  avilableTorsFor2Hours: avilableTorsReducerFor2Hours,
+  avilableTorsFor2Hourshalf: avilableTorsReducerFor2Hourshalf,
+  avilableTorsFor3Hours: avilableTorsReducerFor3Hours,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

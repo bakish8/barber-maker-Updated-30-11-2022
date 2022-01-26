@@ -298,7 +298,6 @@ const confirmTor = asyncHandler(async (req, res) => {
     const minutes = clock.time.split(':')[1]
     const hour = parseInt(clock.time.split(':')[0])
     const hourPLUSone = hour + 1
-    const hourPLUSTwo = hour + 2
     if (minutes === '00') {
       const ClockToDelete1 = `${hour}:30`
       const ClockToDelete2 = `${hourPLUSone}:00`
@@ -942,6 +941,249 @@ const showAvilableTorsForOneHALFHour = asyncHandler(async (req, res) => {
     throw new Error('workingday not found')
   }
 })
+const showAvilableTorsFor2Hours = asyncHandler(async (req, res) => {
+  const clocks = await Clock.find({
+    owner: req.params.id,
+    avilable: true,
+    isPending: true,
+  })
+  console.log(clocks)
+  if (clocks) {
+    let counter1 = 0
+    let counter2 = 1
+    let counter3 = 2
+    let counter4 = 3
+    let arr = []
+    for (let clock of clocks) {
+      if (counter4 < clocks.length) {
+        let time1 = clocks[counter1].time
+        const minutes = time1.split(':')[1]
+        const hour = time1.split(':')[0]
+        const hourPLUSone = parseInt(hour) + 1
+        const hourPLUSTwo = parseInt(hour) + 2
+        let time2 = clocks[counter2].time
+        const minutes2 = time2.split(':')[1]
+        const hour2 = time2.split(':')[0]
+        let time3 = clocks[counter3].time
+        const minutes3 = time3.split(':')[1]
+        const hour3 = time3.split(':')[0]
+        let time4 = clocks[counter4].time
+        const minutes4 = time4.split(':')[1]
+        const hour4 = time4.split(':')[0]
+
+        console.log(
+          ` hour plus one is :${hourPLUSone} hour plus one is :${hourPLUSTwo}`
+        )
+        console.log(`time 1 :${time1} hour1:${hour} min1:${minutes}`)
+        console.log(`time 2 :${time2} hour2:${hour2} min2:${minutes2}`)
+        console.log(`time 3 :${time3} hour3:${hour3} min3:${minutes3}`)
+        console.log(`time 4 :${time4} hour4:${hour4} min4:${minutes4}`)
+
+        if (
+          (hourPLUSone == hour2 &&
+            hourPLUSone == hour3 &&
+            hourPLUSTwo == hour4 &&
+            minutes == '30' &&
+            minutes2 == '00' &&
+            minutes3 == '30' &&
+            minutes4 == '00') ||
+          (hour == hour2 &&
+            hourPLUSone == hour3 &&
+            hourPLUSone == hour4 &&
+            minutes == '00' &&
+            minutes2 == '30' &&
+            minutes3 == '00' &&
+            minutes4 == '30')
+        ) {
+          arr.push(clock)
+        }
+        counter1++
+        counter2++
+        counter3++
+        counter4++
+      }
+    }
+    console.log(arr)
+    res.json(arr)
+  } else {
+    console.log('sadsad')
+    res.status(404)
+    throw new Error('workingday not found')
+  }
+})
+const showAvilableTorsFor2HoursHALF = asyncHandler(async (req, res) => {
+  const clocks = await Clock.find({
+    owner: req.params.id,
+    avilable: true,
+    isPending: true,
+  })
+  console.log(clocks)
+  if (clocks) {
+    let counter1 = 0
+    let counter2 = 1
+    let counter3 = 2
+    let counter4 = 3
+    let counter5 = 4
+    let arr = []
+    for (let clock of clocks) {
+      if (counter5 < clocks.length) {
+        let time1 = clocks[counter1].time
+        const minutes = time1.split(':')[1]
+        const hour = time1.split(':')[0]
+        const hourPLUSone = parseInt(hour) + 1
+        const hourPLUSTwo = parseInt(hour) + 2
+        const hourPLUSTree = parseInt(hour) + 3
+        let time2 = clocks[counter2].time
+        const minutes2 = time2.split(':')[1]
+        const hour2 = time2.split(':')[0]
+        let time3 = clocks[counter3].time
+        const minutes3 = time3.split(':')[1]
+        const hour3 = time3.split(':')[0]
+        let time4 = clocks[counter4].time
+        const minutes4 = time4.split(':')[1]
+        const hour4 = time4.split(':')[0]
+        let time5 = clocks[counter5].time
+        const minutes5 = time5.split(':')[1]
+        const hour5 = time5.split(':')[0]
+
+        console.log(
+          ` hour plus one is :${hourPLUSone} hour plus one is :${hourPLUSTwo}hour plus one is :${hourPLUSTree}`
+        )
+        console.log(`time 1 :${time1} hour1:${hour} min1:${minutes}`)
+        console.log(`time 2 :${time2} hour2:${hour2} min2:${minutes2}`)
+        console.log(`time 3 :${time3} hour3:${hour3} min3:${minutes3}`)
+        console.log(`time 4 :${time4} hour4:${hour4} min4:${minutes4}`)
+        console.log(`time 5 :${time5} hour5:${hour5} min5:${minutes5}`)
+
+        if (
+          (hourPLUSone == hour2 &&
+            hourPLUSone == hour3 &&
+            hourPLUSTwo == hour4 &&
+            hourPLUSTwo == hour5 &&
+            minutes == '30' &&
+            minutes2 == '00' &&
+            minutes3 == '30' &&
+            minutes4 == '00' &&
+            minutes5 == '30') ||
+          (hour == hour2 &&
+            hourPLUSone == hour3 &&
+            hourPLUSone == hour4 &&
+            hourPLUSTwo == hour5 &&
+            minutes == '00' &&
+            minutes2 == '30' &&
+            minutes3 == '00' &&
+            minutes4 == '30' &&
+            minutes5 == '00')
+        ) {
+          arr.push(clock)
+        }
+        counter1++
+        counter2++
+        counter3++
+        counter4++
+        counter5++
+      }
+    }
+    console.log(arr)
+    res.json(arr)
+  } else {
+    console.log('sadsad')
+    res.status(404)
+    throw new Error('workingday not found')
+  }
+})
+const showAvilableTorsFor3Hours = asyncHandler(async (req, res) => {
+  const clocks = await Clock.find({
+    owner: req.params.id,
+    avilable: true,
+    isPending: true,
+  })
+  console.log(clocks)
+  if (clocks) {
+    let counter1 = 0
+    let counter2 = 1
+    let counter3 = 2
+    let counter4 = 3
+    let counter5 = 4
+    let counter6 = 5
+    let arr = []
+    for (let clock of clocks) {
+      //*****יש לתקן בכולם שאם הרשימה המתקבלת של התורים הזמינים היא פחות מהאחרון במקרה הזה 5 אז גם להיכנס ללולאה */
+      if (counter6 < clocks.length) {
+        let time1 = clocks[counter1].time
+        const minutes = time1.split(':')[1]
+        const hour = time1.split(':')[0]
+        const hourPLUSone = parseInt(hour) + 1
+        const hourPLUSTwo = parseInt(hour) + 2
+        const hourPLUSTree = parseInt(hour) + 3
+        let time2 = clocks[counter2].time
+        const minutes2 = time2.split(':')[1]
+        const hour2 = time2.split(':')[0]
+        let time3 = clocks[counter3].time
+        const minutes3 = time3.split(':')[1]
+        const hour3 = time3.split(':')[0]
+        let time4 = clocks[counter4].time
+        const minutes4 = time4.split(':')[1]
+        const hour4 = time4.split(':')[0]
+        let time5 = clocks[counter5].time
+        const minutes5 = time5.split(':')[1]
+        const hour5 = time5.split(':')[0]
+        let time6 = clocks[counter6].time
+        const minutes6 = time6.split(':')[1]
+        const hour6 = time6.split(':')[0]
+
+        console.log(
+          ` hour plus one is :${hourPLUSone} hour plus one is :${hourPLUSTwo}hour plus one is :${hourPLUSTree}`
+        )
+        console.log(`time 1 :${time1} hour1:${hour} min1:${minutes}`)
+        console.log(`time 2 :${time2} hour2:${hour2} min2:${minutes2}`)
+        console.log(`time 3 :${time3} hour3:${hour3} min3:${minutes3}`)
+        console.log(`time 4 :${time4} hour4:${hour4} min4:${minutes4}`)
+        console.log(`time 5 :${time5} hour5:${hour5} min5:${minutes5}`)
+        console.log(`time 6 :${time6} hour6:${hour6} min6:${minutes6}`)
+
+        if (
+          (hourPLUSone == hour2 &&
+            hourPLUSone == hour3 &&
+            hourPLUSTwo == hour4 &&
+            hourPLUSTwo == hour5 &&
+            hourPLUSTree == hour6 &&
+            minutes == '30' &&
+            minutes2 == '00' &&
+            minutes3 == '30' &&
+            minutes4 == '00' &&
+            minutes5 == '30' &&
+            minutes6 == '00') ||
+          (hour == hour2 &&
+            hourPLUSone == hour3 &&
+            hourPLUSone == hour4 &&
+            hourPLUSTwo == hour5 &&
+            hourPLUSTwo == hour6 &&
+            minutes == '00' &&
+            minutes2 == '30' &&
+            minutes3 == '00' &&
+            minutes4 == '30' &&
+            minutes5 == '00' &&
+            minutes6 == '30')
+        ) {
+          arr.push(clock)
+        }
+        counter1++
+        counter2++
+        counter3++
+        counter4++
+        counter5++
+        counter6++
+      }
+    }
+    console.log(arr)
+    res.json(arr)
+  } else {
+    console.log('sadsad')
+    res.status(404)
+    throw new Error('workingday not found')
+  }
+})
 
 const getMyTorim = asyncHandler(async (req, res) => {
   const clocks = await Clock.find({
@@ -992,4 +1234,7 @@ export {
   GetTipulDeets,
   showAvilableTorsForOneHour,
   showAvilableTorsForOneHALFHour,
+  showAvilableTorsFor2Hours,
+  showAvilableTorsFor2HoursHALF,
+  showAvilableTorsFor3Hours,
 }

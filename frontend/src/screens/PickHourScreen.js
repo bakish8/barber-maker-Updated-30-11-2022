@@ -19,6 +19,9 @@ import {
   SpecificTipulDeetsAction,
   AvilableWorkingDayTorsForOneHourTipul,
   AvilableWorkingDayTorsForOneHourHALFTipul,
+  AvilableWorkingDayTorsFor2horsTipul,
+  AvilableWorkingDayTorsFor2horsHALFTipul,
+  AvilableWorkingDayTorsFor3hours,
 } from '../actions/userActions.js'
 var date,
   array = []
@@ -66,6 +69,27 @@ const SingleWorkDayScreen = ({ history, match }) => {
     errorForOneHALFHour,
   } = avilableTorsForOneHourHALF
 
+  const avilableTorsFor2Hours = useSelector(
+    (state) => state.avilableTorsFor2Hours
+  )
+  const { loadingFor2Hour, clockListFor2Hour, errorFor2Hour } =
+    avilableTorsFor2Hours
+
+  const avilableTorsFor2Hourshalf = useSelector(
+    (state) => state.avilableTorsFor2Hourshalf
+  )
+  const {
+    clockListFor2HourandHALF,
+    loadingFor2HourandHALF,
+    errorFor2HourandHALF,
+  } = avilableTorsFor2Hourshalf
+
+  const avilableTorsFor3Hours = useSelector(
+    (state) => state.avilableTorsFor3Hours
+  )
+  const { loadingFor3Hours, clockListFor3Hours, errorFor3Hours } =
+    avilableTorsFor3Hours
+
   const goback = () => {
     history.push('/picksapar')
   }
@@ -82,9 +106,22 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   useEffect(() => {
     if (tipulimDeets && tipulimDeets.time === 60) {
+      console.log(tipulimDeets.time)
       dispatch(AvilableWorkingDayTorsForOneHourTipul(WorkDayid))
     } else if (tipulimDeets && tipulimDeets.time === 90) {
+      console.log(tipulimDeets.time)
       dispatch(AvilableWorkingDayTorsForOneHourHALFTipul(WorkDayid))
+    } else if (tipulimDeets && tipulimDeets.time === 120) {
+      console.log(tipulimDeets.time)
+      dispatch(AvilableWorkingDayTorsFor2horsTipul(WorkDayid))
+      console.log(clockListFor2Hour)
+    } else if (tipulimDeets && tipulimDeets.time === 150) {
+      console.log(tipulimDeets.time)
+      dispatch(AvilableWorkingDayTorsFor2horsHALFTipul(WorkDayid))
+      console.log(clockListFor2HourandHALF)
+    } else if (tipulimDeets && tipulimDeets.time === 180) {
+      console.log(tipulimDeets.time)
+      dispatch(AvilableWorkingDayTorsFor3hours(WorkDayid))
     }
   }, [dispatch, tipulimDeets])
 
@@ -137,7 +174,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
           <Loader />
         ) : errorSingle ? (
           <Message variant='danger'>{error}</Message>
-        ) : loading || loadingDeets || loadingForOneHour ? (
+        ) : loading ||
+          loadingDeets ||
+          loadingForOneHour ||
+          loadingForOneHALFHour ||
+          loadingFor2Hour ||
+          loadingFor2HourandHALF ? (
           <Loader />
         ) : error ? (
           <Message variant='danger'>{error}</Message>
@@ -241,6 +283,114 @@ const SingleWorkDayScreen = ({ history, match }) => {
                         }
                         return 1 // return 1 here for DESC Order
                       })
+                      .map((clock) => (
+                        <div id='clockbtndiv' className='scaleAbit'>
+                          <Button
+                            id='clockbtn'
+                            key={clock._id}
+                            onClick={() =>
+                              submitHandler(
+                                clock._id,
+                                clock.time,
+                                clock.date,
+                                clock.sapar
+                              )
+                            }
+                            //onClick={() => openOKHandler(clock.time)}
+                          >
+                            <img
+                              id='clcktimeimg'
+                              src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                            />
+                            <div id='clcktime'> {clock.time}</div>
+                          </Button>
+                        </div>
+                      ))
+                  ) : clockListFor2Hour &&
+                    clockListFor2Hour.length != 0 &&
+                    tipulimDeets.time === 120 ? (
+                    clockListFor2Hour
+                      .sort((a, b) => {
+                        const dateA = new Date(` ${a.time}`).valueOf()
+                        const dateB = new Date(` ${b.time}`).valueOf()
+                        if (dateA > dateB) {
+                          return -1 // return -1 here for DESC order
+                        }
+                        return 1 // return 1 here for DESC Order
+                      })
+
+                      .map((clock) => (
+                        <div id='clockbtndiv' className='scaleAbit'>
+                          <Button
+                            id='clockbtn'
+                            key={clock._id}
+                            onClick={() =>
+                              submitHandler(
+                                clock._id,
+                                clock.time,
+                                clock.date,
+                                clock.sapar
+                              )
+                            }
+                            //onClick={() => openOKHandler(clock.time)}
+                          >
+                            <img
+                              id='clcktimeimg'
+                              src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                            />
+                            <div id='clcktime'> {clock.time}</div>
+                          </Button>
+                        </div>
+                      ))
+                  ) : clockListFor2HourandHALF &&
+                    clockListFor2HourandHALF.length != 0 &&
+                    tipulimDeets.time === 150 ? (
+                    clockListFor2HourandHALF
+                      .sort((a, b) => {
+                        const dateA = new Date(` ${a.time}`).valueOf()
+                        const dateB = new Date(` ${b.time}`).valueOf()
+                        if (dateA > dateB) {
+                          return -1 // return -1 here for DESC order
+                        }
+                        return 1 // return 1 here for DESC Order
+                      })
+
+                      .map((clock) => (
+                        <div id='clockbtndiv' className='scaleAbit'>
+                          <Button
+                            id='clockbtn'
+                            key={clock._id}
+                            onClick={() =>
+                              submitHandler(
+                                clock._id,
+                                clock.time,
+                                clock.date,
+                                clock.sapar
+                              )
+                            }
+                            //onClick={() => openOKHandler(clock.time)}
+                          >
+                            <img
+                              id='clcktimeimg'
+                              src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                            />
+                            <div id='clcktime'> {clock.time}</div>
+                          </Button>
+                        </div>
+                      ))
+                  ) : clockListFor3Hours &&
+                    clockListFor3Hours.length != 0 &&
+                    tipulimDeets.time === 180 ? (
+                    clockListFor3Hours
+                      .sort((a, b) => {
+                        const dateA = new Date(` ${a.time}`).valueOf()
+                        const dateB = new Date(` ${b.time}`).valueOf()
+                        if (dateA > dateB) {
+                          return -1 // return -1 here for DESC order
+                        }
+                        return 1 // return 1 here for DESC Order
+                      })
+
                       .map((clock) => (
                         <div id='clockbtndiv' className='scaleAbit'>
                           <Button
