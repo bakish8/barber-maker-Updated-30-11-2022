@@ -1,4 +1,10 @@
 import {
+  AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_REQUEST,
+  AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_SUCCESS,
+  AAVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_FAIL,
+  AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_TIPUL_LIST_REQUEST,
+  AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_TIPUL_LIST_SUCCESS,
+  AAVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_TIPUL_LIST_FAIL,
   CLOCK_DELETE_SELECTED_REQUEST,
   CLOCK_DELETE_SELECTED_SUCCESS,
   CLOCK_DELETE_SELECTED_FAIL,
@@ -554,6 +560,43 @@ export const avilableTorsReducer = (state = { clockList: [] }, action) => {
       return state
   }
 }
+export const avilableTorsReducerForOneHour = (
+  state = { clockList: [] },
+  action
+) => {
+  switch (action.type) {
+    case AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_TIPUL_LIST_REQUEST:
+      return { loadingForOneHour: true }
+    case AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_TIPUL_LIST_SUCCESS:
+      return { loadingForOneHour: false, clockListForOneHour: action.payload }
+    case AAVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_TIPUL_LIST_FAIL:
+      return { loadingForOneHour: false, errorForOneHour: action.payload }
+    default:
+      return state
+  }
+}
+
+export const avilableTorsReducerForOneHourHALF = (
+  state = { clockList: [] },
+  action
+) => {
+  switch (action.type) {
+    case AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_REQUEST:
+      return { loadingForOneHALFHour: true }
+    case AVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_SUCCESS:
+      return {
+        loadingForOneHALFHour: false,
+        clockListForOneHALFHour: action.payload,
+      }
+    case AAVILABLE_WORKINGDAY_TORS_FOR_ONE_HOUR_HALF_TIPUL_LIST_FAIL:
+      return {
+        loadingForOneHALFHour: false,
+        errorForOneHALFHour: action.payload,
+      }
+    default:
+      return state
+  }
+}
 
 export const MakeClockReducer = (state = {}, action) => {
   switch (action.type) {
@@ -1003,11 +1046,11 @@ export const TipulimListReducer = (state = { users: [] }, action) => {
 export const TipulDeetsReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case GET_TIPUL_DEETS_REQUEST:
-      return { loading: true }
+      return { loadingDeets: true }
     case GET_TIPUL_DEETS_SUCCESS:
-      return { loading: false, tipulimList: action.payload }
+      return { loadingDeets: false, tipulimDeets: action.payload }
     case GET_TIPUL_DEETS_FAIL:
-      return { loading: false, error: action.payload }
+      return { loadingDeets: false, errorDeets: action.payload }
     default:
       return state
   }

@@ -394,6 +394,379 @@ const confirmTor = asyncHandler(async (req, res) => {
         }
       }
     }
+  } else if (tipul.time === 120) {
+    const minutes = clock.time.split(':')[1]
+    const hour = parseInt(clock.time.split(':')[0])
+    const hourPLUSone = hour + 1
+    const hourPLUSTwo = hour + 2
+    const hourPLUSTree = hour + 3
+    if (minutes === '00') {
+      const ClockToDelete1 = `${hour}:30`
+      const ClockToDelete2 = `${hourPLUSone}:00`
+      const ClockToDelete3 = `${hourPLUSone}:30`
+      const ClockToExtend = `${hourPLUSTwo}:00`
+      const workingDay = await WorkingDay.findById(clock.owner)
+      const existingClocks = await Clock.find({
+        time: { $in: [ClockToDelete1, ClockToDelete2, ClockToDelete3] },
+        owner: clock.owner,
+      })
+      if (existingClocks && workingDay) {
+        if (
+          existingClocks[0].avilable &&
+          existingClocks[1].avilable &&
+          existingClocks[2].avilable
+        ) {
+          clock.time = `${clock.time}-${ClockToExtend}`
+          await clock.save()
+          for (let Existedclock of existingClocks) {
+            const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
+              $pull: { torim: clock._id },
+            })
+            await Existedclock.remove()
+            const arr = await Clock.find({
+              owner: workingDay._id,
+              avilable: true,
+            })
+
+            owner.numAvilableTorim = arr.length - 1
+            owner.numTorim = owner.numTorim - 1
+            await owner.save()
+          }
+          clock.avilable = false
+          clock.mistaper = user
+          clock.tipul = tipul
+          const updatedClock = await clock.save()
+          res.json({
+            _id: updatedClock._id,
+            time: updatedClock.time,
+            avilable: updatedClock.avilable,
+            owner: updatedClock.owner,
+            date: updatedClock.date,
+            mistaper: updatedClock.mistaper,
+            isPaid: updatedClock.isPaid,
+            timestamps: updatedClock.timestamps,
+          })
+          BookmeOnGoogleCalender()
+        } else {
+          console.log('logic for one of the 3 next tors is not avilable')
+        }
+      } else {
+        console.log('working days or clock nopt found sorry')
+      }
+    } else if (minutes === '30') {
+      const ClockToDelete1 = `${hourPLUSone}:00`
+      const ClockToDelete2 = `${hourPLUSone}:30`
+      const ClockToDelete3 = `${hourPLUSTwo}:00`
+      const ClockToExtend = `${hourPLUSTwo}:30`
+      const workingDay = await WorkingDay.findById(clock.owner)
+      const existingClocks = await Clock.find({
+        time: { $in: [ClockToDelete1, ClockToDelete2, ClockToDelete3] },
+        owner: clock.owner,
+      })
+      if (existingClocks && workingDay) {
+        if (
+          existingClocks[0].avilable &&
+          existingClocks[1].avilable &&
+          existingClocks[2].avilable
+        ) {
+          clock.time = `${clock.time}-${ClockToExtend}`
+          await clock.save()
+          for (let Existedclock of existingClocks) {
+            const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
+              $pull: { torim: clock._id },
+            })
+            await Existedclock.remove()
+            const arr = await Clock.find({
+              owner: workingDay._id,
+              avilable: true,
+            })
+
+            owner.numAvilableTorim = arr.length - 1
+            owner.numTorim = owner.numTorim - 1
+            await owner.save()
+          }
+          clock.avilable = false
+          clock.mistaper = user
+          clock.tipul = tipul
+          const updatedClock = await clock.save()
+          res.json({
+            _id: updatedClock._id,
+            time: updatedClock.time,
+            avilable: updatedClock.avilable,
+            owner: updatedClock.owner,
+            date: updatedClock.date,
+            mistaper: updatedClock.mistaper,
+            isPaid: updatedClock.isPaid,
+            timestamps: updatedClock.timestamps,
+          })
+          BookmeOnGoogleCalender()
+        } else {
+          console.log('logic for one of the 3 next tors is not avilable')
+        }
+      } else {
+        console.log('working days or clock nopt found sorry')
+      }
+    }
+  } else if (tipul.time === 150) {
+    const minutes = clock.time.split(':')[1]
+    const hour = parseInt(clock.time.split(':')[0])
+    const hourPLUSone = hour + 1
+    const hourPLUSTwo = hour + 2
+    const hourPLUSTree = hour + 3
+    if (minutes === '00') {
+      const ClockToDelete1 = `${hour}:30`
+      const ClockToDelete2 = `${hourPLUSone}:00`
+      const ClockToDelete3 = `${hourPLUSone}:30`
+      const ClockToDelete4 = `${hourPLUSTwo}:00`
+      const ClockToExtend = `${hourPLUSTwo}:30`
+      const workingDay = await WorkingDay.findById(clock.owner)
+      const existingClocks = await Clock.find({
+        time: {
+          $in: [ClockToDelete1, ClockToDelete2, ClockToDelete3, ClockToDelete4],
+        },
+        owner: clock.owner,
+      })
+      if (existingClocks && workingDay) {
+        if (
+          existingClocks[0].avilable &&
+          existingClocks[1].avilable &&
+          existingClocks[2].avilable &&
+          existingClocks[3].avilable
+        ) {
+          clock.time = `${clock.time}-${ClockToExtend}`
+          await clock.save()
+          for (let Existedclock of existingClocks) {
+            const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
+              $pull: { torim: clock._id },
+            })
+            await Existedclock.remove()
+            const arr = await Clock.find({
+              owner: workingDay._id,
+              avilable: true,
+            })
+
+            owner.numAvilableTorim = arr.length - 1
+            owner.numTorim = owner.numTorim - 1
+            await owner.save()
+          }
+          clock.avilable = false
+          clock.mistaper = user
+          clock.tipul = tipul
+          const updatedClock = await clock.save()
+          res.json({
+            _id: updatedClock._id,
+            time: updatedClock.time,
+            avilable: updatedClock.avilable,
+            owner: updatedClock.owner,
+            date: updatedClock.date,
+            mistaper: updatedClock.mistaper,
+            isPaid: updatedClock.isPaid,
+            timestamps: updatedClock.timestamps,
+          })
+          BookmeOnGoogleCalender()
+        } else {
+          console.log('logic for one of the 4 next tors is not avilable')
+        }
+      } else {
+        console.log('working days or clock nopt found sorry')
+      }
+    } else if (minutes === '30') {
+      const ClockToDelete1 = `${hourPLUSone}:00`
+      const ClockToDelete2 = `${hourPLUSone}:30`
+      const ClockToDelete3 = `${hourPLUSTwo}:00`
+      const ClockToDelete4 = `${hourPLUSTwo}:30`
+      const ClockToExtend = `${hourPLUSTree}:00`
+      const workingDay = await WorkingDay.findById(clock.owner)
+      const existingClocks = await Clock.find({
+        time: {
+          $in: [ClockToDelete1, ClockToDelete2, ClockToDelete3, ClockToDelete4],
+        },
+        owner: clock.owner,
+      })
+      if (existingClocks && workingDay) {
+        if (
+          existingClocks[0].avilable &&
+          existingClocks[1].avilable &&
+          existingClocks[2].avilable &&
+          existingClocks[3].avilable
+        ) {
+          clock.time = `${clock.time}-${ClockToExtend}`
+          await clock.save()
+          for (let Existedclock of existingClocks) {
+            const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
+              $pull: { torim: clock._id },
+            })
+            await Existedclock.remove()
+            const arr = await Clock.find({
+              owner: workingDay._id,
+              avilable: true,
+            })
+
+            owner.numAvilableTorim = arr.length - 1
+            owner.numTorim = owner.numTorim - 1
+            await owner.save()
+          }
+          clock.avilable = false
+          clock.mistaper = user
+          clock.tipul = tipul
+          const updatedClock = await clock.save()
+          res.json({
+            _id: updatedClock._id,
+            time: updatedClock.time,
+            avilable: updatedClock.avilable,
+            owner: updatedClock.owner,
+            date: updatedClock.date,
+            mistaper: updatedClock.mistaper,
+            isPaid: updatedClock.isPaid,
+            timestamps: updatedClock.timestamps,
+          })
+          BookmeOnGoogleCalender()
+        } else {
+          console.log('logic for one of the 4 next tors is not avilable')
+        }
+      } else {
+        console.log('working days or clock nopt found sorry')
+      }
+    }
+  } else if (tipul.time === 180) {
+    const minutes = clock.time.split(':')[1]
+    const hour = parseInt(clock.time.split(':')[0])
+    const hourPLUSone = hour + 1
+    const hourPLUSTwo = hour + 2
+    const hourPLUSTree = hour + 3
+
+    if (minutes === '00') {
+      const ClockToDelete1 = `${hour}:30`
+      const ClockToDelete2 = `${hourPLUSone}:00`
+      const ClockToDelete3 = `${hourPLUSone}:30`
+      const ClockToDelete4 = `${hourPLUSTwo}:00`
+      const ClockToDelete5 = `${hourPLUSTwo}:30`
+      const ClockToExtend = `${hourPLUSTree}:00`
+
+      const workingDay = await WorkingDay.findById(clock.owner)
+      const existingClocks = await Clock.find({
+        time: {
+          $in: [
+            ClockToDelete1,
+            ClockToDelete2,
+            ClockToDelete3,
+            ClockToDelete4,
+            ClockToDelete5,
+          ],
+        },
+        owner: clock.owner,
+      })
+      if (existingClocks && workingDay) {
+        if (
+          existingClocks[0].avilable &&
+          existingClocks[1].avilable &&
+          existingClocks[2].avilable &&
+          existingClocks[3].avilable &&
+          existingClocks[4].avilable
+        ) {
+          clock.time = `${clock.time}-${ClockToExtend}`
+          await clock.save()
+          for (let Existedclock of existingClocks) {
+            const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
+              $pull: { torim: clock._id },
+            })
+            await Existedclock.remove()
+            const arr = await Clock.find({
+              owner: workingDay._id,
+              avilable: true,
+            })
+
+            owner.numAvilableTorim = arr.length - 1
+            owner.numTorim = owner.numTorim - 1
+            await owner.save()
+          }
+          clock.avilable = false
+          clock.mistaper = user
+          clock.tipul = tipul
+          const updatedClock = await clock.save()
+          res.json({
+            _id: updatedClock._id,
+            time: updatedClock.time,
+            avilable: updatedClock.avilable,
+            owner: updatedClock.owner,
+            date: updatedClock.date,
+            mistaper: updatedClock.mistaper,
+            isPaid: updatedClock.isPaid,
+            timestamps: updatedClock.timestamps,
+          })
+          BookmeOnGoogleCalender()
+        } else {
+          console.log('logic for one of the 4 next tors is not avilable')
+        }
+      } else {
+        console.log('working days or clock nopt found sorry')
+      }
+    } else if (minutes === '30') {
+      const ClockToDelete1 = `${hourPLUSone}:00`
+      const ClockToDelete2 = `${hourPLUSone}:30`
+      const ClockToDelete3 = `${hourPLUSTwo}:00`
+      const ClockToDelete4 = `${hourPLUSTwo}:30`
+      const ClockToDelete5 = `${hourPLUSTree}:00`
+      const ClockToExtend = `${hourPLUSTree}:30`
+      const workingDay = await WorkingDay.findById(clock.owner)
+      const existingClocks = await Clock.find({
+        time: {
+          $in: [
+            ClockToDelete1,
+            ClockToDelete2,
+            ClockToDelete3,
+            ClockToDelete4,
+            ClockToDelete5,
+          ],
+        },
+        owner: clock.owner,
+      })
+      if (existingClocks && workingDay) {
+        if (
+          existingClocks[0].avilable &&
+          existingClocks[1].avilable &&
+          existingClocks[2].avilable &&
+          existingClocks[3].avilable &&
+          existingClocks[4].avilable
+        ) {
+          clock.time = `${clock.time}-${ClockToExtend}`
+          await clock.save()
+          for (let Existedclock of existingClocks) {
+            const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
+              $pull: { torim: clock._id },
+            })
+            await Existedclock.remove()
+            const arr = await Clock.find({
+              owner: workingDay._id,
+              avilable: true,
+            })
+
+            owner.numAvilableTorim = arr.length - 1
+            owner.numTorim = owner.numTorim - 1
+            await owner.save()
+          }
+          clock.avilable = false
+          clock.mistaper = user
+          clock.tipul = tipul
+          const updatedClock = await clock.save()
+          res.json({
+            _id: updatedClock._id,
+            time: updatedClock.time,
+            avilable: updatedClock.avilable,
+            owner: updatedClock.owner,
+            date: updatedClock.date,
+            mistaper: updatedClock.mistaper,
+            isPaid: updatedClock.isPaid,
+            timestamps: updatedClock.timestamps,
+          })
+          BookmeOnGoogleCalender()
+        } else {
+          console.log('logic for one of the 4 next tors is not avilable')
+        }
+      } else {
+        console.log('working days or clock nopt found sorry')
+      }
+    }
   } else {
     res.status(404)
     throw new Error('Clock not found')
@@ -466,6 +839,110 @@ const showAvilableTors = asyncHandler(async (req, res) => {
   }
 })
 
+const showAvilableTorsForOneHour = asyncHandler(async (req, res) => {
+  const clocks = await Clock.find({
+    owner: req.params.id,
+    avilable: true,
+    isPending: true,
+  })
+  console.log(clocks)
+  if (clocks) {
+    let counter1 = 0
+    let counter2 = 1
+    let arr = []
+    for (let clock of clocks) {
+      if (counter2 < clocks.length) {
+        let time1 = clocks[counter1].time
+        const minutes = time1.split(':')[1]
+        const hour = time1.split(':')[0]
+        const hourPLUSone = parseInt(hour) + 1
+
+        console.log(time1)
+        console.log(hour)
+        console.log(hourPLUSone)
+        console.log(minutes)
+
+        let time2 = clocks[counter2].time
+        const minutes2 = time2.split(':')[1]
+        const hour2 = time2.split(':')[0]
+        console.log(time2)
+        console.log(hour2)
+        console.log(minutes2)
+
+        if (
+          (hour === hour2 && minutes === '00' && minutes2 === '30') ||
+          (hourPLUSone == hour2 && minutes === '30' && minutes2 === '00')
+        ) {
+          arr.push(clock)
+        }
+        counter1++
+        counter2++
+      }
+    }
+    console.log(arr)
+    res.json(arr)
+  } else {
+    console.log('sadsad')
+    res.status(404)
+    throw new Error('workingday not found')
+  }
+})
+const showAvilableTorsForOneHALFHour = asyncHandler(async (req, res) => {
+  const clocks = await Clock.find({
+    owner: req.params.id,
+    avilable: true,
+    isPending: true,
+  })
+  console.log(clocks)
+  if (clocks) {
+    let counter1 = 0
+    let counter2 = 1
+    let counter3 = 2
+    let arr = []
+    for (let clock of clocks) {
+      if (counter3 < clocks.length) {
+        let time1 = clocks[counter1].time
+        const minutes = time1.split(':')[1]
+        const hour = time1.split(':')[0]
+        const hourPLUSone = parseInt(hour) + 1
+        let time2 = clocks[counter2].time
+        const minutes2 = time2.split(':')[1]
+        const hour2 = time2.split(':')[0]
+        let time3 = clocks[counter3].time
+        const minutes3 = time3.split(':')[1]
+        const hour3 = time3.split(':')[0]
+
+        console.log(`time 1 :${time1} hour1:${hour} min1:${minutes}`)
+        console.log(`time 2 :${time2} hour2:${hour2} min2:${minutes2}`)
+        console.log(`time 3 :${time3} hour3:${hour3} min3:${minutes3}`)
+        if (
+          (hourPLUSone == hour3 &&
+            hourPLUSone == hour2 &&
+            minutes == '30' &&
+            minutes2 == '00' &&
+            minutes3 == '30') ||
+          (hourPLUSone == hour3 &&
+            hourPLUSone != hour2 &&
+            minutes == '00' &&
+            minutes2 == '30' &&
+            minutes3 == '00')
+        ) {
+          arr.push(clock)
+        }
+        counter1++
+        counter2++
+        counter3++
+      }
+    }
+    console.log(arr)
+    res.json(arr)
+  } else {
+    console.log('sadsad')
+    res.status(404)
+    throw new Error('workingday not found')
+  }
+})
+
 const getMyTorim = asyncHandler(async (req, res) => {
   const clocks = await Clock.find({
     mistaper: req.user._id,
@@ -513,4 +990,6 @@ export {
   UNPayTor,
   GetSugeiTipulim,
   GetTipulDeets,
+  showAvilableTorsForOneHour,
+  showAvilableTorsForOneHALFHour,
 }

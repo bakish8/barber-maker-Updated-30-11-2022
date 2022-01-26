@@ -62,6 +62,9 @@ import {
   DeleteAllClocksReducer,
   DeleteAVILABLEClocksReducer,
   DeleteSELECTEDClockReducer,
+  TipulDeetsReducer,
+  avilableTorsReducerForOneHour,
+  avilableTorsReducerForOneHourHALF,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -136,6 +139,9 @@ const reducer = combineReducers({
   DeleteAllClocks: DeleteAllClocksReducer,
   DeleteAVILABLEClocks: DeleteAVILABLEClocksReducer,
   DeleteSELECTEDClock: DeleteSELECTEDClockReducer,
+  TipulDeets: TipulDeetsReducer,
+  avilableTorsForOneHour: avilableTorsReducerForOneHour,
+  avilableTorsForOneHourHALF: avilableTorsReducerForOneHourHALF,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

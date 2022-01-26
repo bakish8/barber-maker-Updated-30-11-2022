@@ -2087,6 +2087,61 @@ const SingleWorkDayScreen = ({ history, match }) => {
                               {tipulimList[5] ? tipulimList[5].name : ''}
                             </option>
                           )}
+                          {tipulimList[6] && (
+                            <option
+                              value={
+                                tipulimList[6]
+                                  ? `${tipulimList[6]._id},${tipulimList[6].time}`
+                                  : ''
+                              }
+                            >
+                              {tipulimList[6] ? tipulimList[6].name : ''}
+                            </option>
+                          )}
+                          {tipulimList[7] && (
+                            <option
+                              value={
+                                tipulimList[7]
+                                  ? `${tipulimList[7]._id},${tipulimList[7].time}`
+                                  : ''
+                              }
+                            >
+                              {tipulimList[7] ? tipulimList[7].name : ''}
+                            </option>
+                          )}
+                          {tipulimList[8] && (
+                            <option
+                              value={
+                                tipulimList[8]
+                                  ? `${tipulimList[8]._id},${tipulimList[8].time}`
+                                  : ''
+                              }
+                            >
+                              {tipulimList[8] ? tipulimList[8].name : ''}
+                            </option>
+                          )}
+                          {tipulimList[9] && (
+                            <option
+                              value={
+                                tipulimList[9]
+                                  ? `${tipulimList[9]._id},${tipulimList[9].time}`
+                                  : ''
+                              }
+                            >
+                              {tipulimList[9] ? tipulimList[9].name : ''}
+                            </option>
+                          )}
+                          {tipulimList[10] && (
+                            <option
+                              value={
+                                tipulimList[10]
+                                  ? `${tipulimList[10]._id},${tipulimList[10].time}`
+                                  : ''
+                              }
+                            >
+                              {tipulimList[10] ? tipulimList[10].name : ''}
+                            </option>
+                          )}
                         </select>
                         <Button
                           className='ChhoseTipuliBTN'
