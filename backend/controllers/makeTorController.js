@@ -191,6 +191,10 @@ const confirmTor = asyncHandler(async (req, res) => {
         console.log(`Existing workingDay:${workingDay}`)
         if (existingClock.avilable) {
           clock.time = `${clock.time}-${ClockToExtend}`
+          clock.isMultipleClock = true
+
+          clock.MultipleClocksArray.push(existingClock.time)
+
           await clock.save()
           console.log(`Existing Clock id:${existingClock._id}`)
           console.log(`Existing Clock avilabelty:${existingClock.avilable}`)
@@ -199,7 +203,6 @@ const confirmTor = asyncHandler(async (req, res) => {
           const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
             $pull: { torim: existingClock._id },
           })
-
           await existingClock.remove()
           owner.numAvilableTorim = owner.numAvilableTorim - 2
           owner.numTorim = owner.numTorim - 1
@@ -221,16 +224,15 @@ const confirmTor = asyncHandler(async (req, res) => {
           })
           BookmeOnGoogleCalender()
         } else {
-          console.log(
-            'השעה הזאת לא זמינה היא תפוס אי אפשר לקבוע תור לשעה שלמה שחצי  שעה תפוס בלאט '
-          )
-          console.log(
-            'logic for canceling the insertion of confirm because the next one nthe clock for delete is staker'
+          res.status(403)
+          throw new Error(
+            'סוג התור שבחרת דורש לפחות שעה צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
           )
         }
       } else {
-        console.log(
-          'not found exisiting clock or not found exisiting working day  for 00 clock'
+        res.status(403)
+        throw new Error(
+          'סוג התור שבחרת דורש לפחות שעה צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
         )
       }
 
@@ -249,6 +251,9 @@ const confirmTor = asyncHandler(async (req, res) => {
         console.log(`Existing workingDay:${workingDay}`)
         if (existingClock.avilable) {
           clock.time = `${clock.time}-${ClockToExtend}`
+          clock.isMultipleClock = true
+          clock.MultipleClocksArray.push(existingClock.time)
+
           await clock.save()
           console.log(`Existing Clock id:${existingClock._id}`)
           console.log(`Existing Clock avilabelty:${existingClock.avilable}`)
@@ -279,16 +284,15 @@ const confirmTor = asyncHandler(async (req, res) => {
           })
           BookmeOnGoogleCalender()
         } else {
-          console.log(
-            'השעה הזאת לא זמינה היא תפוס אי אפשר לקבוע תור לשעה שלמה שחצי  שעה תפוס בלאט '
-          )
-          console.log(
-            'logic for canceling the insertion of confirm because the next one nthe clock for delete is staker'
+          res.status(403)
+          throw new Error(
+            'סוג התור שבחרת דורש לפחות שעה צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
           )
         }
       } else {
-        console.log(
-          'not found exisiting clock or not found exisiting working day  for 00 clock'
+        res.status(403)
+        throw new Error(
+          'סוג התור שבחרת דורש לפחות שעה צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
         )
       }
 
@@ -311,6 +315,11 @@ const confirmTor = asyncHandler(async (req, res) => {
       if (existingClocks && workingDay) {
         if (existingClocks[0].avilable && existingClocks[1].avilable) {
           clock.time = `${clock.time}-${ClockToExtend}`
+          clock.isMultipleClock = true
+          for (let clocki of existingClocks) {
+            clock.MultipleClocksArray.push(clocki.time)
+          }
+
           await clock.save()
           for (let Existedclock of existingClocks) {
             const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
@@ -342,7 +351,10 @@ const confirmTor = asyncHandler(async (req, res) => {
           })
           BookmeOnGoogleCalender()
         } else {
-          console.log('logic for one of the 2 next toes is not avilable')
+          res.status(403)
+          throw new Error(
+            'סוג התור שבחרת דורש לפחות שעה וחצי צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+          )
         }
       }
     } else if (minutes === '30') {
@@ -358,6 +370,10 @@ const confirmTor = asyncHandler(async (req, res) => {
       if (existingClocks && workingDay) {
         if (existingClocks[0].avilable && existingClocks[1].avilable) {
           clock.time = `${clock.time}-${ClockToExtend}`
+          clock.isMultipleClock = true
+          for (let clocki of existingClocks) {
+            clock.MultipleClocksArray.push(clocki.time)
+          }
           await clock.save()
           for (let Existedclock of existingClocks) {
             const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
@@ -389,7 +405,10 @@ const confirmTor = asyncHandler(async (req, res) => {
           })
           BookmeOnGoogleCalender()
         } else {
-          console.log('logic for one of the 2 next toes is not avilable')
+          res.status(403)
+          throw new Error(
+            'סוג התור שבחרת דורש לפחות שעה וחצי צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+          )
         }
       }
     }
@@ -416,6 +435,10 @@ const confirmTor = asyncHandler(async (req, res) => {
           existingClocks[2].avilable
         ) {
           clock.time = `${clock.time}-${ClockToExtend}`
+          clock.isMultipleClock = true
+          for (let clocki of existingClocks) {
+            clock.MultipleClocksArray.push(clocki.time)
+          }
           await clock.save()
           for (let Existedclock of existingClocks) {
             const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
@@ -447,10 +470,16 @@ const confirmTor = asyncHandler(async (req, res) => {
           })
           BookmeOnGoogleCalender()
         } else {
-          console.log('logic for one of the 3 next tors is not avilable')
+          res.status(403)
+          throw new Error(
+            'סוג התור שבחרת דורש לפחות שעתיים צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+          )
         }
       } else {
-        console.log('working days or clock nopt found sorry')
+        res.status(403)
+        throw new Error(
+          'סוג התור שבחרת דורש לפחות שעתיים צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+        )
       }
     } else if (minutes === '30') {
       const ClockToDelete1 = `${hourPLUSone}:00`
@@ -469,6 +498,10 @@ const confirmTor = asyncHandler(async (req, res) => {
           existingClocks[2].avilable
         ) {
           clock.time = `${clock.time}-${ClockToExtend}`
+          clock.isMultipleClock = true
+          for (let clocki of existingClocks) {
+            clock.MultipleClocksArray.push(clocki.time)
+          }
           await clock.save()
           for (let Existedclock of existingClocks) {
             const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
@@ -500,10 +533,16 @@ const confirmTor = asyncHandler(async (req, res) => {
           })
           BookmeOnGoogleCalender()
         } else {
-          console.log('logic for one of the 3 next tors is not avilable')
+          res.status(403)
+          throw new Error(
+            'סוג התור שבחרת דורש לפחות שעתיים צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+          )
         }
       } else {
-        console.log('working days or clock nopt found sorry')
+        res.status(403)
+        throw new Error(
+          'סוג התור שבחרת דורש לפחות שעתיים צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+        )
       }
     }
   } else if (tipul.time === 150) {
@@ -533,6 +572,10 @@ const confirmTor = asyncHandler(async (req, res) => {
           existingClocks[3].avilable
         ) {
           clock.time = `${clock.time}-${ClockToExtend}`
+          clock.isMultipleClock = true
+          for (let clocki of existingClocks) {
+            clock.MultipleClocksArray.push(clocki.time)
+          }
           await clock.save()
           for (let Existedclock of existingClocks) {
             const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
@@ -564,10 +607,16 @@ const confirmTor = asyncHandler(async (req, res) => {
           })
           BookmeOnGoogleCalender()
         } else {
-          console.log('logic for one of the 4 next tors is not avilable')
+          res.status(403)
+          throw new Error(
+            'סוג התור שבחרת דורש לפחות שעתיים וחצי צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+          )
         }
       } else {
-        console.log('working days or clock nopt found sorry')
+        res.status(403)
+        throw new Error(
+          'סוג התור שבחרת דורש לפחות שעתיים וחצי צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+        )
       }
     } else if (minutes === '30') {
       const ClockToDelete1 = `${hourPLUSone}:00`
@@ -590,6 +639,10 @@ const confirmTor = asyncHandler(async (req, res) => {
           existingClocks[3].avilable
         ) {
           clock.time = `${clock.time}-${ClockToExtend}`
+          clock.isMultipleClock = true
+          for (let clocki of existingClocks) {
+            clock.MultipleClocksArray.push(clocki.time)
+          }
           await clock.save()
           for (let Existedclock of existingClocks) {
             const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
@@ -621,10 +674,16 @@ const confirmTor = asyncHandler(async (req, res) => {
           })
           BookmeOnGoogleCalender()
         } else {
-          console.log('logic for one of the 4 next tors is not avilable')
+          res.status(403)
+          throw new Error(
+            'סוג התור שבחרת דורש לפחות שעתיים וחצי צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+          )
         }
       } else {
-        console.log('working days or clock nopt found sorry')
+        res.status(403)
+        throw new Error(
+          'סוג התור שבחרת דורש לפחות שעתיים וחצי צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+        )
       }
     }
   } else if (tipul.time === 180) {
@@ -664,6 +723,10 @@ const confirmTor = asyncHandler(async (req, res) => {
           existingClocks[4].avilable
         ) {
           clock.time = `${clock.time}-${ClockToExtend}`
+          clock.isMultipleClock = true
+          for (let clocki of existingClocks) {
+            clock.MultipleClocksArray.push(clocki.time)
+          }
           await clock.save()
           for (let Existedclock of existingClocks) {
             const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
@@ -695,10 +758,16 @@ const confirmTor = asyncHandler(async (req, res) => {
           })
           BookmeOnGoogleCalender()
         } else {
-          console.log('logic for one of the 4 next tors is not avilable')
+          res.status(403)
+          throw new Error(
+            'סוג התור שבחרת דורש לפחות 3 שעות צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+          )
         }
       } else {
-        console.log('working days or clock nopt found sorry')
+        res.status(403)
+        throw new Error(
+          'סוג התור שבחרת דורש לפחות 3 שעות צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+        )
       }
     } else if (minutes === '30') {
       const ClockToDelete1 = `${hourPLUSone}:00`
@@ -729,6 +798,10 @@ const confirmTor = asyncHandler(async (req, res) => {
           existingClocks[4].avilable
         ) {
           clock.time = `${clock.time}-${ClockToExtend}`
+          clock.isMultipleClock = true
+          for (let clocki of existingClocks) {
+            clock.MultipleClocksArray.push(clocki.time)
+          }
           await clock.save()
           for (let Existedclock of existingClocks) {
             const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
@@ -760,10 +833,16 @@ const confirmTor = asyncHandler(async (req, res) => {
           })
           BookmeOnGoogleCalender()
         } else {
-          console.log('logic for one of the 4 next tors is not avilable')
+          res.status(403)
+          throw new Error(
+            'סוג התור שבחרת דורש לפחות 3 שעות צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+          )
         }
       } else {
-        console.log('working days or clock nopt found sorry')
+        res.status(403)
+        throw new Error(
+          'סוג התור שבחרת דורש לפחות 3 שעות צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
+        )
       }
     }
   } else {
@@ -780,11 +859,39 @@ const CancelTor = asyncHandler(async (req, res) => {
   const workingday = await WorkingDay.findById(clock.owner._id)
 
   if (clock && user) {
+    console.log(clock.time)
+    console.log(clock.isMultipleClock)
+    const time1 = clock.time.split('-')[0]
+    console.log(time1)
+
+    if (clock.isMultipleClock) {
+      for (let clockToBuiledBack of clock.MultipleClocksArray) {
+        const clockBuild = await new Clock({
+          time: clockToBuiledBack,
+          sapar: clock.sapar,
+          date: clock.date,
+          avilable: true,
+          owner: workingday,
+          isPaid: false,
+          isPending: true,
+        })
+        workingday.numTorim = workingday.numTorim + 1
+        workingday.numAvilableTorim = workingday.numAvilableTorim + 1
+        workingday.torim.push(clockBuild)
+        await workingday.save()
+        await clockBuild.save()
+      }
+      clock.MultipleClocksArray = []
+      clock.isMultipleClock = false
+      await clock.save()
+    }
+
     await Appointment.findOneAndRemove({
       smsTime: clock.time,
       smsDate: clock.owner.date,
       name: clock.mistaper.name,
     })
+    clock.time = time1
     clock.mistaper = null
     clock.avilable = true
     clock.owner.numAvilableTorim = clock.owner.numAvilableTorim + 1

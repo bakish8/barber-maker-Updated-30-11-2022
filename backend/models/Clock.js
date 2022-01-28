@@ -40,6 +40,17 @@ const ClockSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    isMultipleClock: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+    MultipleClocksArray: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
     TotalAmmountPaid: {
       type: Number,
     },

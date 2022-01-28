@@ -37,6 +37,7 @@ import emailjs from 'emailjs-com'
 import CreditCard from '../components/CreditCard/CreditCard'
 import Cards from 'react-credit-cards'
 import NewsTicker from 'react-advanced-news-ticker'
+import { CONFIRM_TOR_RESET } from '../constants/userConstants'
 
 //?
 var date,
@@ -94,6 +95,20 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const [ValueForArrowUP, setValueForArrowUP] = useState('test12345')
 
   const [Somthing, setSomthing] = useState(false)
+
+  //**STATES FOR CLOCK CHOOSE TIPUL KIND DISPLAY*/
+  const [display3, setdisplay3] = useState(false)
+  const [display2andhalf, setdisplay2andhalf] = useState(false)
+  const [display2, setdisplay2] = useState(false)
+  const [display1andhalf, setdisplay1andhalf] = useState(false)
+  const [display1, setdisplay1] = useState(false)
+  const [displayhalf, setdisplayhalf] = useState(false)
+  const [Arr, setArr] = useState()
+  const [Arrforhour, setArrforhour] = useState()
+  const [Arrarrforhourandhalf, setArrarrforhourandhalf] = useState()
+  const [Arrarrfor2hours, setArrarrfor2hours] = useState()
+  const [Arrarrfor2hoursandhalf, setArrarrfor2hoursandhalf] = useState()
+  const [Arrarrfor3hours, setArrarrfor3hours] = useState()
 
   const [StateForPinuiBTN, setStateForPinuiBTN] = useState(false)
   const [stateChecked, setstateChecked] = useState(false)
@@ -705,7 +720,24 @@ const SingleWorkDayScreen = ({ history, match }) => {
     Swal.fire(`הלקוח שילם ב: באשראי`)
   }
 
+  const CHOOSEB = () => {
+    const value1 = tipulimList[0]._id
+    const value2 = tipulimList[0].time
+    setTipulTime(value2)
+    setTipulId(value1)
+  }
+
+  const CHOOSEA = () => {
+    let select2 = document.getElementById('tipulimCooseOptions')
+    let value1 = select2.value.split(',')[0]
+    let value2 = select2.value.split(',')[1]
+    setTipulTime(value2)
+    setTipulId(value1)
+  }
+
   const CHOOSE = () => {
+    resetSelctorForTipulnextHoursavilable()
+
     let select = document.getElementById('tipulimCooseOptions')
     select.addEventListener('change', function () {
       const value1 = select.value.split(',')[0]
@@ -729,8 +761,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
     swalWithBootstrapButtons
       .fire({
-        title: 'בחר דרך חיפוש',
-        text: `תוכל לחפש משתמשים קיימים לפי מספר נייד או שם,תוכל גם ליצור משתמש חדש שיקבל את תור זה`,
+        title: `חפש משתמש`,
+        text: `חפש את המשתמש שתרצה להכניס לתור בשעה ${ChoosenClockTIME}`,
         imageUrl: 'https://i.ibb.co/hYWCLW3/output-onlinegiftools-1.gif',
         imageWidth: 100,
         imageHeight: 100,
@@ -740,6 +772,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
         showDenyButton: true,
         denyButtonText: `חפש לפי נייד`,
         denyButtonColor: 'rgb(0, 132, 255)',
+        footer: '.באפשותך גם ליצור משתמש חדש',
 
         cancelButtonText: 'הוסף משתמש חדש לתור זה',
         cancelButtonColor: 'rgb(3, 148, 39)',
@@ -1105,9 +1138,112 @@ const SingleWorkDayScreen = ({ history, match }) => {
     setChoosenClockTIME(time)
     setChoosenClockDATE(date)
     console.log(`THE COOSEN CLOCK IS:${ChoosenClock}!!!!`)
-    console.log(clock)
-    console.log(clock)
-    console.log(clock)
+    var elementPos = clockList
+      .map(function (x) {
+        return x._id
+      })
+      .indexOf(id)
+    var objectFound = clockList[elementPos]
+    console.log(elementPos)
+    console.log(objectFound)
+
+    var ClockPlusHalfHour = clockList[elementPos + 1]
+    var ClockPlusHour = clockList[elementPos + 2]
+    var ClockPlusHourandHalf = clockList[elementPos + 3]
+    var ClockPlus2Hours = clockList[elementPos + 4]
+    var ClockPlus2HoursandHalf = clockList[elementPos + 5]
+    var ClockPlus3Hours = clockList[elementPos + 6]
+    console.log(elementPos + 1)
+    if (objectFound && objectFound.avilable) {
+      setdisplayhalf(true)
+      console.log(objectFound.time)
+      console.log(objectFound.time)
+      console.log(objectFound.time)
+      const minutes = objectFound.time.split(':')[1]
+      const hour = objectFound.time.split(':')[0]
+      console.log(minutes)
+      console.log(hour)
+
+      if (
+        ClockPlusHalfHour &&
+        ClockPlusHalfHour.avilable &&
+        ClockPlusHour &&
+        ClockPlusHour.avilable &&
+        ClockPlusHourandHalf &&
+        ClockPlusHourandHalf.avilable &&
+        ClockPlus2Hours &&
+        ClockPlus2Hours.avilable &&
+        ClockPlus2HoursandHalf &&
+        ClockPlus2HoursandHalf.avilable
+      ) {
+        setdisplay3(true)
+        setdisplay2andhalf(true)
+        setdisplay2(true)
+        setdisplay1andhalf(true)
+        setdisplay1(true)
+
+        console.log('the next 3 hours   is avilable settinf state...')
+      } else if (
+        ClockPlusHalfHour &&
+        ClockPlusHalfHour.avilable &&
+        ClockPlusHour &&
+        ClockPlusHour.avilable &&
+        ClockPlusHourandHalf &&
+        ClockPlusHourandHalf.avilable &&
+        ClockPlus2Hours &&
+        ClockPlus2Hours.avilable
+      ) {
+        setdisplay3(false)
+        setdisplay2andhalf(true)
+        setdisplay2(true)
+        setdisplay1andhalf(true)
+        setdisplay1(true)
+
+        console.log('the next 2 hours anf half  is avilable settinf state...')
+      } else if (
+        ClockPlusHalfHour &&
+        ClockPlusHalfHour.avilable &&
+        ClockPlusHour &&
+        ClockPlusHour.avilable &&
+        ClockPlusHourandHalf &&
+        ClockPlusHourandHalf.avilable
+      ) {
+        setdisplay3(false)
+        setdisplay2andhalf(false)
+        setdisplay2(true)
+        setdisplay1andhalf(true)
+        setdisplay1(true)
+
+        console.log('the next 2 hours  is avilable settinf state...')
+      } else if (
+        ClockPlusHalfHour &&
+        ClockPlusHalfHour.avilable &&
+        ClockPlusHour &&
+        ClockPlusHour.avilable
+      ) {
+        setdisplay3(false)
+        setdisplay2andhalf(false)
+        setdisplay2(false)
+        setdisplay1andhalf(true)
+        setdisplay1(true)
+        console.log('the  hour  and half is avilable settinf state...')
+      } else if (ClockPlusHalfHour && ClockPlusHalfHour.avilable) {
+        setdisplay3(false)
+        setdisplay2andhalf(false)
+        setdisplay2(false)
+        setdisplay1andhalf(false)
+        setdisplay1(true)
+        console.log('the next  hour is avilablw settinf state...')
+      } else if (ClockPlusHalfHour && !ClockPlusHalfHour.avilable) {
+        console.log('the next  hour is NOT  avilablw settinGS state...')
+        setdisplay1(false)
+        setdisplay3(false)
+        setdisplay2andhalf(false)
+        setdisplay2(false)
+        setdisplay1andhalf(false)
+      }
+    }
+
     showTorHandler(
       time,
       date,
@@ -1261,7 +1397,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
       swalWithBootstrapButtons
         .fire({
           scrollbarPadding: true,
-          title: 'תור פנוי',
+          title: `<b><span id='span431256'>${time}</span></b><br/><span id='panuyyyy'>פנוי</span>`,
           text: `התור בשעה ${time} בתאריך  ${date}  פנוי כרגע`,
           imageUrl: 'https://i.ibb.co/YyNg2CQ/user-no-avilable.gif',
           imageWidth: 130,
@@ -1279,7 +1415,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
         })
         .then((result) => {
           if (result.isConfirmed) {
+            setChoosenClockTIME(time)
             setSHOWchooseTipul(true)
+            CHOOSEB()
             console.log(`THE COOSEN CLOCK IS:${ChoosenClock}!!!!`)
           } else if (result.isDenied) {
             Swal.fire({
@@ -1552,6 +1690,21 @@ const SingleWorkDayScreen = ({ history, match }) => {
     }
   }
 
+  const resetSelctorForTipulnextHoursavilable = () => {
+    setdisplay3(false)
+    setdisplay2andhalf(false)
+    setdisplay2(false)
+    setdisplay1andhalf(false)
+    setdisplay1(false)
+    setdisplayhalf(false)
+    setArr([])
+    setArrforhour([])
+    setArrarrforhourandhalf([])
+    setArrarrfor2hours([])
+    setArrarrfor2hoursandhalf([])
+    setArrarrfor3hours([])
+  }
+
   // ██╗   ██╗███████╗███████╗    ███████╗███████╗███████╗███████╗ ██████╗████████╗
   // ██║   ██║██╔════╝██╔════╝    ██╔════╝██╔════╝██╔════╝██╔════╝██╔════╝╚══██╔══╝
   // ██║   ██║███████╗█████╗      █████╗  █████╗  █████╗  █████╗  ██║        ██║
@@ -1563,6 +1716,65 @@ const SingleWorkDayScreen = ({ history, match }) => {
   useEffect(() => {
     window.addEventListener('scroll', fixOptionsDiv)
   }, [])
+
+  useEffect(() => {
+    if (errorConfirm) {
+      dispatch({ type: CONFIRM_TOR_RESET })
+
+      Swal.fire({
+        cancelButtonColor: 'rgb(194, 0, 0)',
+        confirmButtonColor: 'rgb(3, 148, 39)',
+        icon: 'error',
+        title: `שגיאה`,
+        text: `סוג טיפול זה דורש ${
+          TipulTime == 60
+            ? 'שעה'
+            : TipulTime == 90
+            ? 'שעה וחצי'
+            : TipulTime == 120
+            ? 'שעתיים'
+            : TipulTime == 150
+            ? 'שעתיים וחצי'
+            : TipulTime == 180
+            ? 'שלוש שעות'
+            : 'יותר מחצי שעה'
+        }  אנא וודא שאתה מוסיף תורים פנויים למערכת על מנת לבצע  שיבוץ של תור זה `,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'הוסף תורים',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalADDfunction()
+        }
+      })
+    }
+  }, [errorConfirm])
+
+  useEffect(() => {
+    if (TipulTime != '') console.log(`tipul time is change to :${TipulTime}`)
+  }, [TipulTime])
+
+  useEffect(() => {
+    if (display3) {
+      console.log(`the next 3hpurs is avilable`)
+    } else if (display2andhalf) {
+      console.log(`the next 2 and half is avilable`)
+    } else if (display2) {
+      console.log(`the next 2  is avilable`)
+    } else if (display1andhalf) {
+      console.log(`the next 1 and half  is avilable`)
+    } else if (display1) {
+      console.log(`the next 1   is avilable`)
+    } else if (displayhalf) {
+      console.log(`the next half    is avilable`)
+    }
+  }, [
+    display3,
+    display2andhalf,
+    display2,
+    display1andhalf,
+    display1,
+    displayhalf,
+  ])
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -1588,6 +1800,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
           footer: `<a href="">התקשר לנייד של ${wordname} בנייד 0${wordphone}</a>`,
         }).then((result) => {
           if (result.isConfirmed) {
+            setdisplay3(false)
+            setdisplay2andhalf(false)
+            setdisplay2(false)
+            setdisplay1andhalf(false)
+            setdisplay1(false)
+            setdisplayhalf(false)
             dispatch(confirmTor(ChoosenClock, word, TipulId))
           }
         })
@@ -1659,6 +1877,66 @@ const SingleWorkDayScreen = ({ history, match }) => {
       }
     }
   }, [workingDay])
+
+  //USE EFFECT  tipulim list display
+  useEffect(() => {
+    if (tipulimList) {
+      let arr = []
+      let arrforhour = []
+      let arrforhourandhalf = []
+      let arrfor2hours = []
+      let arrfor2hoursandhalf = []
+      let arrfor3hours = []
+
+      console.log(tipulimList)
+      for (let tipul of tipulimList) {
+        if (tipul.time == 30) {
+          arr.push(tipul)
+        } else if (tipul.time == 30 || tipul.time == 60) {
+          arrforhour.push(tipul)
+        } else if (tipul.time == 30 || tipul.time == 60 || tipul.time == 90) {
+          arrforhourandhalf.push(tipul)
+        } else if (
+          tipul.time == 30 ||
+          tipul.time == 60 ||
+          tipul.time == 90 ||
+          tipul.time == 120
+        ) {
+          arrfor2hours.push(tipul)
+        } else if (
+          tipul.time == 30 ||
+          tipul.time == 60 ||
+          tipul.time == 90 ||
+          tipul.time == 120 ||
+          tipul.time == 150
+        ) {
+          arrfor2hoursandhalf.push(tipul)
+        } else if (
+          tipul.time == 30 ||
+          tipul.time == 60 ||
+          tipul.time == 90 ||
+          tipul.time == 120 ||
+          tipul.time == 150 ||
+          tipul.time == 180
+        ) {
+          arrfor3hours.push(tipul)
+        }
+      }
+      console.log(arr)
+      setArr(arr)
+      setArrforhour(arrforhour)
+      setArrarrforhourandhalf(arrforhourandhalf)
+      setArrarrfor2hours(arrfor2hours)
+      setArrarrfor2hoursandhalf(arrfor2hoursandhalf)
+      setArrarrfor3hours(arrfor3hours)
+      console.log(Arr)
+      console.log(Arrforhour)
+      console.log(Arrarrforhourandhalf)
+      console.log(Arrarrfor2hours)
+      console.log(Arrarrfor2hoursandhalf)
+      console.log(Arrarrfor3hours)
+    }
+  }, [tipulimList])
 
   //USEEFFECT CREFIT CARD VALIDATION
   // useEffect(() => {
@@ -2017,132 +2295,256 @@ const SingleWorkDayScreen = ({ history, match }) => {
                   <div>
                     <Col md={12}>
                       <h1 id='h1SugTipul'>בחר סוג טיפול</h1>
+                      <h2 id='h2SugTipul'>
+                        לתור בשעה <span id='coloredme'>{ChoosenClockTIME}</span>
+                      </h2>
                     </Col>
                     <Col md={12}>
                       <form ref={TipulRef} id='centeForm'>
-                        <select name='tipul' id='tipulimCooseOptions'>
-                          {tipulimList[0] && (
+                        <select
+                          name='tipul'
+                          id='tipulimCooseOptions'
+                          onChange={CHOOSEA}
+                        >
+                          {Arr[0] &&
+                            displayhalf && ( //map this***
+                              <option
+                                value={
+                                  Arr[0] ? `${Arr[0]._id},${Arr[0].time}` : ''
+                                }
+                              >
+                                {Arr[0] ? `${Arr[0].name}` : ''}
+                              </option>
+                            )}
+
+                          {Arr[1] && displayhalf && (
                             <option
                               value={
-                                tipulimList[0]
-                                  ? `${tipulimList[0]._id},${tipulimList[0].time}`
-                                  : ''
+                                Arr[1] ? `${Arr[1]._id},${Arr[1].time}` : ''
                               }
                             >
-                              {tipulimList[0] ? tipulimList[0].name : ''}
+                              {Arr[1] ? Arr[1].name : ''}
                             </option>
                           )}
-                          {tipulimList[1] && (
+                          {Arr[2] && displayhalf && (
                             <option
                               value={
-                                tipulimList[1]
-                                  ? `${tipulimList[1]._id},${tipulimList[1].time}`
-                                  : ''
+                                Arr[2] ? `${Arr[2]._id},${Arr[2].time}` : ''
                               }
                             >
-                              {tipulimList[1] ? tipulimList[1].name : ''}
+                              {Arr[2] ? Arr[2].name : ''}
                             </option>
                           )}
-                          {tipulimList[2] && (
+
+                          {Arrforhour[0] && display1 && (
                             <option
                               value={
-                                tipulimList[2]
-                                  ? `${tipulimList[2]._id},${tipulimList[2].time}`
+                                Arrforhour[0]
+                                  ? `${Arrforhour[0]._id},${Arrforhour[0].time}`
                                   : ''
                               }
                             >
-                              {tipulimList[2] ? tipulimList[2].name : ''}
+                              {Arrforhour[0] ? Arrforhour[0].name : ''}
                             </option>
                           )}
-                          {tipulimList[3] && (
+                          {Arrforhour[1] && display1 && (
                             <option
                               value={
-                                tipulimList[3]
-                                  ? `${tipulimList[3]._id},${tipulimList[3].time}`
+                                Arrforhour[1]
+                                  ? `${Arrforhour[1]._id},${Arrforhour[1].time}`
                                   : ''
                               }
                             >
-                              {tipulimList[3] ? tipulimList[3].name : ''}
+                              {Arrforhour[1] ? Arrforhour[1].name : ''}
                             </option>
                           )}
-                          {tipulimList[4] && (
+                          {Arrforhour[2] && display1 && (
                             <option
                               value={
-                                tipulimList[4]
-                                  ? `${tipulimList[4]._id},${tipulimList[4].time}`
+                                Arrforhour[2]
+                                  ? `${Arrforhour[2]._id},${Arrforhour[2].time}`
                                   : ''
                               }
                             >
-                              {tipulimList[4] ? tipulimList[4].name : ''}
+                              {Arrforhour[2] ? Arrforhour[2].name : ''}
                             </option>
                           )}
-                          {tipulimList[5] && (
+                          {Arrarrforhourandhalf[0] && display1andhalf && (
                             <option
                               value={
-                                tipulimList[5]
-                                  ? `${tipulimList[5]._id},${tipulimList[5].time}`
+                                Arrarrforhourandhalf[0]
+                                  ? `${Arrarrforhourandhalf[0]._id},${Arrarrforhourandhalf[0].time}`
                                   : ''
                               }
                             >
-                              {tipulimList[5] ? tipulimList[5].name : ''}
+                              {Arrarrforhourandhalf[0]
+                                ? Arrarrforhourandhalf[0].name
+                                : ''}
                             </option>
                           )}
-                          {tipulimList[6] && (
+                          {Arrarrforhourandhalf[1] && display1andhalf && (
                             <option
                               value={
-                                tipulimList[6]
-                                  ? `${tipulimList[6]._id},${tipulimList[6].time}`
+                                Arrarrforhourandhalf[1]
+                                  ? `${Arrarrforhourandhalf[1]._id},${Arrarrforhourandhalf[1].time}`
                                   : ''
                               }
                             >
-                              {tipulimList[6] ? tipulimList[6].name : ''}
+                              {Arrarrforhourandhalf[1]
+                                ? Arrarrforhourandhalf[1].name
+                                : ''}
                             </option>
                           )}
-                          {tipulimList[7] && (
+                          {Arrarrforhourandhalf[2] && display1andhalf && (
                             <option
                               value={
-                                tipulimList[7]
-                                  ? `${tipulimList[7]._id},${tipulimList[7].time}`
+                                Arrarrforhourandhalf[2]
+                                  ? `${Arrarrforhourandhalf[2]._id},${Arrarrforhourandhalf[2].time}`
                                   : ''
                               }
                             >
-                              {tipulimList[7] ? tipulimList[7].name : ''}
+                              {Arrarrforhourandhalf[2]
+                                ? Arrarrforhourandhalf[2].name
+                                : ''}
                             </option>
                           )}
-                          {tipulimList[8] && (
+                          {Arrarrfor2hours[0] && display2 && (
                             <option
                               value={
-                                tipulimList[8]
-                                  ? `${tipulimList[8]._id},${tipulimList[8].time}`
+                                Arrarrfor2hours[0]
+                                  ? `${Arrarrfor2hours[0]._id},${Arrarrfor2hours[0].time}`
                                   : ''
                               }
                             >
-                              {tipulimList[8] ? tipulimList[8].name : ''}
+                              {Arrarrfor2hours[0]
+                                ? Arrarrfor2hours[0].name
+                                : ''}
                             </option>
                           )}
-                          {tipulimList[9] && (
+                          {Arrarrfor2hours[1] && display2 && (
                             <option
                               value={
-                                tipulimList[9]
-                                  ? `${tipulimList[9]._id},${tipulimList[9].time}`
+                                Arrarrfor2hours[1]
+                                  ? `${Arrarrfor2hours[1]._id},${Arrarrfor2hours[1].time}`
                                   : ''
                               }
                             >
-                              {tipulimList[9] ? tipulimList[9].name : ''}
+                              {Arrarrfor2hours[1]
+                                ? Arrarrfor2hours[1].name
+                                : ''}
                             </option>
                           )}
-                          {tipulimList[10] && (
+                          {Arrarrfor2hours[2] && display2 && (
                             <option
                               value={
-                                tipulimList[10]
-                                  ? `${tipulimList[10]._id},${tipulimList[10].time}`
+                                Arrarrfor2hours[2]
+                                  ? `${Arrarrfor2hours[2]._id},${Arrarrfor2hours[2].time}`
                                   : ''
                               }
                             >
-                              {tipulimList[10] ? tipulimList[10].name : ''}
+                              {Arrarrfor2hours[2]
+                                ? Arrarrfor2hours[2].name
+                                : ''}
+                            </option>
+                          )}
+                          {Arrarrfor2hoursandhalf[0] && display2andhalf && (
+                            <option
+                              value={
+                                Arrarrfor2hoursandhalf[0]
+                                  ? `${Arrarrfor2hoursandhalf[0]._id},${Arrarrfor2hoursandhalf[0].time}`
+                                  : ''
+                              }
+                            >
+                              {Arrarrfor2hoursandhalf[0]
+                                ? Arrarrfor2hoursandhalf[0].name
+                                : ''}
+                            </option>
+                          )}
+                          {Arrarrfor2hoursandhalf[1] && display2andhalf && (
+                            <option
+                              value={
+                                Arrarrfor2hoursandhalf[1]
+                                  ? `${Arrarrfor2hoursandhalf[1]._id},${Arrarrfor2hoursandhalf[1].time}`
+                                  : ''
+                              }
+                            >
+                              {Arrarrfor2hoursandhalf[1]
+                                ? Arrarrfor2hoursandhalf[1].name
+                                : ''}
+                            </option>
+                          )}
+                          {Arrarrfor2hoursandhalf[2] && display2andhalf && (
+                            <option
+                              value={
+                                Arrarrfor2hoursandhalf[2]
+                                  ? `${Arrarrfor2hoursandhalf[2]._id},${Arrarrfor2hoursandhalf[2].time}`
+                                  : ''
+                              }
+                            >
+                              {Arrarrfor2hoursandhalf[2]
+                                ? Arrarrfor2hoursandhalf[2].name
+                                : ''}
+                            </option>
+                          )}
+                          {Arrarrfor3hours[0] && display3 && (
+                            <option
+                              value={
+                                Arrarrfor3hours[0]
+                                  ? `${Arrarrfor3hours[0]._id},${Arrarrfor3hours[0].time}`
+                                  : ''
+                              }
+                            >
+                              {Arrarrfor3hours[0]
+                                ? Arrarrfor3hours[0].name
+                                : ''}
+                            </option>
+                          )}
+                          {Arrarrfor3hours[1] && display3 && (
+                            <option
+                              value={
+                                Arrarrfor3hours[1]
+                                  ? `${Arrarrfor3hours[1]._id},${Arrarrfor3hours[1].time}`
+                                  : ''
+                              }
+                            >
+                              {Arrarrfor3hours[1]
+                                ? Arrarrfor3hours[1].name
+                                : ''}
+                            </option>
+                          )}
+                          {Arrarrfor3hours[2] && display3 && (
+                            <option
+                              value={
+                                Arrarrfor3hours[2]
+                                  ? `${Arrarrfor3hours[2]._id},${Arrarrfor3hours[2].time}`
+                                  : ''
+                              }
+                            >
+                              {Arrarrfor3hours[2]
+                                ? Arrarrfor3hours[2].name
+                                : ''}
                             </option>
                           )}
                         </select>
+                        <div id='tipultimesmallsstyle'>
+                          <span>
+                            {' '}
+                            {TipulTime == 30
+                              ? 'חצי שעה'
+                              : TipulTime == 60
+                              ? 'שעה'
+                              : TipulTime == 90
+                              ? 'שעה וחצי'
+                              : TipulTime == 120
+                              ? 'שעתיים'
+                              : TipulTime == 150
+                              ? 'שעתיים וחצי'
+                              : TipulTime == 180
+                              ? '3 שעות'
+                              : ''}
+                          </span>
+                        </div>
+
                         <Button
                           className='ChhoseTipuliBTN'
                           onClick={() => {

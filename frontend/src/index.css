@@ -2423,11 +2423,16 @@ h6 {
     width: 150px;
   }
 }
-
+#timpulimtime1 {
+  color: red;
+  font: 150px;
+  position: absolute;
+}
 #tipulimCooseOptions {
   display: block;
-  width: 250px;
+  width: 300px;
   font-size: 25px;
+  text-align: center;
   border-radius: 50px;
   margin-right: auto;
   font-weight: 500;
@@ -2438,7 +2443,14 @@ h6 {
 #h1SugTipul {
   color: white;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 20px;
+}
+#h2SugTipul {
+  position: relative;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  bottom: 10px;
 }
 .ChhoseTipuliBTN {
   font-size: 25px;
@@ -2486,7 +2498,7 @@ h6 {
 }
 #BOXlStyleForChooseTipul {
   max-width: 600px;
-  height: 320px;
+  height: 350px;
   background-color: rgb(25, 25, 26);
   border-radius: 20px;
   box-shadow: 3px 3px 15px #000;
@@ -2544,7 +2556,7 @@ h5 {
 }
 
 #ModalStyle {
-  margin-top: 20px;
+  margin-top: 80px;
 }
 
 #BOXlStyle {
@@ -3001,6 +3013,14 @@ h5 {
   bottom: 8px;
   direction: ltr;
 }
+#spanred123123 {
+  color: red;
+}
+#span431256 {
+  position: relative;
+  bottom: 8px;
+  direction: ltr;
+}
 
 #IdForTafusContent {
   position: relative;
@@ -3016,6 +3036,10 @@ h5 {
 #Tafusss {
   text-decoration: none;
   color: rgb(22, 202, 91);
+}
+#panuyyyy {
+  text-decoration: none;
+  color: rgb(255, 0, 0);
 }
 #nameLinkForProFile {
   text-decoration: none;
@@ -3064,4 +3088,17 @@ h5 {
 }
 #deleteworkingDayBTN:hover {
   background-color: rgb(117, 0, 0);
+}
+
+#tipultimesmallsstyle {
+  color: white;
+  margin-top: 15px;
+  font-size: 19px;
+  font-weight: 500;
+  color: rgba(0, 174, 255, 0.747);
+}
+#coloredme {
+  color: rgb(255, 92, 92);
+  font-weight: 500;
+  font-size: 23px;
 }
