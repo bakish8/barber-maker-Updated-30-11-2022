@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Button, Row, Col, Select } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -96,13 +96,23 @@ const NewTipulScreen = ({ location, history }) => {
               <div class='user-box'>
                 <Form.Group controlId='TipulTime'>
                   <Form.Control
+                    as='select'
                     type='TipulTime'
-                    placeholder='הכנס זמן בדקות'
                     value={TipulTime}
                     onChange={(e) => setTipulTime(e.target.value)}
-                  ></Form.Control>
+                  >
+                    <option>בחר זמן למשך הטיפול</option>
+
+                    <option value='30'>חצי שעה</option>
+                    <option value='60'>שעה</option>
+                    <option value='90'>שעה וחצי</option>
+                    <option value='120'>שעתיים</option>
+                    <option value='150'>שעתיים וחצי</option>
+                    <option value='180'>שלוש שעות</option>
+                  </Form.Control>
                 </Form.Group>
               </div>
+
               <div class='user-box'>
                 <Form.Group controlId='TipulCost'>
                   <Form.Control

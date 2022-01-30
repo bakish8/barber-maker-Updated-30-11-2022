@@ -118,6 +118,86 @@ const getWorkingDayForToday = asyncHandler(async (req, res) => {
     res.json(workingdays)
   }
 })
+const getWorkingDayForTOMORROW = asyncHandler(async (req, res) => {
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  const searchDate = new Date()
+  const FormatedSearchDate = moment(searchDate).format()
+  const CalculateMonthmonth = FormatedSearchDate.substring(0, 7)
+  const month = CalculateMonthmonth.slice(-2)
+  const CalculateDay = FormatedSearchDate.substring(0, 10)
+  const day = CalculateDay.slice(8)
+  const year = FormatedSearchDate.substring(0, 4)
+  //מוצא את היום עם התאריך הזה על מנת להחזיר את הערך של היום בשבוע שלו
+  const workingday = await WorkingDay.findOne({
+    owner: req.user._id,
+    Datemonth: month,
+    Dateyear: year,
+    Dateday: day,
+  })
+  if (workingday) {
+    const workingdays = await WorkingDay.find({
+      dayInWeek: { $nin: ['שבת'] },
+      owner: req.user._id,
+      Datemonth: month,
+      Dateyear: year,
+      Dateday: {
+        $in: [day + 1],
+      },
+    })
+      .populate('torim')
+      .populate('mistaper')
+      .populate('tipul')
+
+    res.json(workingdays)
+  } else {
+    const workingdays = await WorkingDay.find({
+      owner: req.user._id,
+      dayInWeek: { $nin: ['שבת'] },
+
+      Datemonth: month + 1,
+      Dateyear: year,
+      Dateday: {
+        $in: [1],
+      },
+    })
+    res.json(workingdays)
+  }
+})
 
 //***מציג עבור הספר  הספציפי את ימי העבודה  עבור שבעת הימים הבאים זה  */
 const getWorkingDaysForNextSEVENworkingDAYS = asyncHandler(async (req, res) => {
@@ -1130,4 +1210,5 @@ export {
   deleteallclocksforthisday,
   deleteAVILABLEclocksforthisday,
   deleteSELECTEDclocksforthisday,
+  getWorkingDayForTOMORROW,
 }

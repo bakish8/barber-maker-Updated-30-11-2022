@@ -68,6 +68,7 @@ import {
   avilableTorsReducerFor2Hours,
   avilableTorsReducerFor2Hourshalf,
   avilableTorsReducerFor3Hours,
+  TomorrowworkingDayReducer,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -148,6 +149,7 @@ const reducer = combineReducers({
   avilableTorsFor2Hours: avilableTorsReducerFor2Hours,
   avilableTorsFor2Hourshalf: avilableTorsReducerFor2Hourshalf,
   avilableTorsFor3Hours: avilableTorsReducerFor3Hours,
+  TomorrowworkingDay: TomorrowworkingDayReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

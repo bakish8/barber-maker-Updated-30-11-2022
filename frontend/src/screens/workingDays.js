@@ -6,6 +6,7 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Dictaphone from '../components/VoiceListener/VoiceListner'
 import {
   listWorkingDays,
   makeWorkingDay,
@@ -31,6 +32,9 @@ import ReactToPrint from 'react-to-print' //הדפסה
 import ReactToPdf from 'react-to-pdf' //pdf
 import emailjs from 'emailjs-com'
 import { PDFDownloadLink, Document, Page } from '@react-pdf/renderer'
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from 'react-speech-recognition'
 
 const WorkingDaysScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -79,7 +83,7 @@ const WorkingDaysScreen = ({ history }) => {
   const { resultMonth } = ClocksReciptMonth
 
   const ONE_WORKING_DAY = useSelector((state) => state.ONE_WORKING_DAY)
-  const { onesuccess, oneworkingdays } = ONE_WORKING_DAY
+  const { oneloading, onesuccess, oneworkingdays } = ONE_WORKING_DAY
 
   const LIST_WORK_DAYS_WEEK = useSelector((state) => state.LIST_WORK_DAYS_WEEK)
   const { weekworkingdays } = LIST_WORK_DAYS_WEEK
@@ -998,7 +1002,7 @@ const WorkingDaysScreen = ({ history }) => {
 
   return (
     <>
-      {oneworkingdays && oneworkingdays.length != 0 && (
+      {onesuccess && oneworkingdays && oneworkingdays.length != 0 && (
         <form id='disableView' method='post' ref={form} onSubmit={sendEmail}>
           <input type='email' name='user_email' value={emailToSendTo} />
 
@@ -1175,12 +1179,15 @@ const WorkingDaysScreen = ({ history }) => {
         </form>
       )}
       <Col md={12}>
+        <Dictaphone />
+      </Col>
+      <Col md={12}>
         <Link id='goback' to='/'>
           <i class='fas fa-angle-double-right'></i>
         </Link>
       </Col>
       <h1 id='headlineme'>יומן עבודה</h1>
-      {loading ? (
+      {loading || oneloading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
@@ -1606,7 +1613,7 @@ const WorkingDaysScreen = ({ history }) => {
                 </div>{' '}
               </Col>
             </div>
-            {oneworkingdays && oneworkingdays.length != 0 && (
+            {onesuccess&&oneworkingdays && oneworkingdays.length != 0 && (
               <div ref={componentRef} id='RECIPT_ABSULUTE_TABLE'>
                 <h1 id='centerme'>
                   <b>{oneworkingdays && oneworkingdays[0].date}</b>

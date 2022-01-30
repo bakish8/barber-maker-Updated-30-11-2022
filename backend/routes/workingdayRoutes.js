@@ -17,6 +17,7 @@ import {
   getCLOCKSForTHISdayRECIPT,
   deleteallclocksforthisday,
   deleteSELECTEDclocksforthisday,
+  getWorkingDayForTOMORROW,
 } from '../controllers/workingDayController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
@@ -35,6 +36,7 @@ router
   .get(protect, admin, getWorkingDays)
 router.route('/thisday').get(protect, admin, getWorkingDayForToday)
 router.route('/thisweek').get(protect, admin, getWorkingDaysForThisWEEK)
+router.route('/tomorrow').get(protect, admin, getWorkingDayForTOMORROW)
 
 router.route('/recipt/:id').get(protect, admin, getCLOCKSForTHISdayRECIPT) //***** */
 router.route('/reciptoneday').get(protect, admin, getCLOCKSForTodayRECIPT) //***** */

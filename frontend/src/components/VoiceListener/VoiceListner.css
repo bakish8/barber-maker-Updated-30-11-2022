@@ -1,0 +1,10 @@
+.microphone {
+  cursor: pointer;
+}
+.isListening {
+  cursor: pointer;
+}
+#textRecorded {
+  color: white;
+  font-size: 25px;
+}

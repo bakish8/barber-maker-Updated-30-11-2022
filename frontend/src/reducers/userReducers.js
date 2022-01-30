@@ -1,4 +1,8 @@
 import {
+  TOMORROW_WORKING_DAY_REQUEST,
+  TOMORROW_WORKING_DAY_SUCCESS,
+  TOMORROW_WORKING_DAY_FAIL,
+  TOMORROW_WORKING_DAY_RESET,
   AVILABLE_WORKINGDAY_TORS_FOR_3_HOURS_TIPUL_LIST_REQUEST,
   AVILABLE_WORKINGDAY_TORS_FOR_3_HOURS_TIPUL_LIST_SUCCESS,
   AVILABLE_WORKINGDAY_TORS_FOR_3_HOUR_TIPUL_LIST_FAIL,
@@ -192,6 +196,7 @@ import {
   USER_DETAILS_COMMENTS_FOR_TIPUL_SUCCESS,
   USER_DETAILS_COMMENTS_FOR_TIPUL_RESET,
   USER_UPDATE_COMMENTS_FOR_TIPUL_FAIL,
+  ONE_WORKING_DAY_RESET,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -501,6 +506,32 @@ export const OneworkingDayReducer = (state = { workingdays: [] }, action) => {
       }
     case ONE_WORKING_DAY_FAIL:
       return { oneloading: false, oneerror: action.payload }
+
+    case ONE_WORKING_DAY_RESET:
+      return { onesuccess: false, oneworkingdays: {} }
+    default:
+      return state
+  }
+}
+
+export const TomorrowworkingDayReducer = (
+  state = { tomorrowworkingdays: [] },
+  action
+) => {
+  switch (action.type) {
+    case TOMORROW_WORKING_DAY_REQUEST:
+      return { tomorrowloading: true }
+    case TOMORROW_WORKING_DAY_SUCCESS:
+      return {
+        tomorrowloading: false,
+        tomorrowworkingdays: action.payload,
+        tomorrowsuccess: true,
+      }
+    case TOMORROW_WORKING_DAY_FAIL:
+      return { tomorrowloading: false, tomorrowerror: action.payload }
+
+    case TOMORROW_WORKING_DAY_RESET:
+      return { tomorrowsuccess: false, tomorrowworkingdays: {} }
     default:
       return state
   }
