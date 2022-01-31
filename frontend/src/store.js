@@ -69,6 +69,8 @@ import {
   avilableTorsReducerFor2Hourshalf,
   avilableTorsReducerFor3Hours,
   TomorrowworkingDayReducer,
+  FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_Reducer,
+  ListworkingDayReducerForNEXT7days,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -150,6 +152,9 @@ const reducer = combineReducers({
   avilableTorsFor2Hourshalf: avilableTorsReducerFor2Hourshalf,
   avilableTorsFor3Hours: avilableTorsReducerFor3Hours,
   TomorrowworkingDay: TomorrowworkingDayReducer,
+  FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME:
+    FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_Reducer,
+  ListworkingDayForNEXT7days: ListworkingDayReducerForNEXT7days,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

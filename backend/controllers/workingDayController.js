@@ -120,47 +120,14 @@ const getWorkingDayForToday = asyncHandler(async (req, res) => {
 })
 const getWorkingDayForTOMORROW = asyncHandler(async (req, res) => {
   console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
   const searchDate = new Date()
   const FormatedSearchDate = moment(searchDate).format()
   const CalculateMonthmonth = FormatedSearchDate.substring(0, 7)
   const month = CalculateMonthmonth.slice(-2)
+  const monthPlusOne = parseInt(month) + 1
   const CalculateDay = FormatedSearchDate.substring(0, 10)
   const day = CalculateDay.slice(8)
+  const dayPlusOne = parseInt(day) + 1
   const year = FormatedSearchDate.substring(0, 4)
   //מוצא את היום עם התאריך הזה על מנת להחזיר את הערך של היום בשבוע שלו
   const workingday = await WorkingDay.findOne({
@@ -170,32 +137,40 @@ const getWorkingDayForTOMORROW = asyncHandler(async (req, res) => {
     Dateday: day,
   })
   if (workingday) {
-    const workingdays = await WorkingDay.find({
-      dayInWeek: { $nin: ['שבת'] },
+    const workingdays = await WorkingDay.findOne({
       owner: req.user._id,
       Datemonth: month,
       Dateyear: year,
-      Dateday: {
-        $in: [day + 1],
-      },
+      Dateday: dayPlusOne,
     })
       .populate('torim')
       .populate('mistaper')
       .populate('tipul')
-
-    res.json(workingdays)
+    if (workingdays) {
+      console.log(`workingday found~!`)
+      res.json(workingdays)
+    } else {
+      console.log(`workingday NOT found~!`)
+      const workingdays2 = await WorkingDay.findOne({
+        owner: req.user._id,
+        Datemonth: monthPlusOne,
+        Dateyear: year,
+        Dateday: 1,
+      })
+        .populate('torim')
+        .populate('mistaper')
+        .populate('tipul')
+      if (workingdays2) {
+        console.log(`workingday found~!`)
+        res.json(workingdays2)
+      } else {
+        console.log(
+          'error after dat or firstday of the nrxt month is not found!'
+        )
+      }
+    }
   } else {
-    const workingdays = await WorkingDay.find({
-      owner: req.user._id,
-      dayInWeek: { $nin: ['שבת'] },
-
-      Datemonth: month + 1,
-      Dateyear: year,
-      Dateday: {
-        $in: [1],
-      },
-    })
-    res.json(workingdays)
+    console.log('workday not found')
   }
 })
 

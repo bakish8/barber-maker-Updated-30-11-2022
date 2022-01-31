@@ -1,4 +1,6 @@
 'use strict'
+import Swal from 'sweetalert2'
+
 import { SettingsPhoneRounded } from '@material-ui/icons'
 import React, { Component, useState } from 'react'
 import { useEffect } from 'react'
@@ -7,11 +9,17 @@ import { useHistory } from 'react-router'
 import {
   listOneWorkingDay,
   listWorkingDaysFORthisWEEK,
+  getTomorrowWorkday,
   SearchOneUserAction,
+  FindClockByWorkID_and_time,
+  confirmTor,
 } from '../../actions/userActions'
 import {
   ONE_WORKING_DAY_RESET,
   TOMORROW_WORKING_DAY_RESET,
+  ONE_USER_SEARCH_RESET,
+  FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_RESET,
+  CONFIRM_TOR_RESET,
 } from '../../constants/userConstants'
 //------------------------SPEECH RECOGNITION-----------------------------
 
@@ -29,8 +37,25 @@ const Speech = () => {
 
   let history = useHistory()
 
+  const confirmMyTor = useSelector((state) => state.confirmMyTor)
+  const {
+    success: confirmsuccess,
+    confirm,
+    loadingConfirm,
+    errorConfirm,
+    CONFIRM_TORsuccess,
+  } = confirmMyTor
+
   const ONE_WORKING_DAY = useSelector((state) => state.ONE_WORKING_DAY)
   const { onesuccess, oneworkingdays } = ONE_WORKING_DAY
+
+  const TomorrowworkingDay = useSelector((state) => state.TomorrowworkingDay)
+  const {
+    tomorrowloading,
+    tomorrowworkingdays,
+    tomorrowsuccess,
+    tomorrowerror,
+  } = TomorrowworkingDay
 
   const LIST_WORK_DAYS_WEEK = useSelector((state) => state.LIST_WORK_DAYS_WEEK)
   const { weekloading, weekworkingdays, weeksuccess, weekerror } =
@@ -40,6 +65,12 @@ const Speech = () => {
   const { loadinguserfound, userfound, successuserfound, erroruserfound } =
     SearchOneUser
 
+  const FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME = useSelector(
+    (state) => state.FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME
+  )
+  const { loadingclockFound, clockFound, successclockFound, errorclockFound } =
+    FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME
+
   const [listening, setlistening] = useState(false)
   const [statefinalText, setstatefinalText] = useState('')
   const [redirectHome, setredirectHome] = useState(false)
@@ -47,6 +78,12 @@ const Speech = () => {
   const [GoToday, setGoToday] = useState(false)
   const [GoTOMORROW, setGoTOMORROW] = useState(false)
   const [Hour, SetHour] = useState('')
+  const [username, setusername] = useState('')
+  const [userid, setuserid] = useState('')
+  const [userimage, setuserimage] = useState('')
+  const [userphone, setuserphone] = useState('')
+  const [ForToday, setForToday] = useState(false)
+  const [ForTomorow, setForTomorow] = useState(false)
 
   const toggleListen = () => {
     setlistening(!listening)
@@ -257,54 +294,458 @@ const Speech = () => {
           setstatefinalText(statefinalText)
         }
       }
-      /**************************** */
+
+      /**************Make tor commend קבע תור להיום לעומרי בקיש לשעה  ************** */
       const MAKE_TOR_FOR_TODAY_CMD = transcriptArr
       console.log('MAKE_TOR_FOR_TODAY_CMD', MAKE_TOR_FOR_TODAY_CMD)
-      let MAKE_TOR_FOR_TODAY_Arr = ['קבע', 'תקבע']
-      let MAKE_TOR_FOR_TODAY_Arr2 = ['תור', 'מתור', 'טור']
+      console.log(`BEFORE :${MAKE_TOR_FOR_TODAY_CMD}`)
+      let i = 0
+      for (let word of MAKE_TOR_FOR_TODAY_CMD) {
+        if (word === 'ל') {
+          MAKE_TOR_FOR_TODAY_CMD.splice(i, 1)
+        }
+        i++
+      }
+      console.log(`AFTER :${MAKE_TOR_FOR_TODAY_CMD}`)
+      let arrayyy0 = [
+        'קבע',
+        'קבעת',
+        'תקבע',
+        'נקבע',
+        'מה',
+        'אבל',
+        'בעל',
+        'כבר',
+        'וואלה',
+        'כבעל',
+      ]
+      let arrayyy1 = [
+        'תור',
+        'מור',
+        'שור',
+        'סור',
+        'קור',
+        'טור',
+        'טוב',
+        'טוסט',
+        'בתור',
+      ]
+      let arrayyy2 = ['היום', 'להיום', 'יום', 'כיום', 'מהיום']
+      let arrayyy5 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
       if (
         (MAKE_TOR_FOR_TODAY_CMD[0] === 'כפתור' &&
           MAKE_TOR_FOR_TODAY_CMD[1] === 'להיום' &&
           MAKE_TOR_FOR_TODAY_CMD[5] === 'בשעה') ||
-        (MAKE_TOR_FOR_TODAY_CMD[0] === 'קבע' &&
-          MAKE_TOR_FOR_TODAY_CMD[1] === 'תור' &&
-          MAKE_TOR_FOR_TODAY_CMD[2] === 'להיום' &&
-          MAKE_TOR_FOR_TODAY_CMD[5] === 'בשעה') ||
-        (MAKE_TOR_FOR_TODAY_CMD[0] === 'קבעת' &&
-          MAKE_TOR_FOR_TODAY_CMD[1] === 'תור' &&
-          MAKE_TOR_FOR_TODAY_CMD[2] === 'להיום' &&
-          MAKE_TOR_FOR_TODAY_CMD[5] === 'בשעה') ||
-        (MAKE_TOR_FOR_TODAY_CMD[0] === 'קבעת' &&
-          MAKE_TOR_FOR_TODAY_CMD[1] === 'תור' &&
-          MAKE_TOR_FOR_TODAY_CMD[2] === 'להיום' &&
-          MAKE_TOR_FOR_TODAY_CMD[5] === 'לשעה')
+        (arrayyy0.includes(MAKE_TOR_FOR_TODAY_CMD[0]) &&
+          arrayyy1.includes(MAKE_TOR_FOR_TODAY_CMD[1]) &&
+          arrayyy2.includes(MAKE_TOR_FOR_TODAY_CMD[2]) &&
+          arrayyy5.includes(MAKE_TOR_FOR_TODAY_CMD[5]))
       ) {
         recognition.stop()
         recognition.onend = async () => {
           console.log('MAKE TOR ACTION listening per command')
-          const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD[3].substring(1)
-          const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD[4]
-          const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
-          console.log(`user to find:${UserToFind}`)
-          const hour = MAKE_TOR_FOR_TODAY_CMD[6]
-          makeTorForToday(UserToFind, hour)
 
-          const finalText = transcriptArr.join(' ')
-          document.getElementById('final').innerHTML = finalText
-          console.log(`final TEXT:, ${finalText}`)
+          const lamedd = MAKE_TOR_FOR_TODAY_CMD[3].charAt(0)
+          console.log(`lamedd:${lamedd}`)
+          if (lamedd == 'ל') {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD[3].substring(1)
+            const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD[4]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TODAY_CMD[6]
+            if (MAKE_TOR_FOR_TODAY_CMD[7] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD[7]
+              makeTorForToday(UserToFind, hour, half)
+            } else {
+              makeTorForToday(UserToFind, hour)
+            }
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
 
-          setstatefinalText(statefinalText)
+            setstatefinalText(statefinalText)
+          } else {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD[3]
+            const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD[4]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TODAY_CMD[6]
+            if (MAKE_TOR_FOR_TODAY_CMD[7] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD[7]
+              makeTorForToday(UserToFind, hour, half)
+            } else {
+              makeTorForToday(UserToFind, hour)
+            }
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+
+            setstatefinalText(statefinalText)
+          }
+        }
+      }
+
+      /**************Make tor commend2 קבע תור לעומרי בקיש להיום  בשעה  ************** */
+      const MAKE_TOR_FOR_TODAY_CMD2 = transcriptArr
+      console.log('MAKE_TOR_FOR_TODAY_CMD2', MAKE_TOR_FOR_TODAY_CMD2)
+      console.log(`BEFORE :${MAKE_TOR_FOR_TODAY_CMD2}`)
+      let z = 0
+      for (let word of MAKE_TOR_FOR_TODAY_CMD2) {
+        if (word === 'ל') {
+          MAKE_TOR_FOR_TODAY_CMD2.splice(z, 1)
+        }
+        z++
+      }
+      console.log(`AFTER :${MAKE_TOR_FOR_TODAY_CMD2}`)
+
+      let arrayy0 = [
+        'קבע',
+        'קבעת',
+        'תקבע',
+        'נקבע',
+        'מה',
+        'אבל',
+        'בעל',
+        'כבר',
+        'וואלה',
+        'כבעל',
+      ]
+      let arrayy1 = [
+        'תור',
+        'מור',
+        'בתור',
+        'שור',
+        'סור',
+        'קור',
+        'טור',
+        'טוב',
+        'טוסט',
+      ]
+      let arrayy4 = ['היום', 'להיום', 'יום', 'כיום', 'מהיום']
+      let arrayy5 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+
+      if (
+        arrayy0.includes(MAKE_TOR_FOR_TODAY_CMD2[0]) &&
+        arrayy1.includes(MAKE_TOR_FOR_TODAY_CMD2[1]) &&
+        arrayy4.includes(MAKE_TOR_FOR_TODAY_CMD2[4]) &&
+        arrayy5.includes(MAKE_TOR_FOR_TODAY_CMD2[5])
+      ) {
+        recognition.stop()
+        recognition.onend = async () => {
+          console.log('MAKE TOR ACTION listening per command')
+          const lamedd = MAKE_TOR_FOR_TODAY_CMD2[2].charAt(0)
+          console.log(`lamedd:${lamedd}`)
+          if (lamedd == 'ל') {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD2[2].substring(1)
+            const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD2[3]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TODAY_CMD2[6]
+            if (MAKE_TOR_FOR_TODAY_CMD2[7] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD2[7]
+              makeTorForToday(UserToFind, hour, half)
+            } else {
+              makeTorForToday(UserToFind, hour)
+            }
+
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          } else {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD2[2]
+            const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD2[3]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TODAY_CMD2[6]
+            if (MAKE_TOR_FOR_TODAY_CMD2[7] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD2[7]
+              makeTorForToday(UserToFind, hour, half)
+            } else {
+              makeTorForToday(UserToFind, hour)
+            }
+
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          }
+        }
+      }
+      /**************Make tor commend3 קבע תור לעומרי בקיש בשעה  ************** */
+      const MAKE_TOR_FOR_TODAY_CMD3 = transcriptArr
+      console.log('MAKE_TOR_FOR_TODAY_CMD3', MAKE_TOR_FOR_TODAY_CMD3)
+      console.log(`BEFORE :${MAKE_TOR_FOR_TODAY_CMD3}`)
+      let t = 0
+      for (let word of MAKE_TOR_FOR_TODAY_CMD3) {
+        if (word === 'ל') {
+          MAKE_TOR_FOR_TODAY_CMD3.splice(t, 1)
+        }
+        t++
+      }
+      console.log(`AFTER :${MAKE_TOR_FOR_TODAY_CMD3}`)
+      let arrayyyyyy0 = [
+        'קבע',
+        'קבעת',
+        'תקבע',
+        'נקבע',
+        'מה',
+        'אבל',
+        'בעל',
+        'כבר',
+        'וואלה',
+        'כבעל',
+      ]
+      let arrayyyyyy1 = [
+        'תור',
+        'מור',
+        'בתור',
+        'שור',
+        'סור',
+        'קור',
+        'טור',
+        'טוב',
+        'טוסט',
+      ]
+      let arrayyyyyy4 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+
+      if (
+        arrayyyyyy0.includes(MAKE_TOR_FOR_TODAY_CMD3[0]) &&
+        arrayyyyyy1.includes(MAKE_TOR_FOR_TODAY_CMD3[1]) &&
+        arrayyyyyy4.includes(MAKE_TOR_FOR_TODAY_CMD3[4])
+      ) {
+        recognition.stop()
+        recognition.onend = async () => {
+          console.log('MAKE TOR ACTION listening per command')
+
+          const lamedd = MAKE_TOR_FOR_TODAY_CMD3[2].charAt(0)
+          console.log(`lamedd:${lamedd}`)
+          if (lamedd == 'ל') {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD3[2].substring(1)
+            const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD3[3]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TODAY_CMD3[5]
+            if (MAKE_TOR_FOR_TODAY_CMD3[6] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD3[6]
+              makeTorForToday(UserToFind, hour, half)
+            } else {
+              makeTorForToday(UserToFind, hour)
+            }
+
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          } else {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD3[2]
+            const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD3[3]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TODAY_CMD3[5]
+            if (MAKE_TOR_FOR_TODAY_CMD3[6] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD3[6]
+              makeTorForToday(UserToFind, hour, half)
+            } else {
+              makeTorForToday(UserToFind, hour)
+            }
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          }
+        }
+      }
+      //*******************קבע תור לעומרי בקיש   למחר  בשעה *********TOMORROW2********************* */
+      const MAKE_TOR_FOR_TOMORROW_CMD2 = transcriptArr
+      console.log('MAKE_TOR_FOR_TODAY_CMD2', MAKE_TOR_FOR_TOMORROW_CMD2)
+      console.log(`BEFORE :${MAKE_TOR_FOR_TOMORROW_CMD2}`)
+      let m = 0
+      for (let word of MAKE_TOR_FOR_TOMORROW_CMD2) {
+        if (word === 'ל') {
+          MAKE_TOR_FOR_TOMORROW_CMD2.splice(m, 1)
+        }
+        m++
+      }
+      console.log(`AFTER :${MAKE_TOR_FOR_TOMORROW_CMD2}`)
+
+      let arrayyyyy0 = [
+        'קבע',
+        'קבעת',
+        'תקבע',
+        'נקבע',
+        'מה',
+        'אבל',
+        'בעל',
+        'כבר',
+        'וואלה',
+        'כבעל',
+      ]
+      let arrayyyyy1 = [
+        'תור',
+        'מור',
+        'בתור',
+        'שור',
+        'סור',
+        'קור',
+        'טור',
+        'טוב',
+        'טוסט',
+      ]
+      let arrayyyyy4 = ['ממחר', 'מחר', 'לשחר', 'לשחכר', 'למחר']
+      let arrayyyyy5 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+
+      if (
+        arrayyyyy0.includes(MAKE_TOR_FOR_TOMORROW_CMD2[0]) &&
+        arrayyyyy1.includes(MAKE_TOR_FOR_TOMORROW_CMD2[1]) &&
+        arrayyyyy4.includes(MAKE_TOR_FOR_TOMORROW_CMD2[4]) &&
+        arrayyyyy5.includes(MAKE_TOR_FOR_TOMORROW_CMD2[5])
+      ) {
+        recognition.stop()
+        recognition.onend = async () => {
+          console.log('MAKE TOR ACTION listening per command')
+
+          const lamedd = MAKE_TOR_FOR_TOMORROW_CMD2[2].charAt(0)
+          console.log(`lamedd:${lamedd}`)
+          if (lamedd == 'ל') {
+            const UserFirstNameToFind =
+              MAKE_TOR_FOR_TOMORROW_CMD2[2].substring(1)
+            const UserLastNameToFind = MAKE_TOR_FOR_TOMORROW_CMD2[3]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TOMORROW_CMD2[6]
+            if (MAKE_TOR_FOR_TOMORROW_CMD2[7] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD2[7]
+              makeTorForTommorrow(UserToFind, hour, half)
+            } else {
+              makeTorForTommorrow(UserToFind, hour)
+            }
+
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          } else {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TOMORROW_CMD2[2]
+            const UserLastNameToFind = MAKE_TOR_FOR_TOMORROW_CMD2[3]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TOMORROW_CMD2[6]
+            if (MAKE_TOR_FOR_TOMORROW_CMD2[7] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD2[7]
+              makeTorForTommorrow(UserToFind, hour, half)
+            } else {
+              makeTorForTommorrow(UserToFind, hour)
+            }
+
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          }
+        }
+      }
+
+      //*******************קבע תור למחר לעומרי בקיש בשעה *********TOMORROW********************* */
+      const MAKE_TOR_FOR_TOMORROW_CMD = transcriptArr
+      console.log('MAKE_TOR_FOR_TOMORROW_CMD', MAKE_TOR_FOR_TOMORROW_CMD)
+      console.log(`BEFORE :${MAKE_TOR_FOR_TOMORROW_CMD}`)
+      let x = 0
+      for (let word of MAKE_TOR_FOR_TOMORROW_CMD) {
+        if (word === 'ל') {
+          MAKE_TOR_FOR_TOMORROW_CMD.splice(x, 1)
+        }
+        x++
+      }
+      console.log(`AFTER :${MAKE_TOR_FOR_TOMORROW_CMD}`)
+      let arrayyyy0 = [
+        'קבע',
+        'קבעת',
+        'תקבע',
+        'נקבע',
+        'מה',
+        'אבל',
+        'בעל',
+        'כבר',
+        'וואלה',
+        'כבעל',
+      ]
+      let arrayyyy1 = [
+        'תור',
+        'מור',
+        'שור',
+        'סור',
+        'קור',
+        'טור',
+        'טוב',
+        'טוסט',
+        'בתור',
+      ]
+      let arrayyyy2 = ['נחל', 'שחר', 'שכר', 'מחר', 'למחר']
+      let arrayyyy5 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+
+      if (
+        arrayyyy0.includes(MAKE_TOR_FOR_TOMORROW_CMD[0]) &&
+        arrayyyy1.includes(MAKE_TOR_FOR_TOMORROW_CMD[1]) &&
+        arrayyyy2.includes(MAKE_TOR_FOR_TOMORROW_CMD[2]) &&
+        arrayyyy5.includes(MAKE_TOR_FOR_TOMORROW_CMD[5])
+      ) {
+        recognition.stop()
+        recognition.onend = async () => {
+          console.log('MAKE TOR ACTION listening per command')
+
+          const lamed = MAKE_TOR_FOR_TOMORROW_CMD[3].charAt(0)
+          console.log(`lamed:${lamed}`)
+          if (lamed == 'ל') {
+            const UserFirstNameToFind =
+              MAKE_TOR_FOR_TOMORROW_CMD[3].substring(1)
+            const UserLastNameToFind = MAKE_TOR_FOR_TOMORROW_CMD[4]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TOMORROW_CMD[6]
+            if (MAKE_TOR_FOR_TOMORROW_CMD[7] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TOMORROW_CMD[7]
+              makeTorForTommorrow(UserToFind, hour, half)
+            } else {
+              makeTorForTommorrow(UserToFind, hour)
+            }
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          } else {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TOMORROW_CMD[3]
+            const UserLastNameToFind = MAKE_TOR_FOR_TOMORROW_CMD[4]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TOMORROW_CMD[6]
+            if (MAKE_TOR_FOR_TOMORROW_CMD[7] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TOMORROW_CMD[7]
+              makeTorForTommorrow(UserToFind, hour, half)
+            } else {
+              makeTorForTommorrow(UserToFind, hour)
+            }
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          }
         }
       }
     }
 
-    //-----------------------------------------------------------------------
-
+    //---------------END OF COMMENDS--------------------------------------------------------
     recognition.onerror = (event) => {
       console.log('Error occurred in recognition: ' + event.error)
     }
   }
 
+  // ██╗   ██╗███████╗███████╗    ███████╗███████╗███████╗███████╗ ██████╗████████╗
+  // ██║   ██║██╔════╝██╔════╝    ██╔════╝██╔════╝██╔════╝██╔════╝██╔════╝╚══██╔══╝
+  // ██║   ██║███████╗█████╗      █████╗  █████╗  █████╗  █████╗  ██║        ██║
+  // ██║   ██║╚════██║██╔══╝      ██╔══╝  ██╔══╝  ██╔══╝  ██╔══╝  ██║        ██║
+  // ╚██████╔╝███████║███████╗    ███████╗██║     ██║     ███████╗╚██████╗   ██║
+  //  ╚═════╝ ╚══════╝╚══════╝    ╚══════╝╚═╝     ╚═╝     ╚══════╝ ╚═════╝   ╚═╝
   useEffect(() => {
     if (statefinalText) {
       console.log(`statefinalText:${statefinalText}`)
@@ -325,24 +766,137 @@ const Speech = () => {
       console.log(`the woekinf dat dees are :${oneworkingdays[0]._id}`)
       history.push(`/admin/workingday/${oneworkingdays[0]._id}`)
       dispatch({ type: ONE_WORKING_DAY_RESET })
+      dispatch({ type: ONE_WORKING_DAY_RESET })
     }
     if (GoTOMORROW) {
       console.log('going tomorrow')
       sendTOMORROWWorkDay()
     }
-    if (weeksuccess && GoTOMORROW) {
+    if (tomorrowsuccess && GoTOMORROW) {
       setGoTOMORROW(false)
       console.log(
-        `the woekinf day for tomorrrow dees are :${weekworkingdays[1]._id}`
+        `the woekinf day for tomorrrow dees are :${tomorrowworkingdays._id}`
       )
-      history.push(`/admin/workingday/${weekworkingdays[1]._id}`)
+      history.push(`/admin/workingday/${tomorrowworkingdays._id}`)
       dispatch({ type: ONE_WORKING_DAY_RESET })
     }
 
     if (successuserfound) {
-      console.log(`workingdayfound : ${oneworkingdays[0]._id}`)
-      console.log(`userfound : ${userfound._id}`)
-      console.log(`hour to confirm : ${Hour}`)
+      if (ForToday) {
+        let id = oneworkingdays[0]._id
+        console.log(`workingdayfound : ${oneworkingdays[0]._id}`)
+        console.log(`workingdayfounddate : ${oneworkingdays[0].date}`)
+        console.log(`userfound _id: ${userfound._id}`)
+        console.log(`userfound _name: ${userfound.name}`)
+        console.log(`hour to confirm : ${Hour}`)
+        setusername(userfound.name)
+        setuserid(userfound._id)
+        setuserimage(userfound.image)
+        setuserphone(userfound.phone)
+        findClockNow(id, Hour)
+        dispatch({ type: ONE_USER_SEARCH_RESET })
+      } else if (ForTomorow) {
+        let idT = tomorrowworkingdays._id
+        console.log(`workingdayfound : ${tomorrowworkingdays._id}`)
+        console.log(`workingdayfounddate : ${tomorrowworkingdays.date}`)
+        console.log(`userfound _id: ${userfound._id}`)
+        console.log(`userfound _name: ${userfound.name}`)
+        console.log(`hour to confirm : ${Hour}`)
+        setusername(userfound.name)
+        setuserid(userfound._id)
+        setuserimage(userfound.image)
+        setuserphone(userfound.phone)
+        findClockNow(idT, Hour)
+        dispatch({ type: ONE_USER_SEARCH_RESET })
+      }
+    }
+
+    if (successclockFound) {
+      if (ForToday) {
+        setForTomorow(false)
+        console.log(`workingdayfound : ${oneworkingdays[0]._id}`)
+        console.log(`workingdayfounddate : ${oneworkingdays[0].date}`)
+        console.log(`USER ID : ${userid}`)
+        console.log(`USER NAME : ${username}`)
+        console.log(`hour to confirm : ${Hour}`)
+        console.log(`hour ID to confirm : ${clockFound._id}`)
+
+        Swal.fire({
+          imageUrl: `${userimage}`,
+          imageWidth: 200,
+          imageHeight: 200,
+          title: `אישור תור`,
+          text: `בלחיצה על אישור תשבץ את ${username} להיום בשעה ${Hour}  `,
+          showCancelButton: true,
+          cancelButtonText: 'ביטול',
+          confirmButtonText: 'אישור',
+          footer: `<a href="">התקשר לנייד של ${username} בנייד 0${userphone}</a>`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            dispatch(
+              confirmTor(clockFound._id, userid, '61f40001638f0ba57099f35d')
+            ) //*hard code///
+          }
+        })
+        dispatch({ type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_RESET })
+      } else if (ForTomorow) {
+        setForToday(false)
+        console.log(`workingdayfound for tomorrow: ${tomorrowworkingdays._id}`)
+        console.log(
+          `workingdayfounddate for tomorrow: ${tomorrowworkingdays.date}`
+        )
+        console.log(`USER ID : ${userid}`)
+        console.log(`USER NAME : ${username}`)
+        console.log(`hour to confirm : ${Hour}`)
+        console.log(`hour ID to confirm : ${clockFound._id}`)
+
+        Swal.fire({
+          imageUrl: `${userimage}`,
+          imageWidth: 200,
+          imageHeight: 200,
+          title: `אישור תור`,
+          text: `בלחיצה על אישור תשבץ את ${username} לשעה ${Hour} מחר `,
+          showCancelButton: true,
+          cancelButtonText: 'ביטול',
+          confirmButtonText: 'אישור',
+          footer: `<a href="">התקשר לנייד של ${username} בנייד 0${userphone}</a>`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            dispatch(
+              confirmTor(clockFound._id, userid, '61f40001638f0ba57099f35d')
+            ) //*hard code///
+          }
+        })
+        dispatch({ type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_RESET })
+      }
+    }
+    if (CONFIRM_TORsuccess) {
+      if (ForToday) {
+        dispatch({ type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_RESET })
+        dispatch({ type: CONFIRM_TOR_RESET })
+
+        Swal.fire({
+          position: 'top-end',
+          cancelButtonColor: 'rgb(194, 0, 0)',
+          confirmButtonColor: 'rgb(3, 148, 39)',
+          icon: 'success',
+          title: `בוצע בהצלחה`,
+          text: `התור שביקשת נכנס בהצלחה למערכת`,
+          showConfirmButton: false,
+          timer: 8000,
+        }).then(history.push(`/admin/workingday/${oneworkingdays[0]._id}`))
+      } else if (ForTomorow) {
+        Swal.fire({
+          position: 'top-end',
+          cancelButtonColor: 'rgb(194, 0, 0)',
+          confirmButtonColor: 'rgb(3, 148, 39)',
+          icon: 'success',
+          title: `בוצע בהצלחה`,
+          text: `התור שביקשת נכנס בהצלחה למערכת`,
+          showConfirmButton: false,
+          timer: 8000,
+        }).then(history.push(`/admin/workingday/${tomorrowworkingdays._id}`))
+      }
     }
   }, [
     statefinalText,
@@ -350,11 +904,35 @@ const Speech = () => {
     GoTorim,
     GoToday,
     onesuccess,
+    tomorrowsuccess,
     weeksuccess,
     GoTOMORROW,
     successuserfound,
+    confirmsuccess,
+    confirm,
+    successclockFound,
+    CONFIRM_TORsuccess,
+    ForToday,
+    ForTomorow,
     history,
   ])
+
+  const findClockNow = async (id, Hour) => {
+    console.log(`hour to dispatch :${Hour}`)
+    console.log(`hour to dispatch :${Hour}`)
+    console.log(`hour to dispatch :${Hour}`)
+    console.log(`hour to dispatch :${Hour}`)
+    console.log(`id :${id}`)
+    console.log(`id :${id}`)
+    console.log(`id :${id}`)
+    console.log(`id :${id}`)
+    console.log(`id :${id}`)
+    console.log(`id :${id}`)
+    console.log(`id :${id}`)
+    console.log(`id :${id}`)
+
+    await dispatch(FindClockByWorkID_and_time(id, Hour))
+  }
 
   const sendTodayWorkDay = async () => {
     await dispatch(listOneWorkingDay)
@@ -362,30 +940,330 @@ const Speech = () => {
 
   const sendTOMORROWWorkDay = async () => {
     console.log('going tomorrow....')
-    await dispatch(listWorkingDaysFORthisWEEK)
+    console.log('going tomorrow....')
+    console.log('going tomorrow....')
+    console.log('going tomorrow....')
+    await dispatch(getTomorrowWorkday())
     console.log('after dispatch going tomorrow....')
   }
-  const makeTorForToday = async (UserToFind, hour) => {
+
+  const makeTorForTommorrow = async (UserToFind, hour, half) => {
     console.log(`hour to dispatch :${hour}`)
-    if (hour === 7 || hour === 'שבע') {
-      SetHour('7:00')
+    if (hour === 7 || (hour === 'שבע' && half === '')) {
+      SetHour('7:00' || hour === '7')
     } else if (hour === '7:30') {
       SetHour('7:30')
-    } else if (hour === 8 || hour === 'שמונה') {
+    } else if (hour === 8 || hour === 'שמונה' || hour === '8') {
       SetHour('8:00')
-    } else if (hour === '8:30') {
+    } else if (hour === '8:30' || (hour === '8' && half === 'וחצי')) {
       SetHour('8:30')
-    } else if (hour === '9:00') {
+    } else if (hour === '9:00' || hour === '9') {
       SetHour('9:00')
-    } else if (hour === '9:30') {
+    } else if (hour === '9:30' || (hour === '9' && half === 'וחצי')) {
       SetHour('9:30')
-    } else if (hour === '10:00' || hour === 'עשר') {
+    } else if (hour === '10:00' || hour === 'עשר' || hour === '10') {
       SetHour('10:00')
-    } else if (hour === '10:30') {
+    } else if (hour === '10:30' || (hour === '10' && half === 'וחצי')) {
       SetHour('10:30')
-    } else if (hour === '11:00') {
+    } else if (hour === '11:00' || hour === '11') {
       SetHour('11:00')
+    } else if (hour === '11:30' || (hour === '11' && half === 'וחצי')) {
+      SetHour('11:30')
+    } else if (
+      hour === '12:00' ||
+      (hour === 'שניים' && half === 'עשרה') ||
+      (hour === 'שתיים' && half === 'עשרה') ||
+      (hour === '2' && half === 'עשרה')
+    ) {
+      SetHour('12:00')
+    } else if (hour === '12:30' || (hour === '12' && half === 'וחצי')) {
+      SetHour('12:30')
+    } else if (
+      hour === '13:00' ||
+      hour === '1:00' ||
+      hour === '1' ||
+      hour === 'אחת' ||
+      hour === 'אחד'
+    ) {
+      SetHour('13:00')
+    } else if (
+      hour === '13:30' ||
+      hour === '1:30' ||
+      (hour === '1' && half === 'וחצי') ||
+      (hour === 'אחת' && half === 'וחצי') ||
+      (hour === 'אחד' && half === 'וחצי')
+    ) {
+      SetHour('13:30')
+    } else if (
+      hour === '14:00' ||
+      hour === '2:00' ||
+      hour === '2' ||
+      hour === 'שתיים' ||
+      hour === 'שניים'
+    ) {
+      SetHour('14:00')
+    } else if (
+      hour === '14:30' ||
+      hour === '2:30' ||
+      (hour === '2' && half === 'וחצי') ||
+      (hour === 'שתיים' && half === 'וחצי') ||
+      (hour === 'שניים' && half === 'וחצי')
+    ) {
+      SetHour('14:30')
+    } else if (
+      hour === '15:00' ||
+      hour === '3' ||
+      hour === 'שלוש' ||
+      hour === '3:00'
+    ) {
+      SetHour('15:00')
+    } else if (
+      hour === '15:30' ||
+      hour === '3:30' ||
+      (hour === 'שלוש' && half === 'וחצי') ||
+      (hour === '3' && half === 'וחצי') ||
+      (hour === '3' && half === 'ושלושים') ||
+      (hour === 'שלוש' && half === 'ושלושים')
+    ) {
+      SetHour('15:30')
+    } else if (
+      hour === '16:00' ||
+      hour === '4' ||
+      (hour === 'ארבע' && half === '') ||
+      hour === 'ארבעה' ||
+      hour === '4:00'
+    ) {
+      SetHour('16:00')
+    } else if (
+      hour === '16:30' ||
+      hour === '4:30' ||
+      (hour === 'ארבע' && half === 'וחצי') ||
+      (hour === '4' && half === 'וחצי') ||
+      (hour === '4' && half === 'ושלושים') ||
+      (hour === 'ארבע' && half === 'ושלושים')
+    ) {
+      SetHour('16:30')
+    } else if (
+      hour === '17:00' ||
+      hour === '5' ||
+      hour === '5:00' ||
+      hour === 'חמש' ||
+      hour === 'חמש' ||
+      hour === '17:00'
+    ) {
+      SetHour('17:00')
+    } else if (
+      hour === '17:30' ||
+      hour === '5:30' ||
+      (hour === 'חמש' && half === 'וחצי') ||
+      (hour === '5' && half === 'וחצי') ||
+      (hour === '5' && half === 'ושלושים') ||
+      (hour === 'חמש' && half === 'ושלושים')
+    ) {
+      SetHour('17:30')
+    } else if (
+      hour === '18:00' ||
+      hour === '6:00' ||
+      hour === '6' ||
+      (hour === 'שש' && half === '') ||
+      hour === '18:00'
+    ) {
+      SetHour('18:00')
+    } else if (
+      hour === '18:30' ||
+      hour === '6:30' ||
+      (hour === 'שש' && half === 'וחצי') ||
+      (hour === '6' && half === 'וחצי') ||
+      (hour === '6' && half === 'ושלושים') ||
+      (hour === 'שש' && half === 'ושלושים')
+    ) {
+      SetHour('18:30')
+    } else if (
+      (hour === '19:00' && half === 'בערב') ||
+      (hour === '7' && half === 'בערב') ||
+      (hour === '7:00' && half === 'בערב') ||
+      (hour === 'שבע' && half === 'בערב') ||
+      (hour === '19:00' && half === 'בערב')
+    ) {
+      SetHour('19:00')
+    } else if (
+      (hour === '19:30' && half === 'בערב') ||
+      (hour === '7:30' && half === 'בערב')
+    ) {
+      SetHour('19:30')
+    } else if (
+      (hour === '20:00' && half === 'בערב') ||
+      (hour === '8' && half === 'בערב') ||
+      (hour === '8:00' && half === 'בערב') ||
+      (hour === 'שמונה ' && half === 'בערב') ||
+      (hour === '20:00' && half === 'בערב')
+    ) {
+      SetHour('20:00')
     }
+    setForToday(false)
+    setForTomorow(true)
+
+    await dispatch(getTomorrowWorkday())
+    await dispatch(SearchOneUserAction(UserToFind))
+  }
+  const makeTorForToday = async (UserToFind, hour, half) => {
+    console.log(`hour to dispatch :${hour}`)
+    if (hour === 7 || (hour === 'שבע' && half === '')) {
+      SetHour('7:00' || hour === '7')
+    } else if (hour === '7:30') {
+      SetHour('7:30')
+    } else if (hour === 8 || hour === 'שמונה' || hour === '8') {
+      SetHour('8:00')
+    } else if (hour === '8:30' || (hour === '8' && half === 'וחצי')) {
+      SetHour('8:30')
+    } else if (hour === '9:00' || hour === '9') {
+      SetHour('9:00')
+    } else if (hour === '9:30' || (hour === '9' && half === 'וחצי')) {
+      SetHour('9:30')
+    } else if (hour === '10:00' || hour === 'עשר' || hour === '10') {
+      SetHour('10:00')
+    } else if (hour === '10:30' || (hour === '10' && half === 'וחצי')) {
+      SetHour('10:30')
+    } else if (hour === '11:00' || hour === '11') {
+      SetHour('11:00')
+    } else if (hour === '11:30' || (hour === '11' && half === 'וחצי')) {
+      SetHour('11:30')
+    } else if (
+      hour === '12:00' ||
+      (hour === 'שניים' && half === 'עשרה') ||
+      (hour === 'שתיים' && half === 'עשרה') ||
+      (hour === '2' && half === 'עשרה')
+    ) {
+      SetHour('12:00')
+    } else if (hour === '12:30' || (hour === '12' && half === 'וחצי')) {
+      SetHour('12:30')
+    } else if (
+      hour === '13:00' ||
+      hour === '1:00' ||
+      hour === '1' ||
+      hour === 'אחת' ||
+      hour === 'אחד'
+    ) {
+      SetHour('13:00')
+    } else if (
+      hour === '13:30' ||
+      hour === '1:30' ||
+      (hour === '1' && half === 'וחצי') ||
+      (hour === 'אחת' && half === 'וחצי') ||
+      (hour === 'אחד' && half === 'וחצי')
+    ) {
+      SetHour('13:30')
+    } else if (
+      hour === '14:00' ||
+      hour === '2:00' ||
+      hour === '2' ||
+      hour === 'שתיים' ||
+      hour === 'שניים'
+    ) {
+      SetHour('14:00')
+    } else if (
+      hour === '14:30' ||
+      hour === '2:30' ||
+      (hour === '2' && half === 'וחצי') ||
+      (hour === 'שתיים' && half === 'וחצי') ||
+      (hour === 'שניים' && half === 'וחצי')
+    ) {
+      SetHour('14:30')
+    } else if (
+      hour === '15:00' ||
+      hour === '3' ||
+      hour === 'שלוש' ||
+      hour === '3:00'
+    ) {
+      SetHour('15:00')
+    } else if (
+      hour === '15:30' ||
+      hour === '3:30' ||
+      (hour === 'שלוש' && half === 'וחצי') ||
+      (hour === '3' && half === 'וחצי') ||
+      (hour === '3' && half === 'ושלושים') ||
+      (hour === 'שלוש' && half === 'ושלושים')
+    ) {
+      SetHour('15:30')
+    } else if (
+      hour === '16:00' ||
+      hour === '4' ||
+      (hour === 'ארבע' && half === '') ||
+      hour === 'ארבעה' ||
+      hour === '4:00'
+    ) {
+      SetHour('16:00')
+    } else if (
+      hour === '16:30' ||
+      hour === '4:30' ||
+      (hour === 'ארבע' && half === 'וחצי') ||
+      (hour === '4' && half === 'וחצי') ||
+      (hour === '4' && half === 'ושלושים') ||
+      (hour === 'ארבע' && half === 'ושלושים')
+    ) {
+      SetHour('16:30')
+    } else if (
+      hour === '17:00' ||
+      (hour === '5' && half === '') ||
+      (hour === '5' && half === 'בערב') ||
+      (hour === '5:00' && !half) ||
+      (hour === '5:00' && half === '') ||
+      (hour === '5:00' && half === 'בערב') ||
+      (hour === 'חמש' && half === 'בערב') ||
+      (hour === 'חמש' && half === '') ||
+      hour === '17:00'
+    ) {
+      SetHour('17:00')
+    } else if (
+      hour === '17:30' ||
+      hour === '5:30' ||
+      (hour === 'חמש' && half === 'וחצי') ||
+      (hour === '5' && half === 'וחצי') ||
+      (hour === '5' && half === 'ושלושים') ||
+      (hour === 'חמש' && half === 'ושלושים')
+    ) {
+      SetHour('17:30')
+    } else if (
+      hour === '18:00' ||
+      hour === '6:00' ||
+      hour === '6' ||
+      (hour === 'שש' && half === '') ||
+      hour === '18:00'
+    ) {
+      SetHour('18:00')
+    } else if (
+      hour === '18:30' ||
+      hour === '6:30' ||
+      (hour === 'שש' && half === 'וחצי') ||
+      (hour === '6' && half === 'וחצי') ||
+      (hour === '6' && half === 'ושלושים') ||
+      (hour === 'שש' && half === 'ושלושים')
+    ) {
+      SetHour('18:30')
+    } else if (
+      (hour === '19:00' && half === 'בערב') ||
+      (hour === '7' && half === 'בערב') ||
+      (hour === '7:00' && half === 'בערב') ||
+      (hour === 'שבע' && half === 'בערב') ||
+      (hour === '19:00' && half === 'בערב')
+    ) {
+      SetHour('19:00')
+    } else if (
+      (hour === '19:30' && half === 'בערב') ||
+      (hour === '7:30' && half === 'בערב')
+    ) {
+      SetHour('19:30')
+    } else if (
+      (hour === '20:00' && half === 'בערב') ||
+      (hour === '8' && half === 'בערב') ||
+      (hour === '8:00' && half === 'בערב') ||
+      (hour === 'שמונה ' && half === 'בערב') ||
+      (hour === '20:00' && half === 'בערב')
+    ) {
+      SetHour('20:00')
+    }
+    setForToday(true)
+    setForTomorow(false)
     await dispatch(listOneWorkingDay)
     await dispatch(SearchOneUserAction(UserToFind))
   }
@@ -418,6 +1296,7 @@ const styles = {
     margin: '6em 0 2em 0',
   },
   interim: {
+    //display: 'none',
     color: 'gray',
     border: '#ccc 1px solid',
     padding: '1em',
@@ -425,6 +1304,7 @@ const styles = {
     width: '300px',
   },
   final: {
+    //display: 'none',
     color: 'black',
     border: '#ccc 1px solid',
     padding: '1em',

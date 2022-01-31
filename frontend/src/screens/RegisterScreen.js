@@ -12,6 +12,7 @@ import './LoginScreen.css'
 
 var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
 var hasNumber = /\d/
+var regName = /^[a-zA-Zא-ת]+ [a-zA-Zא-ת]+$/
 
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -89,13 +90,14 @@ const RegisterScreen = ({ location, history }) => {
     } else if (
       name === '' ||
       hasNumber.test(name) === true ||
-      format.test(name) === true
+      format.test(name) === true ||
+      regName.test(name) === false
     ) {
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 5000,
+        timer: 10000,
         timerProgressBar: true,
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer)

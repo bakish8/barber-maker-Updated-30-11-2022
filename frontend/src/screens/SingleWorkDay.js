@@ -1143,6 +1143,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
         return x._id
       })
       .indexOf(id)
+
     var objectFound = clockList[elementPos]
     console.log(elementPos)
     console.log(objectFound)

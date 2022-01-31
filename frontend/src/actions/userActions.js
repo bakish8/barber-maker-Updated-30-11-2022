@@ -1,6 +1,12 @@
 import axios from 'axios'
 
 import {
+  LIST_WORKING_DAYS_FOR_next_7_Days_REQUEST,
+  LIST_WORKING_DAYS_FOR_next_7_Days_SUCCESS,
+  LIST_WORKING_DAYS_FOR_next_7_Days_FAIL,
+  FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_REQUEST,
+  FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_SUCCESS,
+  FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_FAIL,
   TOMORROW_WORKING_DAY_REQUEST,
   TOMORROW_WORKING_DAY_SUCCESS,
   TOMORROW_WORKING_DAY_FAIL,
@@ -720,6 +726,40 @@ export const listWorkingDaysFORthisWEEK = () => async (dispatch, getState) => {
     })
   }
 }
+export const listWorkingDaysFORNEXT7DAYS = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: LIST_WORKING_DAYS_FOR_next_7_Days_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.get(`/api/workingday/next7days`, config)
+    dispatch({
+      type: LIST_WORKING_DAYS_FOR_next_7_Days_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: LIST_WORKING_DAYS_FOR_next_7_Days_FAIL,
+      payload: message,
+    })
+  }
+}
 
 export const listOneWorkingDay = () => async (dispatch, getState) => {
   dispatch({ type: WORKING_DAY_DELETE_RESET })
@@ -755,6 +795,49 @@ export const listOneWorkingDay = () => async (dispatch, getState) => {
     }
     dispatch({
       type: ONE_WORKING_DAY_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const getTomorrowWorkday = () => async (dispatch, getState) => {
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  console.log('tomorrow')
+  dispatch({ type: WORKING_DAY_DELETE_RESET })
+  try {
+    dispatch({
+      type: TOMORROW_WORKING_DAY_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.get(`/api/workingday/tomorrow`, config)
+    dispatch({
+      type: TOMORROW_WORKING_DAY_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: TOMORROW_WORKING_DAY_FAIL,
       payload: message,
     })
   }
@@ -2198,3 +2281,55 @@ export const SearchOneUserAction = (id) => async (dispatch, getState) => {
     })
   }
 }
+export const FindClockByWorkID_and_time =
+  (id, time) => async (dispatch, getState) => {
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`id id id :${id}`)
+    console.log(`timr:${time}`)
+    try {
+      dispatch({
+        type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_REQUEST,
+      })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const { data } = await axios.get(
+        `/api/search/clocks/${id}/${time}`,
+        config
+      )
+
+      dispatch({
+        type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+      }
+      dispatch({
+        type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_FAIL,
+        payload: message,
+      })
+    }
+  }

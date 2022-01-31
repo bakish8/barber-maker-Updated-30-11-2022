@@ -1,4 +1,11 @@
 import {
+  LIST_WORKING_DAYS_FOR_next_7_Days_REQUEST,
+  LIST_WORKING_DAYS_FOR_next_7_Days_SUCCESS,
+  LIST_WORKING_DAYS_FOR_next_7_Days_FAIL,
+  FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_REQUEST,
+  FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_SUCCESS,
+  FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_FAIL,
+  FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_RESET,
   TOMORROW_WORKING_DAY_REQUEST,
   TOMORROW_WORKING_DAY_SUCCESS,
   TOMORROW_WORKING_DAY_FAIL,
@@ -191,6 +198,7 @@ import {
   ONE_USER_SEARCH_REQUEST,
   ONE_USER_SEARCH_SUCCESS,
   ONE_USER_SEARCH_FAIL,
+  ONE_USER_SEARCH_RESET,
   USER_UPDATE_COMMENTS_FOR_TIPUL_REQUEST,
   USER_UPDATE_COMMENTS_FOR_TIPUL_SUCCESS,
   USER_DETAILS_COMMENTS_FOR_TIPUL_SUCCESS,
@@ -552,6 +560,26 @@ export const ListworkingDayReducerForThisWeek = (
       }
     case LIST_WORKING_DAYS_FOR_THIS_WEEK_FAIL:
       return { weekloading: false, weekerror: action.payload }
+    default:
+      return state
+  }
+}
+
+export const ListworkingDayReducerForNEXT7days = (
+  state = { workingdays: [] },
+  action
+) => {
+  switch (action.type) {
+    case LIST_WORKING_DAYS_FOR_next_7_Days_REQUEST:
+      return { sevendaysloading: true }
+    case LIST_WORKING_DAYS_FOR_next_7_Days_SUCCESS:
+      return {
+        sevendaysloading: false,
+        sevendaysworkingdays: action.payload,
+        sevendayssuccess: true,
+      }
+    case LIST_WORKING_DAYS_FOR_next_7_Days_FAIL:
+      return { sevendaysloading: false, sevendayserror: action.payload }
     default:
       return state
   }
@@ -1177,6 +1205,36 @@ export const SearchOneUserReducer = (state = {}, action) => {
         loadinguserfound: false,
         erroruserfound: action.payload,
         successuserfound: false,
+      }
+    case ONE_USER_SEARCH_RESET:
+      return { successuserfound: false }
+    default:
+      return state
+  }
+}
+export const FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_Reducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_REQUEST:
+      return { loadingclockFound: true }
+    case FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_SUCCESS:
+      return {
+        loadingclockFound: false,
+        clockFound: action.payload,
+        successclockFound: true,
+      }
+    case FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_FAIL:
+      return {
+        loadingclockFound: false,
+        errorclockFound: action.payload,
+        successclockFound: false,
+      }
+    case FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_RESET:
+      return {
+        successclockFound: false,
+        clockFound: {},
       }
     default:
       return state
