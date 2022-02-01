@@ -1,6 +1,6 @@
 # BarberMaker
 
-> Apoointment Maker platform built with the MERN stack & Redux.
+> Apointment Maker platform built with the MERN stack & Redux.
 
 This APP BUILT BY OMRI BAKISH
 

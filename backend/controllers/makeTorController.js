@@ -10,8 +10,7 @@ const accountSid = 'AC17b672eb86d7fd2088ffd30cc1cbc0c2'
 const authToken = '90eccfedbc5d9e5d5c3e1edc25bedc5b'
 import twilio from 'twilio'
 import { BookmeOnGoogleCalender } from './googleauth.js'
-import { findOne } from 'domutils'
-import e from 'express'
+
 const client = new twilio(accountSid, authToken)
 
 dotenv.config()

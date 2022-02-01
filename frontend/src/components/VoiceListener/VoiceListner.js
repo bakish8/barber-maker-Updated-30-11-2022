@@ -1,11 +1,11 @@
 'use strict'
 import Swal from 'sweetalert2'
-
-import { SettingsPhoneRounded } from '@material-ui/icons'
+import './VoiceListner.css'
 import React, { Component, useState } from 'react'
 import { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
 import {
   listOneWorkingDay,
   listWorkingDaysFORthisWEEK,
@@ -84,20 +84,44 @@ const Speech = () => {
   const [userphone, setuserphone] = useState('')
   const [ForToday, setForToday] = useState(false)
   const [ForTomorow, setForTomorow] = useState(false)
+  const [isMouseDown, setisMouseDown] = useState(false)
 
   const toggleListen = () => {
-    setlistening(!listening)
+    setlistening(true)
+    setisMouseDown(true)
     handleListen()
+  }
+
+  const toggleListenfalse = () => {
+    setlistening(false)
+    setisMouseDown(false)
+
+    handleListen()
+  }
+  const toggleL = () => {
+    if (!isMouseDown) {
+      console.log('mouse is not down do nothing')
+    } else {
+      setlistening(false)
+      setisMouseDown(true)
+      handleListen()
+    }
   }
 
   const handleListen = () => {
     console.log('listening?', listening)
 
-    if (listening) {
+    if (!listening) {
       recognition.start()
       recognition.onend = () => {
         console.log('...continue listening...')
         recognition.start()
+      }
+    } else if (isMouseDown && !listening) {
+      recognition.stop()
+      recognition.onend = () => {
+        console.log('Stopped listening per click')
+        setisMouseDown(false)
       }
     } else {
       recognition.stop()
@@ -112,6 +136,8 @@ const Speech = () => {
 
     let finalTranscript = ''
     recognition.onresult = (event) => {
+      setisMouseDown(false)
+
       let interimTranscript = ''
 
       for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -311,6 +337,13 @@ const Speech = () => {
         'קבע',
         'קבעת',
         'תקבע',
+        'קובעת',
+        'תקווה',
+        'נקבע',
+        'קובע',
+        'קובע',
+
+        'אקבע',
         'נקבע',
         'מה',
         'אבל',
@@ -331,7 +364,7 @@ const Speech = () => {
         'בתור',
       ]
       let arrayyy2 = ['היום', 'להיום', 'יום', 'כיום', 'מהיום']
-      let arrayyy5 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+      let arrayyy5 = ['שבשעה', 'בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
       if (
         (MAKE_TOR_FOR_TODAY_CMD[0] === 'כפתור' &&
           MAKE_TOR_FOR_TODAY_CMD[1] === 'להיום' &&
@@ -402,6 +435,12 @@ const Speech = () => {
         'קבע',
         'קבעת',
         'תקבע',
+        'קובעת',
+        'קובע',
+        'קובע',
+
+        'תקווה',
+        'אקבע',
         'נקבע',
         'מה',
         'אבל',
@@ -422,7 +461,7 @@ const Speech = () => {
         'טוסט',
       ]
       let arrayy4 = ['היום', 'להיום', 'יום', 'כיום', 'מהיום']
-      let arrayy5 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+      let arrayy5 = ['שבשעה', 'בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
 
       if (
         arrayy0.includes(MAKE_TOR_FOR_TODAY_CMD2[0]) &&
@@ -488,6 +527,11 @@ const Speech = () => {
         'קבע',
         'קבעת',
         'תקבע',
+        'קובעת',
+        'קובע',
+
+        'תקווה',
+        'אקבע',
         'נקבע',
         'מה',
         'אבל',
@@ -507,7 +551,7 @@ const Speech = () => {
         'טוב',
         'טוסט',
       ]
-      let arrayyyyyy4 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+      let arrayyyyyy4 = ['שבשעה', 'בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
 
       if (
         arrayyyyyy0.includes(MAKE_TOR_FOR_TODAY_CMD3[0]) &&
@@ -556,7 +600,89 @@ const Speech = () => {
           }
         }
       }
-      //*******************קבע תור לעומרי בקיש   למחר  בשעה *********TOMORROW2********************* */
+
+      /**************Make tor commend4  תור לעומרי בקיש בשעה  ************** */
+      const MAKE_TOR_FOR_TODAY_CMD4 = transcriptArr
+      console.log('MAKE_TOR_FOR_TODAY_CMD3', MAKE_TOR_FOR_TODAY_CMD4)
+      console.log(`BEFORE :${MAKE_TOR_FOR_TODAY_CMD4}`)
+      let v = 0
+      for (let word of MAKE_TOR_FOR_TODAY_CMD4) {
+        if (word === 'ל') {
+          MAKE_TOR_FOR_TODAY_CMD4.splice(v, 1)
+        }
+        v++
+      }
+      console.log(`AFTER :${MAKE_TOR_FOR_TODAY_CMD4}`)
+
+      let arrayyyyyyx0 = [
+        'תור',
+        'מור',
+        'כפתור',
+        'מטול',
+        'מסור',
+        'מסור',
+        'נכון',
+        'הכל',
+        'התור',
+        'מטור',
+        'בתור',
+        'שור',
+        'סור',
+        'קור',
+        'טור',
+        'טוב',
+        'טוסט',
+      ]
+      let arrayyyyyyx3 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה', 'שבשעה']
+
+      if (
+        arrayyyyyyx0.includes(MAKE_TOR_FOR_TODAY_CMD4[0]) &&
+        arrayyyyyyx3.includes(MAKE_TOR_FOR_TODAY_CMD4[3])
+      ) {
+        recognition.stop()
+        recognition.onend = async () => {
+          console.log('MAKE TOR ACTION listening per command')
+
+          const lamedd = MAKE_TOR_FOR_TODAY_CMD4[1].charAt(0)
+          console.log(`lamedd:${lamedd}`)
+          if (lamedd == 'ל') {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD4[1].substring(1)
+            const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD4[2]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TODAY_CMD4[4]
+            if (MAKE_TOR_FOR_TODAY_CMD4[5] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD4[5]
+              makeTorForToday(UserToFind, hour, half)
+            } else {
+              makeTorForToday(UserToFind, hour)
+            }
+
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          } else {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD4[1]
+            const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD4[2]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TODAY_CMD4[4]
+            if (MAKE_TOR_FOR_TODAY_CMD4[5] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD4[5]
+              makeTorForToday(UserToFind, hour, half)
+            } else {
+              makeTorForToday(UserToFind, hour)
+            }
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          }
+        }
+      }
+
+      //*******************קבע תור לעומרי בקיש   למחר//תור//  בשעה *********TOMORROW2********************* */
       const MAKE_TOR_FOR_TOMORROW_CMD2 = transcriptArr
       console.log('MAKE_TOR_FOR_TODAY_CMD2', MAKE_TOR_FOR_TOMORROW_CMD2)
       console.log(`BEFORE :${MAKE_TOR_FOR_TOMORROW_CMD2}`)
@@ -573,7 +699,13 @@ const Speech = () => {
         'קבע',
         'קבעת',
         'תקבע',
+        'תקווה',
+        'קובעת',
+        'אקבע',
+        'קבעת',
         'נקבע',
+        'קובע',
+
         'מה',
         'אבל',
         'בעל',
@@ -593,7 +725,7 @@ const Speech = () => {
         'טוסט',
       ]
       let arrayyyyy4 = ['ממחר', 'מחר', 'לשחר', 'לשחכר', 'למחר']
-      let arrayyyyy5 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+      let arrayyyyy5 = ['שבשעה', 'בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
 
       if (
         arrayyyyy0.includes(MAKE_TOR_FOR_TOMORROW_CMD2[0]) &&
@@ -646,7 +778,7 @@ const Speech = () => {
         }
       }
 
-      //*******************קבע תור למחר לעומרי בקיש בשעה *********TOMORROW********************* */
+      //*******************//תור לעומרי בקיש מחר בשעה-זה עוד לא קיים//קבע תור למחר לעומרי בקיש בשעה *********TOMORROW********************* */
       const MAKE_TOR_FOR_TOMORROW_CMD = transcriptArr
       console.log('MAKE_TOR_FOR_TOMORROW_CMD', MAKE_TOR_FOR_TOMORROW_CMD)
       console.log(`BEFORE :${MAKE_TOR_FOR_TOMORROW_CMD}`)
@@ -662,13 +794,19 @@ const Speech = () => {
         'קבע',
         'קבעת',
         'תקבע',
+        'תקווה',
+        'קובעת',
+        'אקבע',
         'נקבע',
+        'קובע',
+
         'מה',
         'אבל',
         'בעל',
         'כבר',
         'וואלה',
         'כבעל',
+        'קובע',
       ]
       let arrayyyy1 = [
         'תור',
@@ -682,7 +820,7 @@ const Speech = () => {
         'בתור',
       ]
       let arrayyyy2 = ['נחל', 'שחר', 'שכר', 'מחר', 'למחר']
-      let arrayyyy5 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+      let arrayyyy5 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה', 'שבשעה']
 
       if (
         arrayyyy0.includes(MAKE_TOR_FOR_TOMORROW_CMD[0]) &&
@@ -733,6 +871,7 @@ const Speech = () => {
         }
       }
     }
+    setisMouseDown(false)
 
     //---------------END OF COMMENDS--------------------------------------------------------
     recognition.onerror = (event) => {
@@ -1269,48 +1408,27 @@ const Speech = () => {
   }
 
   return (
-    <div style={container}>
-      <button id='microphone-btn' style={button} onClick={toggleListen} />
-      <div id='interim' style={interim}></div>
-      <div id='final' style={final}></div>
+    <div>
+      <button
+        id='microphone-btn'
+        onMouseDown={toggleListen}
+        onMouseUp={toggleListenfalse}
+        onMouseLeave={toggleL}
+      >
+        <img
+          className={!listening ? 'absuluteimd1' : 'displaynone'}
+          src='https://i.ibb.co/mtW5s3j/animation-200-kz3aezub.png'
+        />
+
+        <img
+          className={!listening ? 'displaynone' : 'absuluteimd1'}
+          src='https://i.ibb.co/qDqhy2K/static-Microphone.gif'
+        />
+      </button>
+      <div id='interim'></div>
+      <div id='final'></div>
     </div>
   )
 }
 
 export default Speech
-
-//-------------------------CSS------------------------------------
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    textAlign: 'center',
-  },
-  button: {
-    width: '60px',
-    height: '60px',
-    background: 'lightblue',
-    borderRadius: '50%',
-    margin: '6em 0 2em 0',
-  },
-  interim: {
-    //display: 'none',
-    color: 'gray',
-    border: '#ccc 1px solid',
-    padding: '1em',
-    margin: '1em',
-    width: '300px',
-  },
-  final: {
-    //display: 'none',
-    color: 'black',
-    border: '#ccc 1px solid',
-    padding: '1em',
-    margin: '1em',
-    width: '300px',
-  },
-}
-
-const { container, button, interim, final } = styles

@@ -6,7 +6,6 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import Dictaphone from '../components/VoiceListener/VoiceListner'
 import {
   listWorkingDays,
   makeWorkingDay,
@@ -32,10 +31,7 @@ import ReactToPrint from 'react-to-print' //הדפסה
 import ReactToPdf from 'react-to-pdf' //pdf
 import emailjs from 'emailjs-com'
 import { PDFDownloadLink, Document, Page } from '@react-pdf/renderer'
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from 'react-speech-recognition'
-
+import Speech from '../components/VoiceListener/VoiceListner'
 const WorkingDaysScreen = ({ history }) => {
   const dispatch = useDispatch()
   // ┬─┐┌─┐┌─┐ !┌─┐
@@ -1179,7 +1175,7 @@ const WorkingDaysScreen = ({ history }) => {
         </form>
       )}
       <Col md={12}>
-        <Dictaphone />
+        <Speech />
       </Col>
       <Col md={12}>
         <Link id='goback' to='/'>
@@ -1613,7 +1609,7 @@ const WorkingDaysScreen = ({ history }) => {
                 </div>{' '}
               </Col>
             </div>
-            {onesuccess&&oneworkingdays && oneworkingdays.length != 0 && (
+            {onesuccess && oneworkingdays && oneworkingdays.length != 0 && (
               <div ref={componentRef} id='RECIPT_ABSULUTE_TABLE'>
                 <h1 id='centerme'>
                   <b>{oneworkingdays && oneworkingdays[0].date}</b>

@@ -8,3 +8,46 @@
   color: white;
   font-size: 25px;
 }
+
+#btnxnx {
+  width: 60px;
+  height: 60px;
+  margin: 6em 0 2em 0;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 50%;
+}
+#container1234 {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0);
+}
+#microphone-btn {
+  background-color: rgba(255, 255, 0, 0);
+  border: none;
+  outline-color: rgba(255, 255, 255, 0);
+}
+
+.absuluteimd1 {
+  position: fixed;
+  left: 20px;
+  z-index: 5;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  outline: 3px solid rgba(0, 217, 255, 0.205);
+
+  outline-offset: -9px;
+}
+.displaynone {
+  display: none;
+}
+#final,
+#interim {
+  width: 300px;
+  color: white;
+  padding: 1rem;
+  border: 1px solid rgb(78, 78, 78);
+  color: rgb(78, 78, 78);
+  position: fixed;
+  left: 20px;
+  top: 180px;
+}
