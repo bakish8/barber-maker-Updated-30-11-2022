@@ -191,6 +191,7 @@ const HomeScreen = ({ match }) => {
           <LinkedinSpinnerIcon />
           <FacebookIcon />
           <InstagramSpinnerIcon />
+          Today
         </div>{' '}
       </div>
     </>
