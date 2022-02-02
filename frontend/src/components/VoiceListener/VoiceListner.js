@@ -133,6 +133,7 @@ const Speech = () => {
       console.log('Listening!')
     }
 
+    let finalTranscript = ''
     recognition.onresult = (event) => {
       setisMouseDown(false)
 
@@ -140,7 +141,7 @@ const Speech = () => {
 
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const transcript = event.results[i][0].transcript
-        if (event.results[i].isFinal) interimTranscript += transcript + ' '
+        if (event.results[i].isFinal) finalTranscript += transcript + ' '
         else interimTranscript += transcript
       }
       document.getElementById('interim').innerHTML = interimTranscript
@@ -148,7 +149,7 @@ const Speech = () => {
 
       //-------------------------COMMANDS------------------------------------
 
-      const transcriptArr = interimTranscript.split(' ')
+      const transcriptArr = finalTranscript.split(' ')
       const stopCmd = transcriptArr.slice(-3, -1)
       console.log('stopCmd', stopCmd)
       let stopwordArr = [
@@ -169,7 +170,7 @@ const Speech = () => {
         recognition.onend = () => {
           console.log('Stopped listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
-          document.getElementById('final').innerHTML = finalText
+          document.getElementById('interim').innerHTML = finalText
           setstatefinalText(statefinalText)
         }
       }
@@ -184,7 +185,7 @@ const Speech = () => {
           setredirectHome(true)
           console.log('home listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
-          document.getElementById('final').innerHTML = finalText
+          document.getElementById('interim').innerHTML = finalText
           setstatefinalText(statefinalText)
         }
       }
