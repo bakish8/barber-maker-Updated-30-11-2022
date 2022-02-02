@@ -1418,9 +1418,7 @@ const Speech = () => {
         ontouchend={toggleListenfalse}
         onpointerdown={toggleListen}
         onpointerup={toggleListenfalse}
-      >
-        <i id='iconsrecord' class='fas fa-microphone-alt'></i>
-      </div>
+      ></div>
       <div id='interim'></div>
       <div id='final'></div>
     </div>

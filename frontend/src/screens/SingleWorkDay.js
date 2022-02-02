@@ -1797,8 +1797,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           showCancelButton: true,
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
-          footer: `<a href="">התקשר לנייד של  בנייד 0$</a>`,
-          footer: `<a href="">התקשר לנייד של ${wordname} בנייד 0${wordphone}</a>`,
+          footer: `<a href="tel:+972${wordphone}">התקשר לנייד של ${wordname} בנייד 0${wordphone}</a>`,
         }).then((result) => {
           if (result.isConfirmed) {
             setdisplay3(false)
