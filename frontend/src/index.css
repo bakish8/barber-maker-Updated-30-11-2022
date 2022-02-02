@@ -1831,6 +1831,67 @@ h6 {
     color: #146c80;
   }
 }
+@keyframes neon4 {
+  0% {
+    transform: scale(1.2);
+
+    border: 1px solid rgb(3, 50, 78);
+  }
+  10% {
+    transform: scale(1.02);
+
+    border: 2px solid rgb(3, 50, 78);
+  }
+  20% {
+    transform: scale(1.04);
+
+    border: 3px solid rgb(3, 50, 78);
+  }
+  30% {
+    transform: scale(1.06);
+
+    border: 3px solid rgb(3, 50, 78);
+  }
+  40% {
+    transform: scale(1.08);
+
+    border: 4px solid rgb(3, 50, 78);
+  }
+  50% {
+    transform: scale(1.1);
+
+    border: 5px solid rgb(3, 50, 78);
+  }
+  60% {
+    transform: scale(1.12);
+    border: 6px solid rgb(3, 50, 78);
+  }
+  60% {
+    transform: scale(1.14);
+    border: 7px solid rgb(3, 50, 78);
+  }
+  60% {
+    transform: scale(1.16);
+    border: 11px solid rgbrgb(18, 110, 163);
+  }
+  70% {
+    transform: scale(1.17);
+    border: 8px solid rgb(3, 50, 78);
+  }
+  80% {
+    transform: scale(1.18);
+    border: 9px solid rgb(18, 110, 163);
+  }
+  80% {
+    transform: scale(1.19);
+    border: 5px solid rgb(18, 110, 163);
+  }
+
+  100% {
+    border: 7px solid rgb(18, 110, 163);
+    transform: scale(1.2);
+  }
+}
 
 /*****facebook btn//*/
 .icon-button {

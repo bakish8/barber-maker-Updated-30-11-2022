@@ -1410,20 +1410,12 @@ const Speech = () => {
   return (
     <div>
       <button
-        id='microphone-btn'
+        className={!listening ? 'microphone-btn' : 'microphone-btnOnclick'}
         onMouseDown={toggleListen}
         onMouseUp={toggleListenfalse}
         onMouseLeave={toggleL}
       >
-        <img
-          className={!listening ? 'absuluteimd1' : 'displaynone'}
-          src='https://i.ibb.co/mtW5s3j/animation-200-kz3aezub.png'
-        />
-
-        <img
-          className={!listening ? 'displaynone' : 'absuluteimd1'}
-          src='https://i.ibb.co/qDqhy2K/static-Microphone.gif'
-        />
+        <i class='fas fa-microphone-alt'></i>
       </button>
       <div id='interim'></div>
       <div id='final'></div>
