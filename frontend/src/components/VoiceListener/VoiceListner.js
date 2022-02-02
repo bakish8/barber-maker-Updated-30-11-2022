@@ -1414,6 +1414,8 @@ const Speech = () => {
         onMouseDown={toggleListen}
         onMouseUp={toggleListenfalse}
         onMouseLeave={toggleL}
+        onpointerdown={toggleListen}
+        onpointerup={toggleListenfalse}
       >
         <i class='fas fa-microphone-alt'></i>
       </button>
