@@ -99,6 +99,17 @@ const Speech = () => {
     handleListen()
   }
   const toggleL = () => {
+    Swal.fire({
+      imageUrl: `${userimage}`,
+      imageWidth: 200,
+      imageHeight: 200,
+      title: `אישור תור`,
+      text: `בלחיצה על אישור תשבץ את ${username} להיום בשעה ${Hour}  `,
+      showCancelButton: true,
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'אישור',
+      footer: `<a href="">התקשר לנייד של ${username} בנייד 0${userphone}</a>`,
+    })
     if (!isMouseDown) {
       console.log('mouse is not down do nothing')
     } else {
