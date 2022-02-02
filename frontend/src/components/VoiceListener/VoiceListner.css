@@ -75,10 +75,17 @@
 .displaynone {
   display: none;
 }
-#final,
+#final {
+  width: 300px;
+  color: white;
+  padding: 1rem;
+  border: 1px solid rgb(78, 78, 78);
+  color: rgb(78, 78, 78);
+  position: fixed;
+  left: 20px;
+  top: 280px;
+}
 #interim {
-  display: none;
-
   width: 300px;
   color: white;
   padding: 1rem;
