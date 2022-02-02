@@ -95,24 +95,22 @@ const Speech = () => {
   const toggleListenfalse = () => {
     setlistening(false)
     setisMouseDown(false)
-
     handleListen()
   }
   const toggleL = () => {
-    Swal.fire({
-      imageUrl: `${userimage}`,
-      imageWidth: 200,
-      imageHeight: 200,
-      title: `אישור תור`,
-      text: `בלחיצה על אישור תשבץ את ${username} להיום בשעה ${Hour}  `,
-      showCancelButton: true,
-      cancelButtonText: 'ביטול',
-      confirmButtonText: 'אישור',
-      footer: `<a href="">התקשר לנייד של ${username} בנייד 0${userphone}</a>`,
-    })
     if (!isMouseDown) {
       console.log('mouse is not down do nothing')
     } else {
+      Swal.fire({
+        position: 'top-end',
+        cancelButtonColor: 'rgb(194, 0, 0)',
+        confirmButtonColor: 'rgb(3, 148, 39)',
+        icon: 'success',
+        title: `בוצע בהצלחה`,
+        text: `התור שביקשת נכנס בהצלחה למערכת`,
+        showConfirmButton: false,
+        timer: 8000,
+      })
       setlistening(false)
       setisMouseDown(true)
       handleListen()
@@ -1427,7 +1425,7 @@ const Speech = () => {
         onMouseLeave={toggleL}
         onTouchStart={toggleListen}
         onTouchEnd={toggleListenfalse}
-        onTouchMove={toggleListenfalse}
+        onTouchMove={toggleL}
       ></div>
       <div id='interim'></div>
       <div id='final'></div>
