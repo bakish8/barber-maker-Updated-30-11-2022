@@ -86,11 +86,6 @@ const Speech = () => {
   const [ForTomorow, setForTomorow] = useState(false)
   const [isMouseDown, setisMouseDown] = useState(false)
 
-  const toggleListenForPhone = () => {
-    setlistening(true)
-    setisMouseDown(true)
-    handleListen()
-  }
   const toggleListen = () => {
     setlistening(true)
     setisMouseDown(true)
@@ -113,16 +108,6 @@ const Speech = () => {
   }
 
   const handleListen = () => {
-    Swal.fire({
-      position: 'top-end',
-      cancelButtonColor: 'rgb(194, 0, 0)',
-      confirmButtonColor: 'rgb(3, 148, 39)',
-      icon: 'success',
-      title: `בוצע בהצלחה`,
-      text: `התור שביקשת נכנס בהצלחה למערכת`,
-      showConfirmButton: false,
-      timer: 8000,
-    })
     console.log('listening?', listening)
 
     if (!listening) {
