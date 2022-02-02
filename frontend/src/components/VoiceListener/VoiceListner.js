@@ -1409,16 +1409,18 @@ const Speech = () => {
 
   return (
     <div>
-      <button
+      <div
         className={!listening ? 'microphone-btn' : 'microphone-btnOnclick'}
         onMouseDown={toggleListen}
         onMouseUp={toggleListenfalse}
         onMouseLeave={toggleL}
+        ontouchstart={toggleListen}
+        ontouchend={toggleListenfalse}
         onpointerdown={toggleListen}
         onpointerup={toggleListenfalse}
       >
-        <i class='fas fa-microphone-alt'></i>
-      </button>
+        <i id='iconsrecord' class='fas fa-microphone-alt'></i>
+      </div>
       <div id='interim'></div>
       <div id='final'></div>
     </div>
