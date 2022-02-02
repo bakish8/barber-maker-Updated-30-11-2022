@@ -1416,6 +1416,7 @@ const Speech = () => {
         onMouseLeave={toggleL}
         onTouchStart={toggleListen}
         onTouchEnd={toggleListenfalse}
+        onTouchMove={toggleListenfalse}
       ></div>
       <div id='interim'></div>
       <div id='final'></div>
