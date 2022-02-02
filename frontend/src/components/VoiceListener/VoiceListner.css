@@ -77,8 +77,6 @@
 }
 #final,
 #interim {
-  display: none;
-
   width: 300px;
   color: white;
   padding: 1rem;
