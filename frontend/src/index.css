@@ -120,9 +120,6 @@ main {
   background-image: linear-gradient(#004e8d, #001f63);
 }
 
-#actions123123div {
-  margin-top: 1%;
-}
 #thePlusIcon {
   position: relative;
   color: white;
@@ -130,7 +127,9 @@ main {
   width: 100px;
   height: 100px;
 }
-
+#actions123123div {
+  margin-top: 1%;
+}
 .CHOOSETORIM_BTNForSmallScreen {
   cursor: pointer;
   font-size: 14px;
