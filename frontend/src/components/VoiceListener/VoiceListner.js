@@ -3,9 +3,8 @@ import Swal from 'sweetalert2'
 import './VoiceListner.css'
 import React, { Component, useState } from 'react'
 import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
-
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import {
   listOneWorkingDay,
   listWorkingDaysFORthisWEEK,
@@ -86,25 +85,10 @@ const Speech = () => {
   const [ForTomorow, setForTomorow] = useState(false)
   const [isMouseDown, setisMouseDown] = useState(false)
 
-  const toggleListen = () => {
-    setlistening(true)
+  const toggleL = () => {
+    setlistening(!listening)
     setisMouseDown(true)
     handleListen()
-  }
-
-  const toggleListenfalse = () => {
-    setlistening(false)
-    setisMouseDown(false)
-    handleListen()
-  }
-  const toggleL = () => {
-    if (!isMouseDown) {
-      console.log('mouse is not down do nothing')
-    } else {
-      setlistening(false)
-      setisMouseDown(true)
-      handleListen()
-    }
   }
 
   const handleListen = () => {
@@ -116,16 +100,11 @@ const Speech = () => {
         console.log('...continue listening...')
         recognition.start()
       }
-    } else if (isMouseDown && !listening) {
+    } else if (listening) {
       recognition.stop()
       recognition.onend = () => {
         console.log('Stopped listening per click')
         setisMouseDown(false)
-      }
-    } else {
-      recognition.stop()
-      recognition.onend = () => {
-        console.log('Stopped listening per click')
       }
     }
 
@@ -171,7 +150,7 @@ const Speech = () => {
           console.log('Stopped listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
           document.getElementById('final').innerHTML = finalText
-          setstatefinalText(statefinalText)
+          setstatefinalText(finalText)
         }
       }
 
@@ -186,7 +165,7 @@ const Speech = () => {
           console.log('home listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
           document.getElementById('final').innerHTML = finalText
-          setstatefinalText(statefinalText)
+          setstatefinalText(finalText)
         }
       }
 
@@ -236,7 +215,7 @@ const Speech = () => {
           console.log('GoTorimPAge listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
           document.getElementById('final').innerHTML = finalText
-          setstatefinalText(statefinalText)
+          setstatefinalText(finalText)
         }
       }
 
@@ -276,7 +255,7 @@ const Speech = () => {
           console.log('GoToDAYPAge listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
           document.getElementById('final').innerHTML = finalText
-          setstatefinalText(statefinalText)
+          setstatefinalText(finalText)
         }
       }
 
@@ -1408,15 +1387,9 @@ const Speech = () => {
 
   return (
     <div>
-      <div
-        className={!listening ? 'microphone-btn' : 'microphone-btnOnclick'}
-        onMouseDown={toggleListen}
-        onMouseUp={toggleListenfalse}
-        onMouseLeave={toggleL}
-        onTouchStart={toggleListen}
-        onTouchEnd={toggleListenfalse}
-        onTouchMove={toggleL}
-      ></div>
+      <button id='microphone-btn' onClick={toggleL}>
+        ckick
+      </button>
       <div id='interim'></div>
       <div id='final'></div>
     </div>
