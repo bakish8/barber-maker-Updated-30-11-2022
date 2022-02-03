@@ -3149,21 +3149,43 @@ h5 {
 #deleteworkingDayBTN:hover {
   background-color: rgb(117, 0, 0);
 }
+#smallcall {
+  position: relative;
+  transform: translateY(38px);
+}
+#smallcall:hover {
+  -webkit-animation-name: buzz-out-on-hover;
+  animation-name: buzz-out-on-hover;
+  -webkit-animation-duration: 1.75s;
+  animation-duration: 1.75s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  transform: translateY(60px);
+}
+
 #CallClientBigBTN {
-  z-index: 4;
+  font-size: 60px;
+  width: 180px;
+  height: 180px;
+  background: forestgreen;
+  border-radius: 50%;
+  z-index: 14;
   cursor: pointer;
   position: fixed;
   margin-top: 20px;
   padding: 10px;
-  top: 110px;
+  top: 100px;
   color: white;
-  border-radius: 10px;
   transform: scale(0.4);
   border: none;
   transition: ease-in 0.2s;
+  box-shadow: 14px 14px 4px black;
 }
 #CallClientBigBTN:hover {
-  transform: scale(0.6);
+  transform: scale(0.5);
+  background: rgb(29, 177, 29);
 }
 
 #tipultimesmallsstyle {

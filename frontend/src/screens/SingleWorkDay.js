@@ -1290,10 +1290,14 @@ const SingleWorkDayScreen = ({ history, match }) => {
                <span id='span4312'>${
                  mistaper.commentsForTipul ? mistaper.commentsForTipul : ''
                }</span>  
-<a href="tel:+972${
+<div id='IdForTafusContent'>  
+<a id='CallClientBigBTN' href="tel:+972${
             mistaper.phone
-          }"><img src='https://i.ibb.co/DgTKYLj/animation-200-kz6fjzb7.gif' id='CallClientBigBTN'/>
+          }"><i id='smallcall' class="fas fa-phone-alt"></i>
+
 </a>
+          </div>
+
           </div>`,
           imageUrl: mistaper.image,
           imageWidth: 200,
@@ -2815,9 +2819,10 @@ const SingleWorkDayScreen = ({ history, match }) => {
           <Col md={2} id='singlewirkingdayoptionsbgwhite'>
             <div className={ValueScroll}>
               <img
+                className='arrowaUp'
                 onClick={FixUP}
                 id={ValueForArrowUP}
-                src='https://i.ibb.co/RgM5jMf/animation-300-kynpm6sg.gif'
+                src='https://i.ibb.co/Xtr67DT/ezgif-com-gif-maker-1.gif'
               />
               <div>
                 <div id='centerme'>
