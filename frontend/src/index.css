@@ -3150,12 +3150,15 @@ h5 {
   background-color: rgb(117, 0, 0);
 }
 
+#ActionsForUSer101 {
+  display: flex;
+}
 #CallClientBigBTN {
   text-align: center;
-  font-size: 60px;
-  width: 180px;
-  height: 180px;
-  line-height: 160px;
+  font-size: 40px;
+  width: 120px;
+  height: 120px;
+  line-height: 110px;
   background: forestgreen;
   border-radius: 50%;
   z-index: 400;
@@ -3170,6 +3173,28 @@ h5 {
 #CallClientBigBTN:hover {
   transform: scale(0.5);
   background: rgb(29, 177, 29);
+}
+#SMSBigBTN {
+  text-align: center;
+  font-size: 60px;
+  width: 120px;
+  height: 120px;
+  line-height: 110px;
+  background: rgb(0, 0, 0);
+  border-radius: 50%;
+  z-index: 400;
+  cursor: pointer;
+  color: rgb(168, 168, 168);
+  transform: scale(0.4);
+  border: none;
+  transition: ease-in 0.2s;
+  box-shadow: 14px 14px 4px rgb(39, 38, 0);
+  text-decoration: none;
+}
+#SMSBigBTN:hover {
+  transform: scale(0.5);
+  background: rgb(255, 196, 0);
+  color: rgb(75, 42, 0);
 }
 #smallcall {
   color: rebeccapurple;

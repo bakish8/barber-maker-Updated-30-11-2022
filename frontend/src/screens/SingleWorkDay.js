@@ -1293,13 +1293,18 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
 
           </div>`,
-          footer: `<div id='CallClientBigBTN'><a
+          footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
               
               href='tel:+972${mistaper.phone} id='smallcall'
           
             >
               <i  class='fas fa-phone-alt'></i>
-            </a></div>`,
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${mistaper.phone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
           imageUrl: mistaper.image,
           imageWidth: 200,
           imageHeight: 200,
@@ -1384,10 +1389,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
              : ''
          }
 הסכום ששולם  : <h4 id="Tafusss" style='display:inline'>${TotalAmmountPaid}₪</h4> <br/>  מספר חשבונית : <h4 id="Tafusss" style='display:inline'>${ReciptNumber}</h4> <div id='IdForTafusContent'>  
-<a href="tel:+972${
-            mistaper.phone
-          }"><img src='https://i.ibb.co/DgTKYLj/animation-200-kz6fjzb7.gif' id='CallClientBigBTN'/>
-</a>
           </div></div>`,
 
           imageUrl: clock.mistaper.image,
@@ -1812,7 +1813,18 @@ const SingleWorkDayScreen = ({ history, match }) => {
           showCancelButton: true,
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
-          footer: `<a href="tel:+972${wordphone}">התקשר לנייד של ${wordname} בנייד 0${wordphone}</a>`,
+          footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${wordphone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${wordphone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
         }).then((result) => {
           if (result.isConfirmed) {
             setdisplay3(false)
