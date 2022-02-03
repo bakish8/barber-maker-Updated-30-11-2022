@@ -118,15 +118,16 @@ const Speech = ({ history }) => {
 
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const transcript = event.results[i][0].transcript
-        if (event.results[i].isFinal) finalTranscript += transcript + ' '
+        if (event.results[i].isFinal) interimTranscript += transcript + ' '
         else interimTranscript += transcript
       }
       document.getElementById('interim').innerHTML = interimTranscript
-      document.getElementById('final').innerHTML = finalTranscript
+      document.getElementById('final').innerHTML = interimTranscript
 
       //-------------------------COMMANDS------------------------------------
 
-      const transcriptArr = finalTranscript.split(' ')
+      const transcriptArr = interimTranscript.split(' ')
+
       const stopCmd = transcriptArr.slice(-3, -1)
       console.log('stopCmd', stopCmd)
       let stopwordArr = [
