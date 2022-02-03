@@ -1290,6 +1290,10 @@ const SingleWorkDayScreen = ({ history, match }) => {
                <span id='span4312'>${
                  mistaper.commentsForTipul ? mistaper.commentsForTipul : ''
                }</span>  
+<a href="tel:+972${
+            mistaper.phone
+          }"><img src='https://i.ibb.co/DgTKYLj/animation-200-kz6fjzb7.gif' id='CallClientBigBTN'/>
+</a>
           </div>`,
           imageUrl: mistaper.image,
           imageWidth: 200,
@@ -1374,7 +1378,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
              ? `  הנגמר בספרות <h4 id="Tafusss" style='display:inline'>${creditLastDigits}</h4><br/> `
              : ''
          }
-הסכום ששולם  : <h4 id="Tafusss" style='display:inline'>${TotalAmmountPaid}₪</h4> <br/>  מספר חשבונית : <h4 id="Tafusss" style='display:inline'>${ReciptNumber}</h4></div>`,
+הסכום ששולם  : <h4 id="Tafusss" style='display:inline'>${TotalAmmountPaid}₪</h4> <br/>  מספר חשבונית : <h4 id="Tafusss" style='display:inline'>${ReciptNumber}</h4> <div id='IdForTafusContent'>  
+<a href="tel:+972${
+            mistaper.phone
+          }"><img src='https://i.ibb.co/DgTKYLj/animation-200-kz6fjzb7.gif' id='CallClientBigBTN'/>
+</a>
+          </div></div>`,
 
           imageUrl: clock.mistaper.image,
           imageWidth: 180,
@@ -1405,6 +1414,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           imageHeight: 115,
           imageAlt: 'לקוח',
           color: 'red',
+
           showDenyButton: true,
           denyButtonColor: 'rgb(194, 0, 0)',
           denyButtonText: `מחק תור זה`,

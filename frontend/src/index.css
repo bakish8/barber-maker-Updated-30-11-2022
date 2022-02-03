@@ -3149,6 +3149,22 @@ h5 {
 #deleteworkingDayBTN:hover {
   background-color: rgb(117, 0, 0);
 }
+#CallClientBigBTN {
+  z-index: 4;
+  cursor: pointer;
+  position: fixed;
+  margin-top: 20px;
+  padding: 10px;
+  top: 110px;
+  color: white;
+  border-radius: 10px;
+  transform: scale(0.4);
+  border: none;
+  transition: ease-in 0.2s;
+}
+#CallClientBigBTN:hover {
+  transform: scale(0.6);
+}
 
 #tipultimesmallsstyle {
   color: white;
