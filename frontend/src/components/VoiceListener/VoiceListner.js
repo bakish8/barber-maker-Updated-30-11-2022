@@ -95,7 +95,6 @@ const Speech = () => {
   const toggleListenfalse = () => {
     setlistening(false)
     setisMouseDown(false)
-
     handleListen()
   }
   const toggleL = () => {
@@ -1409,22 +1408,15 @@ const Speech = () => {
 
   return (
     <div>
-      <button
-        id='microphone-btn'
+      <div
+        className={!listening ? 'microphone-btn' : 'microphone-btnOnclick'}
         onMouseDown={toggleListen}
         onMouseUp={toggleListenfalse}
         onMouseLeave={toggleL}
-      >
-        <img
-          className={!listening ? 'absuluteimd1' : 'displaynone'}
-          src='https://i.ibb.co/mtW5s3j/animation-200-kz3aezub.png'
-        />
-
-        <img
-          className={!listening ? 'displaynone' : 'absuluteimd1'}
-          src='https://i.ibb.co/qDqhy2K/static-Microphone.gif'
-        />
-      </button>
+        onTouchStart={toggleListen}
+        onTouchEnd={toggleListenfalse}
+        onTouchMove={toggleL}
+      ></div>
       <div id='interim'></div>
       <div id='final'></div>
     </div>
