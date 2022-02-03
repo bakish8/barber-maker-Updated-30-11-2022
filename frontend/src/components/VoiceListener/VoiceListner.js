@@ -31,10 +31,8 @@ recognition.interimResults = true
 recognition.lang = 'he'
 
 //------------------------COMPONENT-----------------------------
-const Speech = () => {
+const Speech = ({ history }) => {
   const dispatch = useDispatch()
-
-  let history = useHistory()
 
   const confirmMyTor = useSelector((state) => state.confirmMyTor)
   const {
@@ -71,7 +69,7 @@ const Speech = () => {
     FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME
 
   const [listening, setlistening] = useState(false)
-  const [statefinalText, setstatefinalText] = useState('')
+  const [statefinalText, setstatefinalText] = useState()
   const [redirectHome, setredirectHome] = useState(false)
   const [GoTorim, setGoTorim] = useState(false)
   const [GoToday, setGoToday] = useState(false)
@@ -215,7 +213,7 @@ const Speech = () => {
           console.log('GoTorimPAge listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
           document.getElementById('final').innerHTML = finalText
-          setstatefinalText(finalText)
+          setstatefinalText('torim')
         }
       }
 
@@ -857,6 +855,9 @@ const Speech = () => {
     }
   }
 
+  const historyPushFunction1 = () => {
+    history.push('/')
+  }
   // ██╗   ██╗███████╗███████╗    ███████╗███████╗███████╗███████╗ ██████╗████████╗
   // ██║   ██║██╔════╝██╔════╝    ██╔════╝██╔════╝██╔════╝██╔════╝██╔════╝╚══██╔══╝
   // ██║   ██║███████╗█████╗      █████╗  █████╗  █████╗  █████╗  ██║        ██║
@@ -864,15 +865,18 @@ const Speech = () => {
   // ╚██████╔╝███████║███████╗    ███████╗██║     ██║     ███████╗╚██████╗   ██║
   //  ╚═════╝ ╚══════╝╚══════╝    ╚══════╝╚═╝     ╚═╝     ╚══════╝ ╚═════╝   ╚═╝
   useEffect(() => {
-    if (statefinalText) {
+    if (statefinalText == 'torim') {
       console.log(`statefinalText:${statefinalText}`)
+      console.log(`statefinalText:${statefinalText}`)
+      console.log(`statefinalText:${statefinalText}`)
+      setstatefinalText('')
+      historyPushFunction1()
     }
     if (redirectHome) {
       history.push('/')
     }
     if (GoTorim) {
       setGoTorim(false)
-      history.push('/admin/torim')
     }
     if (GoToday) {
       console.log('dispaching action for getting today deets')

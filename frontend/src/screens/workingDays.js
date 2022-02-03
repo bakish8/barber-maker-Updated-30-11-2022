@@ -32,6 +32,7 @@ import ReactToPdf from 'react-to-pdf' //pdf
 import emailjs from 'emailjs-com'
 import { PDFDownloadLink, Document, Page } from '@react-pdf/renderer'
 import Speech from '../components/VoiceListener/VoiceListner'
+import { Route } from 'react-router'
 const WorkingDaysScreen = ({ history }) => {
   const dispatch = useDispatch()
   // ┬─┐┌─┐┌─┐ !┌─┐
@@ -1175,7 +1176,7 @@ const WorkingDaysScreen = ({ history }) => {
         </form>
       )}
       <Col md={12}>
-        <Speech />
+        <Route render={({ history }) => <Speech history={history} />} />
       </Col>
       <Col md={12}>
         <Link id='goback' to='/'>
