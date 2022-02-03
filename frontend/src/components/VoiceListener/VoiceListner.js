@@ -95,6 +95,7 @@ const Speech = () => {
   const toggleListenfalse = () => {
     setlistening(false)
     setisMouseDown(false)
+
     handleListen()
   }
   const toggleL = () => {
@@ -145,7 +146,7 @@ const Speech = () => {
         else interimTranscript += transcript
       }
       document.getElementById('interim').innerHTML = interimTranscript
-      document.getElementById('final').innerHTML = interimTranscript
+      document.getElementById('final').innerHTML = finalTranscript
 
       //-------------------------COMMANDS------------------------------------
 
@@ -170,7 +171,7 @@ const Speech = () => {
         recognition.onend = () => {
           console.log('Stopped listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
-          document.getElementById('interim').innerHTML = finalText
+          document.getElementById('final').innerHTML = finalText
           setstatefinalText(statefinalText)
         }
       }
@@ -185,7 +186,7 @@ const Speech = () => {
           setredirectHome(true)
           console.log('home listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
-          document.getElementById('interim').innerHTML = finalText
+          document.getElementById('final').innerHTML = finalText
           setstatefinalText(statefinalText)
         }
       }
@@ -1408,15 +1409,22 @@ const Speech = () => {
 
   return (
     <div>
-      <div
-        className={!listening ? 'microphone-btn' : 'microphone-btnOnclick'}
+      <button
+        id='microphone-btn'
         onMouseDown={toggleListen}
         onMouseUp={toggleListenfalse}
         onMouseLeave={toggleL}
-        onTouchStart={toggleListen}
-        onTouchEnd={toggleListenfalse}
-        onTouchMove={toggleL}
-      ></div>
+      >
+        <img
+          className={!listening ? 'absuluteimd1' : 'displaynone'}
+          src='https://i.ibb.co/mtW5s3j/animation-200-kz3aezub.png'
+        />
+
+        <img
+          className={!listening ? 'displaynone' : 'absuluteimd1'}
+          src='https://i.ibb.co/qDqhy2K/static-Microphone.gif'
+        />
+      </button>
       <div id='interim'></div>
       <div id='final'></div>
     </div>
