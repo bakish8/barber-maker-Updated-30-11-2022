@@ -1,10 +1,13 @@
+//************backyp voicelistener 3:00*****/**
+
 'use strict'
 import Swal from 'sweetalert2'
 import './VoiceListner.css'
 import React, { Component, useState } from 'react'
 import { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
 import {
   listOneWorkingDay,
   listWorkingDaysFORthisWEEK,
@@ -69,7 +72,7 @@ const Speech = ({ history }) => {
     FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME
 
   const [listening, setlistening] = useState(false)
-  const [statefinalText, setstatefinalText] = useState()
+  const [statefinalText, setstatefinalText] = useState('')
   const [redirectHome, setredirectHome] = useState(false)
   const [GoTorim, setGoTorim] = useState(false)
   const [GoToday, setGoToday] = useState(false)
@@ -83,10 +86,25 @@ const Speech = ({ history }) => {
   const [ForTomorow, setForTomorow] = useState(false)
   const [isMouseDown, setisMouseDown] = useState(false)
 
-  const toggleL = () => {
-    setlistening(!listening)
+  const toggleListen = () => {
+    setlistening(true)
     setisMouseDown(true)
     handleListen()
+  }
+
+  const toggleListenfalse = () => {
+    setlistening(false)
+    setisMouseDown(false)
+    handleListen()
+  }
+  const toggleL = () => {
+    if (!isMouseDown) {
+      console.log('mouse is not down do nothing')
+    } else {
+      setlistening(false)
+      setisMouseDown(true)
+      handleListen()
+    }
   }
 
   const handleListen = () => {
@@ -98,11 +116,16 @@ const Speech = ({ history }) => {
         console.log('...continue listening...')
         recognition.start()
       }
-    } else if (listening) {
+    } else if (isMouseDown && !listening) {
       recognition.stop()
       recognition.onend = () => {
         console.log('Stopped listening per click')
         setisMouseDown(false)
+      }
+    } else {
+      recognition.stop()
+      recognition.onend = () => {
+        console.log('Stopped listening per click')
       }
     }
 
@@ -118,16 +141,15 @@ const Speech = ({ history }) => {
 
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const transcript = event.results[i][0].transcript
-        if (event.results[i].isFinal) interimTranscript += transcript + ' '
+        if (event.results[i].isFinal) finalTranscript += transcript + ' '
         else interimTranscript += transcript
       }
       document.getElementById('interim').innerHTML = interimTranscript
-      document.getElementById('final').innerHTML = interimTranscript
+      document.getElementById('final').innerHTML = finalTranscript
 
       //-------------------------COMMANDS------------------------------------
 
-      const transcriptArr = interimTranscript.split(' ')
-
+      const transcriptArr = finalTranscript.split(' ')
       const stopCmd = transcriptArr.slice(-3, -1)
       console.log('stopCmd', stopCmd)
       let stopwordArr = [
@@ -149,7 +171,7 @@ const Speech = ({ history }) => {
           console.log('Stopped listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
           document.getElementById('final').innerHTML = finalText
-          setstatefinalText(finalText)
+          setstatefinalText(statefinalText)
         }
       }
 
@@ -164,7 +186,7 @@ const Speech = ({ history }) => {
           console.log('home listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
           document.getElementById('final').innerHTML = finalText
-          setstatefinalText(finalText)
+          setstatefinalText(statefinalText)
         }
       }
 
@@ -214,7 +236,7 @@ const Speech = ({ history }) => {
           console.log('GoTorimPAge listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
           document.getElementById('final').innerHTML = finalText
-          setstatefinalText('torim')
+          setstatefinalText(statefinalText)
         }
       }
 
@@ -254,7 +276,7 @@ const Speech = ({ history }) => {
           console.log('GoToDAYPAge listening per command')
           const finalText = transcriptArr.slice(0, -3).join(' ')
           document.getElementById('final').innerHTML = finalText
-          setstatefinalText(finalText)
+          setstatefinalText(statefinalText)
         }
       }
 
@@ -856,9 +878,6 @@ const Speech = ({ history }) => {
     }
   }
 
-  const historyPushFunction1 = () => {
-    history.push('/')
-  }
   // ██╗   ██╗███████╗███████╗    ███████╗███████╗███████╗███████╗ ██████╗████████╗
   // ██║   ██║██╔════╝██╔════╝    ██╔════╝██╔════╝██╔════╝██╔════╝██╔════╝╚══██╔══╝
   // ██║   ██║███████╗█████╗      █████╗  █████╗  █████╗  █████╗  ██║        ██║
@@ -866,18 +885,15 @@ const Speech = ({ history }) => {
   // ╚██████╔╝███████║███████╗    ███████╗██║     ██║     ███████╗╚██████╗   ██║
   //  ╚═════╝ ╚══════╝╚══════╝    ╚══════╝╚═╝     ╚═╝     ╚══════╝ ╚═════╝   ╚═╝
   useEffect(() => {
-    if (statefinalText == 'torim') {
+    if (statefinalText) {
       console.log(`statefinalText:${statefinalText}`)
-      console.log(`statefinalText:${statefinalText}`)
-      console.log(`statefinalText:${statefinalText}`)
-      setstatefinalText('')
-      historyPushFunction1()
     }
     if (redirectHome) {
       history.push('/')
     }
     if (GoTorim) {
       setGoTorim(false)
+      history.push('/admin/torim')
     }
     if (GoToday) {
       console.log('dispaching action for getting today deets')
@@ -1392,9 +1408,15 @@ const Speech = ({ history }) => {
 
   return (
     <div>
-      <button id='microphone-btn' onClick={toggleL}>
-        ckick
-      </button>
+      <div
+        className={!listening ? 'microphone-btn' : 'microphone-btnOnclick'}
+        onMouseDown={toggleListen}
+        onMouseUp={toggleListenfalse}
+        onMouseLeave={toggleL}
+        onTouchStart={toggleListen}
+        onTouchEnd={toggleListenfalse}
+        onTouchMove={toggleL}
+      ></div>
       <div id='interim'></div>
       <div id='final'></div>
     </div>
