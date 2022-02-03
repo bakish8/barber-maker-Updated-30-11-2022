@@ -1290,13 +1290,16 @@ const SingleWorkDayScreen = ({ history, match }) => {
                <span id='span4312'>${
                  mistaper.commentsForTipul ? mistaper.commentsForTipul : ''
                }</span>  
-<a id='CallClientBigBTN' href="tel:+972${
-            mistaper.phone
-          }"><i id='smallcall' class="fas fa-phone-alt"></i>
 
-</a>
 
           </div>`,
+          footer: `<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${mistaper.phone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div>`,
           imageUrl: mistaper.image,
           imageWidth: 200,
           imageHeight: 200,
