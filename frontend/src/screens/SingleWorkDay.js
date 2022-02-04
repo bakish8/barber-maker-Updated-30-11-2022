@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Loader2 from '../components/Loader2'
+import Speech from '../components/VoiceListener/VoiceListner'
+import { Route } from 'react-router'
 
 import {
   deleteAvilableClocks,
@@ -2076,6 +2078,11 @@ const SingleWorkDayScreen = ({ history, match }) => {
   // ╚═╝  ╚═╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
   return (
     <Row>
+      <Col md={12}>
+        <Route
+          render={({ history }) => <Speech history={history} match={match} />}
+        />
+      </Col>
       <Col md={12}>
         <Link id='goback' to='/admin/torim'>
           <i className='fas fa-angle-double-right'></i>

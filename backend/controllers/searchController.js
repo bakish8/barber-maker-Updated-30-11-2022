@@ -6,33 +6,13 @@ import Clock from '../models/Clock.js'
 
 const FindClockByWorkIDandTime = asyncHandler(async (req, res) => {
   const workdatId = req.params.id
-  const Time = req.params.time
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time} and the work Id is:${workdatId}`)
+  const Time1 = req.params.time
+  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
+  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
+  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
+  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
+  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
+  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
 
   const WorkingDayFound = await WorkingDay.findById(workdatId)
   if (WorkingDayFound) {
@@ -41,7 +21,7 @@ const FindClockByWorkIDandTime = asyncHandler(async (req, res) => {
     console.log('יום העבודה נמצא   ')
     const clockFound = await Clock.findOne({
       owner: WorkingDayFound._id,
-      time: Time,
+      time: Time1,
     })
     if (clockFound) {
       res.status(209).json(clockFound)

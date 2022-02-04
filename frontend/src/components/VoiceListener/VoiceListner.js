@@ -15,6 +15,8 @@ import {
   SearchOneUserAction,
   FindClockByWorkID_and_time,
   confirmTor,
+  WorkingDayTors,
+  deleteAvilableClocks,
 } from '../../actions/userActions'
 import {
   ONE_WORKING_DAY_RESET,
@@ -23,6 +25,7 @@ import {
   FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_RESET,
   CONFIRM_TOR_RESET,
 } from '../../constants/userConstants'
+import audio from './wateDropSound.wav'
 //------------------------SPEECH RECOGNITION-----------------------------
 
 const SpeechRecognition =
@@ -34,9 +37,10 @@ recognition.interimResults = true
 recognition.lang = 'he'
 
 //------------------------COMPONENT-----------------------------
-const Speech = ({ history }) => {
+const Speech = ({ history, match }) => {
   const dispatch = useDispatch()
-
+  const Tors = useSelector((state) => state.Tors)
+  const { loading, error, clockList } = Tors
   const confirmMyTor = useSelector((state) => state.confirmMyTor)
   const {
     success: confirmsuccess,
@@ -85,8 +89,13 @@ const Speech = ({ history }) => {
   const [ForToday, setForToday] = useState(false)
   const [ForTomorow, setForTomorow] = useState(false)
   const [isMouseDown, setisMouseDown] = useState(false)
+  const [
+    PushTOworkingdayAfterPinuiAvilableTorim,
+    setPushTOworkingdayAfterPinuiAvilableTorim,
+  ] = useState(false)
 
   const toggleListen = () => {
+    new Audio(audio).play()
     setlistening(true)
     setisMouseDown(true)
     handleListen()
@@ -105,6 +114,62 @@ const Speech = ({ history }) => {
       setisMouseDown(true)
       handleListen()
     }
+  }
+
+  const FuncTionDeleteAllAvilableTors = () => {
+    if (!clockList || clockList.length == 0) {
+      Swal.fire({
+        position: 'top-end',
+        cancelButtonColor: 'rgb(194, 0, 0)',
+        confirmButtonColor: 'rgb(3, 148, 39)',
+        icon: 'error',
+        title: `לא נמצאו תורים זמינים להיום`,
+        text: `לא נמצאו ביום עבודה זה תורים זמינים `,
+        showConfirmButton: false,
+        timer: 8000,
+      })
+    } else {
+      for (let clock of clockList) {
+        if (clock.avilable) {
+          dispatch(deleteAvilableClocks(oneworkingdays[0]._id, clock._id)).then(
+            Swal.fire({
+              text: ' מוחק את התורים הזמינים מהמערכת אנא המתן',
+              imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
+              imageWidth: 400,
+              imageHeight: 400,
+              imageAlt: 'Custom image',
+              timer: 3000,
+              background: '#68b4ff00',
+              backdrop: 'rgba(0, 0, 0,0.8)',
+              color: 'rgba(255, 255, 255)',
+              showConfirmButton: false,
+            })
+          )
+        }
+      }
+
+      setPushTOworkingdayAfterPinuiAvilableTorim(true)
+    }
+  }
+
+  const SwalFuncTionDeleteAllAvilableTors = () => {
+    Swal.fire({
+      title: 'האם אתה בטוח שברצונך למחוק את התורים הזמינים מיום עבודה זה',
+      text: `חשוב לזכור שברגע שתמחק את תורים אלו מיום עבודה זה הם לא יהיו זמינים ללקוחות שלך`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'מחק',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        console.log('succses')
+        await dispatch(listOneWorkingDay)
+        await dispatch(WorkingDayTors(oneworkingdays[0]._id))
+        await FuncTionDeleteAllAvilableTors()
+      }
+    })
   }
 
   const handleListen = () => {
@@ -148,7 +213,7 @@ const Speech = ({ history }) => {
       document.getElementById('final').innerHTML = finalTranscript
 
       //-------------------------COMMANDS------------------------------------
-
+      //הפסק האזנה
       const transcriptArr = finalTranscript.split(' ')
       const stopCmd = transcriptArr.slice(-3, -1)
       console.log('stopCmd', stopCmd)
@@ -174,7 +239,7 @@ const Speech = ({ history }) => {
           setstatefinalText(statefinalText)
         }
       }
-
+      ///לדף הבית
       const HomeCMD = transcriptArr.slice(-3, -1)
       console.log('OprnTorimCMD', HomeCMD)
       let HomeArr = ['פתח', 'תפתח', 'דף', 'לדף', 'מדף', 'בית', 'לעמוד']
@@ -189,7 +254,7 @@ const Speech = ({ history }) => {
           setstatefinalText(statefinalText)
         }
       }
-
+      ///ליומן העבודה
       const OprnTorimCMD = transcriptArr.slice(-3, -1)
       console.log('OprnTorimCMD', OprnTorimCMD)
       let OpenAllTorimArr = [
@@ -221,6 +286,7 @@ const Speech = ({ history }) => {
         OprnTorimCMD[0] === 'תורים' ||
         OprnTorimCMD[0] === 'טורים' ||
         OprnTorimCMD[0] === 'לתורים' ||
+        OprnTorimCMD[0] === 'פורים' ||
         OprnTorimCMD[0] === 'לטורים' ||
         OprnTorimCMD[0] === 'התורים' ||
         (OprnTorimCMD[0] === 'הצג' &&
@@ -239,7 +305,7 @@ const Speech = ({ history }) => {
           setstatefinalText(statefinalText)
         }
       }
-
+      //לפתוח את יום העבודה היום
       const OPEN_TODAY_CMD = transcriptArr.slice(-3, -1)
       console.log('OPEN_TODAY_CMD', OPEN_TODAY_CMD)
       let OpenTodayArr = [
@@ -260,6 +326,7 @@ const Speech = ({ history }) => {
         (OpenTodayArr.includes(OPEN_TODAY_CMD[0]) &&
           OpenTodayArr2.includes(OPEN_TODAY_CMD[1])) ||
         OPEN_TODAY_CMD[0] === 'היום' ||
+        OPEN_TODAY_CMD[0] === 'להיום' ||
         (OPEN_TODAY_CMD[0] === 'הצג' &&
           OPEN_TODAY_CMD[1] === 'את' &&
           OPEN_TODAY_CMD[0] === 'היום') ||
@@ -279,7 +346,7 @@ const Speech = ({ history }) => {
           setstatefinalText(statefinalText)
         }
       }
-
+      //לפתוח את יום העבודה מחר
       const OPEN_TOMMOROW_CMD = transcriptArr.slice(-3, -1)
       console.log('OPEN_TOMMOROW_CMD', OPEN_TOMMOROW_CMD)
       let OpenTOMORROWArr = [
@@ -320,7 +387,80 @@ const Speech = ({ history }) => {
         }
       }
 
-      /**************Make tor commend קבע תור להיום לעומרי בקיש לשעה  ************** */
+      /************** פנה  תורים הזמינים להיום  ************** */
+      const CANCEL_AVILABLE_TORIM_TODAY_CMD = transcriptArr
+      console.log(
+        'CANCEL_AVILABLE_TORIM_TODAY_CMD',
+        CANCEL_AVILABLE_TORIM_TODAY_CMD
+      )
+      console.log(`BEFORE :${CANCEL_AVILABLE_TORIM_TODAY_CMD}`)
+      let f = 0
+      for (let word of CANCEL_AVILABLE_TORIM_TODAY_CMD) {
+        if (word === 'ל') {
+          CANCEL_AVILABLE_TORIM_TODAY_CMD.splice(f, 1)
+        }
+        f++
+      }
+      console.log(`AFTER :${CANCEL_AVILABLE_TORIM_TODAY_CMD}`)
+      let arrayyy_CANCEL0 = [
+        'פנה',
+        'תפנה',
+        'לפנות',
+        'פינוי',
+        'הסר',
+        'ביטול',
+        'מחק',
+        'הסר',
+        'חסר',
+        'החסרת',
+        'הסרת',
+        'בטל',
+      ]
+      let arrayyy_CANCEL1 = [
+        'תורים',
+        'טורים',
+        'שורים',
+        'סורים',
+        'מורים',
+        'קוראים',
+        'התורים',
+        'הטורים',
+        'הדברים',
+      ]
+      let arrayyy_CANCEL2 = [
+        'הפנוים',
+        'פנויים',
+        'זמינים',
+        'הזמינים',
+        'מזמינים',
+        'פנויים',
+        'פנויים',
+      ]
+      let arrayyy_CANCEL3 = ['היום', 'להיום', 'יום', 'כיום', 'מהיום']
+      if (
+        (arrayyy_CANCEL0.includes(CANCEL_AVILABLE_TORIM_TODAY_CMD[0]) &&
+          arrayyy_CANCEL1.includes(CANCEL_AVILABLE_TORIM_TODAY_CMD[1]) &&
+          arrayyy_CANCEL2.includes(CANCEL_AVILABLE_TORIM_TODAY_CMD[2]) &&
+          arrayyy_CANCEL3.includes(CANCEL_AVILABLE_TORIM_TODAY_CMD[3])) ||
+        (arrayyy_CANCEL0.includes(CANCEL_AVILABLE_TORIM_TODAY_CMD[0]) &&
+          arrayyy_CANCEL1.includes(CANCEL_AVILABLE_TORIM_TODAY_CMD[2]) &&
+          arrayyy_CANCEL2.includes(CANCEL_AVILABLE_TORIM_TODAY_CMD[3]) &&
+          arrayyy_CANCEL3.includes(CANCEL_AVILABLE_TORIM_TODAY_CMD[4]))
+      ) {
+        recognition.stop()
+        recognition.onend = async () => {
+          console.log('CANCEL ALL AVILABLE TORIM command')
+
+          SwalFuncTionDeleteAllAvilableTors()
+
+          const finalText = transcriptArr.join(' ')
+          document.getElementById('final').innerHTML = finalText
+          console.log(`final TEXT:, ${finalText}`)
+          setstatefinalText(statefinalText)
+        }
+      }
+
+      /************** קבע תור להיום לעומרי בקיש לשעה  ************** */
       const MAKE_TOR_FOR_TODAY_CMD = transcriptArr
       console.log('MAKE_TOR_FOR_TODAY_CMD', MAKE_TOR_FOR_TODAY_CMD)
       console.log(`BEFORE :${MAKE_TOR_FOR_TODAY_CMD}`)
@@ -341,7 +481,6 @@ const Speech = ({ history }) => {
         'נקבע',
         'קובע',
         'קובע',
-
         'אקבע',
         'נקבע',
         'מה',
@@ -361,6 +500,10 @@ const Speech = ({ history }) => {
         'טוב',
         'טוסט',
         'בתור',
+        'קור',
+        'נור',
+        'נאור',
+        'טהור',
       ]
       let arrayyy2 = ['היום', 'להיום', 'יום', 'כיום', 'מהיום']
       let arrayyy5 = ['שבשעה', 'בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
@@ -432,6 +575,7 @@ const Speech = ({ history }) => {
 
       let arrayy0 = [
         'קבע',
+        'כבד',
         'קבעת',
         'תקבע',
         'קובעת',
@@ -669,6 +813,89 @@ const Speech = ({ history }) => {
             const hour = MAKE_TOR_FOR_TODAY_CMD4[4]
             if (MAKE_TOR_FOR_TODAY_CMD4[5] === 'וחצי') {
               const half = MAKE_TOR_FOR_TODAY_CMD4[5]
+              makeTorForToday(UserToFind, hour, half)
+            } else {
+              makeTorForToday(UserToFind, hour)
+            }
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          }
+        }
+      }
+      /**************Make tor commend5  תור לעומרי בקיש היום בשעה  ************** */
+      const MAKE_TOR_FOR_TODAY_CMD5 = transcriptArr
+      console.log('MAKE_TOR_FOR_TODAY_CMD3', MAKE_TOR_FOR_TODAY_CMD5)
+      console.log(`BEFORE :${MAKE_TOR_FOR_TODAY_CMD5}`)
+      let b = 0
+      for (let word of MAKE_TOR_FOR_TODAY_CMD5) {
+        if (word === 'ל') {
+          MAKE_TOR_FOR_TODAY_CMD5.splice(b, 1)
+        }
+        b++
+      }
+      console.log(`AFTER :${MAKE_TOR_FOR_TODAY_CMD5}`)
+
+      let arrayyyyyyxz0 = [
+        'תור',
+        'תובל',
+        'מור',
+        'כפתור',
+        'מטול',
+        'מסור',
+        'מסור',
+        'נכון',
+        'הכל',
+        'התור',
+        'מטור',
+        'בתור',
+        'שור',
+        'סור',
+        'קור',
+        'טור',
+        'טוב',
+        'טוסט',
+      ]
+      let arrayyyyyyxz3 = ['היום', 'יום', 'כיום', 'יון', 'נכון']
+      let arrayyyyyyxz4 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה', 'שבשעה']
+
+      if (
+        arrayyyyyyxz0.includes(MAKE_TOR_FOR_TODAY_CMD5[0]) &&
+        arrayyyyyyxz3.includes(MAKE_TOR_FOR_TODAY_CMD5[3]) &&
+        arrayyyyyyxz4.includes(MAKE_TOR_FOR_TODAY_CMD5[4])
+      ) {
+        recognition.stop()
+        recognition.onend = async () => {
+          console.log('MAKE TOR ACTION listening per command')
+
+          const lamedd = MAKE_TOR_FOR_TODAY_CMD5[1].charAt(0)
+          console.log(`lamedd:${lamedd}`)
+          if (lamedd == 'ל') {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD5[1].substring(1)
+            const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD5[2]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TODAY_CMD5[5]
+            if (MAKE_TOR_FOR_TODAY_CMD5[6] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD5[6]
+              makeTorForToday(UserToFind, hour, half)
+            } else {
+              makeTorForToday(UserToFind, hour)
+            }
+
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          } else {
+            const UserFirstNameToFind = MAKE_TOR_FOR_TODAY_CMD5[1]
+            const UserLastNameToFind = MAKE_TOR_FOR_TODAY_CMD5[2]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_TODAY_CMD5[5]
+            if (MAKE_TOR_FOR_TODAY_CMD5[6] === 'וחצי') {
+              const half = MAKE_TOR_FOR_TODAY_CMD5[6]
               makeTorForToday(UserToFind, hour, half)
             } else {
               makeTorForToday(UserToFind, hour)
@@ -948,7 +1175,18 @@ const Speech = ({ history }) => {
         dispatch({ type: ONE_USER_SEARCH_RESET })
       }
     }
-
+    if (PushTOworkingdayAfterPinuiAvilableTorim) {
+      Swal.fire({
+        position: 'top-end',
+        cancelButtonColor: 'rgb(194, 0, 0)',
+        confirmButtonColor: 'rgb(3, 148, 39)',
+        icon: 'success',
+        title: `בוצע בהצלחה`,
+        text: `כל התורים הזמינים להיום נמחקו בהצלחה`,
+        showConfirmButton: false,
+        timer: 8000,
+      })
+    }
     if (successclockFound) {
       if (ForToday) {
         setForTomorow(false)

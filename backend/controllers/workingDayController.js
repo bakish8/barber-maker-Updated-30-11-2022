@@ -94,9 +94,7 @@ const getWorkingDayForToday = asyncHandler(async (req, res) => {
       owner: req.user._id,
       Datemonth: month,
       Dateyear: year,
-      Dateday: {
-        $in: [day],
-      },
+      Dateday: day,
     })
       .populate('torim')
       .populate('mistaper')
@@ -108,7 +106,6 @@ const getWorkingDayForToday = asyncHandler(async (req, res) => {
     const workingdays = await WorkingDay.find({
       owner: req.user._id,
       dayInWeek: { $nin: ['שבת'] },
-
       Datemonth: month,
       Dateyear: year,
       Dateday: {
