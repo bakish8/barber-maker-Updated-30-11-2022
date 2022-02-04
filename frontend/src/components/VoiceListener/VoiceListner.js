@@ -17,6 +17,7 @@ import {
   confirmTor,
   WorkingDayTors,
   deleteAvilableClocks,
+  SugeiTipulimAction,
 } from '../../actions/userActions'
 import {
   ONE_WORKING_DAY_RESET,
@@ -37,8 +38,9 @@ recognition.interimResults = true
 recognition.lang = 'he'
 
 //------------------------COMPONENT-----------------------------
-const Speech = ({ history, match }) => {
+const Speech = ({ history, match, tipulimList }) => {
   const dispatch = useDispatch()
+
   const Tors = useSelector((state) => state.Tors)
   const { loading, error, clockList } = Tors
   const confirmMyTor = useSelector((state) => state.confirmMyTor)
@@ -93,9 +95,9 @@ const Speech = ({ history, match }) => {
     PushTOworkingdayAfterPinuiAvilableTorim,
     setPushTOworkingdayAfterPinuiAvilableTorim,
   ] = useState(false)
-
+  const aydioo = new Audio(audio)
   const toggleListen = () => {
-    new Audio(audio).play()
+    aydioo.play()
     setlistening(true)
     setisMouseDown(true)
     handleListen()
@@ -1112,6 +1114,9 @@ const Speech = ({ history, match }) => {
   // ╚██████╔╝███████║███████╗    ███████╗██║     ██║     ███████╗╚██████╗   ██║
   //  ╚═════╝ ╚══════╝╚══════╝    ╚══════╝╚═╝     ╚═╝     ╚══════╝ ╚═════╝   ╚═╝
   useEffect(() => {
+    if (tipulimList) {
+      console.log(tipulimList[0]._id)
+    }
     if (statefinalText) {
       console.log(`statefinalText:${statefinalText}`)
     }
@@ -1186,6 +1191,7 @@ const Speech = ({ history, match }) => {
         showConfirmButton: false,
         timer: 8000,
       })
+      setPushTOworkingdayAfterPinuiAvilableTorim(false)
     }
     if (successclockFound) {
       if (ForToday) {
@@ -1207,10 +1213,10 @@ const Speech = ({ history, match }) => {
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
           footer: `<a href="">התקשר לנייד של ${username} בנייד 0${userphone}</a>`,
-        }).then((result) => {
+        }).then(async (result) => {
           if (result.isConfirmed) {
-            dispatch(
-              confirmTor(clockFound._id, userid, '61fbc7d3fa15457908c788b0')
+            await dispatch(
+              confirmTor(clockFound._id, userid, tipulimList[0]._id)
             ) //*hard code///
           }
         })
@@ -1238,9 +1244,7 @@ const Speech = ({ history, match }) => {
           footer: `<a href="">התקשר לנייד של ${username} בנייד 0${userphone}</a>`,
         }).then((result) => {
           if (result.isConfirmed) {
-            dispatch(
-              confirmTor(clockFound._id, userid, '61fbc7d3fa15457908c788b0')
-            ) //*hard code///
+            dispatch(confirmTor(clockFound._id, userid, tipulimList[0]._id)) //*hard code///
           }
         })
         dispatch({ type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_RESET })
@@ -1275,6 +1279,7 @@ const Speech = ({ history, match }) => {
       }
     }
   }, [
+    tipulimList,
     statefinalText,
     redirectHome,
     GoTorim,
@@ -1654,7 +1659,9 @@ const Speech = ({ history, match }) => {
         onTouchStart={toggleListen}
         onTouchEnd={toggleListenfalse}
         onTouchMove={toggleL}
-      ></div>
+      >
+        <i id='fontawsomeMicro' class='fas fa-microphone'></i>
+      </div>
       <div id='interim'></div>
       <div id='final'></div>
     </div>

@@ -2080,7 +2080,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
     <Row>
       <Col md={12}>
         <Route
-          render={({ history }) => <Speech history={history} match={match} />}
+          render={({ history }) => (
+            <Speech history={history} match={match} tipulimList={tipulimList} />
+          )}
         />
       </Col>
       <Col md={12}>

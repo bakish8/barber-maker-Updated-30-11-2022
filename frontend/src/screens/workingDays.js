@@ -18,6 +18,7 @@ import {
   createReport,
   createReportForWeek,
   createReportForMonth,
+  SugeiTipulimAction,
 } from '../actions/userActions'
 import { Link } from 'react-router-dom'
 import { Calendar, DateObject } from 'react-multi-date-picker'
@@ -69,6 +70,9 @@ const WorkingDaysScreen = ({ history }) => {
   // ██╔══██╗██╔══╝  ██║  ██║██║   ██║ ██╔██╗     ╚════██║   ██║   ██╔══██║   ██║   ██╔══╝  ╚════██║
   // ██║  ██║███████╗██████╔╝╚██████╔╝██╔╝ ██╗    ███████║   ██║   ██║  ██║   ██║   ███████╗███████║
   // ╚═╝  ╚═╝╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝    ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚══════╝
+
+  const TipulimList = useSelector((state) => state.TipulimList)
+  const { tipulimList } = TipulimList
 
   const ClocksReciptOneDay = useSelector((state) => state.ClocksReciptOneDay)
   const { result1day } = ClocksReciptOneDay
@@ -489,6 +493,7 @@ const WorkingDaysScreen = ({ history }) => {
       dispatch(getCLOCKSForTodayReciptAction())
       dispatch(getCLOCKSForThisWeekReciptAction())
       dispatch(getCLOCKSForThisMonthReciptAction())
+      dispatch(SugeiTipulimAction())
 
       if (workingDayInfo && CreateSuccses) {
         history.push(`/admin/workingday/${workingDayInfo._id}`)
@@ -1176,7 +1181,11 @@ const WorkingDaysScreen = ({ history }) => {
         </form>
       )}
       <Col md={12}>
-        <Route render={({ history }) => <Speech history={history} />} />
+        <Route
+          render={({ history }) => (
+            <Speech history={history} tipulimList={tipulimList} />
+          )}
+        />
       </Col>
       <Col md={12}>
         <Link id='goback' to='/'>
