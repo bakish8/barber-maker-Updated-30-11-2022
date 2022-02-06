@@ -119,7 +119,7 @@ const Speech = ({ history, match, tipulimList }) => {
   }
 
   const FuncTionDeleteAllAvilableTors = () => {
-    if (!clockList || clockList.length == 0) {
+    if (!clockList) {
       Swal.fire({
         position: 'top-end',
         cancelButtonColor: 'rgb(194, 0, 0)',
@@ -153,6 +153,41 @@ const Speech = ({ history, match, tipulimList }) => {
       setPushTOworkingdayAfterPinuiAvilableTorim(true)
     }
   }
+  const FuncTionDeleteAllAvilableTors2 = (lastItem) => {
+    if (!clockList || clockList.length == 0) {
+      Swal.fire({
+        position: 'top-end',
+        cancelButtonColor: 'rgb(194, 0, 0)',
+        confirmButtonColor: 'rgb(3, 148, 39)',
+        icon: 'error',
+        title: `לא נמצאו תורים זמינים להיום`,
+        text: `לא נמצאו ביום עבודה זה תורים זמינים `,
+        showConfirmButton: false,
+        timer: 8000,
+      })
+    } else {
+      for (let clock of clockList) {
+        if (clock.avilable) {
+          dispatch(deleteAvilableClocks(lastItem, clock._id)).then(
+            Swal.fire({
+              text: ' מוחק את התורים הזמינים מהמערכת אנא המתן',
+              imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
+              imageWidth: 400,
+              imageHeight: 400,
+              imageAlt: 'Custom image',
+              timer: 3000,
+              background: '#68b4ff00',
+              backdrop: 'rgba(0, 0, 0,0.8)',
+              color: 'rgba(255, 255, 255)',
+              showConfirmButton: false,
+            })
+          )
+        }
+      }
+
+      setPushTOworkingdayAfterPinuiAvilableTorim(true)
+    }
+  }
 
   const SwalFuncTionDeleteAllAvilableTors = () => {
     Swal.fire({
@@ -167,9 +202,22 @@ const Speech = ({ history, match, tipulimList }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         console.log('succses')
-        await dispatch(listOneWorkingDay)
-        await dispatch(WorkingDayTors(oneworkingdays[0]._id))
-        await FuncTionDeleteAllAvilableTors()
+        if (window.location.href.indexOf('torim') > -1) {
+          alert('your url contains the name torim')
+          await dispatch(listOneWorkingDay)
+          await dispatch(WorkingDayTors(oneworkingdays[0]._id))
+          await FuncTionDeleteAllAvilableTors()
+        } else if (window.location.href.indexOf('workingday') > -1) {
+          alert('your url contains the name workingday')
+          const lastItem = window.location.href.substring(
+            window.location.href.lastIndexOf('/') + 1
+          )
+          alert(lastItem)
+
+          await dispatch(listOneWorkingDay)
+          await dispatch(WorkingDayTors(lastItem))
+          await FuncTionDeleteAllAvilableTors2(lastItem)
+        }
       }
     })
   }
@@ -291,6 +339,10 @@ const Speech = ({ history, match, tipulimList }) => {
         OprnTorimCMD[0] === 'פורים' ||
         OprnTorimCMD[0] === 'לטורים' ||
         OprnTorimCMD[0] === 'התורים' ||
+        (OprnTorimCMD[0] === 'זמן' && OprnTorimCMD[1] === 'העבודה') ||
+        (OprnTorimCMD[0] === 'זמן' && OprnTorimCMD[1] === 'עבודה') ||
+        (OprnTorimCMD[0] === 'יומן' && OprnTorimCMD[1] === 'עבודה') ||
+        (OprnTorimCMD[0] === 'יומן' && OprnTorimCMD[1] === 'העבודה') ||
         (OprnTorimCMD[0] === 'הצג' &&
           OprnTorimCMD[1] === 'את' &&
           OprnTorimCMD[2] === 'התורים') ||
@@ -337,6 +389,9 @@ const Speech = ({ history, match, tipulimList }) => {
           OPEN_TODAY_CMD[0] === 'היום') ||
         (OPEN_TODAY_CMD[0] === 'פתח' &&
           OPEN_TODAY_CMD[1] === 'תורים' &&
+          OPEN_TODAY_CMD[0] === 'להיום') ||
+        (OPEN_TODAY_CMD[0] === 'פתח' &&
+          OPEN_TODAY_CMD[1] === 'טובים' &&
           OPEN_TODAY_CMD[0] === 'להיום')
       ) {
         recognition.stop()
@@ -406,6 +461,7 @@ const Speech = ({ history, match, tipulimList }) => {
       console.log(`AFTER :${CANCEL_AVILABLE_TORIM_TODAY_CMD}`)
       let arrayyy_CANCEL0 = [
         'פנה',
+        'פנדה',
         'תפנה',
         'לפנות',
         'פינוי',
@@ -426,6 +482,8 @@ const Speech = ({ history, match, tipulimList }) => {
         'מורים',
         'קוראים',
         'התורים',
+        'הדובים',
+        'הטובים',
         'הטורים',
         'הדברים',
       ]

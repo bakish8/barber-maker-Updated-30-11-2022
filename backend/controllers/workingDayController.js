@@ -90,7 +90,7 @@ const getWorkingDayForToday = asyncHandler(async (req, res) => {
   })
   if (workingday) {
     const workingdays = await WorkingDay.find({
-      dayInWeek: { $nin: ['שבת'] },
+      //  dayInWeek: { $nin: ['שבת'] },
       owner: req.user._id,
       Datemonth: month,
       Dateyear: year,
@@ -404,7 +404,7 @@ const getWorkingDaysForThisWEEK = asyncHandler(async (req, res) => {
       res.json(workingdays)
     } else if (dayInWeek === 'שבת') {
       const workingdays = await WorkingDay.find({
-        dayInWeek: { $nin: ['שבת'] },
+        // dayInWeek: { $nin: ['שבת'] },
         owner: req.user._id,
         Datemonth: month,
         Dateyear: year,
@@ -426,7 +426,7 @@ const getWorkingDaysForThisWEEK = asyncHandler(async (req, res) => {
   } else {
     const workingday = await WorkingDay.find({
       owner: req.user._id,
-      dayInWeek: { $nin: ['שבת'] },
+      // dayInWeek: { $nin: ['שבת'] },
       Datemonth: month,
       Dateyear: year,
       Dateday: {

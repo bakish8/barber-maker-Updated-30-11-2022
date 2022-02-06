@@ -31,6 +31,7 @@ const authGoogleUser = asyncHandler(async (req, res) => {
     res.json({
       _id: user._id,
       name: user.name,
+
       email: user.email,
       phone: user.phone,
       image: user.image,
@@ -56,8 +57,12 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('המשתמש כבר קיים במערכת')
   }
   if (image === null) {
+    let firstname = name.split(' ')[0]
+    let lastname = name.split(' ')[1]
     const user = await User.create({
       name,
+      firstname,
+      lastname,
       email,
       phone,
       password,
@@ -67,6 +72,8 @@ const registerUser = asyncHandler(async (req, res) => {
       res.status(201).json({
         _id: user._id,
         name: user.name,
+        firstname: firstname,
+        lastname: lastname,
         email: user.email,
         phone: user.phone,
         isAdmin: user.isAdmin,
@@ -78,8 +85,12 @@ const registerUser = asyncHandler(async (req, res) => {
       throw new Error('אחד מהפרטים שגוי נסה שנית')
     }
   } else {
+    let firstname = name.split(' ')[0]
+    let lastname = name.split(' ')[1]
     const user = await User.create({
       name,
+      firstname,
+      lastname,
       email,
       phone,
       password,
@@ -89,6 +100,8 @@ const registerUser = asyncHandler(async (req, res) => {
       res.status(201).json({
         _id: user._id,
         name: user.name,
+        firstname: firstname,
+        lastname: lastname,
         email: user.email,
         phone: user.phone,
         isAdmin: user.isAdmin,
@@ -132,8 +145,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     //****להמשיך לעדכן עדכון תמונה בהמשך  */
     user.name = req.body.name || user.name
+    user.firstname = req.body.name.split(' ')[0] || user.firstname
+    user.lastname = req.body.name.split(' ')[1] || user.lastname
     user.email = req.body.email || user.email
     user.phone = req.body.phone || user.phone
+
     if (req.body.password) {
       user.password = req.body.password
     }
@@ -143,6 +159,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,
+      firstname: updatedUser.firstname,
+      lastname: updatedUser.lastname,
       email: updatedUser.email,
       phone: user.phone,
       isAdmin: updatedUser.isAdmin,
@@ -199,6 +217,8 @@ const updateUser = asyncHandler(async (req, res) => {
 
   if (user) {
     user.name = req.body.name || user.name
+    user.firstname = req.body.name.split(' ')[0] || user.firstname
+    user.lastname = req.body.name.split(' ')[1] || user.lastname
     user.email = req.body.email || user.email
     user.phone = req.body.phone || user.phone
     user.image = req.body.image || user.image
@@ -209,6 +229,8 @@ const updateUser = asyncHandler(async (req, res) => {
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,
+      firstname: updatedUser.firstname,
+      lastname: updatedUser.lastname,
       email: updatedUser.email,
       phone: updatedUser.phone,
       image: updatedUser.image,
