@@ -3000,10 +3000,35 @@ h5 {
 
 #swal-input1,
 #swal-input2,
-#swal-input3 {
+#swal-input3,
+#swal-input4 {
   position: relative;
   left: 14px;
-  width: 150px;
+  width: 250px;
+  margin-left: 25px;
+}
+#swal-input11 {
+  position: relative;
+  left: 14px;
+  width: 250px;
+  margin-left: 25px;
+}
+#swal-input22 {
+  position: relative;
+  left: 22px;
+  width: 250px;
+  margin-left: 25px;
+}
+#swal-input33 {
+  position: relative;
+  width: 250px;
+  margin-left: 25px;
+}
+#swal-input44 {
+  position: relative;
+  right: 10px;
+  width: 250px;
+  margin-left: 25px;
 }
 
 #swal-input2 {

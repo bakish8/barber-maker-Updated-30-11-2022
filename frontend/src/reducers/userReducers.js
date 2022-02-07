@@ -1,4 +1,8 @@
 import {
+  POTENTIAL_USERS_REQUEST,
+  POTENTIAL_USERS_SUCCESS,
+  POTENTIAL_USERS_FAIL,
+  POTENTIAL_USERS_RESET,
   LIST_WORKING_DAYS_FOR_next_7_Days_REQUEST,
   LIST_WORKING_DAYS_FOR_next_7_Days_SUCCESS,
   LIST_WORKING_DAYS_FOR_next_7_Days_FAIL,
@@ -148,6 +152,7 @@ import {
   USER_REGISTERByADMIN_REQUEST,
   USER_REGISTERByADMIN_SUCCESS,
   USER_REGISTERByADMIN_FAIL,
+  USER_REGISTERByADMIN_RESET,
   WORKING_DAY_DELETE_RESET,
   CLOCK_DELETE_RESET,
   SEND_SMS_TOR_REQUEST,
@@ -205,6 +210,7 @@ import {
   USER_DETAILS_COMMENTS_FOR_TIPUL_RESET,
   USER_UPDATE_COMMENTS_FOR_TIPUL_FAIL,
   ONE_WORKING_DAY_RESET,
+  List_of_Potential_Users_By_FirstName_RESET,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -264,6 +270,8 @@ export const userRegisterBY_ADMINReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case USER_LOGOUT:
       return {}
+    case USER_REGISTERByADMIN_RESET:
+      return { success: false }
     default:
       return state
   }
@@ -497,6 +505,29 @@ export const workingDayListReducer = (state = { workingdays: [] }, action) => {
       return { loading: false, workingdays: action.payload }
     case WORKING_DAYS_FAIL:
       return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const Potential_Users_By_FirstNameReducer = (
+  state = { list: [] },
+  action
+) => {
+  switch (action.type) {
+    case POTENTIAL_USERS_REQUEST:
+      return { listloading: true }
+    case POTENTIAL_USERS_SUCCESS:
+      return {
+        listloading: false,
+        list: action.payload,
+        listsuccess: true,
+      }
+    case POTENTIAL_USERS_FAIL:
+      return { listloading: false, listerror: action.payload }
+
+    case POTENTIAL_USERS_RESET:
+      return { listsuccess: false, list: {} }
     default:
       return state
   }
@@ -857,6 +888,7 @@ export const MyTorimListMyReducer = (state = { clocks: [] }, action) => {
       }
     case TORIM_LIST_MY_RESET:
       return { clocks: [] }
+
     default:
       return state
   }

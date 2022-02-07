@@ -93,3 +93,38 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+#before {
+  display: none;
+  content: 'הוסף משתמש חדש';
+  right: 63%;
+  top: 175px;
+  position: fixed;
+  font-size: 15px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 17px;
+}
+#addNewUser101 {
+  cursor: pointer;
+  width: 85px;
+  height: 85px;
+  background-color: #3877ff;
+  right: 65%;
+  position: fixed;
+  border-radius: 50%;
+  color: rgb(255, 255, 255);
+  font-size: 35px;
+}
+#addNewUser101:hover {
+  background-color: #1a62ff;
+}
+#addNewUser101:hover + #before {
+  display: block;
+}
+#leftttt {
+  position: relative;
+  right: 15px;
+  top: 15px;
+}

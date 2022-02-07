@@ -1207,8 +1207,8 @@ const WorkingDaysScreen = ({ history }) => {
               format='DD/MM/YYYY'
               weekDays={weekDays}
               months={months}
-              minDate={startDate}
-              maxDate={addDays(new Date(), 30)}
+              minDate={addDays(startDate, -365)}
+              maxDate={addDays(new Date(), 365)}
               locale={gregorian_ar}
               digits={digits}
               mapDays={({ date, today }) => {

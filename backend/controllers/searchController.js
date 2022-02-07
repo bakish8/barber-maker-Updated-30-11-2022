@@ -48,15 +48,66 @@ const findUser = asyncHandler(async (req, res) => {
   } else {
     const first = req.params.id.split(' ')[0]
     const last = req.params.id.split(' ')[1]
-    console.log(first)
-    console.log(first)
-    console.log(last)
+    const userFound_try4 = await User.findOne({
+      firstname: first,
+      lastname: last,
+    }).populate('torim')
+    if (userFound_try4) {
+      console.log(userFound_try4.name)
+      console.log(userFound_try4.phone)
+      console.log('המשתמש  נמצא ')
+      res.status(209).json(userFound_try4)
+    } else {
+      // במידה והמשתמש הזה גם לא נמצא אז
+      console.log('המשתמש לא  נמצא ')
+      res.status(403)
+      throw new Error('המשתמש לא נמצא ')
+    }
   }
-  // else {// במידה והמשתמש הזה גם לא נמצא אז
-  //     console.log('המשתמש לא  נמצא ')
-  //     res.status(403)
-  //     throw new Error('המשתמש לא נמצא ')
-  //   }
+})
+//*****מוצא את עומרי ב וזזה יהיה הניסיון השני לנקות את כל האותיות משהשםם ממשפחה מחוץ מהראשונה  */
+const findUserByfirst = asyncHandler(async (req, res) => {
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  console.log(req.params.id)
+  const first = req.params.id.split(' ')[0]
+  const last = req.params.id.split(' ')[1]
+  console.log(`first:${first}`)
+  console.log(`last:${last}`)
+  const usersFound = await User.find({ firstname: first }).populate('torim')
+  if (usersFound && usersFound.length) {
+    console.log('המשתמשים נמצאו ')
+    console.log(usersFound)
+    res.status(209).json(usersFound)
+  } else {
+    const usersFound2 = await User.find({ lastname: last }).populate('torim')
+    if (usersFound2 && usersFound2.length) {
+      console.log(usersFound2)
+      console.log('2המשתמשים נמצאו ')
+      res.status(209).json(usersFound2)
+    } else {
+      throw new Error('המשתמשים לא נמצאו   ')
+    }
+  }
 })
 
 const findPhone = asyncHandler(async (req, res) => {
@@ -85,4 +136,10 @@ const findTipulim = asyncHandler(async (req, res) => {
   }
 })
 
-export { findUser, findPhone, findTipulim, FindClockByWorkIDandTime }
+export {
+  findUser,
+  findPhone,
+  findTipulim,
+  FindClockByWorkIDandTime,
+  findUserByfirst,
+}

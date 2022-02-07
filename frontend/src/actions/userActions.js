@@ -1,6 +1,9 @@
 import axios from 'axios'
 
 import {
+  POTENTIAL_USERS_REQUEST,
+  POTENTIAL_USERS_SUCCESS,
+  POTENTIAL_USERS_FAIL,
   LIST_WORKING_DAYS_FOR_next_7_Days_REQUEST,
   LIST_WORKING_DAYS_FOR_next_7_Days_SUCCESS,
   LIST_WORKING_DAYS_FOR_next_7_Days_FAIL,
@@ -2330,6 +2333,42 @@ export const FindClockByWorkID_and_time =
       dispatch({
         type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_FAIL,
         payload: message,
+      })
+    }
+  }
+
+export const List_of_Potential_Users_By_FirstNameActionSearch =
+  (id) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: POTENTIAL_USERS_REQUEST,
+      })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const { data } = await axios.get(
+        `/api/search/userslistbyfirst/${id}`,
+        config
+      )
+      console.log('data:')
+      console.log(data)
+
+      dispatch({
+        type: POTENTIAL_USERS_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: POTENTIAL_USERS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       })
     }
   }

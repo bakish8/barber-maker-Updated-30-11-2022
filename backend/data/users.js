@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs'
 const users = [
   {
     name: 'עומרי בקיש',
-    firstname: 'עומרי ',
+    firstname: 'עומרי',
     lastname: 'בקיש',
     email: 'omri@example.com',
     password: bcrypt.hashSync('123456', 10),
@@ -15,7 +15,7 @@ const users = [
   },
   {
     name: 'אביחי מלול',
-    firstname: 'אביחי ',
+    firstname: 'אביחי',
     lastname: 'מלול',
     email: 'avihai@example.com',
     password: bcrypt.hashSync('123456', 10),
@@ -27,7 +27,7 @@ const users = [
   },
   {
     name: 'אביב בקיש',
-    firstname: 'אביב ',
+    firstname: 'אביב',
     lastname: 'בקיש',
     email: 'aviv@example.com',
     password: bcrypt.hashSync('123456', 10),
@@ -36,7 +36,7 @@ const users = [
   },
   {
     name: 'דניאל בקיש',
-    firstname: 'דניאל ',
+    firstname: 'דניאל',
     lastname: 'בקיש',
     email: 'daniel@example.com',
     password: bcrypt.hashSync('123456', 10),
