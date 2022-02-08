@@ -3,9 +3,10 @@ import {
   POTENTIAL_USERS_SUCCESS,
   POTENTIAL_USERS_FAIL,
   POTENTIAL_USERS_RESET,
-  LIST_WORKING_DAYS_FOR_next_7_Days_REQUEST,
-  LIST_WORKING_DAYS_FOR_next_7_Days_SUCCESS,
-  LIST_WORKING_DAYS_FOR_next_7_Days_FAIL,
+  LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_REQUEST,
+  LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_SUCCESS,
+  LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_FAIL,
+  LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_RESET,
   FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_REQUEST,
   FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_SUCCESS,
   FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_FAIL,
@@ -601,16 +602,19 @@ export const ListworkingDayReducerForNEXT7days = (
   action
 ) => {
   switch (action.type) {
-    case LIST_WORKING_DAYS_FOR_next_7_Days_REQUEST:
+    case LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_REQUEST:
       return { sevendaysloading: true }
-    case LIST_WORKING_DAYS_FOR_next_7_Days_SUCCESS:
+    case LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_SUCCESS:
       return {
         sevendaysloading: false,
         sevendaysworkingdays: action.payload,
         sevendayssuccess: true,
       }
-    case LIST_WORKING_DAYS_FOR_next_7_Days_FAIL:
+    case LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_FAIL:
       return { sevendaysloading: false, sevendayserror: action.payload }
+    case LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_RESET:
+      return { sevendayssuccess: false }
+
     default:
       return state
   }

@@ -8,12 +8,6 @@ const FindClockByWorkIDandTime = asyncHandler(async (req, res) => {
   const workdatId = req.params.id
   const Time1 = req.params.time
   console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
-  console.log(`the time is :${Time1} and the work Id is:${workdatId}`)
-
   const WorkingDayFound = await WorkingDay.findById(workdatId)
   if (WorkingDayFound) {
     console.log(WorkingDayFound.date)
@@ -24,9 +18,13 @@ const FindClockByWorkIDandTime = asyncHandler(async (req, res) => {
       time: Time1,
     })
     if (clockFound) {
-      res.status(209).json(clockFound)
+      if (clockFound.avilable) {
+        res.status(209).json(clockFound)
+      } else {
+        throw new Error('Hour Not Avilavle')
+      }
     } else {
-      throw new Error('השעה  לא נמצא לא נמצא ')
+      throw new Error('Hour Not Found')
     }
   } else {
     console.log('יום העבודה לא נמצא  לא  נמצא ')

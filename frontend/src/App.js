@@ -78,7 +78,7 @@ const App = () => {
             exact
           />
           <Route path='/admin/torim/' component={WorkingDaysScreen} exact />
-          <Route path='/admin/workingday/:id' component={SingleWorkDay} />
+          <Route path='/admin/workingday/:id' component={SingleWorkDay} exact />
           <Route path='/admin/settings' component={SettingsScreen} exact />
           <Route
             path='/admin/settings/newtipul'

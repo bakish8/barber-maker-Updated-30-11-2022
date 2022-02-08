@@ -26,7 +26,7 @@ const UserFIlterMakeTorVoiceControll = (props) => {
     props.changeName(name)
     props.changePhone(phone)
     props.changeImage(image)
-    props.changeStateForShowingConfirmAfterListUser(true)
+    props.changeStateForShowingConfirmAfterListUser()
   }
 
   const functiondeLaRoma2 = () => {

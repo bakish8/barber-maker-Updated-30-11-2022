@@ -4,9 +4,9 @@ import {
   POTENTIAL_USERS_REQUEST,
   POTENTIAL_USERS_SUCCESS,
   POTENTIAL_USERS_FAIL,
-  LIST_WORKING_DAYS_FOR_next_7_Days_REQUEST,
-  LIST_WORKING_DAYS_FOR_next_7_Days_SUCCESS,
-  LIST_WORKING_DAYS_FOR_next_7_Days_FAIL,
+  LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_REQUEST,
+  LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_SUCCESS,
+  LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_FAIL,
   FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_REQUEST,
   FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_SUCCESS,
   FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_FAIL,
@@ -729,10 +729,11 @@ export const listWorkingDaysFORthisWEEK = () => async (dispatch, getState) => {
     })
   }
 }
-export const listWorkingDaysFORNEXT7DAYS = () => async (dispatch, getState) => {
+export const nextSevenDays = () => async (dispatch, getState) => {
+  console.log(`action`)
   try {
     dispatch({
-      type: LIST_WORKING_DAYS_FOR_next_7_Days_REQUEST,
+      type: LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_REQUEST,
     })
 
     const {
@@ -746,7 +747,7 @@ export const listWorkingDaysFORNEXT7DAYS = () => async (dispatch, getState) => {
     }
     const { data } = await axios.get(`/api/workingday/next7days`, config)
     dispatch({
-      type: LIST_WORKING_DAYS_FOR_next_7_Days_SUCCESS,
+      type: LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_SUCCESS,
       payload: data,
     })
   } catch (error) {
@@ -758,13 +759,16 @@ export const listWorkingDaysFORNEXT7DAYS = () => async (dispatch, getState) => {
       dispatch(logout())
     }
     dispatch({
-      type: LIST_WORKING_DAYS_FOR_next_7_Days_FAIL,
+      type: LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_FAIL,
       payload: message,
     })
   }
 }
 
 export const listOneWorkingDay = () => async (dispatch, getState) => {
+  console.log('action')
+  console.log('action')
+  console.log('action')
   dispatch({ type: WORKING_DAY_DELETE_RESET })
 
   try {
@@ -2284,6 +2288,59 @@ export const SearchOneUserAction = (id) => async (dispatch, getState) => {
     })
   }
 }
+export const Next7Daysss = (id) => async (dispatch, getState) => {
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+  console.log('Next7Daysss')
+
+  console.log(`action`)
+  try {
+    dispatch({
+      type: LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.get(`/api/workingday/next7days`, config)
+    dispatch({
+      type: LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_FAIL,
+      payload: message,
+    })
+  }
+}
+
 export const FindClockByWorkID_and_time =
   (id, time) => async (dispatch, getState) => {
     console.log(`id id id :${id}`)
