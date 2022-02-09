@@ -33,6 +33,16 @@ import {
   CONFIRM_TOR_RESET,
 } from '../../constants/userConstants'
 import audio from './wateDropSound.wav'
+import daysArr from './KeyWords/daysArr'
+import LeMaharArr from './KeyWords/LeMaharArr'
+import inShahaArr from './KeyWords/inShahaArr'
+import LeHaiomArr from './KeyWords/LeHaiomArr'
+import KevaArr from './KeyWords/KevaArr'
+import TorArr from './KeyWords/TorArr'
+import TorimArr from './KeyWords/TorimArr'
+import zminimArr from './KeyWords/zminimArr'
+import HOURconfigrator from './HOURconfigrator'
+
 //------------------------SPEECH RECOGNITION-----------------------------
 
 const SpeechRecognition =
@@ -134,6 +144,7 @@ const Speech = ({ history, match, tipulimList }) => {
   const [userphone, setuserphone] = useState('')
   const [WorkdayFound_ID, setWorkdayFound_ID] = useState('')
   const [WorkdayFound_DayINweek, setWorkdayFound_DayINweek] = useState('')
+  const [ClockForNewUser, setClockForNewUser] = useState('')
   const [WorkdayFoundDay_DATE, setWorkdayFoundDay_DATE] = useState('')
   const [ForToday, setForToday] = useState(false)
   const [ForTomorow, setForTomorow] = useState(false)
@@ -382,15 +393,7 @@ const Speech = ({ history, match, tipulimList }) => {
         'הצג',
         'תראה',
       ]
-      let OpenAllTorimArr2 = [
-        'תורים',
-        'את',
-        'מורים',
-        'טורים',
-        'לטורים',
-        'התורים',
-        'הטורים',
-      ]
+      let OpenAllTorimArr2 = TorimArr
       if (
         (OpenAllTorimArr.includes(OprnTorimCMD[0]) &&
           OpenAllTorimArr2.includes(OprnTorimCMD[1])) ||
@@ -535,29 +538,9 @@ const Speech = ({ history, match, tipulimList }) => {
         'הסרת',
         'בטל',
       ]
-      let arrayyy_CANCEL1 = [
-        'תורים',
-        'טורים',
-        'שורים',
-        'סורים',
-        'מורים',
-        'קוראים',
-        'התורים',
-        'הדובים',
-        'הטובים',
-        'הטורים',
-        'הדברים',
-      ]
-      let arrayyy_CANCEL2 = [
-        'הפנוים',
-        'פנויים',
-        'זמינים',
-        'הזמינים',
-        'מזמינים',
-        'פנויים',
-        'פנויים',
-      ]
-      let arrayyy_CANCEL3 = ['היום', 'להיום', 'יום', 'כיום', 'מהיום']
+      let arrayyy_CANCEL1 = TorimArr
+      let arrayyy_CANCEL2 = zminimArr
+      let arrayyy_CANCEL3 = LeHaiomArr
       if (
         (arrayyy_CANCEL0.includes(CANCEL_AVILABLE_TORIM_TODAY_CMD[0]) &&
           arrayyy_CANCEL1.includes(CANCEL_AVILABLE_TORIM_TODAY_CMD[1]) &&
@@ -593,41 +576,10 @@ const Speech = ({ history, match, tipulimList }) => {
         i++
       }
       console.log(`AFTER :${MAKE_TOR_FOR_TODAY_CMD}`)
-      let arrayyy0 = [
-        'קבע',
-        'קבעת',
-        'תקבע',
-        'קובעת',
-        'תקווה',
-        'נקבע',
-        'קובע',
-        'קובע',
-        'אקבע',
-        'נקבע',
-        'מה',
-        'אבל',
-        'בעל',
-        'כבר',
-        'וואלה',
-        'כבעל',
-      ]
-      let arrayyy1 = [
-        'תור',
-        'מור',
-        'שור',
-        'סור',
-        'קור',
-        'טור',
-        'טוב',
-        'טוסט',
-        'בתור',
-        'קור',
-        'נור',
-        'נאור',
-        'טהור',
-      ]
-      let arrayyy2 = ['היום', 'להיום', 'יום', 'כיום', 'מהיום']
-      let arrayyy5 = ['שבשעה', 'בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+      let arrayyy0 = KevaArr
+      let arrayyy1 = TorArr
+      let arrayyy2 = LeHaiomArr
+      let arrayyy5 = inShahaArr
       if (
         (MAKE_TOR_FOR_TODAY_CMD[0] === 'כפתור' &&
           MAKE_TOR_FOR_TODAY_CMD[1] === 'להיום' &&
@@ -694,38 +646,10 @@ const Speech = ({ history, match, tipulimList }) => {
       }
       console.log(`AFTER :${MAKE_TOR_FOR_TODAY_CMD2}`)
 
-      let arrayy0 = [
-        'קבע',
-        'כבד',
-        'קבעת',
-        'תקבע',
-        'קובעת',
-        'קובע',
-        'קובע',
-
-        'תקווה',
-        'אקבע',
-        'נקבע',
-        'מה',
-        'אבל',
-        'בעל',
-        'כבר',
-        'וואלה',
-        'כבעל',
-      ]
-      let arrayy1 = [
-        'תור',
-        'מור',
-        'בתור',
-        'שור',
-        'סור',
-        'קור',
-        'טור',
-        'טוב',
-        'טוסט',
-      ]
-      let arrayy4 = ['היום', 'להיום', 'יום', 'כיום', 'מהיום']
-      let arrayy5 = ['שבשעה', 'בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+      let arrayy0 = KevaArr
+      let arrayy1 = TorArr
+      let arrayy4 = LeHaiomArr
+      let arrayy5 = inShahaArr
 
       if (
         arrayy0.includes(MAKE_TOR_FOR_TODAY_CMD2[0]) &&
@@ -787,35 +711,9 @@ const Speech = ({ history, match, tipulimList }) => {
         t++
       }
       console.log(`AFTER :${MAKE_TOR_FOR_TODAY_CMD3}`)
-      let arrayyyyyy0 = [
-        'קבע',
-        'קבעת',
-        'תקבע',
-        'קובעת',
-        'קובע',
-
-        'תקווה',
-        'אקבע',
-        'נקבע',
-        'מה',
-        'אבל',
-        'בעל',
-        'כבר',
-        'וואלה',
-        'כבעל',
-      ]
-      let arrayyyyyy1 = [
-        'תור',
-        'מור',
-        'בתור',
-        'שור',
-        'סור',
-        'קור',
-        'טור',
-        'טוב',
-        'טוסט',
-      ]
-      let arrayyyyyy4 = ['שבשעה', 'בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+      let arrayyyyyy0 = KevaArr
+      let arrayyyyyy1 = TorArr
+      let arrayyyyyy4 = inShahaArr
 
       if (
         arrayyyyyy0.includes(MAKE_TOR_FOR_TODAY_CMD3[0]) &&
@@ -878,26 +776,8 @@ const Speech = ({ history, match, tipulimList }) => {
       }
       console.log(`AFTER :${MAKE_TOR_FOR_TODAY_CMD4}`)
 
-      let arrayyyyyyx0 = [
-        'תור',
-        'מור',
-        'כפתור',
-        'מטול',
-        'מסור',
-        'מסור',
-        'נכון',
-        'הכל',
-        'התור',
-        'מטור',
-        'בתור',
-        'שור',
-        'סור',
-        'קור',
-        'טור',
-        'טוב',
-        'טוסט',
-      ]
-      let arrayyyyyyx3 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה', 'שבשעה']
+      let arrayyyyyyx0 = TorArr
+      let arrayyyyyyx3 = inShahaArr
 
       if (
         arrayyyyyyx0.includes(MAKE_TOR_FOR_TODAY_CMD4[0]) &&
@@ -958,28 +838,9 @@ const Speech = ({ history, match, tipulimList }) => {
       }
       console.log(`AFTER :${MAKE_TOR_FOR_TODAY_CMD5}`)
 
-      let arrayyyyyyxz0 = [
-        'תור',
-        'תובל',
-        'מור',
-        'כפתור',
-        'מטול',
-        'מסור',
-        'מסור',
-        'נכון',
-        'הכל',
-        'התור',
-        'מטור',
-        'בתור',
-        'שור',
-        'סור',
-        'קור',
-        'טור',
-        'טוב',
-        'טוסט',
-      ]
+      let arrayyyyyyxz0 = TorArr
       let arrayyyyyyxz3 = ['היום', 'יום', 'כיום', 'יון', 'נכון']
-      let arrayyyyyyxz4 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה', 'שבשעה']
+      let arrayyyyyyxz4 = inShahaArr
 
       if (
         arrayyyyyyxz0.includes(MAKE_TOR_FOR_TODAY_CMD5[0]) &&
@@ -1042,37 +903,10 @@ const Speech = ({ history, match, tipulimList }) => {
       }
       console.log(`AFTER :${MAKE_TOR_FOR_TOMORROW_CMD2}`)
 
-      let arrayyyyy0 = [
-        'קבע',
-        'קבעת',
-        'תקבע',
-        'תקווה',
-        'קובעת',
-        'אקבע',
-        'קבעת',
-        'נקבע',
-        'קובע',
-
-        'מה',
-        'אבל',
-        'בעל',
-        'כבר',
-        'וואלה',
-        'כבעל',
-      ]
-      let arrayyyyy1 = [
-        'תור',
-        'מור',
-        'בתור',
-        'שור',
-        'סור',
-        'קור',
-        'טור',
-        'טוב',
-        'טוסט',
-      ]
-      let arrayyyyy4 = ['ממחר', 'מחר', 'לשחר', 'לשחכר', 'למחר']
-      let arrayyyyy5 = ['שבשעה', 'בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+      let arrayyyyy0 = KevaArr
+      let arrayyyyy1 = TorArr
+      let arrayyyyy4 = LeMaharArr
+      let arrayyyyy5 = inShahaArr
 
       if (
         arrayyyyy0.includes(MAKE_TOR_FOR_TOMORROW_CMD2[0]) &&
@@ -1137,37 +971,10 @@ const Speech = ({ history, match, tipulimList }) => {
         x++
       }
       console.log(`AFTER :${MAKE_TOR_FOR_TOMORROW_CMD}`)
-      let arrayyyy0 = [
-        'קבע',
-        'קבעת',
-        'תקבע',
-        'תקווה',
-        'קובעת',
-        'אקבע',
-        'נקבע',
-        'קובע',
-
-        'מה',
-        'אבל',
-        'בעל',
-        'כבר',
-        'וואלה',
-        'כבעל',
-        'קובע',
-      ]
-      let arrayyyy1 = [
-        'תור',
-        'מור',
-        'שור',
-        'סור',
-        'קור',
-        'טור',
-        'טוב',
-        'טוסט',
-        'בתור',
-      ]
-      let arrayyyy2 = ['נחל', 'שחר', 'שכר', 'מחר', 'למחר']
-      let arrayyyy5 = ['בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה', 'שבשעה']
+      let arrayyyy0 = KevaArr
+      let arrayyyy1 = TorArr
+      let arrayyyy2 = LeMaharArr
+      let arrayyyy5 = inShahaArr
 
       if (
         arrayyyy0.includes(MAKE_TOR_FOR_TOMORROW_CMD[0]) &&
@@ -1234,38 +1041,12 @@ const Speech = ({ history, match, tipulimList }) => {
       }
       console.log(`AFTER :${MAKE_TOR_FOR_SPESIFIC_DAY_CMD}`)
 
-      let arrayyg0 = [
-        'קבע',
-        'כבד',
-        'קבעת',
-        'תקבע',
-        'קובעת',
-        'קובע',
-        'קובע',
-        'תקווה',
-        'אקבע',
-        'נקבע',
-        'מה',
-        'אבל',
-        'בעל',
-        'כבר',
-        'וואלה',
-        'כבעל',
-      ]
-      let arrayyg1 = [
-        'תור',
-        'מור',
-        'בתור',
-        'שור',
-        'סור',
-        'קור',
-        'טור',
-        'טוב',
-        'טוסט',
-      ]
-      let arrayyg4 = ['היום', 'להיום', 'יום', 'כיום', 'מהיום', 'ליום', 'ביום']
-      let arrayyg5 = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת']
-      let arrayyg6 = ['שבשעה', 'בשעה', 'לשעה', 'שעה', 'נשמה', 'כשעה']
+      let arrayyg0 = KevaArr
+
+      let arrayyg1 = TorArr
+      let arrayyg4 = LeHaiomArr
+      let arrayyg5 = daysArr
+      let arrayyg6 = inShahaArr
 
       if (
         arrayyg0.includes(MAKE_TOR_FOR_SPESIFIC_DAY_CMD[0]) &&
@@ -1373,12 +1154,10 @@ const Speech = ({ history, match, tipulimList }) => {
       await findClockNow(id, Hour)
       if (successclockFound) {
         dispatch({ type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_RESET })
-
         console.log(`word:${word}`)
         console.log(`tipulimList:${tipulimList[0]._id}`)
         console.log(`clockFound:${clockFound._id}`)
         setShowIfNotFoundByVoiceUsers(false)
-
         Swal.fire({
           imageUrl: `${userImage}`,
           imageWidth: 200,
@@ -1403,9 +1182,29 @@ const Speech = ({ history, match, tipulimList }) => {
     } else if (ForTomorow) {
       let idT = tomorrowworkingdays._id
       console.log(idT)
-      console.log(idT)
-      console.log(idT)
       await findClockNow(idT, Hour)
+    } else if (ForSpesisfic) {
+      setShowIfNotFoundByVoiceUsers(false)
+      Swal.fire({
+        imageUrl: `${userImage}`,
+        imageWidth: 200,
+        imageHeight: 200,
+        title: `אישור תור`,
+        text: `בלחיצה על אישור תשבץ את ${name} ליום  ${WorkdayFound_DayINweek} הקרוב ${Hour}  `,
+        showCancelButton: true,
+        cancelButtonText: 'ביטול',
+        confirmButtonText: 'אישור',
+        footer: `<a href="">התקשר לנייד של ${name} בנייד 0${phone}</a>`,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await dispatch(confirmTor(clockFound._id, word, tipulimList[0]._id)) //*hard code///
+        } else if (
+          result.dismiss === Swal.DismissReason.cancel ||
+          result.dismiss === Swal.DismissReason.backdrop
+        ) {
+          ResetFunction_Cancel_or_BACKdrop()
+        }
+      })
     }
   }
   const ResetFunction_Cancel_or_BACKdrop = () => {
@@ -1529,235 +1328,23 @@ const Speech = ({ history, match, tipulimList }) => {
     }
   }
   const hourCoNfigaraitor = (hour, half) => {
-    console.log(`hourCoNfigaraitor hour to dispatch :${hour}`)
-    if (
-      hour === '7' ||
-      (hour === 'שבע' && half === '') ||
-      (hour === '7' && half === '')
-    ) {
-      SetHour('7:00')
-    } else if (
-      hour === '7:30' ||
-      (hour === 'שבע' && half === 'וחצי') ||
-      (hour === '7' && half === 'וחצי')
-    ) {
-      SetHour('7:30')
-    } else if (
-      hour === 8 ||
-      hour === 'שמונה' ||
-      hour === '8' ||
-      (hour === '8' && half === '') ||
-      (hour === '8:00' && half === '') ||
-      (hour === 'שמונה' && half === '')
-    ) {
-      SetHour('8:00')
-    } else if (
-      hour === '8:30' ||
-      (hour === '8' && half === 'וחצי') ||
-      (hour === 'שמונה' && half === 'וחצי')
-    ) {
-      SetHour('8:30')
-    } else if (
-      hour === '9:00' ||
-      hour === '9' ||
-      (hour === 'תשע' && half === '') ||
-      (hour === '9' && half === '') ||
-      (hour === '9:00' && half === '')
-    ) {
-      SetHour('9:00')
-    } else if (
-      hour === '9:30' ||
-      (hour === '9' && half === 'וחצי') ||
-      (hour === 'תשע' && half === 'וחצי') ||
-      (hour === '9:00' && half === 'וחצי')
-    ) {
-      SetHour('9:30')
-    } else if (
-      hour === '10:00' ||
-      hour === 'עשר' ||
-      hour === '10' ||
-      (hour === 'עשר' && half === '') ||
-      (hour === '10:00' && half === '') ||
-      (hour === '10' && half === '')
-    ) {
-      SetHour('10:00')
-    } else if (
-      hour === '10:30' ||
-      (hour === '10' && half === 'וחצי') ||
-      (hour === '10:00' && half === 'וחצי') ||
-      (hour === 'עשר' && half === 'וחצי')
-    ) {
-      SetHour('10:30')
-    } else if (
-      hour === '11:00' ||
-      hour === '11' ||
-      (hour === '11' && half === '') ||
-      (hour === 'אחד' && half === 'עשרה') ||
-      (hour === 'אחת' && half === 'עשרה') ||
-      (hour === '1' && half === 'עשרה') ||
-      (hour === '11:00' && half === '')
-    ) {
-      SetHour('11:00')
-    } else if (
-      hour === '11:30' ||
-      (hour === '11' && half === 'וחצי') ||
-      (hour === '11:00' && half === 'וחצי')
-    ) {
-      SetHour('11:30')
-    } else if (
-      hour === '12:00' ||
-      (hour === '12:00' && half === '') ||
-      (hour === '12' && half === '') ||
-      (hour === 'שניים' && half === 'עשרה') ||
-      (hour === 'שתיים' && half === 'עשרה') ||
-      (hour === '2' && half === 'עשרה')
-    ) {
-      SetHour('12:00')
-    } else if (
-      hour === '12:30' ||
-      (hour === '12' && half === 'וחצי') ||
-      (hour === '12:00' && half === 'וחצי')
-    ) {
-      SetHour('12:30')
-    } else if (
-      hour === '13:00' ||
-      hour === '1:00' ||
-      (hour === '1' && half === '') ||
-      (hour === 'אחת' && half === '') ||
-      (hour === 'אחד' && half === '')
-    ) {
-      SetHour('13:00')
-    } else if (
-      hour === '13:30' ||
-      hour === '1:30' ||
-      (hour === '1' && half === 'וחצי') ||
-      (hour === 'אחת' && half === 'וחצי') ||
-      (hour === 'אחד' && half === 'וחצי')
-    ) {
-      SetHour('13:30')
-    } else if (
-      hour === '14:00' ||
-      hour === '2:00' ||
-      (hour === '2' && half === '') ||
-      (hour === 'שתיים' && half === '') ||
-      (hour === 'שניים' && half === '')
-    ) {
-      SetHour('14:00')
-    } else if (
-      hour === '14:30' ||
-      hour === '2:30' ||
-      (hour === '2' && half === 'וחצי') ||
-      (hour === 'שתיים' && half === 'וחצי') ||
-      (hour === 'שניים' && half === 'וחצי')
-    ) {
-      SetHour('14:30')
-    } else if (
-      hour === '15:00' ||
-      (hour === '3' && half === '') ||
-      (hour === 'שלוש' && half === '') ||
-      (hour === '3:00' && half === '') ||
-      (hour === '3:00' && !half)
-    ) {
-      SetHour('15:00')
-    } else if (
-      hour === '15:30' ||
-      hour === '3:30' ||
-      (hour === 'שלוש' && half === 'וחצי') ||
-      (hour === '3' && half === 'וחצי') ||
-      (hour === '3' && half === 'ושלושים') ||
-      (hour === 'שלוש' && half === 'ושלושים')
-    ) {
-      SetHour('15:30')
-    } else if (
-      hour === '16:00' ||
-      hour === '4:00' ||
-      hour === '4' ||
-      (hour === 'ארבע' && half === '') ||
-      (hour === 'ארבע' && !half) ||
-      (hour === 'ארבעה' && half === '') ||
-      (hour === 'ארבעה' && !half) ||
-      (hour === '4:00' && half === '')
-    ) {
-      SetHour('16:00')
-    } else if (
-      hour === '16:30' ||
-      hour === '4:30' ||
-      (hour === 'ארבע' && half === 'וחצי') ||
-      (hour === '4' && half === 'וחצי') ||
-      (hour === '4' && half === 'ושלושים') ||
-      (hour === 'ארבע' && half === 'ושלושים')
-    ) {
-      SetHour('16:30')
-    } else if (
-      hour === '17:00' ||
-      (hour === '5' && half === '') ||
-      (hour === '5' && half === 'בערב') ||
-      (hour === '5:00' && !half) ||
-      (hour === '5:00' && half === '') ||
-      (hour === '5:00' && half === 'בערב') ||
-      (hour === 'חמש' && half === 'בערב') ||
-      (hour === 'חמש' && half === '') ||
-      (hour === 'חמש' && !half) ||
-      (hour === '17:00' && half === '') ||
-      (hour === '17:00' && !half)
-    ) {
-      SetHour('17:00')
-    } else if (
-      hour === '17:30' ||
-      hour === '5:30' ||
-      (hour === 'חמש' && half === 'וחצי') ||
-      (hour === '5' && half === 'וחצי') ||
-      (hour === '5' && half === 'ושלושים') ||
-      (hour === 'חמש' && half === 'ושלושים')
-    ) {
-      SetHour('17:30')
-    } else if (
-      hour === '18:00' ||
-      (hour === '18:00' && half === '') ||
-      hour === '6:00' ||
-      (hour === '6:00' && half === '') ||
-      (hour === '6' && half === '') ||
-      (hour === 'שש' && half === '')
-    ) {
-      SetHour('18:00')
-    } else if (
-      hour === '18:30' ||
-      hour === '6:30' ||
-      (hour === 'שש' && half === 'וחצי') ||
-      (hour === '6' && half === 'וחצי') ||
-      (hour === '6' && half === 'ושלושים') ||
-      (hour === 'שש' && half === 'ושלושים')
-    ) {
-      SetHour('18:30')
-    } else if (
-      (hour === '19:00' && half === 'בערב') ||
-      (hour === '7' && half === 'בערב') ||
-      (hour === '7:00' && half === 'בערב') ||
-      (hour === 'שבע' && half === 'בערב') ||
-      (hour === '19:00' && half === 'בערב')
-    ) {
-      SetHour('19:00')
-    } else if (
-      (hour === '19:30' && half === 'בערב') ||
-      (hour === '7:30' && half === 'בערב')
-    ) {
-      SetHour('19:30')
-    } else if (
-      (hour === '20:00' && half === 'בערב') ||
-      (hour === '8' && half === 'בערב') ||
-      (hour === '8:00' && half === 'בערב') ||
-      (hour === 'שמונה ' && half === 'בערב') ||
-      (hour === '20:00' && half === 'בערב')
-    ) {
-      SetHour('20:00')
-    }
+    const result = HOURconfigrator(hour, half)
+    SetHour(result)
   }
 
   const FUNCTIONm = async (workdayFound_id) => {
+    console.log('FUNCTIONm')
     console.log(
       `searching for hour in this work day ${workdayFound_id} dispaching action...`
     )
     await dispatch(FindClockByWorkID_and_time(workdayFound_id, Hour))
+  }
+  const Function_MakeList_For_Spresific = async () => {
+    setForSpesisficRedirect(true)
+    await dispatch(Next7Daysss()) ///7 next days
+    await dispatch(
+      List_of_Potential_Users_By_FirstNameActionSearch(UserToFindX)
+    )
   }
 
   // ██╗   ██╗███████╗███████╗    ███████╗███████╗███████╗███████╗ ██████╗████████╗
@@ -1785,20 +1372,26 @@ const Speech = ({ history, match, tipulimList }) => {
         }
       }
       dispatch({ type: LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_RESET })
+    } else if (sevendayssuccess) {
+      for (let workdayFound of sevendaysworkingdays) {
+        if (workdayFound.dayInWeek === DayToFind) {
+          console.log(`WORD DAY FOUND id!!!: ${workdayFound._id}`)
+          console.log(`WORD DAY FOUND date!!!: ${workdayFound.date}`)
+          console.log(`WORD DAY FOUND dayInWeek !!!: ${workdayFound.dayInWeek}`)
+          setWorkdayFound_ID(workdayFound._id)
+          setWorkdayFound_DayINweek(workdayFound.dayInWeek)
+          setWorkdayFoundDay_DATE(workdayFound.dayInWeek)
+
+          FUNCTIONm(workdayFound._id)
+        }
+      }
+      dispatch({ type: LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_RESET })
     }
-    if (successclockFound && ForSpesisfic) {
+
+    if (successclockFound && ForSpesisfic && userfound) {
       setForSpesisfic(false)
       setForSpesisficRedirect(true)
       console.log(`this action and this action only`)
-      console.log(`this action and this action only`)
-      console.log(`this action and this action only`)
-      console.log(`this action and this action only`)
-      console.log(`this action and this action only`)
-      console.log(`this action and this action only`)
-      console.log(`this action and this action only`)
-      console.log(`clock found id ${clockFound._id}`)
-      console.log(`clock found id ${clockFound._id}`)
-      console.log(`clock found id ${clockFound._id}`)
       console.log(`clock found id ${clockFound._id}`)
       Swal.fire({
         imageUrl: `${userfound.image}`,
@@ -1822,9 +1415,38 @@ const Speech = ({ history, match, tipulimList }) => {
           ResetFunction_Cancel_or_BACKdrop()
         }
       })
+    } else if (successclockFound && ForSpesisfic && !userfound) {
+      setClockForNewUser(clockFound._id)
     }
 
-    if (errorclockFound) {
+    if (errorclockFound && ForToday) {
+      if (errorclockFound === 'Hour Not Avilavle') {
+        Swal.fire({
+          position: 'top-end',
+          cancelButtonColor: 'rgb(194, 0, 0)',
+          confirmButtonColor: 'rgb(3, 148, 39)',
+          icon: 'error',
+          title: `התור בשעה ${Hour} תפוס`,
+          text: `התור שביקשת בשעה ${Hour} עבור ${UserToFindX} תפוס ע"י משתמש אחר`,
+          showConfirmButton: false,
+          timer: 8000,
+        })
+        ResetFunction_Cancel_or_BACKdrop()
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          cancelButtonColor: 'rgb(194, 0, 0)',
+          confirmButtonColor: 'rgb(3, 148, 39)',
+          icon: 'error',
+          title: `התור בשעה ${Hour} לא נמצא במערכת`,
+          text: `התור בשעה ${Hour} עבור ${UserToFindX} לא קיימת במערכת ,תוכל ליצור אותה באמצעות לחיצה על אישור`,
+          showConfirmButton: false,
+          timer: 8000,
+        })
+      }
+      ResetFunction_Cancel_or_BACKdrop()
+    }
+    if (errorclockFound && ForSpesisfic) {
       if (errorclockFound === 'Hour Not Avilavle') {
         Swal.fire({
           position: 'top-end',
@@ -1855,7 +1477,6 @@ const Speech = ({ history, match, tipulimList }) => {
     //****if admin torim url */
     if (newUserSuccess) {
       dispatch({ type: USER_REGISTERByADMIN_RESET })
-
       console.log(newUserInfo.name)
       console.log(newUserInfo._id)
       console.log(newUserInfo.image)
@@ -1872,34 +1493,73 @@ const Speech = ({ history, match, tipulimList }) => {
     }
 
     if (successclockFound && NewUser_Situatuion) {
-      console.log(clockFound._id)
-      console.log(clockFound.time)
-      console.log(word)
-      console.log(name)
-      console.log(userImage)
-      console.log(phone)
-      console.log(Hour)
-      console.log(oneworkingdays[0]._id)
-      Swal.fire({
-        imageUrl: `${userImage}`,
-        imageWidth: 200,
-        imageHeight: 200,
-        title: `אישור תור`,
-        text: `בלחיצה על אישור תשבץ את ${name} להיום בשעה ${clockFound.time}  `,
-        showCancelButton: true,
-        cancelButtonText: 'ביטול',
-        confirmButtonText: 'אישור',
-        footer: `<a href="">התקשר לנייד של ${name} בנייד 0${phone}</a>`,
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await dispatch(confirmTor(clockFound._id, word, tipulimList[0]._id)) //*hard code///
-        } else if (
-          result.dismiss === Swal.DismissReason.cancel ||
-          result.dismiss === Swal.DismissReason.backdrop
-        ) {
-          ResetFunction_Cancel_or_BACKdrop()
-        }
-      })
+      if (ForToday) {
+        console.log(clockFound._id)
+        console.log(clockFound.time)
+        console.log(word)
+        console.log(name)
+        console.log(userImage)
+        console.log(phone)
+        console.log(Hour)
+        console.log(oneworkingdays[0]._id)
+        Swal.fire({
+          imageUrl: `${userImage}`,
+          imageWidth: 200,
+          imageHeight: 200,
+          title: `אישור תור`,
+          text: `בלחיצה על אישור תשבץ את ${name} להיום בשעה ${clockFound.time}  `,
+          showCancelButton: true,
+          cancelButtonText: 'ביטול',
+          confirmButtonText: 'אישור',
+          footer: `<a href="">התקשר לנייד של ${name} בנייד 0${phone}</a>`,
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            await dispatch(confirmTor(clockFound._id, word, tipulimList[0]._id)) //*hard code///
+          } else if (
+            result.dismiss === Swal.DismissReason.cancel ||
+            result.dismiss === Swal.DismissReason.backdrop
+          ) {
+            ResetFunction_Cancel_or_BACKdrop()
+          }
+        })
+      } else if (ForSpesisfic) {
+        console.log(`for spesificc`)
+        console.log(`for spesificc`)
+        console.log(`for spesificc`)
+        console.log(`for spesificc`)
+        console.log(`for spesificc`)
+        console.log(`for spesificc`)
+        console.log(`for spesificc`)
+        console.log(`for spesificc`)
+        console.log(ClockForNewUser)
+        console.log(ClockForNewUser)
+        console.log(ClockForNewUser)
+        console.log(ClockForNewUser)
+        console.log(ClockForNewUser)
+        Swal.fire({
+          imageUrl: `${userImage}`,
+          imageWidth: 200,
+          imageHeight: 200,
+          title: `אישור תור`,
+          text: `בלחיצה על אישור תשבץ את ${name} ליום ${WorkdayFound_DayINweek} הקרוב בשעה ${clockFound.time}  `,
+          showCancelButton: true,
+          cancelButtonText: 'ביטול',
+          confirmButtonText: 'אישור',
+          footer: `<a href="">התקשר לנייד של ${word} בנייד 0${phone}</a>`,
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            setNewUser_Situatuion(false)
+            await dispatch(
+              confirmTor(ClockForNewUser, word, tipulimList[0]._id)
+            ) //*hard code///
+          } else if (
+            result.dismiss === Swal.DismissReason.cancel ||
+            result.dismiss === Swal.DismissReason.backdrop
+          ) {
+            ResetFunction_Cancel_or_BACKdrop()
+          }
+        })
+      }
     }
 
     if (StateForNewUserWindow) {
@@ -1913,7 +1573,13 @@ const Speech = ({ history, match, tipulimList }) => {
     if (erroruserfound) {
       setShowIfNotFoundByVoiceUsers(true)
       if (IM_IN_A_ADMIN_TORS) {
-        functionX()
+        if (ForToday || ForTomorow) {
+          functionX()
+        } else if (ForSpesisfic) {
+          dispatch({ type: ONE_USER_SEARCH_RESET })
+          Function_MakeList_For_Spresific()
+          setShowIfNotFoundByVoiceUsers(true)
+        }
       } else if (IM_IN_A_SPESIFIC_WORKING_DAY) {
         functionV()
       }
@@ -2240,6 +1906,7 @@ const Speech = ({ history, match, tipulimList }) => {
     console.log(UserToFind)
     console.log(hour)
     console.log(dayTofind)
+    hourCoNfigaraitor(hour)
     makeTorSpesificDAY(UserToFind, hour, dayTofind)
   }
   const PremakeTorSpesificDAY2 = async (UserToFind, hour, half, dayTofind) => {
@@ -2247,15 +1914,40 @@ const Speech = ({ history, match, tipulimList }) => {
     console.log(hour)
     console.log(half)
     console.log(dayTofind)
-    makeTorSpesificDAY(UserToFind, hour, half, dayTofind)
+    hourCoNfigaraitor(hour, half)
+    makeTorSpesificDAY2(UserToFind, hour, half, dayTofind)
   }
 
+  const makeTorSpesificDAY2 = async (UserToFind, hour, half, dayTofind) => {
+    console.log(`hour to dispatch :${hour}:${half}`)
+    console.log(dayTofind)
+    setDayToFind(dayTofind)
+    console.log(`UserToFind :${UserToFind}`)
+    console.log(`hour sets :${Hour} `)
+    setForSpesisfic(true)
+    setForToday(false)
+    setForTomorow(false)
+    if (window.location.href.indexOf('torim') > -1) {
+      console.log('your url contains the name torim')
+      setIM_IN_A_ADMIN_TORS(true)
+      setIM_IN_A_SPESIFIC_WORKING_DAY(false)
+      console.log('disatching....')
+      dispatch(Next7Daysss()) ///7 next days
+      setUserToFindX(UserToFind)
+      await dispatch(SearchOneUserAction(UserToFind))
+    } else if (window.location.href.indexOf('workingday') > -1) {
+      console.log('your url contains the name workingday')
+      setIM_IN_A_SPESIFIC_WORKING_DAY(true)
+      setIM_IN_A_ADMIN_TORS(false)
+      setUserToFindX(UserToFind)
+      await dispatch(SearchOneUserAction(UserToFind))
+    }
+  }
   const makeTorSpesificDAY = async (UserToFind, hour, dayTofind) => {
     console.log(`hour to dispatch :${hour}`)
     console.log(dayTofind)
     setDayToFind(dayTofind)
     console.log(`UserToFind :${UserToFind}`)
-    hourCoNfigaraitor(hour)
     console.log(`hour sets :${Hour} `)
     setForSpesisfic(true)
     setForToday(false)
