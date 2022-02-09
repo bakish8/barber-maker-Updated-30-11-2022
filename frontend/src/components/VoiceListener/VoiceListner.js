@@ -929,9 +929,9 @@ const Speech = ({ history, match, tipulimList }) => {
             const hour = MAKE_TOR_FOR_TOMORROW_CMD2[6]
             if (MAKE_TOR_FOR_TOMORROW_CMD2[7] === 'וחצי') {
               const half = MAKE_TOR_FOR_TODAY_CMD2[7]
-              makeTorForTommorrow(UserToFind, hour, half)
+              PremakeTorForTommorrow(UserToFind, hour, half)
             } else {
-              makeTorForTommorrow(UserToFind, hour)
+              PremakeTorForTommorrow(UserToFind, hour)
             }
 
             const finalText = transcriptArr.join(' ')
@@ -946,9 +946,9 @@ const Speech = ({ history, match, tipulimList }) => {
             const hour = MAKE_TOR_FOR_TOMORROW_CMD2[6]
             if (MAKE_TOR_FOR_TOMORROW_CMD2[7] === 'וחצי') {
               const half = MAKE_TOR_FOR_TODAY_CMD2[7]
-              makeTorForTommorrow(UserToFind, hour, half)
+              PremakeTorForTommorrow(UserToFind, hour, half)
             } else {
-              makeTorForTommorrow(UserToFind, hour)
+              PremakeTorForTommorrow(UserToFind, hour)
             }
 
             const finalText = transcriptArr.join(' ')
@@ -1106,6 +1106,63 @@ const Speech = ({ history, match, tipulimList }) => {
             setstatefinalText(statefinalText)
           }
         }
+      } else if (
+        arrayyg1.includes(MAKE_TOR_FOR_SPESIFIC_DAY_CMD[0]) &&
+        arrayyg4.includes(MAKE_TOR_FOR_SPESIFIC_DAY_CMD[3]) &&
+        arrayyg5.includes(MAKE_TOR_FOR_SPESIFIC_DAY_CMD[4]) &&
+        arrayyg6.includes(MAKE_TOR_FOR_SPESIFIC_DAY_CMD[5])
+      ) {
+        recognition.stop()
+        recognition.onend = async () => {
+          console.log(
+            'MAKE TOR  FOR A SPESIFIC DAY ACTION listening per command'
+          )
+          const lamedd = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[1].charAt(0)
+          console.log(`lamedd:${lamedd}`)
+          if (lamedd == 'ל') {
+            const UserFirstNameToFind =
+              MAKE_TOR_FOR_SPESIFIC_DAY_CMD[1].substring(1)
+            const UserLastNameToFind = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[2]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[6]
+
+            if (MAKE_TOR_FOR_SPESIFIC_DAY_CMD[7] === 'וחצי') {
+              const half = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[7]
+              const dayTofind = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[4]
+              console.log(dayTofind)
+              PremakeTorSpesificDAY2(UserToFind, hour, half, dayTofind)
+            } else {
+              const dayTofind = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[4]
+              console.log(dayTofind)
+              PremakeTorSpesificDAY(UserToFind, hour, dayTofind)
+            }
+
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          } else {
+            const UserFirstNameToFind = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[1]
+            const UserLastNameToFind = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[2]
+            const UserToFind = `${UserFirstNameToFind} ${UserLastNameToFind}`
+            console.log(`user to find:${UserToFind}`)
+            const hour = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[6]
+            if (MAKE_TOR_FOR_SPESIFIC_DAY_CMD[7] === 'וחצי') {
+              const half = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[7]
+              const dayTofind = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[4]
+              PremakeTorSpesificDAY2(UserToFind, hour, half, dayTofind)
+            } else {
+              const dayTofind = MAKE_TOR_FOR_SPESIFIC_DAY_CMD[4]
+              PremakeTorSpesificDAY(UserToFind, hour, dayTofind)
+            }
+
+            const finalText = transcriptArr.join(' ')
+            document.getElementById('final').innerHTML = finalText
+            console.log(`final TEXT:, ${finalText}`)
+            setstatefinalText(statefinalText)
+          }
+        }
       }
     }
     setisMouseDown(false)
@@ -1120,6 +1177,18 @@ const Speech = ({ history, match, tipulimList }) => {
     console.log('FUNCTION X')
 
     let id = oneworkingdays[0]._id
+    await findClockNow(id, Hour)
+    dispatch({ type: ONE_USER_SEARCH_RESET })
+    console.log(`UserToFindX`)
+    console.log(UserToFindX)
+    await dispatch(
+      List_of_Potential_Users_By_FirstNameActionSearch(UserToFindX)
+    )
+  }
+  const functionT = async () => {
+    console.log('FUNCTION T')
+    console.log(tomorrowworkingdays._id)
+    let id = tomorrowworkingdays._id
     await findClockNow(id, Hour)
     dispatch({ type: ONE_USER_SEARCH_RESET })
     console.log(`UserToFindX`)
@@ -1226,6 +1295,7 @@ const Speech = ({ history, match, tipulimList }) => {
     dispatch({ type: ONE_USER_SEARCH_RESET })
     dispatch({ type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCK_TIME_RESET })
     dispatch({ type: CONFIRM_TOR_RESET })
+    dispatch({ type: USER_REGISTERByADMIN_RESET })
   }
   const swalConfirmForTomorrow = (id) => {
     setShowIfNotFoundByVoiceUsers(false)
@@ -1347,6 +1417,20 @@ const Speech = ({ history, match, tipulimList }) => {
     )
   }
 
+  const swalThisUserAlreadyExits = () => {
+    Swal.fire({
+      position: 'top-end',
+      cancelButtonColor: 'rgb(194, 0, 0)',
+      confirmButtonColor: 'rgb(3, 148, 39)',
+      icon: 'error',
+      title: `משתמש זה כבר קיים במערכת `,
+      text: `הנייד או האימייל שהזנת כבר קיימים במערכת אנא הזן משתמש אחר`,
+      showConfirmButton: false,
+      timer: 8000,
+    })
+    ResetFunction_Cancel_or_BACKdrop()
+  }
+
   // ██╗   ██╗███████╗███████╗    ███████╗███████╗███████╗███████╗ ██████╗████████╗
   // ██║   ██║██╔════╝██╔════╝    ██╔════╝██╔════╝██╔════╝██╔════╝██╔════╝╚══██╔══╝
   // ██║   ██║███████╗█████╗      █████╗  █████╗  █████╗  █████╗  ██║        ██║
@@ -1354,6 +1438,10 @@ const Speech = ({ history, match, tipulimList }) => {
   // ╚██████╔╝███████║███████╗    ███████╗██║     ██║     ███████╗╚██████╗   ██║
   //  ╚═════╝ ╚══════╝╚══════╝    ╚══════╝╚═╝     ╚═╝     ╚══════╝ ╚═════╝   ╚═╝
   useEffect(() => {
+    if (newUserCreateByadminError) {
+      dispatch({ type: USER_REGISTERByADMIN_RESET })
+      swalThisUserAlreadyExits()
+    }
     if (sevendayssuccess && successuserfound) {
       console.log(sevendaysworkingdays)
       console.log(`userfound _id: ${userfound._id}`)
@@ -1473,6 +1561,33 @@ const Speech = ({ history, match, tipulimList }) => {
       }
       ResetFunction_Cancel_or_BACKdrop()
     }
+    if (errorclockFound && ForTomorow) {
+      if (errorclockFound === 'Hour Not Avilavle') {
+        Swal.fire({
+          position: 'top-end',
+          cancelButtonColor: 'rgb(194, 0, 0)',
+          confirmButtonColor: 'rgb(3, 148, 39)',
+          icon: 'error',
+          title: `התור בשעה ${Hour} תפוס`,
+          text: `התור שביקשת בשעה ${Hour} מחר,עבור  ${UserToFindX} תפוס ע"י משתמש אחר`,
+          showConfirmButton: false,
+          timer: 8000,
+        })
+        ResetFunction_Cancel_or_BACKdrop()
+      } else {
+        Swal.fire({
+          position: 'top-end',
+          cancelButtonColor: 'rgb(194, 0, 0)',
+          confirmButtonColor: 'rgb(3, 148, 39)',
+          icon: 'error',
+          title: `התור בשעה ${Hour} לא נמצא במערכת`,
+          text: `התור בשעה ${Hour} עבור ${UserToFindX} לא קיימת במערכת ,תוכל ליצור אותה באמצעות לחיצה על אישור`,
+          showConfirmButton: false,
+          timer: 8000,
+        })
+      }
+      ResetFunction_Cancel_or_BACKdrop()
+    }
 
     //****if admin torim url */
     if (newUserSuccess) {
@@ -1482,14 +1597,16 @@ const Speech = ({ history, match, tipulimList }) => {
       console.log(newUserInfo.image)
       console.log(newUserInfo.phone)
       console.log(Hour)
-      console.log(oneworkingdays[0]._id)
       setWord(newUserInfo._id)
       setName(newUserInfo.name)
       setPhone(newUserInfo.phone)
       setuserImage(newUserInfo.image)
-
       setNewUser_Situatuion(true)
-      findClockNow(oneworkingdays[0]._id, Hour)
+      if (ForToday) {
+        findClockNow(oneworkingdays[0]._id, Hour)
+      } else if (ForTomorow) {
+        findClockNow(tomorrowworkingdays._id, Hour)
+      }
     }
 
     if (successclockFound && NewUser_Situatuion) {
@@ -1508,6 +1625,29 @@ const Speech = ({ history, match, tipulimList }) => {
           imageHeight: 200,
           title: `אישור תור`,
           text: `בלחיצה על אישור תשבץ את ${name} להיום בשעה ${clockFound.time}  `,
+          showCancelButton: true,
+          cancelButtonText: 'ביטול',
+          confirmButtonText: 'אישור',
+          footer: `<a href="">התקשר לנייד של ${name} בנייד 0${phone}</a>`,
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            await dispatch(confirmTor(clockFound._id, word, tipulimList[0]._id)) //*hard code///
+          } else if (
+            result.dismiss === Swal.DismissReason.cancel ||
+            result.dismiss === Swal.DismissReason.backdrop
+          ) {
+            ResetFunction_Cancel_or_BACKdrop()
+          }
+        })
+      } else if (ForTomorow) {
+        console.log(clockFound._id)
+
+        Swal.fire({
+          imageUrl: `${userImage}`,
+          imageWidth: 200,
+          imageHeight: 200,
+          title: `אישור תור`,
+          text: `בלחיצה על אישור תשבץ את ${name} למחר בשעה ${clockFound.time}  `,
           showCancelButton: true,
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
@@ -1573,8 +1713,10 @@ const Speech = ({ history, match, tipulimList }) => {
     if (erroruserfound) {
       setShowIfNotFoundByVoiceUsers(true)
       if (IM_IN_A_ADMIN_TORS) {
-        if (ForToday || ForTomorow) {
+        if (ForToday) {
           functionX()
+        } else if (ForTomorow) {
+          functionT()
         } else if (ForSpesisfic) {
           dispatch({ type: ONE_USER_SEARCH_RESET })
           Function_MakeList_For_Spresific()
@@ -1619,6 +1761,11 @@ const Speech = ({ history, match, tipulimList }) => {
       history.push(`/admin/workingday/${tomorrowworkingdays._id}`)
       dispatch({ type: ONE_WORKING_DAY_RESET })
       window.location.reload()
+    }
+    if (tomorrowsuccess && successuserfound && IM_IN_A_ADMIN_TORS) {
+      console.log(userfound._id)
+      console.log(tomorrowworkingdays._id)
+      console.log(Hour)
     }
 
     if (successuserfound && IM_IN_A_ADMIN_TORS && !errorclockFound) {
@@ -1849,6 +1996,7 @@ const Speech = ({ history, match, tipulimList }) => {
     StateForNewUserWindow,
     newUserSuccess,
     sevendayssuccess,
+    newUserCreateByadminError,
     history,
   ])
 
@@ -1868,15 +2016,25 @@ const Speech = ({ history, match, tipulimList }) => {
     console.log('after dispatch going tomorrow....')
   }
 
-  const makeTorForTommorrow = async (UserToFind, hour, half) => {
-    console.log(`hour to dispatch :${hour}`)
+  const PremakeTorForTommorrow = async (UserToFind, hour, half) => {
     hourCoNfigaraitor(hour, half)
-    console.log(`hour sets :${Hour} `)
-    setForToday(false)
-    setForTomorow(true)
-    await dispatch(getTomorrowWorkday())
-    setUserToFindX(UserToFind)
-    await dispatch(SearchOneUserAction(UserToFind))
+    makeTorForTommorrow(UserToFind, hour)
+  }
+  const makeTorForTommorrow = async (UserToFind) => {
+    if (window.location.href.indexOf('torim') > -1) {
+      //***יש להוסיף אפשרות שאם אנחנוט בעמוד תורים */
+      console.log('your url contains the name torim')
+      setIM_IN_A_ADMIN_TORS(true)
+      setIM_IN_A_SPESIFIC_WORKING_DAY(false)
+
+      console.log(`hour sets :${Hour} `)
+      setForTomorow(true)
+      setForSpesisfic(false)
+      setForToday(false)
+      await dispatch(getTomorrowWorkday())
+      setUserToFindX(UserToFind)
+      await dispatch(SearchOneUserAction(UserToFind))
+    }
   }
 
   const makeTorForToday = async (UserToFind, hour, half) => {
