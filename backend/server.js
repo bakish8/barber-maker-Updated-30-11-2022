@@ -24,9 +24,6 @@ import session from 'cookie-session'
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import User from './models/userModel.js'
-dotenv.config()
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 
 // RANDOM FOR SESSION
 let random = Math.floor(Math.random() * 100000000000) + 1
@@ -66,8 +63,9 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
+      clientID:
+        '452001077432-h4lhfoemnipvlbokdtamftv3p7m0rr9f.apps.googleusercontent.com',
+      clientSecret: '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',
       callbackURL: '/api/google/callback',
     },
     async function (accessToken, refreshToken, profile, cb) {
@@ -136,6 +134,7 @@ setInterval(function () {
 // ██║╚██╔╝██║██║   ██║██║╚██╗██║██║   ██║██║   ██║
 // ██║ ╚═╝ ██║╚██████╔╝██║ ╚████║╚██████╔╝╚██████╔╝
 // ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝
+dotenv.config()
 connectDB()
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
