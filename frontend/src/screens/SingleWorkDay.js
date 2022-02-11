@@ -955,25 +955,27 @@ const SingleWorkDayScreen = ({ history, match }) => {
       })
     )
   }
+
   //send all torim function
   const submitHandler3 = (e) => {
     if (e) {
       e.preventDefault()
     }
-    Swal.fire({
-      text: 'מוסיף תורים למערכת אנא המתן',
+    dispatch(createClocks(WorkDayid, '10:00', '19:00', sapar)).then(
+      Swal.fire({
+        text: 'מוסיף תורים למערכת אנא המתן',
 
-      imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
-      imageWidth: 400,
-      imageHeight: 400,
-      imageAlt: 'Custom image',
-      timer: 8000,
-      background: '#68b4ff00',
-      backdrop: 'rgba(0, 0, 0,0.8)',
-      color: 'rgba(255, 255, 255)',
-      showConfirmButton: false,
-    })
-    dispatch(createClocks(WorkDayid, '10:00', '19:00', sapar))
+        imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
+        imageWidth: 400,
+        imageHeight: 400,
+        imageAlt: 'Custom image',
+        timer: 8000,
+        background: '#68b4ff00',
+        backdrop: 'rgba(0, 0, 0,0.8)',
+        color: 'rgba(255, 255, 255)',
+        showConfirmButton: false,
+      })
+    )
   }
   /*delete tors Function*/
   const deleteHandler = (id) => {

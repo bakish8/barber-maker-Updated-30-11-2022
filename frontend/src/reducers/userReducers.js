@@ -806,9 +806,9 @@ export const TorsReducer = (state = { clockList: [] }, action) => {
     case CLOCK_LIST_REQUEST:
       return { loading: true }
     case CLOCK_LIST_SUCCESS:
-      return { loading: false, clockList: action.payload }
+      return { loading: false, clockList: action.payload, Torssuccess: true }
     case CLOCK_LIST_FAIL:
-      return { loading: false, error: action.payload }
+      return { loading: false, error: action.payload, Torssuccess: false }
     default:
       return state
   }

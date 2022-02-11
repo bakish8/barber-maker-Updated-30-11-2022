@@ -42,6 +42,7 @@ import TorArr from './KeyWords/TorArr'
 import TorimArr from './KeyWords/TorimArr'
 import zminimArr from './KeyWords/zminimArr'
 import HOURconfigrator from './HOURconfigrator'
+import AvilableBox from '../AvilableBox'
 
 //------------------------SPEECH RECOGNITION-----------------------------
 
@@ -74,7 +75,7 @@ const Speech = ({ history, match, tipulimList }) => {
   } = ListworkingDayForNEXT7days
 
   const Tors = useSelector((state) => state.Tors)
-  const { loading, error, clockList } = Tors
+  const { loading, error, clockList, Torssuccess } = Tors
   const confirmMyTor = useSelector((state) => state.confirmMyTor)
   const {
     success: confirmsuccess,
@@ -123,6 +124,12 @@ const Speech = ({ history, match, tipulimList }) => {
     useState(false)
   const [IM_IN_A_SPESIFIC_WORKING_DAY, setIM_IN_A_SPESIFIC_WORKING_DAY] =
     useState(false)
+  const [ArrOFavilableClocksForToday, setArrOFavilableClocksForToday] =
+    useState([])
+  const [
+    SHOWMEArrOFavilableClocksForToday,
+    setSHOWMEArrOFavilableClocksForToday,
+  ] = useState(false)
   const [IM_IN_A_ADMIN_TORS, setIM_IN_A_ADMIN_TORS] = useState(false)
   const [DayToFind, setDayToFind] = useState('')
   const [word, setWord] = useState('')
@@ -151,6 +158,8 @@ const Speech = ({ history, match, tipulimList }) => {
   const [ForSpesisfic, setForSpesisfic] = useState(false)
   const [ForSpesisficRedirect, setForSpesisficRedirect] = useState(false)
   const [UserToFindX, setUserToFindX] = useState('')
+  const [SHOWavilableTorimForToday, setSHOWavilableTorimForToday] =
+    useState(false)
   const [isMouseDown, setisMouseDown] = useState(false)
   const [
     PushTOworkingdayAfterPinuiAvilableTorim,
@@ -560,6 +569,48 @@ const Speech = ({ history, match, tipulimList }) => {
           const finalText = transcriptArr.join(' ')
           document.getElementById('final').innerHTML = finalText
           console.log(`final TEXT:, ${finalText}`)
+          setstatefinalText(statefinalText)
+        }
+      }
+
+      /************** הצג תורים פנויים להיום  ************** */
+      const TORIM_PNUIM_FOR_TODAY_CMD = transcriptArr
+      console.log('TORIM_PNUIM_FOR_TODAY_CMD', TORIM_PNUIM_FOR_TODAY_CMD)
+      console.log(`BEFORE :${TORIM_PNUIM_FOR_TODAY_CMD}`)
+      let Y = 0
+      for (let word of TORIM_PNUIM_FOR_TODAY_CMD) {
+        if (word === 'ל') {
+          TORIM_PNUIM_FOR_TODAY_CMD.splice(Y, 1)
+        }
+        Y++
+      }
+      console.log(`AFTER :${TORIM_PNUIM_FOR_TODAY_CMD}`)
+      let arrayyytT0 = ['תראה', 'פתח', 'הצג']
+      let arrayyytT1 = ['את']
+      let arrayyytT2 = TorimArr
+      let arrayyytT3 = zminimArr
+      let arrayyytT4 = LeHaiomArr
+      if (
+        (arrayyytT0.includes(TORIM_PNUIM_FOR_TODAY_CMD[0]) &&
+          arrayyytT1.includes(TORIM_PNUIM_FOR_TODAY_CMD[1]) &&
+          arrayyytT2.includes(TORIM_PNUIM_FOR_TODAY_CMD[2]) &&
+          arrayyytT3.includes(TORIM_PNUIM_FOR_TODAY_CMD[3]) &&
+          arrayyytT4.includes(TORIM_PNUIM_FOR_TODAY_CMD[4])) ||
+        (arrayyytT2.includes(TORIM_PNUIM_FOR_TODAY_CMD[0]) &&
+          arrayyytT3.includes(TORIM_PNUIM_FOR_TODAY_CMD[1]) &&
+          arrayyytT4.includes(TORIM_PNUIM_FOR_TODAY_CMD[2]))
+      ) {
+        recognition.stop()
+        recognition.onend = async () => {
+          console.log('show AVILABLE TORS  ACTION listening per command')
+          setForToday(true)
+          setForTomorow(false)
+          setForSpesisfic(false)
+          SHOWavilableTors()
+          const finalText = transcriptArr.join(' ')
+          document.getElementById('final').innerHTML = finalText
+          console.log(`final TEXT:, ${finalText}`)
+
           setstatefinalText(statefinalText)
         }
       }
@@ -1236,7 +1287,18 @@ const Speech = ({ history, match, tipulimList }) => {
           showCancelButton: true,
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
-          footer: `<a href="">התקשר לנייד של ${name} בנייד 0${phone}</a>`,
+          footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${phone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${phone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
         }).then(async (result) => {
           if (result.isConfirmed) {
             await dispatch(confirmTor(clockFound._id, word, tipulimList[0]._id)) //*hard code///
@@ -1263,7 +1325,18 @@ const Speech = ({ history, match, tipulimList }) => {
         showCancelButton: true,
         cancelButtonText: 'ביטול',
         confirmButtonText: 'אישור',
-        footer: `<a href="">התקשר לנייד של ${name} בנייד 0${phone}</a>`,
+        footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${phone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${phone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
       }).then(async (result) => {
         if (result.isConfirmed) {
           await dispatch(confirmTor(clockFound._id, word, tipulimList[0]._id)) //*hard code///
@@ -1277,6 +1350,7 @@ const Speech = ({ history, match, tipulimList }) => {
     }
   }
   const ResetFunction_Cancel_or_BACKdrop = () => {
+    setSHOWMEArrOFavilableClocksForToday(false)
     console.log('reset-Voice !@!')
     setForToday(false)
     setShowIfNotFoundByVoiceUsers(false)
@@ -1309,7 +1383,18 @@ const Speech = ({ history, match, tipulimList }) => {
       showCancelButton: true,
       cancelButtonText: 'ביטול',
       confirmButtonText: 'אישור',
-      footer: `<a href="">התקשר לנייד של ${name} בנייד 0${phone}</a>`,
+      footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${phone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${phone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
     }).then(async (result) => {
       if (result.isConfirmed) {
         await dispatch(confirmTor(id, word, tipulimList[0]._id))
@@ -1334,7 +1419,18 @@ const Speech = ({ history, match, tipulimList }) => {
       showCancelButton: true,
       cancelButtonText: 'ביטול',
       confirmButtonText: 'אישור',
-      footer: `<a href="">התקשר לנייד של ${name} בנייד 0${phone}</a>`,
+      footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${phone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${phone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
     }).then(async (result) => {
       if (result.isConfirmed) {
         await dispatch(confirmTor(id, word, tipulimList[0]._id))
@@ -1430,6 +1526,26 @@ const Speech = ({ history, match, tipulimList }) => {
     })
     ResetFunction_Cancel_or_BACKdrop()
   }
+  const SHOWavilableTors = async () => {
+    await dispatch(listOneWorkingDay)
+    setSHOWavilableTorimForToday(true)
+  }
+  const swalalaSHOWavilable = async () => {
+    await dispatch(WorkingDayTors(oneworkingdays[0]._id))
+    dispatch({ type: ONE_WORKING_DAY_RESET })
+  }
+  const AvILABLeSwal = async () => {
+    let ArrOFavilableClocksForToday = []
+    for (let clock of clockList) {
+      if (clock.avilable) {
+        console.log(clock)
+        ArrOFavilableClocksForToday.push(clock)
+      }
+    }
+    console.log(ArrOFavilableClocksForToday)
+    setArrOFavilableClocksForToday(ArrOFavilableClocksForToday)
+    setSHOWMEArrOFavilableClocksForToday(true)
+  }
 
   // ██╗   ██╗███████╗███████╗    ███████╗███████╗███████╗███████╗ ██████╗████████╗
   // ██║   ██║██╔════╝██╔════╝    ██╔════╝██╔════╝██╔════╝██╔════╝██╔════╝╚══██╔══╝
@@ -1438,6 +1554,14 @@ const Speech = ({ history, match, tipulimList }) => {
   // ╚██████╔╝███████║███████╗    ███████╗██║     ██║     ███████╗╚██████╗   ██║
   //  ╚═════╝ ╚══════╝╚══════╝    ╚══════╝╚═╝     ╚═╝     ╚══════╝ ╚═════╝   ╚═╝
   useEffect(() => {
+    if (onesuccess && SHOWavilableTorimForToday) {
+      swalalaSHOWavilable()
+    }
+    if (Torssuccess && SHOWavilableTorimForToday) {
+      setSHOWavilableTorimForToday(false)
+      AvILABLeSwal()
+    }
+
     if (newUserCreateByadminError) {
       dispatch({ type: USER_REGISTERByADMIN_RESET })
       swalThisUserAlreadyExits()
@@ -1490,7 +1614,18 @@ const Speech = ({ history, match, tipulimList }) => {
         showCancelButton: true,
         cancelButtonText: 'ביטול',
         confirmButtonText: 'אישור',
-        footer: `<a href="">התקשר לנייד של ${userfound.name} בנייד 0${userfound.phone}</a>`,
+        footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${userfound.phone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${userfound.phone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
       }).then(async (result) => {
         if (result.isConfirmed) {
           await dispatch(
@@ -1628,7 +1763,18 @@ const Speech = ({ history, match, tipulimList }) => {
           showCancelButton: true,
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
-          footer: `<a href="">התקשר לנייד של ${name} בנייד 0${phone}</a>`,
+          footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${phone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${phone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
         }).then(async (result) => {
           if (result.isConfirmed) {
             await dispatch(confirmTor(clockFound._id, word, tipulimList[0]._id)) //*hard code///
@@ -1651,7 +1797,18 @@ const Speech = ({ history, match, tipulimList }) => {
           showCancelButton: true,
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
-          footer: `<a href="">התקשר לנייד של ${name} בנייד 0${phone}</a>`,
+          footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${phone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${phone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
         }).then(async (result) => {
           if (result.isConfirmed) {
             await dispatch(confirmTor(clockFound._id, word, tipulimList[0]._id)) //*hard code///
@@ -1685,7 +1842,18 @@ const Speech = ({ history, match, tipulimList }) => {
           showCancelButton: true,
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
-          footer: `<a href="">התקשר לנייד של ${word} בנייד 0${phone}</a>`,
+          footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${phone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${phone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
         }).then(async (result) => {
           if (result.isConfirmed) {
             setNewUser_Situatuion(false)
@@ -1841,7 +2009,18 @@ const Speech = ({ history, match, tipulimList }) => {
           showCancelButton: true,
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
-          footer: `<a href="">התקשר לנייד של ${username} בנייד 0${userphone}</a>`,
+          footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${userphone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${userphone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
         }).then(async (result) => {
           if (result.isConfirmed) {
             await dispatch(
@@ -1875,7 +2054,18 @@ const Speech = ({ history, match, tipulimList }) => {
           showCancelButton: true,
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
-          footer: `<a href="">התקשר לנייד של ${username} בנייד 0${userphone}</a>`,
+          footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${userphone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${userphone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
         }).then((result) => {
           if (result.isConfirmed) {
             dispatch(confirmTor(clockFound._id, userid, tipulimList[0]._id)) //*hard code///
@@ -1899,7 +2089,18 @@ const Speech = ({ history, match, tipulimList }) => {
           showCancelButton: true,
           cancelButtonText: 'ביטול',
           confirmButtonText: 'אישור',
-          footer: `<a href="">התקשר לנייד של ${username} בנייד 0${userphone}</a>`,
+          footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${userphone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${userphone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
         }).then((result) => {
           if (result.isConfirmed) {
             dispatch(confirmTor(clockFound._id, userid, tipulimList[0]._id)) //*hard code///
@@ -1998,6 +2199,9 @@ const Speech = ({ history, match, tipulimList }) => {
     sevendayssuccess,
     newUserCreateByadminError,
     history,
+
+    clockList,
+    SHOWavilableTorimForToday,
   ])
 
   const findClockNow = async (id, Hour) => {
@@ -2129,6 +2333,13 @@ const Speech = ({ history, match, tipulimList }) => {
 
   return (
     <div>
+      {SHOWMEArrOFavilableClocksForToday && (
+        <AvilableBox
+          close={() => ResetFunction_Cancel_or_BACKdrop()}
+          list={ArrOFavilableClocksForToday}
+        />
+      )}
+
       {ShowIfNotFoundByVoiceUsers && (
         <UserFIlterMakeTorVoiceControll
           close={() => ResetFunction_Cancel_or_BACKdrop()}

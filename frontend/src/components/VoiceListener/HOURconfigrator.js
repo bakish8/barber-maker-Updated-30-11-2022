@@ -3,15 +3,17 @@ const HOURconfigrator = (hour, half) => {
   if (
     hour === '7' ||
     (hour === 'שבע' && half === '') ||
-    (hour === '7' && half === '')
+    (hour === '7' && half === '') ||
+    (hour === '7:00' && half === '') ||
+    (hour === '7:00' && !half)
   ) {
-    return '7:00'
+    return '19:00'
   } else if (
     hour === '7:30' ||
     (hour === 'שבע' && half === 'וחצי') ||
     (hour === '7' && half === 'וחצי')
   ) {
-    return '7:30'
+    return '19:30'
   } else if (
     hour === 8 ||
     hour === 'שמונה' ||
@@ -205,6 +207,7 @@ const HOURconfigrator = (hour, half) => {
     return '18:30'
   } else if (
     (hour === '19:00' && half === 'בערב') ||
+    (hour === '7:00' && half === 'בערב') ||
     (hour === '7' && half === 'בערב') ||
     (hour === '7:00' && half === 'בערב') ||
     (hour === 'שבע' && half === 'בערב') ||
