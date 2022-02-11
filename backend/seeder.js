@@ -8,7 +8,6 @@ import products from './data/products.js'
 import workingdays from './data/workingdays.js'
 import clocks from './data/clocks.js'
 import tipulim from './data/tipulim.js'
-
 import User from './models/userModel.js'
 import Product from './models/productModel.js'
 import Order from './models/orderModel.js'
@@ -17,7 +16,6 @@ import Clock from './models/Clock.js'
 import Appointment from './models/Appointment.js'
 import Reports from './models/Reports.js'
 import Tipul from './models/Tipul.js'
-
 import connectDB from './config/db.js'
 
 dotenv.config()

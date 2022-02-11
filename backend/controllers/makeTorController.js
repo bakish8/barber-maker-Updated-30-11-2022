@@ -4,16 +4,16 @@ import WorkingDay from '../models/WorkingDay.js'
 import Clock from '../models/Clock.js'
 import Appointment from '../models/Appointment.js'
 import Tipul from '../models/Tipul.js'
-import express from 'express'
 import dotenv from 'dotenv'
-const accountSid = 'AC17b672eb86d7fd2088ffd30cc1cbc0c2'
-const authToken = '90eccfedbc5d9e5d5c3e1edc25bedc5b'
 import twilio from 'twilio'
 import { BookmeOnGoogleCalender } from './googleauth.js'
 
+dotenv.config()
+const accountSid = process.env.TWILIO_ACCOUNT_SID
+const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = new twilio(accountSid, authToken)
 
-dotenv.config()
+const serviseSID = process.env.TWILIO_MESSAGE_SERVICE_SID
 
 const GetSugeiTipulim = asyncHandler(async (req, res) => {
   const tipulim = await Tipul.find({})
@@ -1305,7 +1305,7 @@ const SendSMS = asyncHandler(async (req, res) => {
   client.messages
     .create({
       body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ברבר מייקר `,
-      messagingServiceSid: 'MG9ba56c1fdaa9b554e7c28fa0c27e0c73',
+      messagingServiceSid: serviseSID,
       to: `+972${user.phone}`,
     })
     .then((message) => console.log(message.sid))
@@ -1318,7 +1318,7 @@ const SendCANCELSMS = asyncHandler(async (req, res) => {
   client.messages
     .create({
       body: `שלום ${user.name} ,התור שלך לתאריך ${clock.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, בוטל בהצלחה!, אין צורך להגיע שיהיה המשך יום נעים,צוות ברבר מייקר  `,
-      messagingServiceSid: 'MG9ba56c1fdaa9b554e7c28fa0c27e0c73',
+      messagingServiceSid: serviseSID,
       to: `+972${user.phone}`,
     })
     .then((message) => console.log(message.sid))
