@@ -81,7 +81,6 @@
   display: none;
 }
 #final {
-  display: none;
   width: 300px;
   color: white;
   padding: 1rem;
@@ -92,7 +91,6 @@
   top: 280px;
 }
 #interim {
-  display: none;
   width: 300px;
   color: white;
   padding: 1rem;
