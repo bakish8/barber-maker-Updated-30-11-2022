@@ -70,10 +70,18 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, cb) {
       const googleuser = await User.findOne({ googleId: profile.id })
-
+      console.log(`gogole user is :${profile.name}`)
+      console.log(`gogole user is :${profile.name}`)
+      console.log(`gogole user is :${profile.name}`)
+      console.log(`gogole user is :${profile.name}`)
+      console.log(`gogole user is :${googleuser}`)
+      console.log(`gogole user is :${googleuser}`)
+      console.log(`gogole user is :${googleuser}`)
+      console.log(`gogole user is :${googleuser}`)
+      console.log(`gogole user is :${googleuser}`)
       if (!googleuser) {
         const newUser = new User({
-          name: profile.name.givenName,
+          name: profile.name.givenName + ' ' + profile.name.familyName,
           email: profile.emails[0].value,
           googleId: profile.id,
           image: profile.photos[0].value,
