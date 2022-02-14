@@ -2,15 +2,32 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
-import { logout } from '../actions/userActions'
+import { logout, GetCancelNotification } from '../actions/userActions'
 import logo from '../D.gif'
 import CoolNavBar from './CoolNavBar/CoolNavBar.js'
+import AdminMessages from '../components/AdminMessages/AdminMessages'
 
 const Header = () => {
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+  const cancelNoti = useSelector((state) => state.cancelNoti)
+  const {
+    loading: loading_cancel_noti,
+    success: success_cancel_noti,
+    cancel_noti,
+    error: error_cancel_noti,
+  } = cancelNoti
+  const MakeALLwatch = useSelector((state) => state.MakeALLwatch)
+  const {
+    loading: loading_make_all_watch,
+    success: success_make_all_watch,
+    cancel_noti: make_all_watch,
+    error: error_make_all_watch,
+  } = MakeALLwatch
 
+  const cancelNotiList = useSelector((state) => state.cancelNotiList)
+  const { loading, notifications, error } = cancelNotiList
   const [stateForActiveAdminLINK, setstateForActiveAdminLINK] = useState(false)
   const [stateForActiveUserLINK, setstateForActiveUserLINK] = useState(false)
   const [stateForActiveCARTLINK, setstateForActiveCARTLINK] = useState(false)
@@ -57,6 +74,9 @@ const Header = () => {
 
   //USE EFFECT  for **states for clicking outside div
   useEffect(() => {
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(GetCancelNotification())
+    }
     window.addEventListener('click', function (e) {
       if (one && two && trhee) {
         if (
@@ -73,10 +93,15 @@ const Header = () => {
         console.log('')
       }
     })
-  }, [one, two, trhee])
+  }, [one, two, trhee, success_cancel_noti, make_all_watch])
 
   return (
     <>
+      {userInfo && userInfo.isAdmin ? (
+        <AdminMessages list={notifications} />
+      ) : (
+        <div id='displaynone'></div>
+      )}
       <header id='navbar'>
         <Navbar variant='dark' expand='lg' collapseOnSelect>
           <Container id='nabarr'>

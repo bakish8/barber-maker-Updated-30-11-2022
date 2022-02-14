@@ -1,6 +1,10 @@
 import swal from 'sweetalert'
 import Swal from 'sweetalert2'
-import { CancelMyTor, SendCancelTorSMS } from '../actions/userActions.js' //***למחוק לשנות לקוניפירם מחיקה */
+import {
+  CancelMyTor,
+  CreateCancelNotification,
+  SendCancelTorSMS,
+} from '../actions/userActions.js' //***למחוק לשנות לקוניפירם מחיקה */
 import React, { useState, useEffect } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -29,8 +33,8 @@ const PickSaparScreen = ({ history }) => {
       dispatch(listMyTorim())
       if (clocks) {
         if (
-          (!loadingMyTorim && !clocks) ||
-          (!loadingMyTorim && clocks.length === 0)
+          (loadingMyTorim == false && !clocks) ||
+          (loadingMyTorim == false && clocks.length === 0)
         ) {
           Swal.fire({
             title: ` לא נמצאו תורים לביטול עבור ${userInfo.name}`,
@@ -57,7 +61,7 @@ const PickSaparScreen = ({ history }) => {
     }
   }, [dispatch, history, userInfo, cancel])
 
-  const submitHandler = (id, time, date, sapar) => {
+  const submitHandler = (id, time, date, sapar, dayInWeek) => {
     const uid = userInfo._id
 
     Swal.fire({
@@ -81,8 +85,13 @@ const PickSaparScreen = ({ history }) => {
             showConfirmButton: false,
             timer: 8000,
           })
-            .then(dispatch(SendCancelTorSMS(id, uid)))
-            .then(history.push('/'))
+            // .then(dispatch(SendCancelTorSMS(id, uid)))
+            .then(
+              dispatch(
+                CreateCancelNotification(id, date, time, dayInWeek, sapar, uid)
+              )
+            )
+          // .then(history.push('/'))
         )
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         console.log('ביטול')
@@ -129,7 +138,8 @@ const PickSaparScreen = ({ history }) => {
                         clock._id,
                         clock.time,
                         clock.date,
-                        clock.sapar
+                        clock.sapar,
+                        clock.owner.dayInWeek
                       )
                     }
                   ></CancelTorItem>

@@ -1,0 +1,109 @@
+#redRoundCircle12 {
+  z-index: 250;
+  position: fixed;
+  right: 50px;
+  bottom: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: red;
+  cursor: pointer;
+  text-align: center;
+  color: whitesmoke;
+  line-height: 30px;
+}
+
+#yellowbox {
+  z-index: 250;
+  position: fixed;
+  right: 25%;
+  top: 15%;
+  width: 50%;
+  height: 400px;
+  border-radius: 10%;
+  background-color: rgb(235, 235, 235);
+  border: 2px solid rgb(155, 155, 155);
+  display: flex;
+}
+
+#yellowheadete {
+  position: absolute;
+  left: 42%;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 25px auto;
+  color: black;
+}
+#line123122 {
+  position: absolute;
+  top: 20%;
+  left: 38%;
+  background-color: black;
+  height: 5px;
+  width: 150px;
+}
+#messages101 {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 20px;
+  top: 25%;
+  display: block;
+  max-height: 240px;
+  overflow-y: auto;
+}
+.singlemessage101Unwatch {
+  color: black;
+  margin-top: 14px;
+  font-size: 15px;
+  font-weight: 100;
+  text-align: ltr;
+  width: 500px;
+  cursor: pointer;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 10px 15px;
+  border: 1px solid rgb(187, 187, 187);
+}
+.singlemessage101 {
+  color: black;
+  margin-top: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: ltr;
+  width: 500px;
+  cursor: pointer;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 10px 15px;
+  border: 1px solid rgb(187, 187, 187);
+}
+.singlemessage101:hover {
+}
+#xxxx {
+  position: absolute;
+  right: 1%;
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.3s ease-in;
+}
+#xxxx:hover {
+  transform: scale(1.5);
+  color: red;
+}
+
+#BefoteThatandThat {
+  color: rgb(124, 124, 124);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 13px;
+  text-align: left;
+}
+@media (max-width: 786px) {
+  .singlemessage101,
+  .singlemessage101Unwatch {
+    width: 150px;
+    font-size: 10px;
+  }
+}

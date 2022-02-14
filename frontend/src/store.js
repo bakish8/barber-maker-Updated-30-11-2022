@@ -72,6 +72,9 @@ import {
   FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_Reducer,
   ListworkingDayReducerForNEXT7days,
   Potential_Users_By_FirstNameReducer,
+  cancelNotiListReducer,
+  cancelNotiReducer,
+  MakeALLwatchREDUCER,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -157,6 +160,9 @@ const reducer = combineReducers({
     FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_Reducer,
   ListworkingDayForNEXT7days: ListworkingDayReducerForNEXT7days,
   Potential_Users_By_FirstName: Potential_Users_By_FirstNameReducer,
+  cancelNoti: cancelNotiReducer,
+  cancelNotiList: cancelNotiListReducer,
+  MakeALLwatch: MakeALLwatchREDUCER,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

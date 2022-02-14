@@ -1,4 +1,14 @@
 import {
+  MAKE_ALL_BE_WATCH_REQUEST,
+  MAKE_ALL_BE_WATCH_SUCCESS,
+  MAKE_ALL_BE_WATCH_FAIL,
+  CANCEL_NOTI_LIST_REQUEST,
+  CANCEL_NOTI_LIST_SUCCESS,
+  CANCEL_NOTI_LIST_FAIL,
+  CANCEL_NOTI_LIST_RESET,
+  CREATE_CANCEL_NOTI_REQUEST,
+  CREATE_CANCEL_NOTI_SUCCESS,
+  CREATE_CANCEL_NOTI_FAIL,
   POTENTIAL_USERS_REQUEST,
   POTENTIAL_USERS_SUCCESS,
   POTENTIAL_USERS_FAIL,
@@ -335,6 +345,47 @@ export const cancelTorReducer = (state = {}, action) => {
       return { loadingConfirm: false, errorConfirm: action.payload }
     case CONFIRM_TOR_RESET:
       return { cancel: {}, success: false }
+    default:
+      return state
+  }
+}
+export const cancelNotiReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CREATE_CANCEL_NOTI_REQUEST:
+      return { loading: true }
+    case CREATE_CANCEL_NOTI_SUCCESS:
+      return { loading: false, success: true, cancel_noti: action.payload }
+    case CREATE_CANCEL_NOTI_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const MakeALLwatchREDUCER = (state = {}, action) => {
+  switch (action.type) {
+    case MAKE_ALL_BE_WATCH_REQUEST:
+      return { loading: true }
+    case MAKE_ALL_BE_WATCH_SUCCESS:
+      return { loading: false, success: true, cancel_noti: action.payload }
+    case MAKE_ALL_BE_WATCH_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+export const cancelNotiListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CANCEL_NOTI_LIST_REQUEST:
+      return { loading: true }
+    case CANCEL_NOTI_LIST_SUCCESS:
+      return { loading: false, notifications: action.payload }
+    case CANCEL_NOTI_LIST_FAIL:
+      return { loading: false, error: action.payload }
+
+    case CANCEL_NOTI_LIST_RESET:
+      return { users: [] }
+
     default:
       return state
   }

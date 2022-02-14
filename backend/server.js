@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import morgan from 'morgan'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js' //החיבור למונגו
+import notificationsRoutes from './routes/notificationsRoutes.js'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
@@ -155,6 +156,7 @@ if (process.env.NODE_ENV === 'development') {
 // ██║  ██║██║     ██║
 // ╚═╝  ╚═╝╚═╝     ╚═╝ 's
 
+app.use('/api/notifications', notificationsRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/reports', reportsRouts)
 app.use('/api/users', userRoutes)

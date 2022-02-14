@@ -1,6 +1,15 @@
 import axios from 'axios'
 
 import {
+  MAKE_ALL_BE_WATCH_REQUEST,
+  MAKE_ALL_BE_WATCH_SUCCESS,
+  MAKE_ALL_BE_WATCH_FAIL,
+  CANCEL_NOTI_LIST_REQUEST,
+  CANCEL_NOTI_LIST_SUCCESS,
+  CANCEL_NOTI_LIST_FAIL,
+  CREATE_CANCEL_NOTI_REQUEST,
+  CREATE_CANCEL_NOTI_SUCCESS,
+  CREATE_CANCEL_NOTI_FAIL,
   POTENTIAL_USERS_REQUEST,
   POTENTIAL_USERS_SUCCESS,
   POTENTIAL_USERS_FAIL,
@@ -2429,3 +2438,115 @@ export const List_of_Potential_Users_By_FirstNameActionSearch =
       })
     }
   }
+
+export const CreateCancelNotification =
+  (id, date, time, dayInWeek, adminid, userid) => async (dispatch) => {
+    console.log(id)
+    console.log(date)
+    console.log(time)
+    console.log(dayInWeek)
+    console.log(adminid)
+    console.log(userid)
+    try {
+      dispatch({
+        type: CREATE_CANCEL_NOTI_REQUEST,
+      })
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+      const { data } = await axios.post(
+        '/api/notifications',
+        { id, date, time, dayInWeek, adminid, userid },
+        config
+      )
+      dispatch({
+        type: CREATE_CANCEL_NOTI_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: CREATE_CANCEL_NOTI_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+export const GetCancelNotification = () => async (dispatch, getState) => {
+  try {
+    console.log('dispatching!!!!')
+    console.log('dispatching!!!!')
+    console.log('dispatching!!!!')
+    dispatch({
+      type: CANCEL_NOTI_LIST_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/notifications`, config)
+
+    dispatch({
+      type: CANCEL_NOTI_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: CANCEL_NOTI_LIST_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const MakeAllMessagesBeWatch = () => async (dispatch, getState) => {
+  try {
+    console.log('dispatching!!!!')
+    dispatch({
+      type: MAKE_ALL_BE_WATCH_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(`/api/notifications`, config)
+
+    dispatch({
+      type: MAKE_ALL_BE_WATCH_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: MAKE_ALL_BE_WATCH_FAIL,
+      payload: message,
+    })
+  }
+}
