@@ -98,7 +98,15 @@ const AdminMessages = (props) => {
                         : 'singlemessage101Unwatch'
                     }
                   >
-                    {message.content}
+                    {message.user.name}
+                    <span id='redMeBitel'>
+                      {' '}
+                      {(message.type = 'cancel' && 'ביטל ')}
+                    </span>
+                    <span>{`את התור שלו בשעה `}</span>
+                    <span id='redMeBitel'> {message.time}</span>
+                    <span>{` ביום`}</span>
+                    <span id='redMeBitel'> {message.dayinweek}</span>
                     <div id='BefoteThatandThat'>
                       {TimeConfigraotr(message.date)}
                     </div>
@@ -116,12 +124,20 @@ const AdminMessages = (props) => {
         </div>
       )}
       {DisplayME && (
-        <div onClick={() => DisplayMessagesHandler()} id='redRoundCircle12'>
+        <div
+          onClick={() => DisplayMessagesHandler()}
+          className={
+            DisplayMessages ? 'redRoundCircle1202' : 'redRoundCircle12'
+          }
+        >
           {PropsListLength}
         </div>
       )}
       {!DisplayME && (
-        <div id='transperentBox' onClick={() => DisplayMessagesHandler()}></div>
+        <div
+          id={DisplayMessages ? 'transperentBox202' : 'transperentBox'}
+          onClick={() => DisplayMessagesHandler()}
+        ></div>
       )}
     </>
   )

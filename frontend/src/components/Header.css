@@ -1,8 +1,8 @@
 .counter {
   z-index: 250;
   position: absolute;
-  right: 50%;
-  top: 50px;
+  right: 51%;
+  top: 80px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -11,15 +11,36 @@
   text-align: center;
   color: whitesmoke;
   line-height: 30px;
+  transition: 0.1s ease-in;
+}
+.counter202 {
+  z-index: 250;
+  position: fixed;
+  right: 30%;
+  top: 110px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: red;
+  cursor: pointer;
+  text-align: center;
+  color: whitesmoke;
+  line-height: 30px;
+  transition: 0.1s ease-in;
+  transform: scale(1.8);
 }
 .counter:hover {
-  transform: scale(1.1);
+  transform: scale(1.6);
+}
+.counter202:hover {
+  transform: scale(1.6);
+  background-color: rgb(214, 0, 0);
 }
 
 .notifications {
   border-radius: 10px;
-  position: fixed;
-  top: 140px;
+  position: absolute;
+  top: 150px;
   right: 30%;
   z-index: 250;
   background-color: rgb(235, 235, 235);
@@ -42,10 +63,16 @@
   background-color: rgba(0, 0, 0, 0.281);
 }
 .notification177 {
+  cursor: pointer;
   top: 30%;
   z-index: 2222325;
   font-size: 15px;
   font-weight: 400;
+  background-color: rgba(255, 0, 0, 0.03);
+  border-radius: 21px;
+}
+.notification177:hover {
+  background-color: rgba(255, 0, 0, 0.055);
 }
 .notification177UnderLine {
   margin: 10px;
@@ -70,4 +97,23 @@
 }
 #redMeBitel {
   color: red;
+}
+
+#TimeOfNotifications107454 {
+  direction: ltr;
+}
+@media (max-width: 786px) {
+  .notifications {
+    right: 50px;
+  }
+
+  .notification177 {
+    width: 150px;
+    font-size: 10px;
+  }
+  .counter {
+    position: fixed;
+    top: 120px;
+    right: 40px;
+  }
 }

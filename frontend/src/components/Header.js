@@ -322,7 +322,10 @@ const Header = ({ socket, user }) => {
         </div>
       )}
       {notificationss.length > 0 && (
-        <div onClick={() => setOpen(!open)} className='counter'>
+        <div
+          onClick={() => setOpen(!open)}
+          className={open ? 'counter202' : 'counter'}
+        >
           {notificationss.length}
         </div>
       )}

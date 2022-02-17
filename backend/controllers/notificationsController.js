@@ -24,6 +24,7 @@ const CancelNotificationMaker = asyncHandler(async (req, res) => {
       watch: false,
       admin,
       user,
+      type: 'cancel',
     })
     res.status(201).json(createdcancelNotification) //?
   }
@@ -38,7 +39,9 @@ const getNotifications = asyncHandler(async (req, res) => {
   const month = CalculateMonthmonth.slice(-2)
   const year = FormatedSearchDate.substring(0, 4)
   const Admin_ID = req.params.id
-  const CancelNotifications = await CancelNotification.find({ admin: Admin_ID })
+  const CancelNotifications = await CancelNotification.find({
+    admin: Admin_ID,
+  }).populate('user')
   res.json(CancelNotifications)
 })
 

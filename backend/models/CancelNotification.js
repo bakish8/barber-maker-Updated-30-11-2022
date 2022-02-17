@@ -2,6 +2,10 @@ import mongoose from 'mongoose'
 
 const CancelNotificationSchema = mongoose.Schema(
   {
+    type: {
+      type: String,
+      required: true,
+    },
     content: {
       type: String,
       required: true,
