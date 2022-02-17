@@ -27,6 +27,7 @@ import { duration } from 'moment'
 import Kidma from '../components/KidmaTorim/Kidma'
 import Nahel from '../components/Nahel/Nahel'
 import Tilt from 'react-parallax-tilt'
+
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1

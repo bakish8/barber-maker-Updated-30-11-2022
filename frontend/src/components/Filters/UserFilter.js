@@ -4,9 +4,6 @@ import { listUsers } from '../../actions/userActions'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../Message'
 import Loader from '../Loader'
-import { List, ListItem, ListItemSecondaryAction } from '@material-ui/core'
-import confirmTor from '../../actions/userActions'
-import Swal from 'sweetalert2'
 import { Modal } from '@material-ui/core'
 
 const UserFilter = (props) => {
@@ -31,7 +28,6 @@ const UserFilter = (props) => {
     props.changeWordname(username)
     props.changeWordphone(userphone)
     props.changeWordImage(image)
-
     props.changeWord(user)
   }
 

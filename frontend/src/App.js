@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import Header from './components/Header'
@@ -31,13 +31,34 @@ import SingleReportScreen from './screens/SingleReportScreen'
 import Admin from './screens/Admin'
 import PickTipulScreen from './screens/PickTipulScreen'
 import { myContext } from './actions/Context'
-
+import { io } from 'socket.io-client'
+import { useSelector } from 'react-redux'
 const App = () => {
   const userObject = useContext(myContext)
   console.log(userObject)
+
+  const [socket, setSocket] = useState(null)
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const [user, setUser] = useState('')
+
+  useEffect(() => {
+    setSocket(io('http://localhost:3000'))
+  }, [])
+
+  useEffect(() => {
+    if (socket && userInfo) {
+      socket.emit('newUser', userInfo.name)
+      setUser(userInfo)
+      console.log(`user passed to header is :${user.name} ! ! !`)
+    }
+  }, [socket, user])
+
   return (
     <Router>
-      <Header />
+      <Header socket={socket} user={user} />
 
       <div> </div>
       <main className='py-3'>
@@ -58,7 +79,12 @@ const App = () => {
           />
 
           <Route path='/payment' component={PaymentScreen} />
-          <Route path='/cancel' component={CancelTorScreen} />
+          <Route
+            path='/cancel'
+            component={CancelTorScreen}
+            socket={socket}
+            user={user}
+          />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login/' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />

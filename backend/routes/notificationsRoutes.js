@@ -8,7 +8,7 @@ import {
 import { protect, admin } from '../middleware/authMiddleware.js'
 
 router
-  .route('/')
+  .route('/:id')
   .post(CancelNotificationMaker)
   .get(getNotifications)
   .put(MakeAllWatch)

@@ -1,0 +1,73 @@
+.counter {
+  z-index: 250;
+  position: absolute;
+  right: 50%;
+  top: 50px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: red;
+  cursor: pointer;
+  text-align: center;
+  color: whitesmoke;
+  line-height: 30px;
+}
+.counter:hover {
+  transform: scale(1.1);
+}
+
+.notifications {
+  border-radius: 10px;
+  position: fixed;
+  top: 140px;
+  right: 30%;
+  z-index: 250;
+  background-color: rgb(235, 235, 235);
+  color: black;
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+}
+#NotificationsHeader1077 {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+#NotificationsHeader1077FirstLine {
+  margin: 10px;
+  width: 97%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.281);
+}
+.notification177 {
+  top: 30%;
+  z-index: 2222325;
+  font-size: 15px;
+  font-weight: 400;
+}
+.notification177UnderLine {
+  margin: 10px;
+  width: 97%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.281);
+}
+
+.nButton {
+  width: 80%;
+  padding: 5px;
+  margin-top: 10px;
+  font-weight: 400;
+  margin: 0 auto;
+  transition: 0.3s ease-in;
+}
+.nButton:hover {
+  transform: scale(1.1);
+  font-weight: 500;
+  background-color: black;
+  color: white;
+}
+#redMeBitel {
+  color: red;
+}

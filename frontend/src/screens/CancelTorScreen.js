@@ -13,18 +13,49 @@ import Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
 import CancelTorItem from '../components/CancelTor/CancelTorItem'
 import { listMyTorim } from '../actions/userActions'
+import { io } from 'socket.io-client'
 
-const PickSaparScreen = ({ history }) => {
+const CancelTorScreen = ({ history }) => {
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
-
   const MyTorim = useSelector((state) => state.MyTorim)
   const { loading: loadingMyTorim, error: errorMyTorim, clocks } = MyTorim
-
   const CancelTor = useSelector((state) => state.CancelTor)
   const { cancel } = CancelTor
   const { userInfo } = userLogin
+  const [user, setUser] = useState('')
+  const [socket, setSocket] = useState(null)
+
+  //Socket Notification Function
+  //Socket Notification Function
+
+  const handleNotification = (type, sapar, time, dayInWeek) => {
+    console.log(`time:::${sapar}`)
+    console.log(`time:::${time}`)
+    console.log(`dayInWeek:::${dayInWeek}`)
+    if (socket) {
+      socket.emit('sendNotification', {
+        senderName: user.name,
+        receiverName: sapar, //*** */
+        type,
+        time,
+        dayInWeek,
+      })
+    }
+  }
+  //Socket Notification Function
+  //Socket Notification Function
+
+  useEffect(() => {
+    setSocket(io('http://localhost:3000'))
+  }, [])
+  useEffect(() => {
+    if (socket && userInfo) {
+      setUser(userInfo)
+      console.log(`Cancel Page user passed to Here is :${user.name} ! ! ! !!!`)
+    }
+  }, [socket, user])
 
   useEffect(() => {
     if (!userInfo) {
@@ -61,9 +92,9 @@ const PickSaparScreen = ({ history }) => {
     }
   }, [dispatch, history, userInfo, cancel])
 
-  const submitHandler = (id, time, date, sapar, dayInWeek) => {
+  const submitHandler = (id, time, date, sapar, dayInWeek, sapar_id) => {
     const uid = userInfo._id
-
+    console.log(sapar_id)
     Swal.fire({
       title: `?לבטל את תור זה`,
       text: `?שלום ${userInfo.name} ,האם אתה בטוח שברצונך לבטל תור זה `,
@@ -88,9 +119,19 @@ const PickSaparScreen = ({ history }) => {
             // .then(dispatch(SendCancelTorSMS(id, uid)))
             .then(
               dispatch(
-                CreateCancelNotification(id, date, time, dayInWeek, sapar, uid)
+                CreateCancelNotification(
+                  id,
+                  date,
+                  time,
+                  dayInWeek,
+                  sapar,
+                  uid,
+                  sapar_id
+                )
               )
             )
+            .then(handleNotification(1, sapar, time, dayInWeek))
+
           // .then(history.push('/'))
         )
       } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -124,7 +165,7 @@ const PickSaparScreen = ({ history }) => {
             {' '}
             <ul id='noBullets'>
               {clocks.map((clock) => (
-                <div id='centermeAndBlock' className='scaleAbit'>
+                <div id='IDasd' className='scaleAbit'>
                   <CancelTorItem
                     key={clock._id}
                     id={clock._id}
@@ -139,7 +180,8 @@ const PickSaparScreen = ({ history }) => {
                         clock.time,
                         clock.date,
                         clock.sapar,
-                        clock.owner.dayInWeek
+                        clock.owner.dayInWeek,
+                        clock.owner.owner
                       )
                     }
                   ></CancelTorItem>
@@ -153,4 +195,4 @@ const PickSaparScreen = ({ history }) => {
   )
 }
 
-export default PickSaparScreen
+export default CancelTorScreen

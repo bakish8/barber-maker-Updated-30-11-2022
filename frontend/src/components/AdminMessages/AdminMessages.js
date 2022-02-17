@@ -19,7 +19,7 @@ const AdminMessages = (props) => {
   }
   const DisplayMessagesHandler2 = () => {
     setDisplayMessages(false)
-    dispatch(MakeAllMessagesBeWatch())
+    dispatch(MakeAllMessagesBeWatch(userInfo._id))
   }
   const TimeConfigraotr = (time) => {
     const calculateMonth = time.substring(0, 4)
@@ -83,37 +83,45 @@ const AdminMessages = (props) => {
     <>
       {DisplayMessages && (
         <div id='yellowbox'>
-          <div onClick={() => DisplayMessagesHandler2()} id='xxxx'>
-            x
-          </div>{' '}
-          <div id='yellowheadete'>הודעות</div>
-          <br />
+          <div id='yellowheadete'>הודעות מערכת</div>
           <div id='line123122'></div>
           <div id='messages101'>
             {props.list
               .reverse()
 
               .map((message) => (
-                <div
-                  className={
-                    !message.watch
-                      ? 'singlemessage101'
-                      : 'singlemessage101Unwatch'
-                  }
-                >
-                  {message.content}
-                  <div id='BefoteThatandThat'>
-                    {TimeConfigraotr(message.date)}
+                <>
+                  <div
+                    className={
+                      !message.watch
+                        ? 'singlemessage101'
+                        : 'singlemessage101Unwatch'
+                    }
+                  >
+                    {message.content}
+                    <div id='BefoteThatandThat'>
+                      {TimeConfigraotr(message.date)}
+                    </div>
                   </div>
-                </div>
+                  <div className='notification177UnderLine'></div>
+                </>
               ))}
-          </div>
+          </div>{' '}
+          <button
+            onClick={() => DisplayMessagesHandler2()}
+            className='MeButton'
+          >
+            סמן הכל כנקרא
+          </button>{' '}
         </div>
       )}
       {DisplayME && (
         <div onClick={() => DisplayMessagesHandler()} id='redRoundCircle12'>
           {PropsListLength}
         </div>
+      )}
+      {!DisplayME && (
+        <div id='transperentBox' onClick={() => DisplayMessagesHandler()}></div>
       )}
     </>
   )

@@ -6,7 +6,7 @@ import './bootstrap.min.css'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import Context from './actions/Context'
+import Context from './actions/Context' ///do somthing with google user to stop error ecrty page
 
 ReactDOM.render(
   <Provider store={store}>

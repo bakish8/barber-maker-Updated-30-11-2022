@@ -2440,7 +2440,8 @@ export const List_of_Potential_Users_By_FirstNameActionSearch =
   }
 
 export const CreateCancelNotification =
-  (id, date, time, dayInWeek, adminid, userid) => async (dispatch) => {
+  (id, date, time, dayInWeek, adminid, userid, sapar_id) =>
+  async (dispatch) => {
     console.log(id)
     console.log(date)
     console.log(time)
@@ -2457,7 +2458,7 @@ export const CreateCancelNotification =
         },
       }
       const { data } = await axios.post(
-        '/api/notifications',
+        `/api/notifications/${sapar_id}`,
         { id, date, time, dayInWeek, adminid, userid },
         config
       )
@@ -2475,7 +2476,7 @@ export const CreateCancelNotification =
       })
     }
   }
-export const GetCancelNotification = () => async (dispatch, getState) => {
+export const GetCancelNotification = (admin) => async (dispatch, getState) => {
   try {
     console.log('dispatching!!!!')
     console.log('dispatching!!!!')
@@ -2493,7 +2494,7 @@ export const GetCancelNotification = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/api/notifications`, config)
+    const { data } = await axios.get(`/api/notifications/${admin}`, config)
 
     dispatch({
       type: CANCEL_NOTI_LIST_SUCCESS,
@@ -2514,7 +2515,7 @@ export const GetCancelNotification = () => async (dispatch, getState) => {
   }
 }
 
-export const MakeAllMessagesBeWatch = () => async (dispatch, getState) => {
+export const MakeAllMessagesBeWatch = (admin) => async (dispatch, getState) => {
   try {
     console.log('dispatching!!!!')
     dispatch({
@@ -2530,7 +2531,7 @@ export const MakeAllMessagesBeWatch = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(`/api/notifications`, config)
+    const { data } = await axios.put(`/api/notifications/${admin}`, config)
 
     dispatch({
       type: MAKE_ALL_BE_WATCH_SUCCESS,

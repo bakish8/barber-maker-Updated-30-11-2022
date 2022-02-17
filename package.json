@@ -74,6 +74,8 @@
     "react-to-pdf": "^0.0.14",
     "react-to-print": "^2.14.3",
     "react-vanilla-tilt": "^1.0.0",
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1",
     "sweetalert2": "^11.3.5",
     "twilio": "^3.71.3",
     "vanilla-tilt": "^1.7.2",
