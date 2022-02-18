@@ -1,6 +1,6 @@
 .counter {
   z-index: 250;
-  position: absolute;
+  position: fixed;
   top: 120px;
   right: 40px;
   width: 30px;

@@ -13,6 +13,7 @@ import ImageOne from '../components/HomePage/ImageOne'
 import ImageTWO from '../components/HomePage/ImageTWO'
 import ImageThree from '../components/HomePage/ImageThree'
 import ImageFour from '../components/HomePage/ImageFour'
+import SmartCounter from '../components/HomePage/SmartCounter'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 import LinkedinSpinnerIcon from '../components/icons/LinkedinSpinnerIcon.js'
@@ -126,6 +127,9 @@ const HomeScreen = ({ match }) => {
         </Tilt>
         <div data-aos='flip-left' id='image4'>
           <ImageFour />
+        </div>{' '}
+        <div data-aos='flip-left' id='image4'>
+          <SmartCounter />
         </div>{' '}
         <div data-aos='zoom-in' id='ClientEffect'>
           <ExpendingCards />

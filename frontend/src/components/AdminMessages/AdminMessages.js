@@ -3,7 +3,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import './AdminMessages.css'
 import { Modal } from '@material-ui/core'
 import { MakeAllMessagesBeWatch } from '../../actions/userActions'
-import moment from 'moment-timezone'
+import moment from 'moment'
+import 'moment/locale/he'
+moment.locale('he')
 
 const AdminMessages = (props) => {
   const dispatch = useDispatch()
@@ -79,15 +81,6 @@ const AdminMessages = (props) => {
     }
   }, [userInfo, props.list, PropsListLength])
 
-  const consoleia = (type) => {
-    console.log(type)
-    console.log(type)
-    console.log(type)
-    console.log(type)
-    console.log(type)
-    console.log(type)
-    console.log(type)
-  }
   const DivNotificationReutner = (message) => {
     if (message.type == 'cancel') {
       return (
@@ -102,7 +95,9 @@ const AdminMessages = (props) => {
           <span id='redMeBitel'> {message.time}</span>
           <span>{` ביום`}</span>
           <span id='redMeBitel'> {message.dayinweek}</span>
-          <div id='BefoteThatandThat'>{TimeConfigraotr(message.date)}</div>
+          <div id='BefoteThatandThat'>
+            {moment(message.UTimeStamp).fromNow()}
+          </div>
         </div>
       )
     } else if (message.type == 'make') {
@@ -118,7 +113,10 @@ const AdminMessages = (props) => {
           <span id='GREENMeBitel'> {message.dayinweek}</span>
           <span>{` בשעה`}</span>
           <span id='GREENMeBitel'> {message.time}</span>
-          <div id='BefoteThatandThat'>{TimeConfigraotr(message.date)}</div>
+          <div id='BefoteThatandThat'>
+            {' '}
+            {moment(message.UTimeStamp).fromNow()}
+          </div>
         </div>
       )
     }
@@ -136,31 +134,7 @@ const AdminMessages = (props) => {
               /*****TimeConfigraotr need TO BE fixed 3 min ago..today yesterday.. */
               .map((message) => (
                 <>
-                  {
-                    <div>{DivNotificationReutner(message)}</div>
-                    // (message.type = 'cancel' ? (
-                    //   <div
-                    //     className={
-                    //       !message.watch
-                    //         ? 'singlemessage101'
-                    //         : 'singlemessage101Unwatch'
-                    //     }
-                    //   >
-                    //     {message.user.name}
-                    //     <span id='redMeBitel'>{' ביטל '}</span>
-                    //     <span>{`את התור שלו בשעה ביטל`}</span>
-                    //     <span id='redMeBitel'> {message.time}</span>
-                    //     <span>{` ביום`}</span>
-                    //     <span id='redMeBitel'> {message.dayinweek}</span>
-                    //     <div id='BefoteThatandThat'>
-                    //       {TimeConfigraotr(message.date)}
-                    //     </div>
-                    //     <div>{consoleia(message.type)}</div>
-                    //   </div>
-                    // ) : (
-                    //    <div>make</div> )
-                    // )
-                  }
+                  {<div>{DivNotificationReutner(message)}</div>}
                   <div className='notification177UnderLine'></div>
                 </>
               ))}
