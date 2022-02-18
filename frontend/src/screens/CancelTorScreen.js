@@ -1,5 +1,6 @@
-import swal from 'sweetalert'
 import Swal from 'sweetalert2'
+import moment from 'moment'
+
 import {
   CancelMyTor,
   CreateCancelNotification,
@@ -29,8 +30,8 @@ const CancelTorScreen = ({ history }) => {
 
   //Socket Notification Function
   //Socket Notification Function
-
-  const handleNotification = (type, sapar, time, dayInWeek) => {
+  //Socket Notification Function
+  const handleNotification = (type, sapar, time, dayInWeek, date) => {
     console.log(`time:::${sapar}`)
     console.log(`time:::${time}`)
     console.log(`dayInWeek:::${dayInWeek}`)
@@ -41,9 +42,11 @@ const CancelTorScreen = ({ history }) => {
         type,
         time,
         dayInWeek,
+        date,
       })
     }
   }
+  //Socket Notification Function
   //Socket Notification Function
   //Socket Notification Function
 
@@ -107,6 +110,8 @@ const CancelTorScreen = ({ history }) => {
       imageUrl: 'https://i.ibb.co/fpZL6Px/animation-300-kym7smbo.gif',
     }).then((result) => {
       if (result.isConfirmed) {
+        let NOW = moment()
+        let now = NOW.toDate()
         dispatch(CancelMyTor(id, uid)).then(
           Swal.fire({
             position: 'top-end',
@@ -126,12 +131,13 @@ const CancelTorScreen = ({ history }) => {
                   dayInWeek,
                   sapar,
                   uid,
-                  sapar_id
+                  sapar_id,
+                  1,
+                  now
                 )
               )
             )
-            .then(handleNotification(1, sapar, time, dayInWeek))
-
+            .then(handleNotification(1, sapar, time, dayInWeek, date, now))
           // .then(history.push('/'))
         )
       } else if (result.dismiss === Swal.DismissReason.cancel) {

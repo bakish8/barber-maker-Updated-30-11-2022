@@ -2440,14 +2440,10 @@ export const List_of_Potential_Users_By_FirstNameActionSearch =
   }
 
 export const CreateCancelNotification =
-  (id, date, time, dayInWeek, adminid, userid, sapar_id) =>
+  (id, date, time, dayInWeek, adminid, userid, sapar_id, type, now) =>
   async (dispatch) => {
-    console.log(id)
-    console.log(date)
-    console.log(time)
-    console.log(dayInWeek)
-    console.log(adminid)
-    console.log(userid)
+    console.log(type)
+
     try {
       dispatch({
         type: CREATE_CANCEL_NOTI_REQUEST,
@@ -2459,7 +2455,7 @@ export const CreateCancelNotification =
       }
       const { data } = await axios.post(
         `/api/notifications/${sapar_id}`,
-        { id, date, time, dayInWeek, adminid, userid },
+        { id, date, time, dayInWeek, adminid, userid, type, now },
         config
       )
       dispatch({

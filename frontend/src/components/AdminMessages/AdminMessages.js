@@ -79,6 +79,51 @@ const AdminMessages = (props) => {
     }
   }, [userInfo, props.list, PropsListLength])
 
+  const consoleia = (type) => {
+    console.log(type)
+    console.log(type)
+    console.log(type)
+    console.log(type)
+    console.log(type)
+    console.log(type)
+    console.log(type)
+  }
+  const DivNotificationReutner = (message) => {
+    if (message.type == 'cancel') {
+      return (
+        <div
+          className={
+            !message.watch ? 'singlemessage101' : 'singlemessage101Unwatch'
+          }
+        >
+          {message.user.name}
+          <span id='redMeBitel'>{' ביטל '}</span>
+          <span>{` את התור שלו בשעה `}</span>
+          <span id='redMeBitel'> {message.time}</span>
+          <span>{` ביום`}</span>
+          <span id='redMeBitel'> {message.dayinweek}</span>
+          <div id='BefoteThatandThat'>{TimeConfigraotr(message.date)}</div>
+        </div>
+      )
+    } else if (message.type == 'make') {
+      return (
+        <div
+          className={
+            !message.watch ? 'singlemessage102' : 'singlemessage102Unwatch'
+          }
+        >
+          {message.user.name}
+          <span id='GREENMeBitel'>{' קבע תור '}</span>
+          <span>{`ליום`}</span>
+          <span id='GREENMeBitel'> {message.dayinweek}</span>
+          <span>{` בשעה`}</span>
+          <span id='GREENMeBitel'> {message.time}</span>
+          <div id='BefoteThatandThat'>{TimeConfigraotr(message.date)}</div>
+        </div>
+      )
+    }
+  }
+  /*****{message.dayinweek} if today so lehaiom */
   return (
     <>
       {DisplayMessages && (
@@ -87,30 +132,35 @@ const AdminMessages = (props) => {
           <div id='line123122'></div>
           <div id='messages101'>
             {props.list
-              .reverse()
-
+              .reverse() //**need to be sorted !!!FIX  */
+              /*****TimeConfigraotr need TO BE fixed 3 min ago..today yesterday.. */
               .map((message) => (
                 <>
-                  <div
-                    className={
-                      !message.watch
-                        ? 'singlemessage101'
-                        : 'singlemessage101Unwatch'
-                    }
-                  >
-                    {message.user.name}
-                    <span id='redMeBitel'>
-                      {' '}
-                      {(message.type = 'cancel' && 'ביטל ')}
-                    </span>
-                    <span>{`את התור שלו בשעה `}</span>
-                    <span id='redMeBitel'> {message.time}</span>
-                    <span>{` ביום`}</span>
-                    <span id='redMeBitel'> {message.dayinweek}</span>
-                    <div id='BefoteThatandThat'>
-                      {TimeConfigraotr(message.date)}
-                    </div>
-                  </div>
+                  {
+                    <div>{DivNotificationReutner(message)}</div>
+                    // (message.type = 'cancel' ? (
+                    //   <div
+                    //     className={
+                    //       !message.watch
+                    //         ? 'singlemessage101'
+                    //         : 'singlemessage101Unwatch'
+                    //     }
+                    //   >
+                    //     {message.user.name}
+                    //     <span id='redMeBitel'>{' ביטל '}</span>
+                    //     <span>{`את התור שלו בשעה ביטל`}</span>
+                    //     <span id='redMeBitel'> {message.time}</span>
+                    //     <span>{` ביום`}</span>
+                    //     <span id='redMeBitel'> {message.dayinweek}</span>
+                    //     <div id='BefoteThatandThat'>
+                    //       {TimeConfigraotr(message.date)}
+                    //     </div>
+                    //     <div>{consoleia(message.type)}</div>
+                    //   </div>
+                    // ) : (
+                    //    <div>make</div> )
+                    // )
+                  }
                   <div className='notification177UnderLine'></div>
                 </>
               ))}

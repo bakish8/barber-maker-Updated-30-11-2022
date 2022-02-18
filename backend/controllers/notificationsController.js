@@ -7,26 +7,51 @@ import moment from 'moment-timezone'
 //make  notifications for a spesific admin
 
 const CancelNotificationMaker = asyncHandler(async (req, res) => {
-  const { id, date, time, dayInWeek, adminid, userid } = req.body //admin id is meant name here
+  const { id, date, time, dayInWeek, adminid, userid, type, now } = req.body //admin id is meant name here
+  console.log(now)
+  console.log(now)
+  console.log(now)
+  console.log(now)
+  console.log(now)
+
   const Admin_ID = req.params.id
   const clock = await Clock.findById(id)
   const user = await User.findById(userid)
   const admin = await User.findById(Admin_ID)
   //const admin = await User.findOne({ name: adminid })
   if (clock && user && admin) {
-    console.log('created!!!')
-    const cancelNotification = await CancelNotification.create({
-      content: `${user.name} ביטל את התור שלו/ה בשעה ${time} ביום ${dayInWeek}`,
-      clock,
-      date,
-      dayinweek: dayInWeek,
-      time,
-      watch: false,
-      admin,
-      user,
-      type: 'cancel',
-    })
-    res.status(201).json(createdcancelNotification) //?
+    if (type == 1) {
+      //cancel type
+      console.log('creating ... .... ... ... ... cancel type notification !!!')
+      const cancelNotification = await CancelNotification.create({
+        content: `${user.name} ביטל את התור שלו/ה בשעה ${time} ביום ${dayInWeek} בתאריך ${date}`,
+        clock,
+        date,
+        dayinweek: dayInWeek,
+        time,
+        watch: false,
+        admin,
+        user,
+        type: 'cancel',
+        UTimeStamp: now,
+      })
+      res.status(201).json(cancelNotification)
+    } else if (type == 2) {
+      console.log('creating ... .... ... ... ... cancel type notification !!!')
+      const makeNotification = await CancelNotification.create({
+        content: `${user.name} קבע תור בשעה ${time} ביום ${dayInWeek} בתאריך ${date}`,
+        clock,
+        date,
+        dayinweek: dayInWeek,
+        time,
+        watch: false,
+        admin,
+        user,
+        type: 'make',
+        UTimeStamp: now /*/*/,
+      })
+      res.status(201).json(makeNotification)
+    }
   }
 })
 

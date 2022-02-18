@@ -1,7 +1,7 @@
-import swal from 'sweetalert'
 import Swal from 'sweetalert2'
 import { useHistory } from 'react-router-dom'
-
+import { io } from 'socket.io-client'
+import moment from 'moment'
 import Modal from '../components/UIelements/Modal'
 import React, { useState, useEffect } from 'react'
 import { Table, Button, Row, Col, Form } from 'react-bootstrap'
@@ -22,6 +22,7 @@ import {
   AvilableWorkingDayTorsFor2horsTipul,
   AvilableWorkingDayTorsFor2horsHALFTipul,
   AvilableWorkingDayTorsFor3hours,
+  CreateCancelNotification,
 } from '../actions/userActions.js'
 var date,
   array = []
@@ -41,6 +42,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
   console.log(WorkDayid)
   console.log(Tipulid)
   console.log('_____________')
+  const [socket, setSocket] = useState(null)
+  const [user, setUser] = useState('')
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -94,6 +97,39 @@ const SingleWorkDayScreen = ({ history, match }) => {
     history.push('/picksapar')
   }
 
+  const handleNotification = (type, sapar, time, dayInWeek, date) => {
+    let NOW = moment()
+    let now = NOW.toDate()
+    console.log(`type:::${type}`)
+    console.log(`time:::${sapar}`)
+    console.log(`time:::${time}`)
+    console.log(`dayInWeek:::${dayInWeek}`)
+    console.log(`dayInWeek:::${dayInWeek}`)
+    console.log(`dayInWeek:::${dayInWeek}`)
+    console.log(`dayInWeek:::${dayInWeek}`)
+    if (socket) {
+      socket.emit('sendNotification', {
+        senderName: user.name,
+        receiverName: sapar, //*** */
+        type,
+        time,
+        dayInWeek,
+        date,
+        now,
+      })
+    }
+  }
+  useEffect(() => {
+    setSocket(io('http://localhost:3000'))
+  }, [])
+  useEffect(() => {
+    if (socket && userInfo) {
+      setUser(userInfo)
+      console.log(
+        `make tor Page user passed to Here is :${user.name} ! ! ! !!!`
+      )
+    }
+  }, [socket, user])
   useEffect(() => {
     if (userInfo) {
       dispatch(workingDayDetails(WorkDayid))
@@ -125,9 +161,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
     }
   }, [dispatch, tipulimDeets])
 
-  const submitHandler = (id, time, date, sapar) => {
+  const submitHandler = (id, time, date, sapar, dayInWeek, sapar_id) => {
     const uid = userInfo._id
-
     Swal.fire({
       title: `?לסגור את התור`,
       text: `שלום ${userInfo.name} , האם ברצונך לקבוע תור ל ${sapar} בשעה ${time} בתאריך ${date}`,
@@ -142,6 +177,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
       imageHeight: 150,
     }).then((result) => {
       if (result.isConfirmed) {
+        let NOW = moment()
+        let now = NOW.toDate()
         dispatch(confirmTor(id, uid, Tipulid))
           .then(
             Swal.fire({
@@ -153,9 +190,26 @@ const SingleWorkDayScreen = ({ history, match }) => {
               timer: 8000,
             }).then(history.push('/'))
           )
-          .then(dispatch(SendTorSMS(id, uid)))
-          .then(dispatch(SendNotificationSMS(id, uid)))
-          .then(dispatch(BookMEonGoogleCalenderAction(id, uid)))
+          // .then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
+          .then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
+          .then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed
+          //***creating User Create Tor Notification */
+          .then(
+            dispatch(
+              CreateCancelNotification(
+                id,
+                date,
+                time,
+                dayInWeek,
+                sapar,
+                uid,
+                sapar_id,
+                2,
+                now
+              )
+            )
+          )
+          .then(handleNotification(2, sapar, time, dayInWeek, date))
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         history.goBack()
       }
@@ -222,7 +276,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock._id,
                                 clock.time,
                                 clock.date,
-                                clock.sapar
+                                clock.sapar,
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}
@@ -258,7 +314,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock._id,
                                 clock.time,
                                 clock.date,
-                                clock.sapar
+                                clock.sapar,
+                                clock.owner.dayInWeek
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}
@@ -293,7 +350,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock._id,
                                 clock.time,
                                 clock.date,
-                                clock.sapar
+                                clock.sapar,
+                                clock.owner.dayInWeek
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}
@@ -329,7 +387,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock._id,
                                 clock.time,
                                 clock.date,
-                                clock.sapar
+                                clock.sapar,
+                                clock.owner.dayInWeek
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}
@@ -365,7 +424,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock._id,
                                 clock.time,
                                 clock.date,
-                                clock.sapar
+                                clock.sapar,
+                                clock.owner.dayInWeek
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}
@@ -401,7 +461,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock._id,
                                 clock.time,
                                 clock.date,
-                                clock.sapar
+                                clock.sapar,
+                                clock.owner.dayInWeek
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}

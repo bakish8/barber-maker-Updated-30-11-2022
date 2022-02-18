@@ -241,11 +241,12 @@ io.on('connection', (SSocket) => {
   })
   SSocket.on(
     'sendNotification',
-    ({ senderName, receiverName, type, time, dayInWeek }) => {
+    ({ senderName, receiverName, type, time, dayInWeek, date, now }) => {
       if (type == 1) {
         console.log(`type is 1 !!!`)
       }
       console.log(`receiverName:::${receiverName}`)
+      console.log(`date:::${date}`)
       console.log(`time:::${time}`)
       console.log(`dayInWeek:::${dayInWeek}`)
       const receiver = getUser(receiverName)
@@ -255,6 +256,8 @@ io.on('connection', (SSocket) => {
           type,
           time,
           dayInWeek,
+          date,
+          now,
         })
       }
     }

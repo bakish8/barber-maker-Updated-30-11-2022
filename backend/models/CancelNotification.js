@@ -27,6 +27,10 @@ const CancelNotificationSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    UTimeStamp: {
+      type: String,
+      required: true,
+    },
     watch: {
       type: Boolean,
       default: false,
@@ -39,7 +43,7 @@ const CancelNotificationSchema = mongoose.Schema(
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      //required: true,  // FIX
       ref: 'User',
     },
   },

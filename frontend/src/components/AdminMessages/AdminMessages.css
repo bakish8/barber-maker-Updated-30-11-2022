@@ -1,8 +1,8 @@
 #transperentBox {
   z-index: 249;
   position: absolute;
-  right: 51%;
-  top: 80px;
+  top: 120px;
+  right: 40px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -14,13 +14,13 @@
   content: 'X';
   line-height: 30px;
   margin-right: 9px;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 #transperentBox202 {
   z-index: 249;
   position: fixed;
-  right: 30%;
-  top: 110px;
+  top: 120px;
+  right: 40px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -41,8 +41,8 @@
 .redRoundCircle12 {
   z-index: 250;
   position: absolute;
-  right: 51%;
-  top: 80px;
+  top: 120px;
+  right: 40px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -56,8 +56,8 @@
 .redRoundCircle1202 {
   z-index: 250;
   position: fixed;
-  right: 30%;
-  top: 110px;
+  top: 120px;
+  right: 40px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -81,7 +81,7 @@
   border-radius: 10px;
   position: fixed;
   top: 140px;
-  right: 30%;
+  right: 50px;
   z-index: 250;
   background-color: rgb(235, 235, 235);
   color: black;
@@ -117,6 +117,16 @@
   border-radius: 21px;
   background-color: rgba(255, 0, 0, 0.03);
 }
+.singlemessage102Unwatch {
+  top: 30%;
+  z-index: 2222325;
+  font-size: 15px;
+  font-weight: 350;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 21px;
+  background-color: rgba(44, 153, 23, 0.103);
+}
 .singlemessage101 {
   cursor: pointer;
   top: 30%;
@@ -127,9 +137,23 @@
   background-color: rgba(255, 0, 0, 0.03);
   border-radius: 21px;
 }
+.singlemessage102 {
+  cursor: pointer;
+  top: 30%;
+  z-index: 2222325;
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 10px;
+  background-color: rgba(44, 153, 23, 0.103);
+  border-radius: 21px;
+}
 .singlemessage101Unwatch:hover,
 .singlemessage101:hover {
   background-color: rgba(255, 0, 0, 0.055);
+}
+.singlemessage102Unwatch:hover,
+.singlemessage102:hover {
+  background-color: rgba(44, 153, 23, 0.153);
 }
 .notification177UnderLine {
   margin: 10px;
@@ -159,6 +183,8 @@
   text-align: left;
 }
 @media (max-width: 786px) {
+  .singlemessage102Unwatch,
+  .singlemessage102,
   .singlemessage101Unwatch,
   .singlemessage101 {
     width: 150px;
@@ -171,4 +197,11 @@
     top: 120px;
     right: 40px;
   }
+}
+#redMeBitel {
+  color: red;
+}
+#GREENMeBitel {
+  color: rgb(6, 116, 11);
+  font-weight: 600;
 }

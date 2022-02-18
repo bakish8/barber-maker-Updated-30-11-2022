@@ -1,8 +1,8 @@
 .counter {
   z-index: 250;
   position: absolute;
-  right: 51%;
-  top: 80px;
+  top: 120px;
+  right: 40px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -16,8 +16,6 @@
 .counter202 {
   z-index: 250;
   position: fixed;
-  right: 30%;
-  top: 110px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -28,6 +26,8 @@
   line-height: 30px;
   transition: 0.1s ease-in;
   transform: scale(1.8);
+  top: 120px;
+  right: 40px;
 }
 .counter:hover {
   transform: scale(1.6);
@@ -39,9 +39,9 @@
 
 .notifications {
   border-radius: 10px;
-  position: absolute;
+  position: fixed;
   top: 150px;
-  right: 30%;
+  right: 50px;
   z-index: 250;
   background-color: rgb(235, 235, 235);
   color: black;
@@ -71,8 +71,22 @@
   background-color: rgba(255, 0, 0, 0.03);
   border-radius: 21px;
 }
+
 .notification177:hover {
   background-color: rgba(255, 0, 0, 0.055);
+}
+.notificationGREENS {
+  cursor: pointer;
+  top: 30%;
+  z-index: 2222325;
+  font-size: 15px;
+  font-weight: 400;
+  background-color: rgba(44, 153, 23, 0.103);
+  border-radius: 21px;
+}
+
+.notificationGREENS:hover {
+  background-color: rgba(44, 153, 23, 0.153);
 }
 .notification177UnderLine {
   margin: 10px;
@@ -98,9 +112,20 @@
 #redMeBitel {
   color: red;
 }
+#GREENMeBitel {
+  color: rgb(6, 116, 11);
+  font-weight: 600;
+}
+#righttoleeft {
+  direction: rtl;
+}
 
 #TimeOfNotifications107454 {
-  direction: ltr;
+  color: rgb(124, 124, 124);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 13px;
+  text-align: left;
 }
 @media (max-width: 786px) {
   .notifications {
@@ -111,6 +136,7 @@
     width: 150px;
     font-size: 10px;
   }
+  .counter202,
   .counter {
     position: fixed;
     top: 120px;

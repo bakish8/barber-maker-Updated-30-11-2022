@@ -7,11 +7,15 @@ import {
   GetCancelNotification,
   MakeAllMessagesBeWatch,
 } from '../actions/userActions'
-
+import Swal from 'sweetalert2'
+import 'moment/locale/he'
 import logo from '../D.gif'
 import CoolNavBar from './CoolNavBar/CoolNavBar.js'
 import AdminMessages from '../components/AdminMessages/AdminMessages'
 import './Header.css'
+import moment from 'moment'
+
+moment.locale('he')
 const Header = ({ socket, user }) => {
   //accepting socket and user from App.js
   if (socket && user) {
@@ -45,7 +49,7 @@ const Header = ({ socket, user }) => {
   const [notificationss, setNotificationss] = useState([])
   const [Socket, setSocket] = useState({})
   const [open, setOpen] = useState(false)
-
+  const [MakeBLueONEdesapier, setMakeBLueONEdesapier] = useState(true)
   //*************************************** */
   const [stateForActiveAdminLINK, setstateForActiveAdminLINK] = useState(false)
   const [stateForActiveUserLINK, setstateForActiveUserLINK] = useState(false)
@@ -95,30 +99,59 @@ const Header = ({ socket, user }) => {
   /******************************************************** */
   /******************************************************** */
 
-  const displayNotification = ({ senderName, type, time, dayInWeek }) => {
+  /*****Hard Code <span>היום-hard coded</span> */
+  const displayNotification = ({
+    senderName,
+    type,
+    time,
+    dayInWeek,
+    createdAt,
+    date,
+    now,
+  }) => {
+    console.log(`created at :${now}`)
+    console.log(`created at :${now}`)
     let action
-
     if (type === 1) {
       action = 'ביטל'
+      return (
+        <>
+          <div className='notification177'>
+            {`${senderName} `}
+            <span id='redMeBitel'>{`${action} `}</span>
+            <span>את התור שלו בשעה</span>
+            <span id='redMeBitel'>{` ${time} `}</span>
+            <span>ביום</span>
+            <span id='redMeBitel'>{` ${dayInWeek} `}</span>
+            <div id='TimeOfNotifications107454'>{moment(now).fromNow()}</div>
+          </div>
+          <div className='notification177UnderLine'></div>
+        </>
+      )
+    } else if (type === 2) {
+      action = 'קבע'
+
+      return (
+        <>
+          <div className='notificationGREENS'>
+            {`${senderName} `}
+            <span id='GREENMeBitel'>{`${action} `}</span>
+            <span>תור ביום</span>
+            <span id='GREENMeBitel'>{` ${dayInWeek} `}</span>
+            <span>בשעה</span>
+            <span id='GREENMeBitel'>{` ${time} `}</span>
+            <div id='TimeOfNotifications107454'> {moment(now).fromNow()}</div>
+          </div>
+          <div className='notification177UnderLine'></div>
+        </>
+      )
     }
-    return (
-      <>
-        <div className='notification177'>
-          {`${senderName} `}
-          <span id='redMeBitel'>{`${action} `}</span>
-          <span>את התור שלו בשעה</span>
-          <span id='redMeBitel'>{` ${time} `}</span>
-          <span>ביום</span>
-          <span id='redMeBitel'>{` ${dayInWeek} `}</span>
-        </div>
-        <div className='notification177UnderLine'></div>
-      </>
-    )
   }
   const handleRead = () => {
     // add MARK AS READ IN DATA BASE AS WELL
     setNotificationss([])
     setOpen(false)
+    setMakeBLueONEdesapier(true)
     dispatch(MakeAllMessagesBeWatch(userInfo._id))
   }
   /******************************************************** */
@@ -130,6 +163,34 @@ const Header = ({ socket, user }) => {
       setSocket(socket)
       socket.on('getNotification', (data) => {
         setNotificationss((prev) => [...prev, data])
+        console.log(
+          'adding New Notification N O W!!...checking type of Notification For Swal...'
+        )
+        if (data.type == 1) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            html: `<div id='righttoleeft'>${data.senderName} ביטל את התור שלו בשעה ${data.time} ביום ${data.dayInWeek}</div>`,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            backdrop: `rgba(0,0,0,0.0)`,
+            allowOutsideClick: true,
+            timer: 4500,
+            toast: true,
+          })
+        } else if (data.type == 2) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            timerProgressBar: true,
+            html: `<div id='righttoleeft'> ${data.senderName} קבע תור ליום ${data.dayInWeek} בשעה ${data.time}</div>`,
+            showConfirmButton: false,
+            backdrop: `rgba(0,0,0,0.0)`,
+            allowOutsideClick: true,
+            timer: 4500,
+            toast: true,
+          })
+        }
       })
     }
   }, [socket])
@@ -169,14 +230,17 @@ const Header = ({ socket, user }) => {
         console.log('')
       }
       if (success_cancel_noti) {
-        console.log('dispatching GetCancelNotification')
+        console.log('dispatching GetCancelNotification') /***** */
       }
     })
   }, [one, two, trhee, success_cancel_noti, make_all_watch])
-
+  const ChangePositionHandler = () => {
+    setOpen(!open)
+    setMakeBLueONEdesapier(!MakeBLueONEdesapier)
+  }
   return (
     <>
-      {userInfo && userInfo.isAdmin ? (
+      {userInfo && userInfo.isAdmin && MakeBLueONEdesapier ? (
         <AdminMessages list={notifications} />
       ) : (
         <div id='displaynone'></div>
@@ -323,7 +387,7 @@ const Header = ({ socket, user }) => {
       )}
       {notificationss.length > 0 && (
         <div
-          onClick={() => setOpen(!open)}
+          onClick={() => ChangePositionHandler()}
           className={open ? 'counter202' : 'counter'}
         >
           {notificationss.length}
