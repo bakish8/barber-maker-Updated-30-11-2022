@@ -128,15 +128,13 @@ const HomeScreen = ({ match }) => {
         <div data-aos='flip-left' id='image4'>
           <ImageFour />
         </div>{' '}
-        <div data-aos='flip-left' id='image4'>
-          <SmartCounter />
-        </div>{' '}
         <div data-aos='zoom-in' id='ClientEffect'>
           <ExpendingCards />
         </div>{' '}
         <div data-aos='flip-right' id='ClientEffect'>
           <ClientEffect />
         </div>{' '}
+        <SmartCounter />
         <div data-aos='fade-right' className='BOXS'>
           <ImageThree />
         </div>

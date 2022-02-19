@@ -7,16 +7,24 @@ const SmartCounter = () => {
   return (
     <div className='MotherOFSMARTCONTAINER'>
       <div className='Smart-counter-container'>
-        <div className='Smart-Counter'>
-          {' '}
-          <i id='idid' class='fa-solid fa-ban-smoking'></i>{' '}
-          <i id='idid' class='fas fa-calendar-week'></i>
-          <i id='idid' class='fas fa-calendar-day'></i>
+        <div className='DIVinterior'>
+          <div className='Smart-Counter'>46 </div>
+          <div className='HEADLINE-SMART-COUNTER'>בעלי מספרות מרוצים</div>
+          <img
+            id='imGcounyer606'
+            src='https://i.ibb.co/v4ChrP4/animation-500-kzsjh8oi.gif'
+          />{' '}
         </div>
-        <div className='Smart-Counter'> </div>
-        <span className=''>b</span>
-        <div className='Smart-Counter'> </div>
-        <span className=''>c</span>
+
+        <div className='DIVinterior'>
+          {' '}
+          <div className='Smart-Counter'>30,053</div>{' '}
+          <div className='HEADLINE-SMART-COUNTER'>תורים נקבעו דרך המערכת</div>{' '}
+          <img
+            id='imGcounyer606'
+            src='https://i.ibb.co/vHYbxwJ/ezgif-com-gif-maker-10.gif'
+          />{' '}
+        </div>
       </div>
     </div>
   )
