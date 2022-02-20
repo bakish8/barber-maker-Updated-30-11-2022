@@ -148,29 +148,6 @@ const HomeScreen = ({ match }) => {
               חזור
             </Link>
           )}
-          <Row id='RowAdds'>
-            <Col>
-              <Tilt className='TILT'>
-                <div data-aos='fade-right' id='Add1_div'>
-                  <Adds_3 className='cardAdd' />
-                </div>{' '}
-              </Tilt>
-            </Col>
-            <Col>
-              <Tilt className='TILT'>
-                <div data-aos='fade-up' id='Add1_div'>
-                  <Adds_1 className='cardAdd' />
-                </div>{' '}
-              </Tilt>
-            </Col>
-            <Col>
-              <Tilt className='TILT'>
-                <div data-aos='fade-left' id='Add1_div'>
-                  <Adds_2 className='cardAdd' />
-                </div>{' '}
-              </Tilt>
-            </Col>
-          </Row>
 
           {loading ? (
             <Loader />
