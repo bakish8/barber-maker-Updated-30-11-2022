@@ -1,6 +1,7 @@
 .MotherOFSMARTCONTAINER {
   color: white;
   background-color: rgba(137, 43, 226, 0);
+  margin-top: 100px;
 }
 .Smart-counter-container {
   display: flex;
@@ -9,20 +10,29 @@
 .Smart-Counter {
   position: relative;
   color: rgb(0, 255, 242);
-  top: 450px;
+  top: 230px;
   text-align: center;
   font-size: 40px;
   font-family: monospace;
+  cursor: pointer;
 }
 #imGcounyer606 {
+  position: relative;
   transform: scale(0.7);
+  bottom: 200px;
+  cursor: pointer;
+}
+#imGcounyer606:hover {
+  transform: scale(1);
+  transition: 0.3s ease-in;
 }
 .HEADLINE-SMART-COUNTER {
   position: relative;
   color: rgb(0, 255, 242);
-  top: 450px;
+  top: 250px;
   text-align: center;
   font-size: 20px;
+  cursor: pointer;
 }
 .DIVinterior {
 }

@@ -2672,7 +2672,9 @@ h5 {
   opacity: 1;
   filter: blur(0px);
 }
-
+#SmartCounter {
+  transform: scale(0.85);
+}
 #ClientEffect {
   margin-top: 30px;
 }

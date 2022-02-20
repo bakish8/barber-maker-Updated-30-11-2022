@@ -134,7 +134,9 @@ const HomeScreen = ({ match }) => {
         <div data-aos='flip-right' id='ClientEffect'>
           <ClientEffect />
         </div>{' '}
-        <SmartCounter />
+        <div data-aos='flip-right' id='SmartCounter'>
+          <SmartCounter />
+        </div>{' '}
         <div data-aos='fade-right' className='BOXS'>
           <ImageThree />
         </div>
