@@ -74,13 +74,6 @@ passport.use(
     async function (accessToken, refreshToken, profile, cb) {
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user is :${profile.name}`)
-      console.log(`gogole user is :${profile.name}`)
-      console.log(`gogole user is :${profile.name}`)
-      console.log(`gogole user is :${profile.name}`)
-      console.log(`gogole user is :${googleuser}`)
-      console.log(`gogole user is :${googleuser}`)
-      console.log(`gogole user is :${googleuser}`)
-      console.log(`gogole user is :${googleuser}`)
       console.log(`gogole user is :${googleuser}`)
       if (!googleuser) {
         const newUser = new User({
@@ -119,7 +112,8 @@ app.get(
     failureRedirect: '/login',
   }),
   function (req, res) {
-    res.redirect('http://localhost:3000/')
+    res.redirect('http://localhost:3000/') //development
+    //res.redirect('http://barber-maker.com/') //production
   }
 )
 
