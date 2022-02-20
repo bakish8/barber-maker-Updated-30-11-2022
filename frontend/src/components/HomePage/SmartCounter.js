@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react'
-import ProductCarousel from '../ProductCarousel'
-import { useDispatch, useSelector } from 'react-redux' //מה שישחליט מה לשגר
+import React, { useEffect, useState } from 'react'
 import './SmartCounter.css'
 
 const SmartCounter = () => {
+  const [scrollPosition, setPosition] = useState(0)
+
   const f = () => {
     const counters = document.getElementsByClassName('Smart-Counter')
     for (let counter of counters) {
       counter.innerText = '0'
       const updateCounter = () => {
         const target = +counter.getAttribute('data-target') //+ is parse
-        console.log(target)
         const c = +counter.innerText
         const incricement = target / 200
         if (c < target) {
           counter.innerText = `${Math.ceil(c + incricement)}`
-          setTimeout(updateCounter, 1)
+          setTimeout(updateCounter, 2)
         } else {
           counter.innerText = target
         }
@@ -23,8 +22,20 @@ const SmartCounter = () => {
       updateCounter()
     }
   }
+  setTimeout(f, 1000) //if window scroll is this component top hifet dispatch action
 
-  f() /// ****shhow with state is screen highet
+  useEffect(() => {
+    const updatePosition = () => {
+      setPosition(window.scrollY)
+    }
+
+    window.addEventListener('scroll', updatePosition)
+
+    console.log(scrollPosition)
+    if (scrollPosition < 3600) {
+      console.log('in this Higet zone dont restart counter!!')
+    }
+  }, [scrollPosition])
 
   return (
     <div className='MotherOFSMARTCONTAINER'>
