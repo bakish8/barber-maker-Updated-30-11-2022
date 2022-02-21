@@ -9,6 +9,7 @@ import twilio from 'twilio'
 import { BookmeOnGoogleCalender } from './googleauth.js'
 
 dotenv.config()
+const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER
 const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = new twilio(accountSid, authToken)
@@ -1310,6 +1311,17 @@ const SendSMS = asyncHandler(async (req, res) => {
     })
     .then((message) => console.log(message.sid))
     .done()
+  //whatsapp -waiting for confiriming me ...
+  // .then(
+  //   client.messages
+  //     .create({
+  //       body: 'Your appointment is coming up on July 21 at 3PM',
+  //       from: `whatsapp:${TWILIO_PHONE_NUMBER}`,
+  //       to: 'whatsapp:+972509089090',
+  //     })
+  //     .then((message) => console.log(message.sid))
+  //     .done()
+  // )
 })
 
 const SendCANCELSMS = asyncHandler(async (req, res) => {

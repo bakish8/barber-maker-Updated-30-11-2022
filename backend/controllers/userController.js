@@ -7,7 +7,7 @@ import Tipul from '../models/Tipul.js'
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
-  const user = await User.findOne({ email })
+  const user = await User.findOne({ phone: email })
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -19,8 +19,21 @@ const authUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     })
   } else {
-    res.status(401)
-    throw new Error('Invalid email or password')
+    const user = await User.findOne({ email })
+    if (user && (await user.matchPassword(password))) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        image: user.image,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+      })
+    } else {
+      res.status(401)
+      throw new Error('Invalid email or password')
+    }
   }
 })
 
@@ -282,6 +295,7 @@ const registerNewTipul = asyncHandler(async (req, res) => {
 
 export {
   authUser,
+  authUserBYphone,
   authGoogleUser,
   registerUser,
   getUserProfile,
