@@ -77,6 +77,8 @@ passport.use(
       console.log(`gogole user is :${profile.name}`)
       console.log(`gogole user is :${googleuser}`)
       if (!googleuser) {
+        console.log('no google user found! create')
+
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
           email: profile.emails[0].value,
@@ -108,8 +110,8 @@ app.get(
   })
 )
 app.get(
-  //  '/api/google/callback',  // development
-  'https://www.barber-maker.com/api/google/callback', // production
+  '/api/google/callback', // development
+  //'https://www.barber-maker.com/api/google/callback', // production
   passport.authenticate('google', {
     failureRedirect: '/login',
   }),
@@ -171,6 +173,9 @@ app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 )
 app.get('/getgoogleuser', (req, res) => {
+  console.log(req.user)
+  console.log(req.user)
+
   res.status(207)
   res.send(req.user)
 })
