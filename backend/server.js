@@ -69,7 +69,8 @@ passport.use(
       clientID:
         '452001077432-h4lhfoemnipvlbokdtamftv3p7m0rr9f.apps.googleusercontent.com',
       clientSecret: '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',
-      callbackURL: '/api/google/callback',
+      callbackURL: 'https://www.barber-maker.com/api/google/callback',
+      //callbackURL: '/api/google/callback', development
     },
     async function (accessToken, refreshToken, profile, cb) {
       const googleuser = await User.findOne({ googleId: profile.id })
@@ -107,7 +108,8 @@ app.get(
   })
 )
 app.get(
-  '/api/google/callback',
+  //  '/api/google/callback',  // development
+  'https://www.barber-maker.com/api/google/callback', // production
   passport.authenticate('google', {
     failureRedirect: '/login',
   }),
