@@ -44,8 +44,14 @@ const App = () => {
 
   const [user, setUser] = useState('')
 
+  //development :
+  // useEffect(() => {
+  //   setSocket(io('http://localhost:3000'))
+  // }, [])
+  //development :
+
   useEffect(() => {
-    setSocket(io('http://localhost:3000'))
+    setSocket(io('https://www.barber-maker.com/'))
   }, [])
 
   useEffect(() => {
