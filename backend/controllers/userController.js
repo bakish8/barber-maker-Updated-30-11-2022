@@ -295,7 +295,6 @@ const registerNewTipul = asyncHandler(async (req, res) => {
 
 export {
   authUser,
-  authUserBYphone,
   authGoogleUser,
   registerUser,
   getUserProfile,
