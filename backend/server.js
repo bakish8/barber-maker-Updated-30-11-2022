@@ -113,7 +113,7 @@ app.get(
   }),
   function (req, res) {
     //res.redirect('http://localhost:3000/') //development /// working  /**** */
-    res.redirect('http://barber-maker.com/') //production ///NOT working  /**** */
+    res.redirect('https://barber-maker.com/') //production ///NOT working  /**** */
   }
 )
 
