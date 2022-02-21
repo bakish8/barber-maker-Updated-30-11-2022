@@ -197,7 +197,7 @@ app.use(errorHandler)
 
 const server = http.createServer(app)
 //Run When Client Connenct
-const io = new Server(server, { origins: '*:*' })
+const io = new Server(server, { origin: '*:*' })
 let onlineUsers = []
 //add new connected user to the array onlineUsers
 const addNewUser = (username, socketId) => {
