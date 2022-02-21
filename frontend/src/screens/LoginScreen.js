@@ -32,7 +32,11 @@ const LoginScreen = ({ location, history }) => {
   }
 
   const GoogleSigninsubmitHandler = () => {
-    window.open('http://localhost:5000/api/google', '_self')
+    //window.open('http://localhost:5000/api/google', '_self')/**********production need to be  created */
+    window.open(
+      'https://www.barber-maker.com/api/google',
+      '_self'
+    ) /**********production need to be  created */
     console.log('ggggggggggggggggggooogle Login TRY')
   }
 

@@ -112,8 +112,8 @@ app.get(
     failureRedirect: '/login',
   }),
   function (req, res) {
-    //res.redirect('http://localhost:3000/') //development
-    res.redirect('http://barber-maker.com/') //production
+    //res.redirect('http://localhost:3000/') //development /// working  /**** */
+    res.redirect('http://barber-maker.com/') //production ///NOT working  /**** */
   }
 )
 

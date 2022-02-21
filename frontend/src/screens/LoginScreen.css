@@ -59,11 +59,12 @@
 .loginBTN:hover {
   background: #0088b1;
 }
+/****היה דיספליי פלקס**/
 .googleSIgnUP {
   width: 200px;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
