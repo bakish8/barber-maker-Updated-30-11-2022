@@ -78,6 +78,9 @@ const LoginScreen = ({ location, history }) => {
               <Button type='submit' className='loginBTN'>
                 התחבר
               </Button>
+              <Button type='submit' className='loginBTN1'>
+                התחבר באמצעות הנייד{' '}
+              </Button>
               <Row className='py-3'>
                 <Col>
                   <div className='whiteme'>

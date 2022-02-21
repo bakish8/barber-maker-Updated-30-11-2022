@@ -59,6 +59,16 @@
 .loginBTN:hover {
   background: #0088b1;
 }
+.loginBTN1 {
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 50px;
+  background-color: #ffbb00a6;
+  font-size: 15px;
+}
+.loginBTN1:hover {
+  background: #926400;
+}
 /****היה דיספליי פלקס**/
 .googleSIgnUP {
   width: 200px;
