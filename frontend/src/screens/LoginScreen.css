@@ -63,11 +63,21 @@
   margin-top: 20px;
   width: 100%;
   border-radius: 50px;
-  background-color: #ffbb00a6;
+  background-color: #000000a6;
+  color: white;
+  font-size: 15px;
+}
+.loginBTN123 {
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 50px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   font-size: 15px;
 }
 .loginBTN1:hover {
-  background: #926400;
+  background: #ffffff;
+  color: rgb(0, 0, 0);
 }
 /****היה דיספליי פלקס**/
 .googleSIgnUP {

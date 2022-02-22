@@ -1,4 +1,7 @@
 import {
+  USER_LOGIN_EMAIL_REQUEST,
+  USER_LOGIN_EMAIL_SUCCESS,
+  USER_LOGIN_EMAIL_FAIL,
   MAKE_ALL_BE_WATCH_REQUEST,
   MAKE_ALL_BE_WATCH_SUCCESS,
   MAKE_ALL_BE_WATCH_FAIL,
@@ -231,6 +234,20 @@ export const userLoginReducer = (state = {}, action) => {
     case USER_LOGIN_SUCCESS:
       return { success: true, loading: false, userInfo: action.payload }
     case USER_LOGIN_FAIL:
+      return { success: false, loading: false, error: action.payload }
+    case USER_LOGOUT:
+      return {}
+    default:
+      return state
+  }
+}
+export const userLoginEMAILReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_LOGIN_EMAIL_REQUEST:
+      return { loading: true }
+    case USER_LOGIN_EMAIL_SUCCESS:
+      return { success: true, loading: false, userInfo: action.payload }
+    case USER_LOGIN_EMAIL_FAIL:
       return { success: false, loading: false, error: action.payload }
     case USER_LOGOUT:
       return {}

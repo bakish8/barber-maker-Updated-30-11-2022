@@ -57,6 +57,14 @@ const Header = ({ socket, user }) => {
   const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
   const { userGoogleInfo, Gsuccess } = userGoogleLogin
 
+  const userLoginEMAIL = useSelector((state) => state.userLoginEMAIL)
+  const {
+    success: successEmail,
+    loading: loadingEmail,
+    error: errorEmail,
+    userInfo: userInfoEmail,
+  } = userLoginEMAIL
+
   const logoutHandler = () => {
     dispatch(logout())
   }
@@ -159,6 +167,9 @@ const Header = ({ socket, user }) => {
   /******************************************************** */
 
   useEffect(() => {
+    if (successEmail) {
+      window.location.reload()
+    }
     if (socket) {
       setSocket(socket)
       socket.on('getNotification', (data) => {
@@ -193,7 +204,7 @@ const Header = ({ socket, user }) => {
         }
       })
     }
-  }, [socket])
+  }, [socket, successEmail])
   useEffect(() => {
     if (notificationss) {
       console.log(`notificationss`)

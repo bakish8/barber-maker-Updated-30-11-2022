@@ -5,9 +5,13 @@ import Tipul from '../models/Tipul.js'
 // @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
+
+//PHONE
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
-  const user = await User.findOne({ phone: email })
+  console.log(email)
+  const user = await User.findOne({ phone: email }) //need to be fixed  is phone all the way
+
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -19,21 +23,33 @@ const authUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     })
   } else {
-    const user = await User.findOne({ email })
-    if (user && (await user.matchPassword(password))) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        image: user.image,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id),
-      })
-    } else {
-      res.status(401)
-      throw new Error('Invalid email or password')
-    }
+    res.status(401)
+    throw new Error('Invalid email or password')
+  }
+})
+
+//Email
+// @desc    Auth user & get token
+// @route   POST /api/users/login
+// @access  Public
+const authUserBYphone = asyncHandler(async (req, res) => {
+  const { email, password } = req.body
+  console.log(email)
+  console.log(email)
+  const user = await User.findOne({ email })
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      image: user.image,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    })
+  } else {
+    res.status(401)
+    throw new Error('Invalid email or password')
   }
 })
 
@@ -295,6 +311,7 @@ const registerNewTipul = asyncHandler(async (req, res) => {
 
 export {
   authUser,
+  authUserBYphone,
   authGoogleUser,
   registerUser,
   getUserProfile,

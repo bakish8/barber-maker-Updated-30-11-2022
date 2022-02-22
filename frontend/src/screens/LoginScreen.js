@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { login } from '../actions/userActions'
+import { login, emailLogin } from '../actions/userActions'
 import './LoginScreen.css'
 const LoginScreen = ({ location, history }) => {
   const [phone, setPhone] = useState('')
@@ -21,21 +21,29 @@ const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
+  const userLoginEMAIL = useSelector((state) => state.userLoginEMAIL)
+  const {
+    loading: loadingEmail,
+    error: errorEmail,
+    userInfo: userInfoEmail,
+  } = userLoginEMAIL
+
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo || userInfoEmail) {
       history.push(redirect)
     }
-  }, [history, userInfo, redirect])
+  }, [history, userInfo, userInfoEmail, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(login(email, password))
+    console.log(email)
+    dispatch(emailLogin(email, password)) //send to actions and fowerd as email
   }
   const submitHandler2 = (e) => {
     e.preventDefault()
-    dispatch(login(phone, password)) //send to actions and fowerd as email
+    dispatch(login(phone, password)) //send to actions and fowerd as email needto be fixed to phone fron action
   }
 
   const GoogleSigninsubmitHandler = () => {
@@ -91,7 +99,7 @@ const LoginScreen = ({ location, history }) => {
                   }}
                   className='loginBTN1'
                 >
-                  התחבר באמצעות הנייד{' '}
+                  התחבר באמצעות האימייל{' '}
                 </Button>
                 <Row className='py-3'>
                   <Col>
