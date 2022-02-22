@@ -22,7 +22,7 @@
   padding: 10px 0;
   font-size: 16px;
   color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border: none;
   border-bottom: 2px solid #fff;
   outline: none;
@@ -91,4 +91,10 @@
 #user-name {
   margin-left: 30px;
   width: 100%;
+}
+
+.whitemeforgot {
+  color: white;
+  text-align: center;
+  cursor: pointer;
 }

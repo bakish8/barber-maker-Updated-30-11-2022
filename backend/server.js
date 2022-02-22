@@ -15,6 +15,7 @@ import workingdayRoutes from './routes/workingdayRoutes.js'
 import makeTor from './routes/makeTorRoutes.js'
 import cancelTorRoutes from './routes/cancelTorRoutes.js'
 import reportsRouts from './routes/reportsRouts.js'
+//import ForgotpasswordRoutes from './routes/ForgotpasswordRoutes.js'
 import searchRoutes from './routes/searchRoutes.js'
 import sendmessagesRoutes from './routes/sendmessagesRoutes.js'
 import appointmentsRoutes from './routes/appointmentsRoutes.js'
@@ -156,7 +157,16 @@ if (process.env.NODE_ENV === 'development') {
 // ██╔══██║██╔═══╝ ██║
 // ██║  ██║██║     ██║
 // ╚═╝  ╚═╝╚═╝     ╚═╝ 's
+//ForgotMyPASSword Routes
+app.post('/api/forgot-password', (req, res, next) => {
+  const { email } = req.body
+  console.log(email)
+  console.log(email)
+  console.log(email)
+  console.log(email)
+})
 
+//app.use('/api/forgot-password', ForgotpasswordRoutes)
 app.use('/api/notifications', notificationsRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/reports', reportsRouts)

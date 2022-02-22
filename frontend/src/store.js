@@ -76,6 +76,8 @@ import {
   cancelNotiReducer,
   MakeALLwatchREDUCER,
   userLoginEMAILReducer,
+  SearchOneUserBYEMAILReducer,
+  BUILD_RESET_PAGE_REDUCER,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -165,6 +167,8 @@ const reducer = combineReducers({
   cancelNotiList: cancelNotiListReducer,
   MakeALLwatch: MakeALLwatchREDUCER,
   userLoginEMAIL: userLoginEMAILReducer,
+  SearchOneUserBYEMAIL: SearchOneUserBYEMAILReducer,
+  BUILD_RESET_PAGE: BUILD_RESET_PAGE_REDUCER,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

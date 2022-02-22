@@ -1,4 +1,10 @@
 import {
+  RESET_PASSWORD_PAGE_REQUEST,
+  RESET_PASSWORD_PAGE_SUCCESS,
+  RESET_PASSWORD_PAGE_FAIL,
+  ONE_USER_SEARCH_BY_EMAIL_REQUEST,
+  ONE_USER_SEARCH_BY_EMAIL_SUCCESS,
+  ONE_USER_SEARCH_BY_EMAIL_FAIL,
   USER_LOGIN_EMAIL_REQUEST,
   USER_LOGIN_EMAIL_SUCCESS,
   USER_LOGIN_EMAIL_FAIL,
@@ -1316,6 +1322,50 @@ export const SearchOneUserReducer = (state = {}, action) => {
       return state
   }
 }
+export const SearchOneUserBYEMAILReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ONE_USER_SEARCH_BY_EMAIL_REQUEST:
+      return { loadinguserfound: true }
+    case ONE_USER_SEARCH_BY_EMAIL_SUCCESS:
+      return {
+        loadinguserfound: false,
+        userfound: action.payload,
+        successuserfound: true,
+      }
+    case ONE_USER_SEARCH_BY_EMAIL_FAIL:
+      return {
+        loadinguserfound: false,
+        erroruserfound: action.payload,
+        successuserfound: false,
+      }
+    case ONE_USER_SEARCH_RESET:
+      return { successuserfound: false }
+    default:
+      return state
+  }
+}
+
+export const BUILD_RESET_PAGE_REDUCER = (state = {}, action) => {
+  switch (action.type) {
+    case RESET_PASSWORD_PAGE_REQUEST:
+      return { loading: true }
+    case RESET_PASSWORD_PAGE_SUCCESS:
+      return {
+        loading: false,
+        page: action.payload,
+        success: true,
+      }
+    case RESET_PASSWORD_PAGE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+        success: false,
+      }
+    default:
+      return state
+  }
+}
+
 export const FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_Reducer = (
   state = {},
   action
