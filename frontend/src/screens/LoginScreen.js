@@ -273,6 +273,14 @@ const LoginScreen = ({ location, history }) => {
                 >
                   התחבר באמצעות האימייל{' '}
                 </Button>
+
+                <btn onClick={GoogleSigninsubmitHandler}>
+                  {' '}
+                  <img
+                    className='googleSIgnUP'
+                    src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
+                  ></img>
+                </btn>
                 <Row className='py-3'>
                   <Col>
                     <div className='whiteme'>
@@ -290,13 +298,6 @@ const LoginScreen = ({ location, history }) => {
                     </div>
                   </Col>
                 </Row>
-                <btn onClick={GoogleSigninsubmitHandler}>
-                  {' '}
-                  <img
-                    className='googleSIgnUP'
-                    src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
-                  ></img>
-                </btn>
               </Form>
             </div>
           </FormContainer>
