@@ -78,6 +78,8 @@ import {
   userLoginEMAILReducer,
   SearchOneUserBYEMAILReducer,
   BUILD_RESET_PAGE_REDUCER,
+  RESET_PAGE_REDUCER,
+  RESET_MY_PASSWORD_REDUCER,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -169,6 +171,8 @@ const reducer = combineReducers({
   userLoginEMAIL: userLoginEMAILReducer,
   SearchOneUserBYEMAIL: SearchOneUserBYEMAILReducer,
   BUILD_RESET_PAGE: BUILD_RESET_PAGE_REDUCER,
+  RESET_PAGE: RESET_PAGE_REDUCER,
+  RESET_MY_PASSWORD: RESET_MY_PASSWORD_REDUCER,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

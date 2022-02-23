@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen'
+import ForgottenPasswordResetByEmail from './screens/ForgottenPasswordResetByEmail'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
@@ -111,6 +112,11 @@ const App = () => {
           />
           <Route path='/admin/torim/' component={WorkingDaysScreen} exact />
           <Route path='/admin/workingday/:id' component={SingleWorkDay} exact />
+          <Route
+            path='/forgot-password/:id/:token'
+            component={ForgottenPasswordResetByEmail}
+            exact
+          />
           <Route path='/admin/settings' component={SettingsScreen} exact />
           <Route
             path='/admin/settings/newtipul'

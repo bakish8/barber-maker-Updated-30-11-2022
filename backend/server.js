@@ -1,4 +1,5 @@
 //IMPORTS
+import jwt from 'jsonwebtoken'
 import colors from 'colors'
 import path from 'path'
 import express from 'express'
@@ -15,7 +16,7 @@ import workingdayRoutes from './routes/workingdayRoutes.js'
 import makeTor from './routes/makeTorRoutes.js'
 import cancelTorRoutes from './routes/cancelTorRoutes.js'
 import reportsRouts from './routes/reportsRouts.js'
-//import ForgotpasswordRoutes from './routes/ForgotpasswordRoutes.js'
+import ForgotpasswordRoutes from './routes/ForgotpasswordRoutes.js'
 import searchRoutes from './routes/searchRoutes.js'
 import sendmessagesRoutes from './routes/sendmessagesRoutes.js'
 import appointmentsRoutes from './routes/appointmentsRoutes.js'
@@ -29,6 +30,9 @@ import User from './models/userModel.js'
 import http from 'http'
 import { Server, Socket } from 'socket.io'
 const SSocket = Socket
+
+const JWT_SECRET = process.env.JWT_SECRET
+
 // RANDOM FOR SESSION
 let random = Math.floor(Math.random() * 100000000000) + 1
 const app = express()
@@ -158,15 +162,16 @@ if (process.env.NODE_ENV === 'development') {
 // ██║  ██║██║     ██║
 // ╚═╝  ╚═╝╚═╝     ╚═╝ 's
 //ForgotMyPASSword Routes
-app.post('/api/forgot-password', (req, res, next) => {
-  const { email } = req.body
-  console.log(email)
-  console.log(email)
-  console.log(email)
-  console.log(email)
-})
+// app.use('/api/forgot-password', (req, res, next) => {
+//   const { email } = req.body
+//   console.log(JWT_SECRET)
+//   console.log(email)
+//   console.log(JWT_SECRET)
+//   console.log(email)
+//   const NewSecret = JWT_SECRET + email
+// })
 
-//app.use('/api/forgot-password', ForgotpasswordRoutes)
+app.use('/api/forgot-password', ForgotpasswordRoutes)
 app.use('/api/notifications', notificationsRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/reports', reportsRouts)

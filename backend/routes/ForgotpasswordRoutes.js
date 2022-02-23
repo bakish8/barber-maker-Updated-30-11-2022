@@ -1,8 +1,12 @@
 import express from 'express'
 const router = express.Router()
+import {
+  ctrateResetPage,
+  resetPageReload,
+  ResetPassword,
+} from '../controllers/ForgotpasswordControllers.js'
 
-import { protect, admin } from '../middleware/authMiddleware.js'
-
-//router.route('/').get().post()
+router.route('/').post(ctrateResetPage)
+router.route('/:id/:token').get(resetPageReload).put(ResetPassword)
 
 export default router

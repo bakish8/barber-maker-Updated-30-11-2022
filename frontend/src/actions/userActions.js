@@ -1,6 +1,12 @@
 import axios from 'axios'
 
 import {
+  RESET_MY_PASSWORD_REQUEST,
+  RESET_MY_PASSWORD_SUCCESS,
+  RESET_MY_PASSWORD_FAIL,
+  RESET_PASSWORD_PAGE_GET_REQUEST,
+  RESET_PASSWORD_PAGE_GET_SUCCESS,
+  RESET_PASSWORD_PAGE_GET_FAIL,
   RESET_PASSWORD_PAGE_REQUEST,
   RESET_PASSWORD_PAGE_SUCCESS,
   RESET_PASSWORD_PAGE_FAIL,
@@ -2529,6 +2535,62 @@ export const List_of_Potential_Users_By_FirstNameActionSearch =
     } catch (error) {
       dispatch({
         type: POTENTIAL_USERS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
+export const RESET_PASSWORD_PAGE_ACTION =
+  (id, token) => async (dispatch, getState) => {
+    console.log(`id:${id}`)
+    console.log(`token:${id}`)
+    try {
+      dispatch({
+        type: RESET_PASSWORD_PAGE_GET_REQUEST,
+      })
+
+      const { data } = await axios.get(`/api/forgot-password/${id}/${token}`)
+      console.log('data:')
+      console.log(data)
+
+      dispatch({
+        type: RESET_PASSWORD_PAGE_GET_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: RESET_PASSWORD_PAGE_GET_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+export const RESET_MY_PASSWORD_ACTION =
+  (id,token,password) => async (dispatch, getState) => {
+    console.log(`id:${id}`)
+    console.log(`token:${token}`)
+    console.log(`password:${password}`)
+    try {
+      dispatch({
+        type: RESET_MY_PASSWORD_REQUEST,
+      })
+
+      const { data } = await axios.put(`/api/forgot-password/${id}/${token}`,{password})
+      console.log('data:')
+      console.log(data)
+
+      dispatch({
+        type: RESET_MY_PASSWORD_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: RESET_MY_PASSWORD_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

@@ -1,5 +1,5 @@
 ///****NEED TO WRITE LIVE VALIFATIONS FOR EMAIL AND PASSWORD */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,6 +15,7 @@ import {
 import './LoginScreen.css'
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import emailjs from 'emailjs-com'
 
 const LoginScreen = ({ location, history }) => {
   const [phone, setPhone] = useState('')
@@ -24,11 +25,20 @@ const LoginScreen = ({ location, history }) => {
   const [LoginWithEmail, setLoginWithEmail] = useState(false)
   const [emailTyping, setEmailTyping] = useState(true)
   const [emailToSendTo, setemailToSendTo] = useState('')
+  const form = useRef()
 
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
+
+  const BUILD_RESET_PAGE = useSelector((state) => state.BUILD_RESET_PAGE)
+  const {
+    loading: pageloading,
+    page,
+    success: pagesuccess,
+    error: pageerror,
+  } = BUILD_RESET_PAGE
 
   const SearchOneUserBYEMAIL = useSelector(
     (state) => state.SearchOneUserBYEMAIL
@@ -50,12 +60,20 @@ const LoginScreen = ({ location, history }) => {
   }
 
   useEffect(() => {
+    if (emailToSendTo != '') {
+      console.log(emailToSendTo)
+    }
     if (userInfo || userInfoEmail) {
       history.push(redirect)
     }
     if (successuserfound) {
       console.log('susses!')
       console.log('userfound')
+    }
+    if (pagesuccess) {
+      console.log('pagesuccess susses!')
+      console.log(`page :${page}`)
+      sendEmail()
     }
   }, [
     history,
@@ -64,6 +82,7 @@ const LoginScreen = ({ location, history }) => {
     redirect,
     successuserfound,
     emailToSendTo,
+    pagesuccess,
   ])
 
   const submitHandler = (e) => {
@@ -112,6 +131,7 @@ const LoginScreen = ({ location, history }) => {
           allowOutsideClick: () => !Swal.isLoading(),
 
           preConfirm: async (email) => {
+            setemailToSendTo(email)
             console.log(email)
             return await fetch(`/api/search/email/${email}`)
               .then((response) => {
@@ -120,7 +140,8 @@ const LoginScreen = ({ location, history }) => {
                 } else {
                   console.log(response)
                   console.log(response.url)
-                  axios.post('/api/forgot-password', { email })
+                  dispatch(Create15PortForResetPASSWORD(email))
+                  //axios.post('/api/forgot-password', { email })
                 }
               })
               .catch((error) => {
@@ -185,6 +206,17 @@ const LoginScreen = ({ location, history }) => {
         })
       }
     })
+  }
+
+  //****Email Js Send Config */
+  const sendEmail = () => {
+    console.log('sendind email')
+    emailjs.sendForm(
+      'service_39dykwd',
+      'template_t1982nv',
+      form.current,
+      'user_MeCZIT7caY2EMmsA27uFt'
+    )
   }
 
   return (
@@ -352,6 +384,10 @@ const LoginScreen = ({ location, history }) => {
           </FormContainer>
         </div>
       )}
+      <form id='disableView' method='post' ref={form} onSubmit={sendEmail}>
+        <input type='email' name='user_email' value={emailToSendTo} />
+        <input type='text' name='reset_link' value={page} />
+      </form>
     </>
   )
 }
