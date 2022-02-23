@@ -40,7 +40,7 @@ const ctrateResetPage = asyncHandler(async (req, res) => {
     const payload = { email: email, id: userFound._id }
     const token = jwt.sign(payload, NewSecret, { expiresIn: '15m' })
     //const link = `http://localhost:3000/forgot-password/${userFound._id}/${token}` //development
-    const link = `https://wwww.barber-maker.com/forgot-password/${userFound._id}/${token}` //production
+    const link = `https://www.barber-maker.com/forgot-password/${userFound._id}/${token}` //production
     console.log(link)
     res.status(201).json(link)
   }
