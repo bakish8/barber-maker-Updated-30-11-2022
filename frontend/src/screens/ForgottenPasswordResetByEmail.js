@@ -38,14 +38,13 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
 
   const url = window.location.href
   const token = url.split('/').pop()
-  //const id = url.split('/')[4] //to get the id in development
-  const id = url.split('/')[5] //to get the id in production
+  const id = url.split('/')[4] //to get the id in production
   const redirect = location.search ? location.search.split('=')[1] : '/login'
 
   useEffect(() => {
     if (id && token) {
-      console.log(token)
-      console.log(id)
+      console.log(`token:${token}`)
+      console.log(`id:${id}`)
       setID(id)
       setTOKEN(token)
       dispatch(RESET_PASSWORD_PAGE_ACTION(id, token))
