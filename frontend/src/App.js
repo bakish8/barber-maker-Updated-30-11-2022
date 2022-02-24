@@ -51,7 +51,6 @@ const App = () => {
   // }, [])
 
   //production :///// try's
-  //transports: ['websocket', 'polling', 'flashsocket'],
   useEffect(() => {
     setSocket(io('https://www.barber-maker.com'))
   }, [])
