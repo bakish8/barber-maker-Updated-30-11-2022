@@ -41,8 +41,8 @@ const ctrateResetPage = asyncHandler(async (req, res) => {
     const NewSecret = JWT_SECRET + userFound.password
     const payload = { email: email, id: userFound._id }
     const token = jwt.sign(payload, NewSecret, { expiresIn: '15m' })
-    const link = `http://localhost:3000/forgot-password/${userFound._id}/${token}` //development
-    //const link = `https://www.barber-maker.com/forgot-password/${userFound._id}/${token}` //production
+    //const link = `http://localhost:3000/forgot-password/${userFound._id}/${token}` //development
+    const link = `https://www.barber-maker.com/forgot-password/${userFound._id}/${token}` //production
     console.log(link)
     res.status(201).json(link)
   }
@@ -59,8 +59,8 @@ const ctrateResetPageForPhoneReset = asyncHandler(async (req, res) => {
     const NewSecret = JWT_SECRET + userFound.password
     const payload = { phone: phone, id: userFound._id }
     const token = jwt.sign(payload, NewSecret, { expiresIn: '2m' })
-    const link = `forgot-password/${userFound._id}/${token}` //development
-    //const link = `https://www.barber-maker.com/forgot-password/${userFound._id}/${token}` //production
+    //const link = `forgot-password/${userFound._id}/${token}` //development
+    const link = `https://www.barber-maker.com/forgot-password/${userFound._id}/${token}` //production
     console.log(link)
     res.status(201).json(link)
   }
