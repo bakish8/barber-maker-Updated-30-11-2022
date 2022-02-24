@@ -59,8 +59,7 @@ const ctrateResetPageForPhoneReset = asyncHandler(async (req, res) => {
     const NewSecret = JWT_SECRET + userFound.password
     const payload = { phone: phone, id: userFound._id }
     const token = jwt.sign(payload, NewSecret, { expiresIn: '2m' })
-    //const link = `forgot-password/${userFound._id}/${token}` //development
-    const link = `https://www.barber-maker.com/forgot-password/${userFound._id}/${token}` //production
+    const link = `forgot-password/${userFound._id}/${token}` //production + development
     console.log(link)
     res.status(201).json(link)
   }
