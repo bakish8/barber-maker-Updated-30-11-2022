@@ -224,7 +224,14 @@ const server = http.createServer(app)
 
 //Run When Client Connenct
 const io = new Server(server, {
-  cors: { origin: ['http://localhost:3000', 'https://www.barber-maker.com'] },
+  cors: {
+    origin: [
+      'http://localhost:3000',
+      'https://www.barber-maker.com',
+      'https://barber-maker.com',
+    ],
+  },
+  credentials: true,
 })
 
 let onlineUsers = []
