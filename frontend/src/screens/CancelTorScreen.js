@@ -51,9 +51,9 @@ const CancelTorScreen = ({ history }) => {
   //Socket Notification Function
 
   useEffect(() => {
-    // setSocket(io('http://localhost:3000')) //development
+    setSocket(io('http://localhost:3000')) //development
     // setSocket(io('https://www.barber-maker.com')) //production
-    setSocket(io('https://api.barber-maker.com')) //production
+    //setSocket(io('https://api.barber-maker.com')) //production
   }, [])
   useEffect(() => {
     if (socket && userInfo) {
