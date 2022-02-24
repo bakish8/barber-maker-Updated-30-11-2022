@@ -54,7 +54,7 @@ const App = () => {
   useEffect(() => {
     //setSocket(io('https://www.barber-maker.com')) //*****ADD A;LL  * OR AD  ////  ** */
     setSocket(
-      io('https://www.barber-maker.com:3000', {
+      io('https://www.barber-maker.com', {
         transports: ['websocket', 'polling', 'flashsocket'],
       })
     ) //try
