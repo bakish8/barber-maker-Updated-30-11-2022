@@ -52,7 +52,7 @@ const App = () => {
   //development :
 
   useEffect(() => {
-    setSocket(io('https://www.barber-maker.com/'))
+    setSocket(io('https://www.barber-maker.com/')) //*****ADD A;LL  * OR AD  ////  ** */
   }, [])
 
   useEffect(() => {
