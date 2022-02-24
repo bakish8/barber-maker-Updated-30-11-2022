@@ -31,7 +31,7 @@ while (date.getMinutes() % 15 !== 0) {
   date.setMinutes(date.getMinutes() + 1)
 }
 
-const SingleWorkDayScreen = ({ history, match }) => {
+const SingleWorkDayScreen = ({ history, match, socket }) => {
   const dispatch = useDispatch()
   const [showOK, setShowOK] = useState(false)
   const [TipilChoosenTime, setTipilChoosenTime] = useState('')
@@ -42,7 +42,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
   console.log(WorkDayid)
   console.log(Tipulid)
   console.log('_____________')
-  const [socket, setSocket] = useState(null)
   const [user, setUser] = useState('')
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -119,12 +118,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
       })
     }
   }
-  useEffect(() => {
-    setSocket(io('http://localhost:3000')) //development
-    //setSocket(io('https://barber-maker.com')) //production try
-    //setSocket(io('https://www.barber-maker.com')) //production try
-    //setSocket(io('https://api.barber-maker.com')) //production
-  }, [])
+
   useEffect(() => {
     if (socket && userInfo) {
       setUser(userInfo)

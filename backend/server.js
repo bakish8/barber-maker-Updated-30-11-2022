@@ -124,9 +124,7 @@ app.get(
     failureRedirect: '/login',
   }),
   function (req, res) {
-    //res.redirect('http://localhost:3000/') //development /// working  /**** */
-    //res.redirect('https://barber-maker.com/') //production ///NOT working  /**** */
-    res.redirect('/') //production ///NOT working  /**** */
+    res.redirect('/')
   }
 )
 
@@ -225,7 +223,9 @@ const server = http.createServer(app)
 //const server = http.createServer(app)
 
 //Run When Client Connenct
-const io = new Server(server, { origin: '*' })
+const io = new Server(server, {
+  cors: { origin: ['http://localhost:3000', 'https://www.barber-maker.com'] },
+})
 
 let onlineUsers = []
 //add new connected user to the array onlineUsers

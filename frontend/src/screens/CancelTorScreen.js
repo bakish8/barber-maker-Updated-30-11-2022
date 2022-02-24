@@ -16,7 +16,7 @@ import CancelTorItem from '../components/CancelTor/CancelTorItem'
 import { listMyTorim } from '../actions/userActions'
 import { io } from 'socket.io-client'
 
-const CancelTorScreen = ({ history }) => {
+const CancelTorScreen = ({ history, socket }) => {
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -26,8 +26,6 @@ const CancelTorScreen = ({ history }) => {
   const { cancel } = CancelTor
   const { userInfo } = userLogin
   const [user, setUser] = useState('')
-  const [socket, setSocket] = useState(null)
-
   //Socket Notification Function
   //Socket Notification Function
   //Socket Notification Function
@@ -50,12 +48,6 @@ const CancelTorScreen = ({ history }) => {
   //Socket Notification Function
   //Socket Notification Function
 
-  useEffect(() => {
-    setSocket(io('http://localhost:3000')) //development
-    //setSocket(io('https://barber-maker.com')) //production
-    // setSocket(io('https://www.barber-maker.com')) //production
-    //setSocket(io('https://api.barber-maker.com')) //production
-  }, [])
   useEffect(() => {
     if (socket && userInfo) {
       setUser(userInfo)

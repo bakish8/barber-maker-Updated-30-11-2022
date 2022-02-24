@@ -45,16 +45,14 @@ const App = () => {
 
   const [user, setUser] = useState('')
 
-  //development : work's !
-  // useEffect(() => {
-  //   setSocket(io('http://localhost:3000'))
-  // }, [])
-
   //production :///// try's
   useEffect(() => {
     //setSocket(io('https://barber-maker.com'))
-    //setSocket(io('https://api.barber-maker.com')) //development
-    setSocket(io('http://localhost:3000'))
+    //setSocket(io('https://api.barber-maker.com'))
+    //setSocket(io('http://localhost:3000')) //development
+    setSocket(io('http://localhost:3000')) //development
+    //setSocket(io('https://localhost:5000'))
+    console.log(socket)
   }, [])
 
   useEffect(() => {
@@ -77,6 +75,7 @@ const App = () => {
           <Route path='/picksapar' component={PickSaparScreen} />
           <Route path='/:id/maketor' component={PickDateScreen} />
           <Route
+            socket={socket}
             path='/maketorr/:id/:tipulid'
             component={PickHourScreen}
             exact
@@ -89,6 +88,7 @@ const App = () => {
 
           <Route path='/payment' component={PaymentScreen} />
           <Route
+            socket={socket}
             path='/cancel'
             component={CancelTorScreen}
             socket={socket}
