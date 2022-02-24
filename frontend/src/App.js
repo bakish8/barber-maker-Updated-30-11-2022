@@ -49,10 +49,10 @@ const App = () => {
   // useEffect(() => {
   //   setSocket(io('http://localhost:3000'))
   // }, [])
-  //development :
+  //development ://///
 
   useEffect(() => {
-    setSocket(io('https://www.barber-maker.com/')) //*****ADD A;LL  * OR AD  ////  ** */
+    setSocket(io('https://www.barber-maker.com')) //*****ADD A;LL  * OR AD  ////  ** */
   }, [])
 
   useEffect(() => {
