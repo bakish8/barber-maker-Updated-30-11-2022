@@ -120,7 +120,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
     }
   }
   useEffect(() => {
-    setSocket(io('http://localhost:3000')) //development
+    //setSocket(io('http://localhost:3000')) //development
+    setSocket(io('https://barber-maker.com')) //production try
     //setSocket(io('https://www.barber-maker.com')) //production try
     //setSocket(io('https://api.barber-maker.com')) //production
   }, [])
