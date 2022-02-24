@@ -170,7 +170,8 @@ const Header = ({ socket, user }) => {
     if (successEmail) {
       window.location.reload()
     }
-    if (socket) {
+    // if (socket) {
+    if (socket && socket != null) {
       setSocket(socket)
       socket.on('getNotification', (data) => {
         setNotificationss((prev) => [...prev, data])

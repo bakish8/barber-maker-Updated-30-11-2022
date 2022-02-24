@@ -55,7 +55,8 @@ const App = () => {
     //setSocket(io('https://www.barber-maker.com')) //*****ADD A;LL  * OR AD  ////  ** */
     setSocket(
       io('https://www.barber-maker.com', {
-        transports: ['websocket', 'polling', 'flashsocket'],
+        //transports: ['websocket', 'polling', 'flashsocket'],
+        transports: ['polling'],
       })
     ) //try
   }, [])
