@@ -27,9 +27,19 @@ import session from 'cookie-session'
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import User from './models/userModel.js'
+import fs from 'fs'
+import https from 'https'
 import http from 'http'
 import { Server, Socket } from 'socket.io'
 const SSocket = Socket
+
+const options = {
+  key: fs.readFileSync('../certs/server-key.pem'),
+  cert: fs.readFileSync('../certs/server-crt.pem'),
+  ca: [fs.readFileSync('../certs/client-ca-crt.pem')],
+  requestCert: true,
+  rejectUnauthorized: false,
+}
 
 const JWT_SECRET = process.env.JWT_SECRET
 
@@ -218,7 +228,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(notFound)
 app.use(errorHandler)
 
-const server = http.createServer(app)
+const server = https.createServer(app)
 //Run When Client Connenct
 //const io = new Server(server, { origin: '*:*' }) /development
 const io = new Server(server, {
