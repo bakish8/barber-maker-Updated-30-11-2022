@@ -33,13 +33,14 @@ import http from 'http'
 import { Server, Socket } from 'socket.io'
 const SSocket = Socket
 
-const options = {
-  key: fs.readFileSync('../certs/server-key.pem'),
-  cert: fs.readFileSync('../certs/server-crt.pem'),
-  ca: [fs.readFileSync('../certs/client-ca-crt.pem')],
-  requestCert: true,
-  rejectUnauthorized: false,
-}
+//options fit SSL Socket
+// const options = {
+//   key: fs.readFileSync('../certs/server-key.pem'),
+//   cert: fs.readFileSync('../certs/server-crt.pem'),
+//   ca: [fs.readFileSync('../certs/client-ca-crt.pem')],
+//   requestCert: true,
+//   rejectUnauthorized: false,
+// }
 
 const JWT_SECRET = process.env.JWT_SECRET
 
