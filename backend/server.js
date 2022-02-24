@@ -224,13 +224,8 @@ app.use(errorHandler)
 const server = https.createServer(app)
 //const server = https.createServer(app)
 //Run When Client Connenct
-//const io = new Server(server, { origin: '*:*' }) /development
 const io = new Server(server, {
-  //production
   origin: 'https://www.barber-maker.com', ///works on devlopment !!! on production 30 sec inteel req
-  //origin: '*:*',
-  methods: ['GET', 'POST'],
-  credentials: true,
 })
 let onlineUsers = []
 //add new connected user to the array onlineUsers
