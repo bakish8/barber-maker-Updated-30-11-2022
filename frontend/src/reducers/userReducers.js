@@ -1,4 +1,11 @@
 import {
+  SEND_RESET_SMS_TOR_RESET,
+  SEND_RESET_SMS_TOR_REQUEST,
+  SEND_RESET_SMS_TOR_SUCCESS,
+  SEND_RESET_SMS_TOR_FAIL,
+  RESET_PASSWORD_WITH_PHONE_PAGE_REQUEST,
+  RESET_PASSWORD_WITH_PHONE_PAGE_SUCCESS,
+  RESET_PASSWORD_WITH_PHONE_PAGE_FAIL,
   RESET_MY_PASSWORD_REQUEST,
   RESET_MY_PASSWORD_SUCCESS,
   RESET_MY_PASSWORD_FAIL,
@@ -993,6 +1000,21 @@ export const SendTorSMSReducer = (state = {}, action) => {
   }
 }
 
+export const SendTorSMS_RESET_Reducer = (state = {}, action) => {
+  switch (action.type) {
+    case SEND_RESET_SMS_TOR_REQUEST:
+      return { loadingSendSMS: true }
+    case SEND_RESET_SMS_TOR_SUCCESS:
+      return { loadingSendSMS: false, successSend: true, send: action.payload }
+    case SEND_RESET_SMS_TOR_FAIL:
+      return { loadingSendSMS: false, errorSendSMS: action.payload }
+    case SEND_RESET_SMS_TOR_RESET:
+      return { send: {}, successSend: false }
+    default:
+      return state
+  }
+}
+
 export const SendCancelSMSReducer = (state = {}, action) => {
   switch (action.type) {
     case SEND_Cancel_SMS_TOR_REQUEST:
@@ -1367,6 +1389,29 @@ export const BUILD_RESET_PAGE_REDUCER = (state = {}, action) => {
         error: action.payload,
         success: false,
       }
+    default:
+      return state
+  }
+}
+
+export const BUILD_RESET_PAGE_FOR_PHONE_REDUCER = (state = {}, action) => {
+  switch (action.type) {
+    case RESET_PASSWORD_WITH_PHONE_PAGE_REQUEST:
+      return { loading: true }
+    case RESET_PASSWORD_WITH_PHONE_PAGE_SUCCESS:
+      return {
+        loadingPhone: false,
+        pagePhone: action.payload,
+        successPhone: true,
+      }
+    case RESET_PASSWORD_WITH_PHONE_PAGE_FAIL:
+      return {
+        loadingPhone: false,
+        errorPhone: action.payload,
+        successPhone: false,
+      }
+    case SEND_RESET_SMS_TOR_RESET:
+      return { pagePhone: {}, successPhone: false }
     default:
       return state
   }

@@ -1,0 +1,56 @@
+.Verfy4Digits_Container {
+  margin: 0 auto;
+  background-color: white;
+  border: 3px black solid;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 900px;
+  text-align: center;
+}
+.code-Container {
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px;
+}
+.code-codeInput {
+  border-radius: 5px;
+  font-size: 65px;
+  height: 120px;
+  width: 100px;
+  border: 1px solid #eee;
+  margin: 1%;
+  text-align: center;
+  font-weight: 300;
+  -moz-appearance: textfield;
+}
+.code-codeInput::-webkit-outer-spin-button,
+.code-codeInput::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+.code-codeInput:valid {
+  border: 2px solid #3498db;
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.25);
+}
+.smallInfoDesignOnly {
+  color: #777;
+  background-color: #eaeaea;
+  display: inline;
+  padding: 10px;
+  line-height: 20px;
+  max-width: 400px;
+  border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+  .Verfy4Digits_Container {
+    flex-wrap: wrap;
+  }
+
+  .code-codeInput {
+    transform: scale(0.8);
+  }
+}

@@ -1,9 +1,5 @@
 ///****NEED TO WRITE LIVE VALIFATIONS FOR EMAIL AND PASSWORD */
-
-//IF USER NOT IN THE SYSTEM DONT SEND EMAIL ! ! !
-
 import React, { useState, useEffect } from 'react'
-
 import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,27 +16,24 @@ import './LoginScreen.css'
 import Swal from 'sweetalert2'
 
 const ForgottenPasswordResetByEmail = ({ location, history }) => {
+  const dispatch = useDispatch()
+  //states
   const [ID, setID] = useState('')
   const [TOKEN, setTOKEN] = useState('')
-
-  const [email, setEmail] = useState('')
   const [NewPassword, setNewPassword] = useState('')
   const [NewPassword2, setNewPassword2] = useState('')
   const [message, setMessage] = useState(null)
-
-  const dispatch = useDispatch()
-
-  const RESET_PAGE = useSelector((state) => state.RESET_PAGE)
+  const RESET_PAGE = useSelector((state) => state.RESET_PAGE) ///*** */
   const { loading, page, success, error } = RESET_PAGE
-
   const RESET_MY_PASSWORD = useSelector((state) => state.RESET_MY_PASSWORD)
   const { reset, loadingreset, errorreset, successreset } = RESET_MY_PASSWORD
 
+  //token and id taken
   const url = window.location.href
   const token = url.split('/').pop()
   const id = url.split('/')[4] //to get the id in production
   const redirect = location.search ? location.search.split('=')[1] : '/login'
-
+  //use Effect
   useEffect(() => {
     if (id && token) {
       console.log(`token:${token}`)
@@ -60,6 +53,7 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
     }
   }, [url, id, token, successreset])
 
+  //functions
   const submitHandler = (e) => {
     e.preventDefault()
     if (!NewPassword.length || !NewPassword2) {
@@ -71,7 +65,7 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
         showConfirmButton: false,
         timer: 2500,
       })
-    } else if (NewPassword.length < 5 || NewPassword2 < 5) {
+    } else if (NewPassword.length < 5 || NewPassword2.length < 5) {
       Swal.fire({
         position: 'top-end',
         icon: 'warning',
@@ -103,19 +97,7 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
           <div id='centerme'>
             <Form onSubmit={submitHandler} className='loginForm'>
               <h2 className='headlineme'>שחזור ססמא</h2>
-              <div className='user-box'>
-                <Form.Group controlId='email'>
-                  <Form.Control
-                    type='disable'
-                    className='form-control'
-                    placeholder={'אימייל'}
-                    value={page}
-                    onChange={(e) => {
-                      setEmail(e.target.value)
-                    }}
-                  ></Form.Control>
-                </Form.Group>
-              </div>
+              <div id='helloonreset'>{success && 'שלום' + ' ' + page.name}</div>
               <div class='user-box'>
                 <Form.Group controlId='password'>
                   <Form.Control

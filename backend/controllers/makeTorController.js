@@ -1323,6 +1323,23 @@ const SendSMS = asyncHandler(async (req, res) => {
   //     .done()
   // )
 })
+const SendSMSforReset = asyncHandler(async (req, res) => {
+  var theRandomNumber = (Math.floor(Math.random() * 10000) + 10000)
+    .toString()
+    .substring(1) //geneate 4 digit number for confirmation
+  console.log(theRandomNumber)
+  const phone = req.params.phone
+  const user = await User.findOne({ phone: phone })
+  client.messages
+    .create({
+      body: `הזן את הססמא הבאה לשחזור ססמתך באתר ברבר-מייקר: ${theRandomNumber}`,
+      messagingServiceSid: serviseSID,
+      to: `+972${user.phone}`,
+    })
+    .then((message) => console.log(message.sid))
+    .done()
+  res.json(theRandomNumber)
+})
 
 const SendCANCELSMS = asyncHandler(async (req, res) => {
   const clock = await Clock.findById(req.params.id).populate('owner')
@@ -1355,4 +1372,5 @@ export {
   showAvilableTorsFor2Hours,
   showAvilableTorsFor2HoursHALF,
   showAvilableTorsFor3Hours,
+  SendSMSforReset,
 }

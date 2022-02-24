@@ -3237,3 +3237,9 @@ h5 {
   font-weight: 500;
   font-size: 23px;
 }
+#helloonreset {
+  color: rgb(0, 247, 255);
+  font-weight: 400;
+  font-size: 20px;
+  margin: 20px;
+}

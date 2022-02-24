@@ -80,6 +80,8 @@ import {
   BUILD_RESET_PAGE_REDUCER,
   RESET_PAGE_REDUCER,
   RESET_MY_PASSWORD_REDUCER,
+  BUILD_RESET_PAGE_FOR_PHONE_REDUCER,
+  SendTorSMS_RESET_Reducer,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -173,6 +175,8 @@ const reducer = combineReducers({
   BUILD_RESET_PAGE: BUILD_RESET_PAGE_REDUCER,
   RESET_PAGE: RESET_PAGE_REDUCER,
   RESET_MY_PASSWORD: RESET_MY_PASSWORD_REDUCER,
+  BUILD_RESET_PAGE_FOR_PHONE: BUILD_RESET_PAGE_FOR_PHONE_REDUCER,
+  SendTorSMS_RESET: SendTorSMS_RESET_Reducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
