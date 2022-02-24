@@ -52,7 +52,11 @@ const CancelTorScreen = ({ history }) => {
 
   useEffect(() => {
     // setSocket(io('http://localhost:3000')) //development
-    setSocket(io('https://www.barber-maker.com')) //production
+    setSocket(
+      io('https://www.barber-maker.com:3000', {
+        transports: ['websocket'],
+      }) //production
+    )
   }, [])
   useEffect(() => {
     if (socket && userInfo) {

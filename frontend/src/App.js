@@ -45,20 +45,20 @@ const App = () => {
 
   const [user, setUser] = useState('')
 
-  //development :
+  //development : work's !
   // useEffect(() => {
   //   setSocket(io('http://localhost:3000'))
   // }, [])
 
-  //production ://///
+  //production :///// try's
+  //transports: ['websocket', 'polling', 'flashsocket'],
+  //setSocket(io('https://www.barber-maker.com')) //*****ADD A;LL  * OR AD  ////  ** */
   useEffect(() => {
-    //setSocket(io('https://www.barber-maker.com')) //*****ADD A;LL  * OR AD  ////  ** */
     setSocket(
-      io('https://www.barber-maker.com', {
-        //transports: ['websocket', 'polling', 'flashsocket'],
-        transports: ['polling'],
+      io('https://www.barber-maker.com:3000', {
+        transports: ['websocket'],
       })
-    ) //try
+    )
   }, [])
 
   useEffect(() => {
