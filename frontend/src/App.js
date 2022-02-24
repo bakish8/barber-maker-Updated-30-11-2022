@@ -52,9 +52,9 @@ const App = () => {
 
   //production :///// try's
   useEffect(() => {
-    setSocket(io('https://barber-maker.com'))
+    //setSocket(io('https://barber-maker.com'))
     //setSocket(io('https://api.barber-maker.com')) //development
-    //setSocket(io('http://localhost:3000'))
+    setSocket(io('http://localhost:3000'))
   }, [])
 
   useEffect(() => {
