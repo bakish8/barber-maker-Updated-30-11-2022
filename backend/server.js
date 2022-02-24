@@ -30,6 +30,7 @@ import User from './models/userModel.js'
 import { readFileSync } from 'fs'
 
 import http from 'http'
+import https from 'https'
 import { Server, Socket } from 'socket.io'
 const SSocket = Socket
 
@@ -220,13 +221,16 @@ if (process.env.NODE_ENV === 'production') {
 app.use(notFound)
 app.use(errorHandler)
 
-const server = http.createServer(app)
+//const server = http.createServer(app)//development
+const server = https.createServer(app)
 //Run When Client Connenct
 //const io = new Server(server, { origin: '*:*' }) /development
 const io = new Server(server, {
   //production
-  origin: 'https://www.barber-maker.com',
-  methods: ['GET', 'POST'],
+  //origin: 'https://www.barber-maker.com', ///works on devlopment !!! on production 30 sec inteel req
+  origin: ['https://www.barber-maker.com', 'http://localhost:3000'],
+  //methods: ['GET', 'POST'],
+  credentials: true,
 })
 let onlineUsers = []
 //add new connected user to the array onlineUsers
@@ -294,7 +298,7 @@ io.on('connection', (SSocket) => {
 // ██╔═══╝ ██║   ██║██╔══██╗   ██║
 // ██║     ╚██████╔╝██║  ██║   ██║
 // ╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝
-////////////////
+
 const PORT = process.env.PORT || 5000
 server.listen(
   PORT,
