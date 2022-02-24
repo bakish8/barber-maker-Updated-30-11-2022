@@ -225,7 +225,7 @@ const server = http.createServer(app)
 //const server = http.createServer(app)
 
 //Run When Client Connenct
-const io = new Server(server, { origins: '*:*' })
+const io = new Server(server, { origins: 'https://www.barber-maker.com' })
 
 let onlineUsers = []
 //add new connected user to the array onlineUsers
