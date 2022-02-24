@@ -52,7 +52,8 @@ const App = () => {
 
   //production :///// try's
   useEffect(() => {
-    setSocket(io('https://www.barber-maker.com'))
+    //  setSocket(io('https://www.barber-maker.com'))
+    setSocket(io('https://api.barber-maker.com')) //development
   }, [])
 
   useEffect(() => {
