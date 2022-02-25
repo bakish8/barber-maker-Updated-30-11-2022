@@ -27,10 +27,7 @@ import session from 'cookie-session'
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import User from './models/userModel.js'
-import { readFileSync } from 'fs'
-
 import http from 'http'
-import https from 'https'
 import { Server, Socket } from 'socket.io'
 const SSocket = Socket
 

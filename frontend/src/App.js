@@ -48,7 +48,10 @@ const App = () => {
   //production :///// try's
   useEffect(() => {
     //setSocket(io('https://barber-maker.com')) //development
-    setSocket(io('https://localhost:3000', { secure: true }))
+    //setSocket(io('http://barber-maker.com')) //development
+    setSocket(io('http://www.barber-maker.com')) //development
+    //setSocket(io('https://localhost:3000', { secure: true }))
+    //setSocket(io('http://localhost:3000', { secure: true }))
     console.log(socket)
   }, [])
 
