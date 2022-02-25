@@ -1306,7 +1306,7 @@ const SendSMS = asyncHandler(async (req, res) => {
     .create({
       body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ברבר מייקר `,
       messagingServiceSid: serviseSID,
-      From: TwilioPhoneNumber,
+      From: TwilioPhoneNumber /*** */,
       to: `+972${user.phone}`,
     })
     .then((message) => console.log(message.sid))
