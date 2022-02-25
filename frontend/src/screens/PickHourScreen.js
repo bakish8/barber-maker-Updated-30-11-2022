@@ -176,25 +176,25 @@ const SingleWorkDayScreen = ({ history, match }) => {
             }).then(history.push('/'))
           )
           .then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
-          .then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
-          .then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed
-          //***creating User Create Tor Notification */
-          .then(
-            dispatch(
-              CreateCancelNotification(
-                id,
-                date,
-                time,
-                dayInWeek,
-                sapar,
-                uid,
-                sapar_id,
-                2,
-                now
-              )
-            )
-          )
-          .then(handleNotification(2, sapar, time, dayInWeek, date))
+        //.then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
+        //.then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed
+        //***creating User Create Tor Notification */
+        //.then(
+        // dispatch(
+        //   CreateCancelNotification(
+        //     id,
+        //     date,
+        //     time,
+        //     dayInWeek,
+        //     sapar,
+        //     uid,
+        //     sapar_id,
+        //     2,
+        //     now
+        //   )
+        // )
+        // )
+        // .then(handleNotification(2, sapar, time, dayInWeek, date))
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         history.goBack()
       }
