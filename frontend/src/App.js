@@ -48,8 +48,8 @@ const App = () => {
   //production :///// try's
   useEffect(() => {
     //setSocket(io('https://barber-maker.com', { withCredentials: true }))
-    setSocket(io('https://barber-maker.com')) //development
-    //setSocket(io('https://localhost:5000'))
+    //setSocket(io('https://barber-maker.com')) //development
+    setSocket(io('https://localhost:3000'))
     console.log(socket)
   }, [])
 
