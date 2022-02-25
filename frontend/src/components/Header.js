@@ -16,14 +16,7 @@ import './Header.css'
 import moment from 'moment'
 
 moment.locale('he')
-const Header = ({ socket, user }) => {
-  //accepting socket and user from App.js
-  if (socket && user) {
-    console.log(`socket:`)
-    console.log(socket)
-    console.log(`user name:`)
-    console.log(user.name)
-  }
+const Header = ({ user }) => {
   //*************************** */
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
@@ -47,7 +40,6 @@ const Header = ({ socket, user }) => {
   const { loading, notifications, error } = cancelNotiList
   /************************************** */
   const [notificationss, setNotificationss] = useState([])
-  const [Socket, setSocket] = useState({})
   const [open, setOpen] = useState(false)
   const [MakeBLueONEdesapier, setMakeBLueONEdesapier] = useState(true)
   //*************************************** */
@@ -170,42 +162,7 @@ const Header = ({ socket, user }) => {
     if (successEmail) {
       window.location.reload()
     }
-    // if (socket) {
-    if (socket && socket != null) {
-      setSocket(socket)
-      socket.on('getNotification', (data) => {
-        setNotificationss((prev) => [...prev, data])
-        console.log(
-          'adding New Notification N O W!!...checking type of Notification For Swal...'
-        )
-        if (data.type == 1) {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            html: `<div id='righttoleeft'>${data.senderName} ביטל את התור שלו בשעה ${data.time} ביום ${data.dayInWeek}</div>`,
-            showConfirmButton: false,
-            timerProgressBar: true,
-            backdrop: `rgba(0,0,0,0.0)`,
-            allowOutsideClick: true,
-            timer: 4500,
-            toast: true,
-          })
-        } else if (data.type == 2) {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            timerProgressBar: true,
-            html: `<div id='righttoleeft'> ${data.senderName} קבע תור ליום ${data.dayInWeek} בשעה ${data.time}</div>`,
-            showConfirmButton: false,
-            backdrop: `rgba(0,0,0,0.0)`,
-            allowOutsideClick: true,
-            timer: 4500,
-            toast: true,
-          })
-        }
-      })
-    }
-  }, [socket, successEmail])
+  }, [successEmail])
   useEffect(() => {
     if (notificationss) {
       console.log(`notificationss`)

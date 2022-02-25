@@ -32,41 +32,23 @@ import SingleReportScreen from './screens/SingleReportScreen'
 import Admin from './screens/Admin'
 import PickTipulScreen from './screens/PickTipulScreen'
 import { myContext } from './actions/Context'
-import { io } from 'socket.io-client'
 import { useSelector } from 'react-redux'
 const App = () => {
   const userObject = useContext(myContext)
   console.log(userObject)
-
-  const [socket, setSocket] = useState(null)
-
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-
   const [user, setUser] = useState('')
 
-  //production :///// try's
   useEffect(() => {
-    setSocket(io('/')) //development
-    //setSocket(io('https://barber-maker.com')) //development
-    //setSocket(io('http://barber-maker.com')) //development
-    //setSocket(io('https://www.barber-maker.com')) //development
-    //setSocket(io('https://localhost:3000', { secure: true }))
-    //setSocket(io('http://localhost:3000', { secure: true }))
-    console.log(socket)
-  }, [])
-
-  useEffect(() => {
-    if (socket && userInfo) {
-      socket.emit('newUser', userInfo.name)
+    if (userInfo) {
       setUser(userInfo)
-      console.log(`user passed to header is :${user.name} ! ! !`)
     }
-  }, [socket, user])
+  }, [user])
 
   return (
     <Router>
-      <Header socket={socket} user={user} />
+      <Header user={user} />
 
       <div> </div>
       <main className='py-3'>
@@ -76,7 +58,6 @@ const App = () => {
           <Route path='/picksapar' component={PickSaparScreen} />
           <Route path='/:id/maketor' component={PickDateScreen} />
           <Route
-            socket={socket}
             path='/maketorr/:id/:tipulid'
             component={PickHourScreen}
             exact
@@ -88,13 +69,7 @@ const App = () => {
           />
 
           <Route path='/payment' component={PaymentScreen} />
-          <Route
-            socket={socket}
-            path='/cancel'
-            component={CancelTorScreen}
-            socket={socket}
-            user={user}
-          />
+          <Route path='/cancel' component={CancelTorScreen} user={user} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login/' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />

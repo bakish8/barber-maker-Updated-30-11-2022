@@ -14,9 +14,8 @@ import Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
 import CancelTorItem from '../components/CancelTor/CancelTorItem'
 import { listMyTorim } from '../actions/userActions'
-import { io } from 'socket.io-client'
 
-const CancelTorScreen = ({ history, socket }) => {
+const CancelTorScreen = ({ history }) => {
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -26,34 +25,18 @@ const CancelTorScreen = ({ history, socket }) => {
   const { cancel } = CancelTor
   const { userInfo } = userLogin
   const [user, setUser] = useState('')
-  //Socket Notification Function
-  //Socket Notification Function
-  //Socket Notification Function
   const handleNotification = (type, sapar, time, dayInWeek, date) => {
     console.log(`time:::${sapar}`)
     console.log(`time:::${time}`)
     console.log(`dayInWeek:::${dayInWeek}`)
-    if (socket) {
-      socket.emit('sendNotification', {
-        senderName: user.name,
-        receiverName: sapar, //*** */
-        type,
-        time,
-        dayInWeek,
-        date,
-      })
-    }
   }
-  //Socket Notification Function
-  //Socket Notification Function
-  //Socket Notification Function
 
   useEffect(() => {
-    if (socket && userInfo) {
+    if (userInfo) {
       setUser(userInfo)
       console.log(`Cancel Page user passed to Here is :${user.name} ! ! ! !!!`)
     }
-  }, [socket, user])
+  }, [user])
 
   useEffect(() => {
     if (!userInfo) {
