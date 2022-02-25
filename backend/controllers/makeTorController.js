@@ -9,7 +9,6 @@ import twilio from 'twilio'
 import { BookmeOnGoogleCalender } from './googleauth.js'
 
 dotenv.config()
-const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER
 const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = new twilio(accountSid, authToken)
@@ -934,7 +933,7 @@ const showAvilableTors = asyncHandler(async (req, res) => {
     owner: req.params.id,
     avilable: true,
     isPending: true,
-  }).populate('owner')
+  })
   console.log(clocks)
   if (clocks) {
     res.json(clocks)
@@ -1311,34 +1310,6 @@ const SendSMS = asyncHandler(async (req, res) => {
     })
     .then((message) => console.log(message.sid))
     .done()
-  //whatsapp -waiting for confiriming me ...
-  // .then(
-  //   client.messages
-  //     .create({
-  //       body: 'Your appointment is coming up on July 21 at 3PM',
-  //       from: `whatsapp:${TWILIO_PHONE_NUMBER}`,
-  //       to: 'whatsapp:+972509089090',
-  //     })
-  //     .then((message) => console.log(message.sid))
-  //     .done()
-  // )
-})
-const SendSMSforReset = asyncHandler(async (req, res) => {
-  var theRandomNumber = (Math.floor(Math.random() * 10000) + 10000)
-    .toString()
-    .substring(1) //geneate 4 digit number for confirmation
-  console.log(theRandomNumber)
-  const phone = req.params.phone
-  const user = await User.findOne({ phone: phone })
-  client.messages
-    .create({
-      body: `הזן את הססמא הבאה לשחזור ססמתך באתר ברבר-מייקר: ${theRandomNumber}`,
-      messagingServiceSid: serviseSID,
-      to: `+972${user.phone}`,
-    })
-    .then((message) => console.log(message.sid))
-    .done()
-  res.json(theRandomNumber)
 })
 
 const SendCANCELSMS = asyncHandler(async (req, res) => {
@@ -1372,5 +1343,4 @@ export {
   showAvilableTorsFor2Hours,
   showAvilableTorsFor2HoursHALF,
   showAvilableTorsFor3Hours,
-  SendSMSforReset,
 }
