@@ -49,7 +49,7 @@ const App = () => {
   useEffect(() => {
     //setSocket(io('https://barber-maker.com', { withCredentials: true }))
     //setSocket(io('https://barber-maker.com')) //development
-    setSocket(io('https://localhost:3000'))
+    setSocket(io('https://localhost:3000', { secure: true }))
     console.log(socket)
   }, [])
 
