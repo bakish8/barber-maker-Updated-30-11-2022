@@ -12,8 +12,8 @@ dotenv.config()
 const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = new twilio(accountSid, authToken)
-
 const serviseSID = process.env.TWILIO_MESSAGE_SERVICE_SID
+const TwilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER
 
 const GetSugeiTipulim = asyncHandler(async (req, res) => {
   const tipulim = await Tipul.find({})
@@ -1306,6 +1306,7 @@ const SendSMS = asyncHandler(async (req, res) => {
     .create({
       body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ברבר מייקר `,
       messagingServiceSid: serviseSID,
+      From: TwilioPhoneNumber,
       to: `+972${user.phone}`,
     })
     .then((message) => console.log(message.sid))
