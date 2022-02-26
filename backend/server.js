@@ -28,11 +28,16 @@ import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import User from './models/userModel.js'
 //const JWT_SECRET = process.env.JWT_SECRET
-
+import cors from 'cors'
 // RANDOM FOR SESSION
 let random = Math.floor(Math.random() * 100000000000) + 1
 const app = express()
 app.use(express.json())
+app.use(
+  cors({
+    origin: '*',
+  })
+)
 
 // ███████╗███████╗███████╗███████╗██╗ ██████╗ ███╗   ██╗
 // ██╔════╝██╔════╝██╔════╝██╔════╝██║██╔═══██╗████╗  ██║
