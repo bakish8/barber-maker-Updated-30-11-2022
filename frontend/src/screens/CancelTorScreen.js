@@ -25,18 +25,12 @@ const CancelTorScreen = ({ history }) => {
   const { cancel } = CancelTor
   const { userInfo } = userLogin
   const [user, setUser] = useState('')
+
   const handleNotification = (type, sapar, time, dayInWeek, date) => {
     console.log(`time:::${sapar}`)
     console.log(`time:::${time}`)
     console.log(`dayInWeek:::${dayInWeek}`)
   }
-
-  useEffect(() => {
-    if (userInfo) {
-      setUser(userInfo)
-      console.log(`Cancel Page user passed to Here is :${user.name} ! ! ! !!!`)
-    }
-  }, [user])
 
   useEffect(() => {
     if (!userInfo) {

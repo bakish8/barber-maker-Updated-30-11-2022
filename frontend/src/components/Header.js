@@ -16,7 +16,7 @@ import './Header.css'
 import moment from 'moment'
 
 moment.locale('he')
-const Header = ({ user }) => {
+const Header = () => {
   //*************************** */
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)

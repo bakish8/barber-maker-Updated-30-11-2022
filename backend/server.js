@@ -27,7 +27,7 @@ import session from 'cookie-session'
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import User from './models/userModel.js'
-const JWT_SECRET = process.env.JWT_SECRET
+//const JWT_SECRET = process.env.JWT_SECRET
 
 // RANDOM FOR SESSION
 let random = Math.floor(Math.random() * 100000000000) + 1
