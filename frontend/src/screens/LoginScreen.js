@@ -1,5 +1,5 @@
 ///****NEED TO WRITE LIVE VALIFATIONS FOR EMAIL AND PASSWORD */
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,15 +11,11 @@ import {
   emailLogin,
   SearchOneUserBYEMAIL,
   Create15PortForResetPASSWORD,
-  Create15PortForResetPASSWORD_withPhone,
-  Send_RESET_PASS_SMS,
 } from '../actions/userActions'
 import './LoginScreen.css'
 import Swal from 'sweetalert2'
 import axios from 'axios'
-import emailjs from 'emailjs-com'
-import Verfy4Digits from '../components/Verfy4Digits/Verfy4Digits.js'
-import { SEND_RESET_SMS_TOR_RESET } from '../constants/userConstants'
+
 const LoginScreen = ({ location, history }) => {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
@@ -28,30 +24,11 @@ const LoginScreen = ({ location, history }) => {
   const [LoginWithEmail, setLoginWithEmail] = useState(false)
   const [emailTyping, setEmailTyping] = useState(true)
   const [emailToSendTo, setemailToSendTo] = useState('')
-  const [PhoneToSendTo, SetPhoneToSendTo] = useState('')
-  const [SHOW_ME_VARIFICATION, SetSHOW_ME_VARIFICATION] = useState('')
-  const [word, setWord] = useState(false)
-
-  const form = useRef()
 
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
-
-  const BUILD_RESET_PAGE = useSelector((state) => state.BUILD_RESET_PAGE)
-  const {
-    loading: pageloading,
-    page,
-    success: pagesuccess,
-    error: pageerror,
-  } = BUILD_RESET_PAGE
-
-  const BUILD_RESET_PAGE_FOR_PHONE = useSelector(
-    (state) => state.BUILD_RESET_PAGE_FOR_PHONE
-  )
-  const { pagePhone, loadingPhone, errorPhone, successPhone } =
-    BUILD_RESET_PAGE_FOR_PHONE
 
   const SearchOneUserBYEMAIL = useSelector(
     (state) => state.SearchOneUserBYEMAIL
@@ -66,9 +43,6 @@ const LoginScreen = ({ location, history }) => {
     userInfo: userInfoEmail,
   } = userLoginEMAIL
 
-  const SendTorSMS_RESET = useSelector((state) => state.SendTorSMS_RESET)
-  const { loadingSendSMS, successSend, send } = SendTorSMS_RESET
-
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   const dispatchSearchUserAction = (email) => {
@@ -76,47 +50,12 @@ const LoginScreen = ({ location, history }) => {
   }
 
   useEffect(() => {
-    if (emailToSendTo != '') {
-      console.log(emailToSendTo)
-    }
     if (userInfo || userInfoEmail) {
       history.push(redirect)
     }
     if (successuserfound) {
       console.log('susses!')
       console.log('userfound')
-    }
-    if (pagesuccess) {
-      console.log('pagesuccess susses!')
-      console.log(`page :${page}`)
-      sendEmail()
-    }
-    if (successPhone) {
-      console.log('success Phone susses!')
-      console.log(`successPhone  :${pagePhone}`)
-      let PAGEPHONE = pagePhone
-      dispatch({ type: SEND_RESET_SMS_TOR_RESET })
-      history.push(PAGEPHONE)
-    }
-    if (successSend) {
-      console.log(send)
-      console.log(send)
-      console.log(PhoneToSendTo)
-      console.log(PhoneToSendTo)
-      console.log(PhoneToSendTo)
-      SetSHOW_ME_VARIFICATION(true)
-    }
-    if (word) {
-      setWord(false)
-      SetSHOW_ME_VARIFICATION(false)
-      dispatch(Create15PortForResetPASSWORD_withPhone(PhoneToSendTo))
-      Swal.fire({
-        title: 'קוד השחזור אומת בצלחה',
-        text: 'מיד תועבר לדף לשחזור הססמא שלך',
-        icon: 'success',
-        showCancelButton: false,
-        showConfirmButton: false,
-      })
     }
   }, [
     history,
@@ -125,10 +64,6 @@ const LoginScreen = ({ location, history }) => {
     redirect,
     successuserfound,
     emailToSendTo,
-    pagesuccess,
-    successPhone,
-    successSend,
-    word,
   ])
 
   const submitHandler = (e) => {
@@ -142,12 +77,11 @@ const LoginScreen = ({ location, history }) => {
   }
 
   const GoogleSigninsubmitHandler = () => {
-    //window.open('http://localhost:5000/api/google', '_self')/**development  */
+    //window.open('http://localhost:5000/api/google', '_self')/**********production need to be  created */
     window.open(
-      /**production  */
       'https://www.barber-maker.com/api/google',
       '_self'
-    )
+    ) /**********production need to be  created */
     console.log('ggggggggggggggggggooogle Login TRY')
   }
   const Swal_I_Forgot_My_Pass = () => {
@@ -178,7 +112,6 @@ const LoginScreen = ({ location, history }) => {
           allowOutsideClick: () => !Swal.isLoading(),
 
           preConfirm: async (email) => {
-            setemailToSendTo(email)
             console.log(email)
             return await fetch(`/api/search/email/${email}`)
               .then((response) => {
@@ -187,8 +120,7 @@ const LoginScreen = ({ location, history }) => {
                 } else {
                   console.log(response)
                   console.log(response.url)
-                  dispatch(Create15PortForResetPASSWORD(email))
-                  //axios.post('/api/forgot-password', { email })
+                  axios.post('/api/forgot-password', { email })
                 }
               })
               .catch((error) => {
@@ -201,10 +133,9 @@ const LoginScreen = ({ location, history }) => {
 
             //if user found in used then send email with link
             Swal.fire({
-              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
+              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
               title: `האימייל נשלח בהצלחה`,
               showConfirmButton: false,
-
               timer: 5000,
             })
             //)
@@ -237,33 +168,16 @@ const LoginScreen = ({ location, history }) => {
           inputAttributes: {
             autocapitalize: 'off',
           },
-          preConfirm: async (phone) => {
-            SetPhoneToSendTo(phone)
-            console.log(phone)
-            return await fetch(`/api/search/phones/${phone}`)
-              ////******** */   dispatch(Create15PortForResetPASSWORD(email))
-
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error(response.statusText)
-                } else {
-                  console.log(response)
-                  /****here create a auth sms to phone  */
-                  dispatch(Send_RESET_PASS_SMS(phone))
-                }
-              })
-              .catch((error) => {
-                Swal.showValidationMessage(`המספר שרשמת לא נמצא במערכת`)
-              })
+          preConfirm: (email) => {
+            // SetemailToSendTo(email)
           },
         }).then((result) => {
           if (result.isConfirmed) {
             //  sendEmail(e).then(
             Swal.fire({
-              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
+              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
               title: `ההודעה  נשלח בהצלחה`,
               showConfirmButton: false,
-
               timer: 5000,
             })
             //)
@@ -273,31 +187,8 @@ const LoginScreen = ({ location, history }) => {
     })
   }
 
-  //****Email Js Send Config */
-  const sendEmail = () => {
-    console.log('sendind email')
-    emailjs.sendForm(
-      'service_39dykwd',
-      'template_t1982nv',
-      form.current,
-      'user_MeCZIT7caY2EMmsA27uFt'
-    )
-  }
-
-  const closemodel = () => {
-    SetSHOW_ME_VARIFICATION(false)
-  }
-
   return (
     <>
-      {SHOW_ME_VARIFICATION && (
-        <Verfy4Digits
-          changeword={(word) => setWord(word)}
-          close={() => closemodel()}
-          send={send}
-        />
-      )}
-
       {LoginWithPhone && (
         <div class='login-box'>
           <FormContainer>
@@ -350,14 +241,6 @@ const LoginScreen = ({ location, history }) => {
                 >
                   התחבר באמצעות האימייל{' '}
                 </Button>
-
-                <btn onClick={GoogleSigninsubmitHandler}>
-                  {' '}
-                  <img
-                    className='googleSIgnUP'
-                    src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
-                  ></img>
-                </btn>
                 <Row className='py-3'>
                   <Col>
                     <div className='whiteme'>
@@ -375,6 +258,13 @@ const LoginScreen = ({ location, history }) => {
                     </div>
                   </Col>
                 </Row>
+                <btn onClick={GoogleSigninsubmitHandler}>
+                  {' '}
+                  <img
+                    className='googleSIgnUP'
+                    src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
+                  ></img>
+                </btn>
               </Form>
             </div>
           </FormContainer>
@@ -462,10 +352,6 @@ const LoginScreen = ({ location, history }) => {
           </FormContainer>
         </div>
       )}
-      <form id='disableView' method='post' ref={form} onSubmit={sendEmail}>
-        <input type='email' name='user_email' value={emailToSendTo} />
-        <input type='text' name='reset_link' value={page} />
-      </form>
     </>
   )
 }

@@ -1,5 +1,4 @@
 //IMPORTS
-import jwt from 'jsonwebtoken'
 import colors from 'colors'
 import path from 'path'
 import express from 'express'
@@ -16,7 +15,7 @@ import workingdayRoutes from './routes/workingdayRoutes.js'
 import makeTor from './routes/makeTorRoutes.js'
 import cancelTorRoutes from './routes/cancelTorRoutes.js'
 import reportsRouts from './routes/reportsRouts.js'
-import ForgotpasswordRoutes from './routes/ForgotpasswordRoutes.js'
+//import ForgotpasswordRoutes from './routes/ForgotpasswordRoutes.js'
 import searchRoutes from './routes/searchRoutes.js'
 import sendmessagesRoutes from './routes/sendmessagesRoutes.js'
 import appointmentsRoutes from './routes/appointmentsRoutes.js'
@@ -27,17 +26,13 @@ import session from 'cookie-session'
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import User from './models/userModel.js'
-//const JWT_SECRET = process.env.JWT_SECRET
-import cors from 'cors'
+import http from 'http'
+import { Server, Socket } from 'socket.io'
+const SSocket = Socket
 // RANDOM FOR SESSION
 let random = Math.floor(Math.random() * 100000000000) + 1
 const app = express()
 app.use(express.json())
-app.use(
-  cors({
-    origin: '*',
-  })
-)
 
 // ███████╗███████╗███████╗███████╗██╗ ██████╗ ███╗   ██╗
 // ██╔════╝██╔════╝██╔════╝██╔════╝██║██╔═══██╗████╗  ██║
@@ -122,7 +117,9 @@ app.get(
     failureRedirect: '/login',
   }),
   function (req, res) {
-    res.redirect('/') //production //
+    //res.redirect('http://localhost:3000/') //development /// working  /**** */
+    //res.redirect('https://barber-maker.com/') //production ///NOT working  /**** */
+    res.redirect('/') //production ///NOT working  /**** */
   }
 )
 
@@ -161,16 +158,15 @@ if (process.env.NODE_ENV === 'development') {
 // ██║  ██║██║     ██║
 // ╚═╝  ╚═╝╚═╝     ╚═╝ 's
 //ForgotMyPASSword Routes
-// app.use('/api/forgot-password', (req, res, next) => {
-//   const { email } = req.body
-//   console.log(JWT_SECRET)
-//   console.log(email)
-//   console.log(JWT_SECRET)
-//   console.log(email)
-//   const NewSecret = JWT_SECRET + email
-// })
+app.post('/api/forgot-password', (req, res, next) => {
+  const { email } = req.body
+  console.log(email)
+  console.log(email)
+  console.log(email)
+  console.log(email)
+})
 
-app.use('/api/forgot-password', ForgotpasswordRoutes)
+//app.use('/api/forgot-password', ForgotpasswordRoutes)
 app.use('/api/notifications', notificationsRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/reports', reportsRouts)
@@ -217,6 +213,74 @@ if (process.env.NODE_ENV === 'production') {
 app.use(notFound)
 app.use(errorHandler)
 
+const server = http.createServer(app)
+//Run When Client Connenct
+//const io = new Server(server, { origin: '*:*' }) /development
+const io = new Server(server, {
+  //production
+  origin: 'https://www.barber-maker.com',
+  methods: ['GET', 'POST'],
+})
+let onlineUsers = []
+//add new connected user to the array onlineUsers
+const addNewUser = (username, socketId) => {
+  console.log(`${username} just connected`)
+  !onlineUsers.some((user) => user.username === username) &&
+    onlineUsers.push({ username, socketId })
+  console.log(`online users are  :`)
+  for (let i of onlineUsers) {
+    console.log(i.username)
+  }
+}
+//renmove disconnected user from array onlineUsers
+const removeUser = (socketId) => {
+  console.log(`renmoving : ${socketId} from list`)
+  onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId)
+}
+//return spesific online user from the array onlineUsers
+const getUser = (username) => {
+  const result = onlineUsers.find((user) => user.username === username) //for online users
+  if (result) {
+    return result
+  } else {
+    console.log('user for Socket Not Found ')
+  }
+}
+
+io.on('connection', (SSocket) => {
+  console.log('someone is connected')
+  SSocket.on('newUser', (username) => {
+    addNewUser(username, SSocket.id)
+  })
+  SSocket.on('disconnect', () => {
+    console.log(`${SSocket.id} is Disconnection`)
+    removeUser(SSocket.id)
+  })
+  SSocket.on(
+    'sendNotification',
+    ({ senderName, receiverName, type, time, dayInWeek, date, now }) => {
+      if (type == 1) {
+        console.log(`type is 1 !!!`)
+      }
+      console.log(`receiverName:::${receiverName}`)
+      console.log(`date:::${date}`)
+      console.log(`time:::${time}`)
+      console.log(`dayInWeek:::${dayInWeek}`)
+      const receiver = getUser(receiverName)
+      if (receiver) {
+        io.to(receiver.socketId).emit('getNotification', {
+          senderName,
+          type,
+          time,
+          dayInWeek,
+          date,
+          now,
+        })
+      }
+    }
+  )
+})
+
 // ██████╗  ██████╗ ██████╗ ████████╗
 // ██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝
 // ██████╔╝██║   ██║██████╔╝   ██║
@@ -225,7 +289,7 @@ app.use(errorHandler)
 // ╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝
 
 const PORT = process.env.PORT || 5000
-app.listen(
+server.listen(
   PORT,
   console.log(
     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold

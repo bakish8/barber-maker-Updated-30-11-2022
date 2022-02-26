@@ -1,18 +1,6 @@
 import axios from 'axios'
 
 import {
-  SEND_RESET_SMS_TOR_REQUEST,
-  SEND_RESET_SMS_TOR_SUCCESS,
-  SEND_RESET_SMS_TOR_FAIL,
-  RESET_PASSWORD_WITH_PHONE_PAGE_REQUEST,
-  RESET_PASSWORD_WITH_PHONE_PAGE_SUCCESS,
-  RESET_PASSWORD_WITH_PHONE_PAGE_FAIL,
-  RESET_MY_PASSWORD_REQUEST,
-  RESET_MY_PASSWORD_SUCCESS,
-  RESET_MY_PASSWORD_FAIL,
-  RESET_PASSWORD_PAGE_GET_REQUEST,
-  RESET_PASSWORD_PAGE_GET_SUCCESS,
-  RESET_PASSWORD_PAGE_GET_FAIL,
   RESET_PASSWORD_PAGE_REQUEST,
   RESET_PASSWORD_PAGE_SUCCESS,
   RESET_PASSWORD_PAGE_FAIL,
@@ -1777,29 +1765,6 @@ export const SendTorSMS = (id, uid) => async (dispatch, getState) => {
     })
   }
 }
-
-export const Send_RESET_PASS_SMS = (phone) => async (dispatch) => {
-  try {
-    dispatch({
-      type: SEND_RESET_SMS_TOR_REQUEST,
-    })
-
-    const { data } = await axios.post(`/api/messages/${phone}`)
-    dispatch({
-      type: SEND_RESET_SMS_TOR_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: SEND_RESET_SMS_TOR_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
-  }
-}
-
 export const SendCancelTorSMS = (id, uid) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -2430,35 +2395,6 @@ export const Create15PortForResetPASSWORD = (email) => async (dispatch) => {
   }
 }
 
-export const Create15PortForResetPASSWORD_withPhone =
-  (phone) => async (dispatch) => {
-    try {
-      console.log(phone)
-
-      dispatch({
-        type: RESET_PASSWORD_WITH_PHONE_PAGE_REQUEST,
-      })
-
-      const { data } = await axios.put('/api/forgot-password', { phone })
-      dispatch({
-        type: RESET_PASSWORD_WITH_PHONE_PAGE_SUCCESS,
-        payload: data,
-      })
-    } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
-      if (message === 'Not authorized, token failed') {
-        dispatch(logout())
-      }
-      dispatch({
-        type: RESET_PASSWORD_WITH_PHONE_PAGE_FAIL,
-        payload: message,
-      })
-    }
-  }
-
 export const Next7Daysss = (id) => async (dispatch, getState) => {
   console.log('Next7Daysss')
   console.log('Next7Daysss')
@@ -2593,64 +2529,6 @@ export const List_of_Potential_Users_By_FirstNameActionSearch =
     } catch (error) {
       dispatch({
         type: POTENTIAL_USERS_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      })
-    }
-  }
-
-export const RESET_PASSWORD_PAGE_ACTION =
-  (id, token) => async (dispatch, getState) => {
-    console.log(`id:${id}`)
-    console.log(`token:${id}`)
-    try {
-      dispatch({
-        type: RESET_PASSWORD_PAGE_GET_REQUEST,
-      })
-
-      const { data } = await axios.get(`/api/forgot-password/${id}/${token}`)
-      console.log('data:')
-      console.log(data)
-
-      dispatch({
-        type: RESET_PASSWORD_PAGE_GET_SUCCESS,
-        payload: data,
-      })
-    } catch (error) {
-      dispatch({
-        type: RESET_PASSWORD_PAGE_GET_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      })
-    }
-  }
-export const RESET_MY_PASSWORD_ACTION =
-  (id, token, password) => async (dispatch, getState) => {
-    console.log(`id:${id}`)
-    console.log(`token:${token}`)
-    console.log(`password:${password}`)
-    try {
-      dispatch({
-        type: RESET_MY_PASSWORD_REQUEST,
-      })
-
-      const { data } = await axios.put(`/api/forgot-password/${id}/${token}`, {
-        password,
-      })
-      console.log('data:')
-      console.log(data)
-
-      dispatch({
-        type: RESET_MY_PASSWORD_SUCCESS,
-        payload: data,
-      })
-    } catch (error) {
-      dispatch({
-        type: RESET_MY_PASSWORD_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

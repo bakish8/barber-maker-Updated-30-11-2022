@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2'
 import { useHistory } from 'react-router-dom'
+import { io } from 'socket.io-client'
 import moment from 'moment'
 import Modal from '../components/UIelements/Modal'
 import React, { useState, useEffect } from 'react'
@@ -41,6 +42,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
   console.log(WorkDayid)
   console.log(Tipulid)
   console.log('_____________')
+  const [socket, setSocket] = useState(null)
   const [user, setUser] = useState('')
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -105,16 +107,29 @@ const SingleWorkDayScreen = ({ history, match }) => {
     console.log(`dayInWeek:::${dayInWeek}`)
     console.log(`dayInWeek:::${dayInWeek}`)
     console.log(`dayInWeek:::${dayInWeek}`)
+    if (socket) {
+      socket.emit('sendNotification', {
+        senderName: user.name,
+        receiverName: sapar, //*** */
+        type,
+        time,
+        dayInWeek,
+        date,
+        now,
+      })
+    }
   }
-
   useEffect(() => {
-    if (userInfo) {
+    setSocket(io('http://localhost:3000'))
+  }, [])
+  useEffect(() => {
+    if (socket && userInfo) {
       setUser(userInfo)
       console.log(
         `make tor Page user passed to Here is :${user.name} ! ! ! !!!`
       )
     }
-  }, [user])
+  }, [socket, user])
   useEffect(() => {
     if (userInfo) {
       dispatch(workingDayDetails(WorkDayid))

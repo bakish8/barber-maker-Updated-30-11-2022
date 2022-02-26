@@ -81,11 +81,9 @@
 }
 /****היה דיספליי פלקס**/
 .googleSIgnUP {
-  cursor: pointer;
   width: 200px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 15px;
   display: flex;
   justify-content: center;
   align-items: center;

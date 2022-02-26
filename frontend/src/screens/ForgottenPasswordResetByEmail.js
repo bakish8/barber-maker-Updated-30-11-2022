@@ -6,105 +6,71 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import {
-  login,
-  emailLogin,
-  RESET_PASSWORD_PAGE_ACTION,
-  RESET_MY_PASSWORD_ACTION,
-} from '../actions/userActions'
+import { login, emailLogin } from '../actions/userActions'
 import './LoginScreen.css'
 import Swal from 'sweetalert2'
 
 const ForgottenPasswordResetByEmail = ({ location, history }) => {
-  const dispatch = useDispatch()
-  //states
-  const [ID, setID] = useState('')
-  const [TOKEN, setTOKEN] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
   const [NewPassword, setNewPassword] = useState('')
   const [NewPassword2, setNewPassword2] = useState('')
-  const [message, setMessage] = useState(null)
-  const RESET_PAGE = useSelector((state) => state.RESET_PAGE) ///*** */
-  const { loading, page, success, error } = RESET_PAGE
-  const RESET_MY_PASSWORD = useSelector((state) => state.RESET_MY_PASSWORD)
-  const { reset, loadingreset, errorreset, successreset } = RESET_MY_PASSWORD
 
-  //token and id taken
-  const url = window.location.href
-  const token = url.split('/').pop()
-  const id = url.split('/')[4] //to get the id in production
-  const redirect = location.search ? location.search.split('=')[1] : '/login'
-  //use Effect
+  const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading, error, userInfo } = userLogin
+
+  const userLoginEMAIL = useSelector((state) => state.userLoginEMAIL)
+  const {
+    loading: loadingEmail,
+    error: errorEmail,
+    userInfo: userInfoEmail,
+  } = userLoginEMAIL
+
+  const redirect = location.search ? location.search.split('=')[1] : '/'
+
   useEffect(() => {
-    if (id && token) {
-      console.log(`token:${token}`)
-      console.log(`id:${id}`)
-      setID(id)
-      setTOKEN(token)
-      dispatch(RESET_PASSWORD_PAGE_ACTION(id, token))
+    if (userInfo || userInfoEmail) {
+      history.push(redirect)
     }
-    if (successreset) {
-      Swal.fire({
-        icon: 'success',
-        title: 'הססמא שלך שונתה בהצלחה',
-        text: 'כעת תועבר לעמוד ההתחברות',
-        showConfirmButton: false,
-        timer: 3500,
-      }).then(history.push(redirect))
-    }
-  }, [url, id, token, successreset])
+  }, [history, userInfo, userInfoEmail, redirect])
 
-  //functions
   const submitHandler = (e) => {
     e.preventDefault()
-    if (!NewPassword.length || !NewPassword2) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'warning',
-        title: 'נא להזין את הססמא פעמיים',
-        text: 'ע"מ לאשר את ססמתך החדשה יש למלא את כל השדות',
-        showConfirmButton: false,
-        timer: 2500,
-      })
-    } else if (NewPassword.length < 5 || NewPassword2.length < 5) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'warning',
-        title: '!הססמא שבחרת קצרה מדי',
-        text: 'בחר ססמא בעלת 6 תווים לפחות ',
-        showConfirmButton: false,
-        timer: 2500,
-      })
-    } else if (NewPassword !== NewPassword2) {
-      setMessage('Passwords do not match')
-      Swal.fire({
-        position: 'top-end',
-        icon: 'warning',
-        title: '!הססמאות אינן תואמות',
-        text: 'כדי ליצור לך ססמא חדשה נסה שנית והזן ססמאות זהות ',
-        showConfirmButton: false,
-        timer: 4500,
-      })
-    } else {
-      dispatch(RESET_MY_PASSWORD_ACTION(ID, TOKEN, NewPassword))
-    }
+    console.log('email')
+    //console.log(email)
+    //dispatch(emailLogin(email, password))   //cchange ! ! !
   }
 
   return (
     <>
       <div class='login-box'>
         <FormContainer>
+          {error && <Message variant='danger'>{error}</Message>}
           {loading && <Loader />}
           <div id='centerme'>
             <Form onSubmit={submitHandler} className='loginForm'>
               <h2 className='headlineme'>שחזור ססמא</h2>
-              <div id='helloonreset'>{success && 'שלום' + ' ' + page.name}</div>
+              <div className='user-box'>
+                <Form.Group controlId='email'>
+                  <Form.Control
+                    className='form-control'
+                    placeholder='אימייל'
+                    value={phone}
+                    onChange={(e) => {
+                      setEmail(e.target.value)
+                    }}
+                  ></Form.Control>
+                </Form.Group>
+              </div>
               <div class='user-box'>
                 <Form.Group controlId='password'>
                   <Form.Control
                     className='form-control'
                     placeholder='הזן ססמא חדשה'
                     type='password'
-                    value={NewPassword}
+                    value={password}
                     onChange={(e) => setNewPassword(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
@@ -115,7 +81,7 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
                     className='form-control'
                     placeholder='חזור על הססמא החדשה'
                     type='password'
-                    value={NewPassword2}
+                    value={password}
                     onChange={(e) => setNewPassword2(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
