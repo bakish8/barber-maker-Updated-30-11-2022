@@ -29,8 +29,16 @@ date = new Date()
 while (date.getMinutes() % 15 !== 0) {
   date.setMinutes(date.getMinutes() + 1)
 }
+import dotenv from 'dotenv'
+
+import twilio from 'twilio'
 
 const SingleWorkDayScreen = ({ history, match }) => {
+  dotenv.config()
+  const accountSid = process.env.TWILIO_ACCOUNT_SID
+  const authToken = process.env.TWILIO_AUTH_TOKEN
+  const client = new twilio(accountSid, authToken)
+  const serviseSID = process.env.TWILIO_MESSAGE_SERVICE_SID
   const dispatch = useDispatch()
   const [showOK, setShowOK] = useState(false)
   const [TipilChoosenTime, setTipilChoosenTime] = useState('')
@@ -175,7 +183,17 @@ const SingleWorkDayScreen = ({ history, match }) => {
               timer: 8000,
             }).then(history.push('/'))
           )
-          .then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
+          .then(
+            client.messages
+              .create({
+                body: `שלום ,התור שלך נקבע בהצלחה לתאריךlock.owner.dayInWeek} ב לספר, מצפים לראותך צוות ברבר מייקר `,
+                messagingServiceSid: 'MG9ba56c1fdaa9b554e7c28fa0c27e0c73',
+                to: `+972$9089090`,
+              })
+              .then((message) => console.log(message.sid))
+              .done()
+          )
+        //.then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
         //.then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
         //.then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed
         //***creating User Create Tor Notification */
