@@ -32,24 +32,14 @@ import SingleReportScreen from './screens/SingleReportScreen'
 import Admin from './screens/Admin'
 import PickTipulScreen from './screens/PickTipulScreen'
 import { myContext } from './actions/Context'
-import { useSelector } from 'react-redux'
+
 const App = () => {
   const userObject = useContext(myContext)
   console.log(userObject)
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
-  const [user, setUser] = useState('')
-
-  useEffect(() => {
-    if (userInfo) {
-      setUser(userInfo)
-    }
-  }, [user])
 
   return (
     <Router>
-      <Header user={user} />
-
+      <Header />
       <div> </div>
       <main className='py-3'>
         <Container>
@@ -69,7 +59,7 @@ const App = () => {
           />
 
           <Route path='/payment' component={PaymentScreen} />
-          <Route path='/cancel' component={CancelTorScreen} user={user} />
+          <Route path='/cancel' component={CancelTorScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login/' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
