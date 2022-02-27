@@ -1,5 +1,5 @@
 import express from 'express'
-constrouter = express.Router()
+const router = express.Router()
 import {
   SendSMS,
   SendCANCELSMS,
