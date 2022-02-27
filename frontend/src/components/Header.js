@@ -16,7 +16,7 @@ import './Header.css'
 import moment from 'moment'
 
 moment.locale('he')
-const Header = () => {
+const Header = ({ socket }) => {
   //*************************** */
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
@@ -157,7 +157,13 @@ const Header = () => {
   /******************************************************** */
   /******************************************************** */
   /******************************************************** */
-
+  useEffect(() => {
+    if (socket) {
+      socket.on('getNotification', (data) => {
+        setNotificationss((prev) => [...prev, data])
+      })
+    }
+  }, [socket])
   useEffect(() => {
     if (successEmail) {
       window.location.reload()
