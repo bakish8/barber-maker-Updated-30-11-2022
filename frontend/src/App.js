@@ -32,14 +32,16 @@ import SingleReportScreen from './screens/SingleReportScreen'
 import Admin from './screens/Admin'
 import PickTipulScreen from './screens/PickTipulScreen'
 import { myContext } from './actions/Context'
+import { io } from 'socket.io-client'
 
 const App = () => {
+  const socket = io('wss://barber-maker.com')
   const userObject = useContext(myContext)
   console.log(userObject)
 
   return (
     <Router>
-      <Header />
+      <Header socket={socket} />
       <div> </div>
       <main className='py-3'>
         <Container>
