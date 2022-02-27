@@ -27,7 +27,7 @@ const GetTipulDeets = asyncHandler(async (req, res) => {
   }
 })
 
-const getSapars = asyncHandler(async (req, res) => {
+const getSaparim = asyncHandler(async (req, res) => {
   const sapars = await User.find({ isAdmin: true })
   res.json(sapars)
 })
@@ -1327,10 +1327,28 @@ const SendCANCELSMS = asyncHandler(async (req, res) => {
     .done()
 })
 
+const SendSMSforReset = asyncHandler(async (req, res) => {
+  var theRandomNumber = (Math.floor(Math.random() * 10000) + 10000)
+    .toString()
+    .substring(1) //geneate 4 digit number for confirmation
+  console.log(theRandomNumber)
+  const phone = req.params.phone
+  const user = await User.findOne({ phone: phone })
+  client.messages
+    .create({
+      body: `הזן את הססמא הבאה לשחזור ססמתך באתר ברבר-מייקר: ${theRandomNumber}`,
+      messagingServiceSid: serviseSID,
+      to: `+972${user.phone}`,
+    })
+    .then((message) => console.log(message.sid))
+    .done()
+  res.json(theRandomNumber)
+})
+
 export {
   SendSMS,
   SendCANCELSMS,
-  getSapars,
+  getSaparim,
   pickedDate,
   confirmTor,
   showAvilableTors,
@@ -1345,4 +1363,5 @@ export {
   showAvilableTorsFor2Hours,
   showAvilableTorsFor2HoursHALF,
   showAvilableTorsFor3Hours,
+  SendSMSforReset,
 }

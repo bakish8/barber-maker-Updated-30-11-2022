@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
 import {
-  getSapars,
+  getSaparim,
   pickedDate,
   confirmTor,
   showAvilableTors,
@@ -30,6 +30,7 @@ router
 router
   .route('/getavilableforonehourandhalf/:id')
   .get(protect, showAvilableTorsForOneHALFHour)
+// GET /api/tor/?date=id&duration=90
 router
   .route('/getavilablefortwohours/:id')
   .get(protect, showAvilableTorsFor2Hours)
@@ -43,7 +44,7 @@ router
 
 router.route('/mytorim').get(protect, getMyTorim)
 
-router.route('/').get(getSapars)
+router.route('/').get(getSaparim)
 router.route('/:id/:uid').put(confirmTor)
 
 router
