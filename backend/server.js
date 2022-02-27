@@ -266,6 +266,7 @@ io.on('connection', (SSocket) => {
       if (type == 1) {
         console.log(`type is 1 !!!`)
       }
+      ////
       console.log(`receiverName:::${receiverName}`)
       console.log(`time:::${time}`)
       console.log(`dayInWeek:::${dayInWeek}`)
