@@ -6,16 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import {
-  login,
-  emailLogin,
-  SearchOneUserBYEMAIL,
-  Create15PortForResetPASSWORD,
-} from '../actions/userActions'
+import { login, emailLogin } from '../actions/userActions'
 import './LoginScreen.css'
-import Swal from 'sweetalert2'
-import axios from 'axios'
-
 const LoginScreen = ({ location, history }) => {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
@@ -23,18 +15,11 @@ const LoginScreen = ({ location, history }) => {
   const [LoginWithPhone, setLoginWithPhone] = useState(true)
   const [LoginWithEmail, setLoginWithEmail] = useState(false)
   const [emailTyping, setEmailTyping] = useState(true)
-  const [emailToSendTo, setemailToSendTo] = useState('')
 
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
-
-  const SearchOneUserBYEMAIL = useSelector(
-    (state) => state.SearchOneUserBYEMAIL
-  )
-  const { loadinguserfound, userfound, successuserfound, erroruserfound } =
-    SearchOneUserBYEMAIL
 
   const userLoginEMAIL = useSelector((state) => state.userLoginEMAIL)
   const {
@@ -45,26 +30,11 @@ const LoginScreen = ({ location, history }) => {
 
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
-  const dispatchSearchUserAction = (email) => {
-    dispatch(SearchOneUserBYEMAIL(email))
-  }
-
   useEffect(() => {
     if (userInfo || userInfoEmail) {
       history.push(redirect)
     }
-    if (successuserfound) {
-      console.log('susses!')
-      console.log('userfound')
-    }
-  }, [
-    history,
-    userInfo,
-    userInfoEmail,
-    redirect,
-    successuserfound,
-    emailToSendTo,
-  ])
+  }, [history, userInfo, userInfoEmail, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -83,108 +53,6 @@ const LoginScreen = ({ location, history }) => {
       '_self'
     ) /**********production need to be  created */
     console.log('ggggggggggggggggggooogle Login TRY')
-  }
-  const Swal_I_Forgot_My_Pass = () => {
-    console.log('Swal_I_Forgot_My_Pass')
-    Swal.fire({
-      title: 'שחזור ססמא',
-      text: `ניתן לשחזר את הססמא באמצעות הנייד או האימייל `,
-      imageUrl: 'https://i.ibb.co/30z4Vsr/ezgif-com-gif-maker-15.gif',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#3085d6',
-      cancelButtonText: 'שחזור באמצעות הנייד',
-      confirmButtonText: 'שחזור באמצעות האימייל',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: 'שחזור באמצעות אימייל',
-          text: `הזן את כתובת האימייל אליה ישלח קישור לשחזור הססמא שלך `,
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          cancelButtonText: 'ביטול',
-          confirmButtonText: 'שחזר ססמא',
-          input: 'text',
-          inputAttributes: {
-            autocapitalize: 'off',
-          },
-          allowOutsideClick: () => !Swal.isLoading(),
-
-          preConfirm: async (email) => {
-            console.log(email)
-            return await fetch(`/api/search/email/${email}`)
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error(response.statusText)
-                } else {
-                  console.log(response)
-                  console.log(response.url)
-                  axios.post('/api/forgot-password', { email })
-                }
-              })
-              .catch((error) => {
-                Swal.showValidationMessage(`האימייל שרשמת לא נמצא במערכת`)
-              })
-          },
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            //  sendEmail(e).then(
-
-            //if user found in used then send email with link
-            Swal.fire({
-              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
-              title: `האימייל נשלח בהצלחה`,
-              showConfirmButton: false,
-              timer: 5000,
-            })
-            //)
-          }
-        })
-
-        // Swal.fire({
-        //   text: 'משחזר ססמא אנא המתן',
-        //   imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
-        //   imageWidth: 400,
-        //   imageHeight: 400,
-        //   imageAlt: 'Custom image',
-        //   timer: 500,
-        //   background: '#68b4ff00',
-        //   backdrop: 'rgba(0, 0, 0,0.8)',
-        //   color: 'rgba(255, 255, 255)',
-        //   showConfirmButton: false,
-        // })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        console.log('your workingday is safe')
-        Swal.fire({
-          title: 'שחזור באמצעות הנייד',
-          text: `הזן את הנייד אליו ישלח קוד חד פעמי לשחזור הססמא  `,
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          cancelButtonText: 'ביטול',
-          confirmButtonText: 'שחזר ססמא',
-          input: 'text',
-          inputAttributes: {
-            autocapitalize: 'off',
-          },
-          preConfirm: (email) => {
-            // SetemailToSendTo(email)
-          },
-        }).then((result) => {
-          if (result.isConfirmed) {
-            //  sendEmail(e).then(
-            Swal.fire({
-              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
-              title: `ההודעה  נשלח בהצלחה`,
-              showConfirmButton: false,
-              timer: 5000,
-            })
-            //)
-          }
-        })
-      }
-    })
   }
 
   return (
@@ -220,15 +88,7 @@ const LoginScreen = ({ location, history }) => {
                     ></Form.Control>
                   </Form.Group>
                 </div>
-                <div>
-                  <btn
-                    className='whitemeforgot'
-                    id='signUp'
-                    onClick={Swal_I_Forgot_My_Pass}
-                  >
-                    שחכתי ססמא
-                  </btn>
-                </div>
+
                 <Button type='submit' className='loginBTN'>
                   התחבר
                 </Button>
@@ -302,15 +162,7 @@ const LoginScreen = ({ location, history }) => {
                     ></Form.Control>
                   </Form.Group>
                 </div>
-                <div>
-                  <btn
-                    className='whitemeforgot'
-                    id='signUp'
-                    onClick={Swal_I_Forgot_My_Pass}
-                  >
-                    שחכתי ססמא
-                  </btn>
-                </div>
+
                 <Button type='submit' className='loginBTN'>
                   התחבר
                 </Button>

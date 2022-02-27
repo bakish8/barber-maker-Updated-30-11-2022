@@ -1,12 +1,6 @@
 import axios from 'axios'
 
 import {
-  RESET_PASSWORD_PAGE_REQUEST,
-  RESET_PASSWORD_PAGE_SUCCESS,
-  RESET_PASSWORD_PAGE_FAIL,
-  ONE_USER_SEARCH_BY_EMAIL_REQUEST,
-  ONE_USER_SEARCH_BY_EMAIL_SUCCESS,
-  ONE_USER_SEARCH_BY_EMAIL_FAIL,
   USER_LOGIN_EMAIL_REQUEST,
   USER_LOGIN_EMAIL_SUCCESS,
   USER_LOGIN_EMAIL_FAIL,
@@ -2307,13 +2301,20 @@ export const SpecificTipulDeetsAction = (id) => async (dispatch, getState) => {
   }
 }
 
-export const SearchOneUserAction = (id) => async (dispatch) => {
+export const SearchOneUserAction = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ONE_USER_SEARCH_REQUEST,
     })
-
-    const { data } = await axios.get(`/api/search/users/${id}`)
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.get(`/api/search/users/${id}`, config)
 
     dispatch({
       type: ONE_USER_SEARCH_SUCCESS,
@@ -2333,68 +2334,6 @@ export const SearchOneUserAction = (id) => async (dispatch) => {
     })
   }
 }
-export const SearchOneUserBYEMAIL = (email) => async (dispatch, getState) => {
-  console.log('action!!')
-  try {
-    dispatch({
-      type: ONE_USER_SEARCH_BY_EMAIL_REQUEST,
-    })
-    const {
-      userLogin: { userInfo },
-    } = getState()
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
-    const { data } = await axios.get(`/api/search/email/${email}`, config)
-
-    dispatch({
-      type: ONE_USER_SEARCH_BY_EMAIL_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message
-    if (message === 'Not authorized, token failed') {
-      dispatch(logout())
-    }
-    dispatch({
-      type: ONE_USER_SEARCH_BY_EMAIL_FAIL,
-      payload: message,
-    })
-  }
-}
-export const Create15PortForResetPASSWORD = (email) => async (dispatch) => {
-  try {
-    console.log(email)
-
-    dispatch({
-      type: RESET_PASSWORD_PAGE_REQUEST,
-    })
-
-    const { data } = await axios.post('/api/forgot-password', { email })
-    dispatch({
-      type: RESET_PASSWORD_PAGE_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message
-    if (message === 'Not authorized, token failed') {
-      dispatch(logout())
-    }
-    dispatch({
-      type: RESET_PASSWORD_PAGE_FAIL,
-      payload: message,
-    })
-  }
-}
-
 export const Next7Daysss = (id) => async (dispatch, getState) => {
   console.log('Next7Daysss')
   console.log('Next7Daysss')
