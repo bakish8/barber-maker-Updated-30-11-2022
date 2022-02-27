@@ -122,6 +122,21 @@ const findPhone = asyncHandler(async (req, res) => {
   }
 })
 
+const findByEmail = asyncHandler(async (req, res) => {
+  console.log(req.params.email)
+  const userFound = await User.findOne({ email: req.params.email }).populate(
+    'torim'
+  )
+  if (userFound) {
+    console.log('המשתמש  נמצא ')
+    res.status(209).json(userFound)
+  } else {
+    console.log('המשתמש לא !!! נמצא ')
+    res.status(403)
+    throw new Error('המשתמש לא !!נמצא ')
+  }
+})
+
 //al tipulim
 //api/search/tipulim
 const findTipulim = asyncHandler(async (req, res) => {
@@ -137,6 +152,7 @@ const findTipulim = asyncHandler(async (req, res) => {
 export {
   findUser,
   findPhone,
+  findByEmail,
   findTipulim,
   FindClockByWorkIDandTime,
   findUserByfirst,

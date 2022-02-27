@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen'
+import ForgottenPasswordResetByEmail from './screens/ForgottenPasswordResetByEmail'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
@@ -31,41 +32,14 @@ import SingleReportScreen from './screens/SingleReportScreen'
 import Admin from './screens/Admin'
 import PickTipulScreen from './screens/PickTipulScreen'
 import { myContext } from './actions/Context'
-import { io } from 'socket.io-client'
-import { useSelector } from 'react-redux'
+
 const App = () => {
   const userObject = useContext(myContext)
   console.log(userObject)
 
-  const [socket, setSocket] = useState(null)
-
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
-
-  const [user, setUser] = useState('')
-
-  //development :
-  // useEffect(() => {
-  //   setSocket(io('http://localhost:3000'))
-  // }, [])
-  //development :
-
-  useEffect(() => {
-    setSocket(io('https://www.barber-maker.com/'))
-  }, [])
-
-  useEffect(() => {
-    if (socket && userInfo) {
-      socket.emit('newUser', userInfo.name)
-      setUser(userInfo)
-      console.log(`user passed to header is :${user.name} ! ! !`)
-    }
-  }, [socket, user])
-
   return (
     <Router>
-      <Header socket={socket} user={user} />
-
+      <Header />
       <div> </div>
       <main className='py-3'>
         <Container>
@@ -85,12 +59,7 @@ const App = () => {
           />
 
           <Route path='/payment' component={PaymentScreen} />
-          <Route
-            path='/cancel'
-            component={CancelTorScreen}
-            socket={socket}
-            user={user}
-          />
+          <Route path='/cancel' component={CancelTorScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login/' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
@@ -111,6 +80,11 @@ const App = () => {
           />
           <Route path='/admin/torim/' component={WorkingDaysScreen} exact />
           <Route path='/admin/workingday/:id' component={SingleWorkDay} exact />
+          <Route
+            path='/forgot-password/:id/:token'
+            component={ForgottenPasswordResetByEmail}
+            exact
+          />
           <Route path='/admin/settings' component={SettingsScreen} exact />
           <Route
             path='/admin/settings/newtipul'

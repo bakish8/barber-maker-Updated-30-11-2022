@@ -675,7 +675,7 @@ const WorkingDaysScreen = ({ history }) => {
           .then(sendEmail(e))
           .then(
             Swal.fire({
-              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
+              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
               title: `האימייל נשלח בהצלחה`,
               showConfirmButton: false,
               timer: 5000,
@@ -702,7 +702,7 @@ const WorkingDaysScreen = ({ history }) => {
           if (result.isConfirmed) {
             sendEmail(e).then(
               Swal.fire({
-                imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
+                imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
                 title: `האימייל נשלח בהצלחה`,
                 showConfirmButton: false,
                 timer: 5000,
@@ -744,7 +744,7 @@ const WorkingDaysScreen = ({ history }) => {
           .then(sendEmail2(e))
           .then(
             Swal.fire({
-              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
+              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
               title: `האימייל נשלח בהצלחה`,
               showConfirmButton: false,
               timer: 5000,
@@ -775,7 +775,7 @@ const WorkingDaysScreen = ({ history }) => {
           if (result.isConfirmed) {
             sendEmail2(e)
             Swal.fire({
-              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
+              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
               title: `האימייל נשלח בהצלחה`,
               showConfirmButton: false,
               timer: 5000,
@@ -816,7 +816,7 @@ const WorkingDaysScreen = ({ history }) => {
           .then(sendEmail3(e))
           .then(
             Swal.fire({
-              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
+              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
               title: `האימייל נשלח בהצלחה`,
               showConfirmButton: false,
               timer: 5000,
@@ -845,7 +845,7 @@ const WorkingDaysScreen = ({ history }) => {
           if (result.isConfirmed) {
             sendEmail3(e)
             Swal.fire({
-              imageUrl: 'https://i.ibb.co/Khnvrcr/icons8-subscribe.gif',
+              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
               title: `האימייל נשלח בהצלחה`,
               showConfirmButton: false,
               timer: 5000,

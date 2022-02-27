@@ -1,13 +1,25 @@
 ///****NEED TO WRITE LIVE VALIFATIONS FOR EMAIL AND PASSWORD */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { login, emailLogin } from '../actions/userActions'
+import {
+  login,
+  emailLogin,
+  SearchOneUserBYEMAIL,
+  Create15PortForResetPASSWORD,
+  Create15PortForResetPASSWORD_withPhone,
+  Send_RESET_PASS_SMS,
+} from '../actions/userActions'
 import './LoginScreen.css'
+import Swal from 'sweetalert2'
+import axios from 'axios'
+import emailjs from 'emailjs-com'
+import Verfy4Digits from '../components/Verfy4Digits/Verfy4Digits.js'
+import { SEND_RESET_SMS_TOR_RESET } from '../constants/userConstants'
 const LoginScreen = ({ location, history }) => {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
@@ -15,11 +27,37 @@ const LoginScreen = ({ location, history }) => {
   const [LoginWithPhone, setLoginWithPhone] = useState(true)
   const [LoginWithEmail, setLoginWithEmail] = useState(false)
   const [emailTyping, setEmailTyping] = useState(true)
+  const [emailToSendTo, setemailToSendTo] = useState('')
+  const [PhoneToSendTo, SetPhoneToSendTo] = useState('')
+  const [SHOW_ME_VARIFICATION, SetSHOW_ME_VARIFICATION] = useState('')
+  const [word, setWord] = useState(false)
+
+  const form = useRef()
 
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
+
+  const BUILD_RESET_PAGE = useSelector((state) => state.BUILD_RESET_PAGE)
+  const {
+    loading: pageloading,
+    page,
+    success: pagesuccess,
+    error: pageerror,
+  } = BUILD_RESET_PAGE
+
+  const BUILD_RESET_PAGE_FOR_PHONE = useSelector(
+    (state) => state.BUILD_RESET_PAGE_FOR_PHONE
+  )
+  const { pagePhone, loadingPhone, errorPhone, successPhone } =
+    BUILD_RESET_PAGE_FOR_PHONE
+
+  const SearchOneUserBYEMAIL = useSelector(
+    (state) => state.SearchOneUserBYEMAIL
+  )
+  const { loadinguserfound, userfound, successuserfound, erroruserfound } =
+    SearchOneUserBYEMAIL
 
   const userLoginEMAIL = useSelector((state) => state.userLoginEMAIL)
   const {
@@ -28,13 +66,70 @@ const LoginScreen = ({ location, history }) => {
     userInfo: userInfoEmail,
   } = userLoginEMAIL
 
+  const SendTorSMS_RESET = useSelector((state) => state.SendTorSMS_RESET)
+  const { loadingSendSMS, successSend, send } = SendTorSMS_RESET
+
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
+  const dispatchSearchUserAction = (email) => {
+    dispatch(SearchOneUserBYEMAIL(email))
+  }
+
   useEffect(() => {
+    if (emailToSendTo != '') {
+      console.log(emailToSendTo)
+    }
     if (userInfo || userInfoEmail) {
       history.push(redirect)
     }
-  }, [history, userInfo, userInfoEmail, redirect])
+    if (successuserfound) {
+      console.log('susses!')
+      console.log('userfound')
+    }
+    if (pagesuccess) {
+      console.log('pagesuccess susses!')
+      console.log(`page :${page}`)
+      sendEmail()
+    }
+    if (successPhone) {
+      console.log('success Phone susses!')
+      console.log(`successPhone  :${pagePhone}`)
+      let PAGEPHONE = pagePhone
+      dispatch({ type: SEND_RESET_SMS_TOR_RESET })
+      history.push(PAGEPHONE)
+    }
+    if (successSend) {
+      console.log(send)
+      console.log(send)
+      console.log(PhoneToSendTo)
+      console.log(PhoneToSendTo)
+      console.log(PhoneToSendTo)
+      SetSHOW_ME_VARIFICATION(true)
+    }
+    if (word) {
+      setWord(false)
+      SetSHOW_ME_VARIFICATION(false)
+      dispatch(Create15PortForResetPASSWORD_withPhone(PhoneToSendTo))
+      Swal.fire({
+        title: 'קוד השחזור אומת בצלחה',
+        text: 'מיד תועבר לדף לשחזור הססמא שלך',
+        icon: 'success',
+        showCancelButton: false,
+        showConfirmButton: false,
+      })
+    }
+  }, [
+    history,
+    userInfo,
+    userInfoEmail,
+    redirect,
+    successuserfound,
+    emailToSendTo,
+    pagesuccess,
+    successPhone,
+    successSend,
+    word,
+  ])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -47,16 +142,162 @@ const LoginScreen = ({ location, history }) => {
   }
 
   const GoogleSigninsubmitHandler = () => {
-    //window.open('http://localhost:5000/api/google', '_self')/**********production need to be  created */
+    //window.open('http://localhost:5000/api/google', '_self')/**development  */
     window.open(
+      /**production  */
       'https://www.barber-maker.com/api/google',
       '_self'
-    ) /**********production need to be  created */
+    )
     console.log('ggggggggggggggggggooogle Login TRY')
+  }
+  const Swal_I_Forgot_My_Pass = () => {
+    console.log('Swal_I_Forgot_My_Pass')
+    Swal.fire({
+      title: 'שחזור ססמא',
+      text: `ניתן לשחזר את הססמא באמצעות הנייד או האימייל `,
+      imageUrl: 'https://i.ibb.co/30z4Vsr/ezgif-com-gif-maker-15.gif',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'שחזור באמצעות הנייד',
+      confirmButtonText: 'שחזור באמצעות האימייל',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'שחזור באמצעות אימייל',
+          text: `הזן את כתובת האימייל אליה ישלח קישור לשחזור הססמא שלך `,
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'ביטול',
+          confirmButtonText: 'שחזר ססמא',
+          input: 'text',
+          inputAttributes: {
+            autocapitalize: 'off',
+          },
+          allowOutsideClick: () => !Swal.isLoading(),
+
+          preConfirm: async (email) => {
+            setemailToSendTo(email)
+            console.log(email)
+            return await fetch(`/api/search/email/${email}`)
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(response.statusText)
+                } else {
+                  console.log(response)
+                  console.log(response.url)
+                  dispatch(Create15PortForResetPASSWORD(email))
+                  //axios.post('/api/forgot-password', { email })
+                }
+              })
+              .catch((error) => {
+                Swal.showValidationMessage(`האימייל שרשמת לא נמצא במערכת`)
+              })
+          },
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            //  sendEmail(e).then(
+
+            //if user found in used then send email with link
+            Swal.fire({
+              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
+              title: `האימייל נשלח בהצלחה`,
+              showConfirmButton: false,
+
+              timer: 5000,
+            })
+            //)
+          }
+        })
+
+        // Swal.fire({
+        //   text: 'משחזר ססמא אנא המתן',
+        //   imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
+        //   imageWidth: 400,
+        //   imageHeight: 400,
+        //   imageAlt: 'Custom image',
+        //   timer: 500,
+        //   background: '#68b4ff00',
+        //   backdrop: 'rgba(0, 0, 0,0.8)',
+        //   color: 'rgba(255, 255, 255)',
+        //   showConfirmButton: false,
+        // })
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        console.log('your workingday is safe')
+        Swal.fire({
+          title: 'שחזור באמצעות הנייד',
+          text: `הזן את הנייד אליו ישלח קוד חד פעמי לשחזור הססמא  `,
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'ביטול',
+          confirmButtonText: 'שחזר ססמא',
+          input: 'text',
+          inputAttributes: {
+            autocapitalize: 'off',
+          },
+          preConfirm: async (phone) => {
+            SetPhoneToSendTo(phone)
+            console.log(phone)
+            return await fetch(`/api/search/phones/${phone}`)
+              ////******** */   dispatch(Create15PortForResetPASSWORD(email))
+
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(response.statusText)
+                } else {
+                  console.log(response)
+                  /****here create a auth sms to phone  */
+                  dispatch(Send_RESET_PASS_SMS(phone))
+                }
+              })
+              .catch((error) => {
+                Swal.showValidationMessage(`המספר שרשמת לא נמצא במערכת`)
+              })
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            //  sendEmail(e).then(
+            Swal.fire({
+              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
+              title: `ההודעה  נשלח בהצלחה`,
+              showConfirmButton: false,
+
+              timer: 5000,
+            })
+            //)
+          }
+        })
+      }
+    })
+  }
+
+  //****Email Js Send Config */
+  const sendEmail = () => {
+    console.log('sendind email')
+    emailjs.sendForm(
+      'service_39dykwd',
+      'template_t1982nv',
+      form.current,
+      'user_MeCZIT7caY2EMmsA27uFt'
+    )
+  }
+
+  const closemodel = () => {
+    SetSHOW_ME_VARIFICATION(false)
   }
 
   return (
     <>
+      {SHOW_ME_VARIFICATION && (
+        <Verfy4Digits
+          changeword={(word) => setWord(word)}
+          close={() => closemodel()}
+          send={send}
+        />
+      )}
+
       {LoginWithPhone && (
         <div class='login-box'>
           <FormContainer>
@@ -88,7 +329,15 @@ const LoginScreen = ({ location, history }) => {
                     ></Form.Control>
                   </Form.Group>
                 </div>
-
+                <div>
+                  <btn
+                    className='whitemeforgot'
+                    id='signUp'
+                    onClick={Swal_I_Forgot_My_Pass}
+                  >
+                    שחכתי ססמא
+                  </btn>
+                </div>
                 <Button type='submit' className='loginBTN'>
                   התחבר
                 </Button>
@@ -101,6 +350,14 @@ const LoginScreen = ({ location, history }) => {
                 >
                   התחבר באמצעות האימייל{' '}
                 </Button>
+
+                <btn onClick={GoogleSigninsubmitHandler}>
+                  {' '}
+                  <img
+                    className='googleSIgnUP'
+                    src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
+                  ></img>
+                </btn>
                 <Row className='py-3'>
                   <Col>
                     <div className='whiteme'>
@@ -118,13 +375,6 @@ const LoginScreen = ({ location, history }) => {
                     </div>
                   </Col>
                 </Row>
-                <btn onClick={GoogleSigninsubmitHandler}>
-                  {' '}
-                  <img
-                    className='googleSIgnUP'
-                    src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
-                  ></img>
-                </btn>
               </Form>
             </div>
           </FormContainer>
@@ -162,7 +412,15 @@ const LoginScreen = ({ location, history }) => {
                     ></Form.Control>
                   </Form.Group>
                 </div>
-
+                <div>
+                  <btn
+                    className='whitemeforgot'
+                    id='signUp'
+                    onClick={Swal_I_Forgot_My_Pass}
+                  >
+                    שחכתי ססמא
+                  </btn>
+                </div>
                 <Button type='submit' className='loginBTN'>
                   התחבר
                 </Button>
@@ -204,6 +462,10 @@ const LoginScreen = ({ location, history }) => {
           </FormContainer>
         </div>
       )}
+      <form id='disableView' method='post' ref={form} onSubmit={sendEmail}>
+        <input type='email' name='user_email' value={emailToSendTo} />
+        <input type='text' name='reset_link' value={page} />
+      </form>
     </>
   )
 }

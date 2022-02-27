@@ -9,12 +9,11 @@ import twilio from 'twilio'
 import { BookmeOnGoogleCalender } from './googleauth.js'
 
 dotenv.config()
-const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER
 const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const client = new twilio(accountSid, authToken)
-
 const serviseSID = process.env.TWILIO_MESSAGE_SERVICE_SID
+const TwilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER
 
 const GetSugeiTipulim = asyncHandler(async (req, res) => {
   const tipulim = await Tipul.find({})
@@ -934,7 +933,7 @@ const showAvilableTors = asyncHandler(async (req, res) => {
     owner: req.params.id,
     avilable: true,
     isPending: true,
-  }).populate('owner')
+  })
   console.log(clocks)
   if (clocks) {
     res.json(clocks)
@@ -1303,25 +1302,16 @@ const getMyTorim = asyncHandler(async (req, res) => {
 const SendSMS = asyncHandler(async (req, res) => {
   const clock = await Clock.findById(req.params.id).populate('owner')
   const user = await User.findById(req.params.uid)
-  client.messages
-    .create({
-      body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ברבר מייקר `,
-      messagingServiceSid: serviseSID,
-      to: `+972${user.phone}`,
-    })
-    .then((message) => console.log(message.sid))
-    .done()
-  //whatsapp -waiting for confiriming me ...
-  // .then(
-  //   client.messages
-  //     .create({
-  //       body: 'Your appointment is coming up on July 21 at 3PM',
-  //       from: `whatsapp:${TWILIO_PHONE_NUMBER}`,
-  //       to: 'whatsapp:+972509089090',
-  //     })
-  //     .then((message) => console.log(message.sid))
-  //     .done()
-  // )
+  if (user && clock && serviseSID) {
+    client.messages
+      .create({
+        body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ברבר מייקר `,
+        messagingServiceSid: 'MG9ba56c1fdaa9b554e7c28fa0c27e0c73',
+        to: `+972${user.phone}`,
+      })
+      .then((message) => console.log(message.sid))
+      .done()
+  }
 })
 
 const SendCANCELSMS = asyncHandler(async (req, res) => {

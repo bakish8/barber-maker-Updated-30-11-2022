@@ -22,7 +22,7 @@
   padding: 10px 0;
   font-size: 16px;
   color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border: none;
   border-bottom: 2px solid #fff;
   outline: none;
@@ -81,9 +81,11 @@
 }
 /****היה דיספליי פלקס**/
 .googleSIgnUP {
+  cursor: pointer;
   width: 200px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,4 +93,10 @@
 #user-name {
   margin-left: 30px;
   width: 100%;
+}
+
+.whitemeforgot {
+  color: white;
+  text-align: center;
+  cursor: pointer;
 }
