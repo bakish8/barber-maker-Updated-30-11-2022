@@ -1303,14 +1303,19 @@ const SendSMS = asyncHandler(async (req, res) => {
   const clock = await Clock.findById(req.params.id).populate('owner')
   const user = await User.findById(req.params.uid)
   if (user && clock && serviseSID) {
-    client.messages
-      .create({
-        body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ברבר מייקר `,
-        messagingServiceSid: 'MG9ba56c1fdaa9b554e7c28fa0c27e0c73',
-        to: `+972${user.phone}`,
-      })
-      .then((message) => console.log(message.sid))
-      .done()
+    try {
+      client.messages
+        .create({
+          body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ברבר מייקר `,
+          messagingServiceSid: 'MG9ba56c1fdaa9b554e7c28fa0c27e0c73',
+          to: `+972${user.phone}`,
+        })
+        .then((message) => console.log(message.sid))
+        .done()
+    } catch (e) {
+      console.log(e.code)
+      console.log(e.message)
+    }
   }
 })
 

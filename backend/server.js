@@ -270,7 +270,7 @@ io.on('connection', (SSocket) => {
       console.log(`receiverName:::${receiverName}`)
       console.log(`time:::${time}`)
       console.log(`dayInWeek:::${dayInWeek}`)
-      const receiver = getUser(receiverName)
+      let receiver = getUser(receiverName)
       if (receiver) {
         io.to(receiver.socketId).emit('getNotification', {
           senderName,

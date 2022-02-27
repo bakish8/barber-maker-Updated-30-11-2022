@@ -163,7 +163,11 @@ const Header = ({ socket }) => {
         setNotificationss((prev) => [...prev, data])
       })
     }
-  }, [socket])
+    if (socket && userInfo) {
+      socket.emit('newUser', userInfo.name)
+      console.log(`user passed to socket is : : :${user.name} ! ! !`)
+    }
+  }, [userInfo, socket])
   useEffect(() => {
     if (successEmail) {
       window.location.reload()
