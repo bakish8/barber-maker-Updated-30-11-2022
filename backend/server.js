@@ -31,7 +31,7 @@ import User from './models/userModel.js'
 import cors from 'cors'
 import http from 'http'
 import { Server, Socket } from 'socket.io'
-
+const SSocket = Socket
 // RANDOM FOR SESSION
 let random = Math.floor(Math.random() * 100000000000) + 1
 const app = express()
