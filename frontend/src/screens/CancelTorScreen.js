@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom'
 import CancelTorItem from '../components/CancelTor/CancelTorItem'
 import { listMyTorim } from '../actions/userActions'
 
-const CancelTorScreen = ({ history }) => {
+const CancelTorScreen = ({ history, socket }) => {
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -30,6 +30,15 @@ const CancelTorScreen = ({ history }) => {
     console.log(`time:::${sapar}`)
     console.log(`time:::${time}`)
     console.log(`dayInWeek:::${dayInWeek}`)
+    if (socket) {
+      socket.emit('sendNotification', {
+        senderName: user.name,
+        receiverName: sapar, //*** */
+        type,
+        time,
+        dayInWeek,
+      })
+    }
   }
 
   useEffect(() => {

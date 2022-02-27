@@ -61,7 +61,7 @@ const App = () => {
           />
 
           <Route path='/payment' component={PaymentScreen} />
-          <Route path='/cancel' component={CancelTorScreen} />
+          <Route path='/cancel' component={CancelTorScreen} socket={socket} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login/' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
