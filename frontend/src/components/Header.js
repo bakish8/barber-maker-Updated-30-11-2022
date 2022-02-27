@@ -165,7 +165,7 @@ const Header = ({ socket }) => {
     }
     if (socket && userInfo) {
       socket.emit('newUser', userInfo.name)
-      console.log(`user passed to socket is : : :${user.name} ! ! !`)
+      console.log(`user passed to socket is : : :${userInfo.name} ! ! !`)
     }
   }, [userInfo, socket])
   useEffect(() => {
