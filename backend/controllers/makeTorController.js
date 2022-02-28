@@ -1320,40 +1320,30 @@ const SendSMS = asyncHandler(async (req, res) => {
 })
 
 const Send_WHATSAPP_message = asyncHandler(async (req, res) => {
-  console.log(req)
-  let message = req.body.body
-  let senderID = req.body.From
-  console.log(message)
-  console.log(senderID)
+  console.log(req.body)
+  const { id, uid } = req.body
+  console.log(
+    `________________________________________________________________`
+  )
+  console.log(`id:${id}`)
+  console.log(
+    `________________________________________________________________`
+  )
+  console.log(`id:${uid}`)
 
-  console.log(
-    `sadadadadadadadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadasfgjkhgkjfdhgjlk`
-  )
-  console.log(
-    `sadadadadadadadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadasfgjkhgkjfdhgjlk`
-  )
-  console.log(
-    `sadadadadadadadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadasfgjkhgkjfdhgjlk`
-  )
-  console.log(
-    `sadadadadadadadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadasfgjkhgkjfdhgjlk`
-  )
-
-  console.log(
-    `sadadadadadadadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadasfgjkhgkjfdhgjlk`
-  )
-  console.log(
-    `sadadadadadadadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadasfgjkhgkjfdhgjlk`
-  )
-  console.log(
-    `sadadadadadadadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadasfgjkhgkjfdhgjlk`
-  )
-  console.log(
-    `sadadadadadadadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadasfgjkhgkjfdhgjlk`
-  )
-  console.log(
-    `sadadadadadadadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadasfgjkhgkjfdhgjlk`
-  )
+  try {
+    client.messages
+      .create({
+        body: `שלום  בשעה, מצפים לראותך צוות ברבר מייקר `,
+        to: `whatsapp:+972509089090`,
+        from: `whatsapp:+14155238886`,
+      })
+      .then((message) => console.log(message.sid))
+      .done()
+  } catch (e) {
+    console.log(e.code)
+    console.log(e.message)
+  }
 })
 
 const SendCANCELSMS = asyncHandler(async (req, res) => {
