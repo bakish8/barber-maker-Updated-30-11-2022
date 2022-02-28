@@ -23,7 +23,6 @@ const CancelTorScreen = ({ history }) => {
     setSocket(io())
   }, [])
   console.log(`socket:${socket}`)
-  console.log(socket)
 
   const userLogin = useSelector((state) => state.userLogin)
   const MyTorim = useSelector((state) => state.MyTorim)

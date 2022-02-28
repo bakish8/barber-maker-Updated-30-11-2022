@@ -23,6 +23,9 @@ import {
   AvilableWorkingDayTorsFor3hours,
   CreateCancelNotification,
 } from '../actions/userActions.js'
+
+import { io } from 'socket.io-client'
+
 var date,
   array = []
 date = new Date()
@@ -32,6 +35,7 @@ while (date.getMinutes() % 15 !== 0) {
 
 const SingleWorkDayScreen = ({ history, match }) => {
   const dispatch = useDispatch()
+  const [socket, setSocket] = useState(null)
   const [showOK, setShowOK] = useState(false)
   const [TipilChoosenTime, setTipilChoosenTime] = useState('')
   const openOKHandler = () => setShowOK(true)
@@ -105,7 +109,23 @@ const SingleWorkDayScreen = ({ history, match }) => {
     console.log(`dayInWeek:::${dayInWeek}`)
     console.log(`dayInWeek:::${dayInWeek}`)
     console.log(`dayInWeek:::${dayInWeek}`)
+    if (socket) {
+      socket.emit('sendNotification', {
+        senderName: user.name,
+        receiverName: sapar, //*** */
+        type,
+        time,
+        dayInWeek,
+        date,
+        now,
+      })
+    }
   }
+
+  useEffect(() => {
+    setSocket(io())
+  }, [])
+  console.log(`socket:${socket}`)
 
   useEffect(() => {
     if (userInfo) {
@@ -175,10 +195,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
               timer: 8000,
             }).then(history.push('/'))
           )
-          //.then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
+          .then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
           .then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
           //.then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed
-          //***creating User Create Tor Notification */
           .then(
             dispatch(
               CreateCancelNotification(

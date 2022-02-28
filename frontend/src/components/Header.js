@@ -165,6 +165,34 @@ const Header = ({ socket }) => {
       socket.on('getNotification', (data) => {
         console.log('getNotification SOCKET ! ! !')
         setNotificationss((prev) => [...prev, data])
+        console.log(
+          'adding New Notification N O W!!...checking type of Notification For Swal...'
+        )
+        if (data.type == 1) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            html: `<div id='righttoleeft'>${data.senderName} ביטל את התור שלו בשעה ${data.time} ביום ${data.dayInWeek}</div>`,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            backdrop: `rgba(0,0,0,0.0)`,
+            allowOutsideClick: true,
+            timer: 4500,
+            toast: true,
+          })
+        } else if (data.type == 2) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            timerProgressBar: true,
+            html: `<div id='righttoleeft'> ${data.senderName} קבע תור ליום ${data.dayInWeek} בשעה ${data.time}</div>`,
+            showConfirmButton: false,
+            backdrop: `rgba(0,0,0,0.0)`,
+            allowOutsideClick: true,
+            timer: 4500,
+            toast: true,
+          })
+        }
       })
     }
     if (socket && userInfo) {
