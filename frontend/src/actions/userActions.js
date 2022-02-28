@@ -1,6 +1,9 @@
 import axios from 'axios'
 
 import {
+  SEND_WHATSAPP_TOR_REQUEST,
+  SEND_WHATSAPP_TOR_SUCCESS,
+  SEND_WHATSAPP_TOR_FAIL,
   SEND_RESET_SMS_TOR_REQUEST,
   SEND_RESET_SMS_TOR_SUCCESS,
   SEND_RESET_SMS_TOR_FAIL,
@@ -1770,6 +1773,47 @@ export const SendTorSMS = (id, uid) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: SEND_SMS_TOR_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+export const SendTorWhatsapp = (id, uid) => async (dispatch, getState) => {
+  console.log('whatsappppp!!!')
+  console.log('whatsappppp!!!')
+  console.log('whatsappppp!!!')
+  console.log('whatsappppp!!!')
+  try {
+    dispatch({
+      type: SEND_WHATSAPP_TOR_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+        'Access-Control-Allow-Origin': '*',
+      },
+    }
+
+    const { data } = await axios.post(
+      `/api/messages/whatsapp`,
+      { id, uid },
+      config
+    )
+    dispatch({
+      type: SEND_WHATSAPP_TOR_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: SEND_WHATSAPP_TOR_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

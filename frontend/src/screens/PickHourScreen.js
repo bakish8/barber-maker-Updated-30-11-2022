@@ -22,6 +22,7 @@ import {
   AvilableWorkingDayTorsFor2horsHALFTipul,
   AvilableWorkingDayTorsFor3hours,
   CreatelNotifications,
+  SendTorWhatsapp,
 } from '../actions/userActions.js'
 
 import { io } from 'socket.io-client'
@@ -195,7 +196,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
               timer: 8000,
             }).then(history.push('/'))
           )
-          .then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
+          //.then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
+          .then(dispatch(SendTorWhatsapp(id, uid))) //sendins Whatsapp for client //***returnn after dev */
           .then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
           //.then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed
           .then(
