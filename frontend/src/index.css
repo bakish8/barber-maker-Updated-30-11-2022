@@ -3243,7 +3243,7 @@ h5 {
   font-size: 20px;
   margin: 20px;
 }
-
+/*home page phone correction*/
 @media (max-width: 786px) {
   .TILT {
     transform: scale(0.4);
