@@ -1322,20 +1322,18 @@ const SendSMS = asyncHandler(async (req, res) => {
 const Send_WHATSAPP_message = asyncHandler(async (req, res) => {
   console.log(req.body)
   const { id, uid } = req.body
-  console.log(
-    `________________________________________________________________`
-  )
+  console.log(`______________________________________________`)
   console.log(`id:${id}`)
-  console.log(
-    `________________________________________________________________`
-  )
+  console.log(`______________________________________________`)
   console.log(`id:${uid}`)
+  const clock = await Clock.findById(req.params.id).populate('owner')
+  const user = await User.findById(req.params.uid)
 
   try {
     client.messages
       .create({
-        body: `שלום  בשעה, מצפים לראותך צוות ברבר מייקר `,
-        to: `whatsapp:+972509089090`,
+        body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ברבר מייקר `,
+        to: `whatsapp:+972${user.phone}`,
         from: `whatsapp:+14155238886`,
       })
       .then((message) => console.log(message.sid))
