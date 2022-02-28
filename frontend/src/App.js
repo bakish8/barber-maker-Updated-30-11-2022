@@ -37,7 +37,12 @@ import { io } from 'socket.io-client'
 const App = () => {
   const userObject = useContext(myContext)
   console.log(userObject)
-  const socket = io()
+
+  const [socket, setSocket] = useState(null)
+
+  useEffect(() => {
+    setSocket(io())
+  }, [])
 
   return (
     <Router>
@@ -61,7 +66,7 @@ const App = () => {
           />
 
           <Route path='/payment' component={PaymentScreen} />
-          <Route path='/cancel' component={CancelTorScreen} socket={socket} />
+          <Route path='/cancel' component={CancelTorScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login/' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />

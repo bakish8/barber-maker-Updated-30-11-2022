@@ -14,9 +14,16 @@ import Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
 import CancelTorItem from '../components/CancelTor/CancelTorItem'
 import { listMyTorim } from '../actions/userActions'
+import { io } from 'socket.io-client'
 
-const CancelTorScreen = ({ history, socket }) => {
+const CancelTorScreen = ({ history }) => {
   const dispatch = useDispatch()
+  const [socket, setSocket] = useState(null)
+  useEffect(() => {
+    setSocket(io())
+  }, [])
+  console.log(`socket:${socket}`)
+  console.log(socket)
 
   const userLogin = useSelector((state) => state.userLogin)
   const MyTorim = useSelector((state) => state.MyTorim)
@@ -24,16 +31,17 @@ const CancelTorScreen = ({ history, socket }) => {
   const CancelTor = useSelector((state) => state.CancelTor)
   const { cancel } = CancelTor
   const { userInfo } = userLogin
-  const [user, setUser] = useState('')
 
-  const handleNotification = (type, sapar, time, dayInWeek, date) => {
+  //Socket Notification Function
+  const handleNotification = (type, sapar, time, dayInWeek) => {
     console.log(`time:::${sapar}`)
     console.log(`time:::${time}`)
     console.log(`dayInWeek:::${dayInWeek}`)
     if (socket) {
+      console.log(`sockeeetttt: ${socket}`)
       socket.emit('sendNotification', {
-        senderName: user.name,
-        receiverName: sapar, //*** */
+        senderName: userInfo.name,
+        receiverName: sapar,
         type,
         time,
         dayInWeek,

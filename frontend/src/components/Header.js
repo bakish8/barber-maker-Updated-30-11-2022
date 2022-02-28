@@ -157,9 +157,13 @@ const Header = ({ socket }) => {
   /******************************************************** */
   /******************************************************** */
   /******************************************************** */
+
   useEffect(() => {
-    if (socket) {
+    if (socket && socket != null) {
+      console.log(' SOCKET ! ! !')
+
       socket.on('getNotification', (data) => {
+        console.log('getNotification SOCKET ! ! !')
         setNotificationss((prev) => [...prev, data])
       })
     }
