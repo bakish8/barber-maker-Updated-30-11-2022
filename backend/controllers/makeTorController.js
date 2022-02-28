@@ -1302,6 +1302,14 @@ const getMyTorim = asyncHandler(async (req, res) => {
 const SendSMS = asyncHandler(async (req, res) => {
   const clock = await Clock.findById(req.params.id).populate('owner')
   const user = await User.findById(req.params.uid)
+  console.log(`req vody`)
+  console.log(`req vody`)
+  console.log(`req vody`)
+  console.log(`req vody`)
+  console.log(`req vody`)
+  console.log(`req vody`)
+  console.log(`req vody`)
+  console.log(req.body)
   if (user && clock && serviseSID) {
     try {
       client.messages
@@ -1312,6 +1320,16 @@ const SendSMS = asyncHandler(async (req, res) => {
         })
         .then((message) => console.log(message.sid))
         .done()
+        .then(
+          client.messages
+            .create({
+              body: 'Your appointment is coming up on July 21 at 3PM',
+              from: 'whatsapp:+972509089090',
+              to: 'whatsapp:+97254444156',
+            })
+            .then((message) => console.log(message.sid))
+            .done()
+        )
     } catch (e) {
       console.log(e.code)
       console.log(e.message)
