@@ -3243,3 +3243,17 @@ h5 {
   font-size: 20px;
   margin: 20px;
 }
+
+@media (max-width: 786px) {
+  .TILT {
+    transform: scale(0.4);
+    max-width: 70%;
+    margin: 0 auto;
+  }
+  #SmartCounter {
+    transform: scale(0.8);
+  }
+  #ClientEffect {
+    transform: scale(0.9);
+  }
+}
