@@ -1320,7 +1320,7 @@ const SendSMS = asyncHandler(async (req, res) => {
 })
 
 const Send_WHATSAPP_message = asyncHandler(async (req, res) => {
-  console.log(req.body)
+  console.log(req)
   let message = req.body.body
   let senderID = req.body.From
   console.log(message)
