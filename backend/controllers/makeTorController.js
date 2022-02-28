@@ -1326,8 +1326,8 @@ const Send_WHATSAPP_message = asyncHandler(async (req, res) => {
   console.log(`id:${id}`)
   console.log(`______________________________________________`)
   console.log(`id:${uid}`)
-  const clock = await Clock.findById(req.params.id).populate('owner')
-  const user = await User.findById(req.params.uid)
+  const clock = await Clock.findById(id).populate('owner')
+  const user = await User.findById(uid)
   if (clock && user) {
     console.log(`______________________________________________`)
     console.log(`user:${uid}`)
