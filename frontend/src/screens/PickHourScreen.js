@@ -21,7 +21,7 @@ import {
   AvilableWorkingDayTorsFor2horsTipul,
   AvilableWorkingDayTorsFor2horsHALFTipul,
   AvilableWorkingDayTorsFor3hours,
-  CreateCancelNotification,
+  CreatelNotifications,
 } from '../actions/userActions.js'
 
 import { io } from 'socket.io-client'
@@ -200,7 +200,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           //.then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed
           .then(
             dispatch(
-              CreateCancelNotification(
+              CreatelNotifications(
                 id,
                 date,
                 time,

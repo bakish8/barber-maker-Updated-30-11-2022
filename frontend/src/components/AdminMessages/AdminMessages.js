@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import React, { useState, useEffect, useRef } from 'react'
 import './AdminMessages.css'
 import { Modal } from '@material-ui/core'
-import { MakeAllMessagesBeWatch } from '../../actions/userActions'
+import { Watch_All_Notifications } from '../../actions/userActions'
 import moment from 'moment'
 import 'moment/locale/he'
 moment.locale('he')
@@ -21,7 +21,7 @@ const AdminMessages = (props) => {
   }
   const DisplayMessagesHandler2 = () => {
     setDisplayMessages(false)
-    dispatch(MakeAllMessagesBeWatch(userInfo._id))
+    dispatch(Watch_All_Notifications(userInfo._id))
   }
   const TimeConfigraotr = (time) => {
     const calculateMonth = time.substring(0, 4)
@@ -113,6 +113,21 @@ const AdminMessages = (props) => {
           <span id='GREENMeBitel'> {message.dayinweek}</span>
           <span>{` בשעה`}</span>
           <span id='GREENMeBitel'> {message.time}</span>
+          <div id='BefoteThatandThat'>
+            {' '}
+            {moment(message.UTimeStamp).fromNow()}
+          </div>
+        </div>
+      )
+    } else if (message.type == 'register') {
+      return (
+        <div
+          className={
+            !message.watch ? 'singlemessage106' : 'singlemessage106Unwatch'
+          }
+        >
+          {message.user.name}
+          <span id='BlueMeBitel'>{' נרשם למערכת בהצלחה '}</span>
           <div id='BefoteThatandThat'>
             {' '}
             {moment(message.UTimeStamp).fromNow()}

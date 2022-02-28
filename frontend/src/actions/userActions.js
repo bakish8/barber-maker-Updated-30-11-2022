@@ -2659,7 +2659,7 @@ export const RESET_MY_PASSWORD_ACTION =
     }
   }
 
-export const CreateCancelNotification =
+export const CreatelNotifications =
   (id, date, time, dayInWeek, adminid, userid, sapar_id, type, now) =>
   async (dispatch) => {
     console.log(type)
@@ -2692,11 +2692,9 @@ export const CreateCancelNotification =
       })
     }
   }
-export const GetCancelNotification = (admin) => async (dispatch, getState) => {
+export const GetNotifications = (admin) => async (dispatch, getState) => {
   try {
-    console.log('dispatching!!!!')
-    console.log('dispatching!!!!')
-    console.log('dispatching!!!!')
+    console.log('dispatching GetNotifications!!!!')
     dispatch({
       type: CANCEL_NOTI_LIST_REQUEST,
     })
@@ -2731,39 +2729,40 @@ export const GetCancelNotification = (admin) => async (dispatch, getState) => {
   }
 }
 
-export const MakeAllMessagesBeWatch = (admin) => async (dispatch, getState) => {
-  try {
-    console.log('dispatching!!!!')
-    dispatch({
-      type: MAKE_ALL_BE_WATCH_REQUEST,
-    })
-    const {
-      userLogin: { userInfo },
-    } = getState()
+export const Watch_All_Notifications =
+  (admin) => async (dispatch, getState) => {
+    try {
+      console.log('dispatching!!!!')
+      dispatch({
+        type: MAKE_ALL_BE_WATCH_REQUEST,
+      })
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.put(`/api/notifications/${admin}`, config)
+
+      dispatch({
+        type: MAKE_ALL_BE_WATCH_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+      }
+      dispatch({
+        type: MAKE_ALL_BE_WATCH_FAIL,
+        payload: message,
+      })
     }
-
-    const { data } = await axios.put(`/api/notifications/${admin}`, config)
-
-    dispatch({
-      type: MAKE_ALL_BE_WATCH_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message
-    if (message === 'Not authorized, token failed') {
-      dispatch(logout())
-    }
-    dispatch({
-      type: MAKE_ALL_BE_WATCH_FAIL,
-      payload: message,
-    })
   }
-}

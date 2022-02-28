@@ -22,7 +22,9 @@ const CancelNotificationMaker = asyncHandler(async (req, res) => {
   if (clock && user && admin) {
     if (type == 1) {
       //cancel type
-      console.log('creating ... .... ... ... ... cancel type notification !!!')
+      console.log(
+        'creating ... .... ... ... ... cancel type 1 notification !!!'
+      )
       const cancelNotification = await CancelNotification.create({
         content: `${user.name} ביטל את התור שלו/ה בשעה ${time} ביום ${dayInWeek} בתאריך ${date}`,
         clock,
@@ -37,7 +39,9 @@ const CancelNotificationMaker = asyncHandler(async (req, res) => {
       })
       res.status(201).json(cancelNotification)
     } else if (type == 2) {
-      console.log('creating ... .... ... ... ... cancel type notification !!!')
+      console.log(
+        'creating ... .... ... ... ... make tor  type 2 notification !!!'
+      )
       const makeNotification = await CancelNotification.create({
         content: `${user.name} קבע תור בשעה ${time} ביום ${dayInWeek} בתאריך ${date}`,
         clock,
@@ -52,6 +56,23 @@ const CancelNotificationMaker = asyncHandler(async (req, res) => {
       })
       res.status(201).json(makeNotification)
     }
+  } else if (user && admin && type == 3) {
+    console.log(
+      'creating ... .... ... ... ... register new user  type 3 notification !!!'
+    )
+    const makeNotification = await CancelNotification.create({
+      content: null,
+      clock,
+      date,
+      dayinweek: null,
+      time,
+      watch: false,
+      admin,
+      user,
+      type: 'register',
+      UTimeStamp: now /*/*/,
+    })
+    res.status(201).json(makeNotification)
   }
 })
 

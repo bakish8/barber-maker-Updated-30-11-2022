@@ -3,7 +3,7 @@ import moment from 'moment'
 
 import {
   CancelMyTor,
-  CreateCancelNotification,
+  CreatelNotifications,
   SendCancelTorSMS,
 } from '../actions/userActions.js' //***למחוק לשנות לקוניפירם מחיקה */
 import React, { useState, useEffect } from 'react'
@@ -112,7 +112,7 @@ const CancelTorScreen = ({ history }) => {
             // .then(dispatch(SendCancelTorSMS(id, uid)))
             .then(
               dispatch(
-                CreateCancelNotification(
+                CreatelNotifications(
                   id,
                   date,
                   time,

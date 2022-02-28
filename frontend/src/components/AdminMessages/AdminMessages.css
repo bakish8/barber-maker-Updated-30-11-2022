@@ -127,6 +127,16 @@
   border-radius: 21px;
   background-color: rgba(44, 153, 23, 0.103);
 }
+.singlemessage106Unwatch {
+  top: 30%;
+  z-index: 2222325;
+  font-size: 15px;
+  font-weight: 350;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 21px;
+  background-color: rgba(23, 127, 153, 0.103);
+}
 .singlemessage101 {
   cursor: pointer;
   top: 30%;
@@ -147,10 +157,26 @@
   background-color: rgba(44, 153, 23, 0.103);
   border-radius: 21px;
 }
+.singlemessage106 {
+  cursor: pointer;
+  top: 30%;
+  z-index: 2222325;
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 10px;
+  background-color: rgba(23, 127, 153, 0.103);
+  border-radius: 21px;
+}
 .singlemessage101Unwatch:hover,
 .singlemessage101:hover {
   background-color: rgba(255, 0, 0, 0.055);
 }
+
+.singlemessage106Unwatch:hover,
+.singlemessage106:hover {
+  background-color: rgba(19, 144, 202, 0.24);
+}
+
 .singlemessage102Unwatch:hover,
 .singlemessage102:hover {
   background-color: rgba(44, 153, 23, 0.153);
@@ -183,6 +209,8 @@
   text-align: left;
 }
 @media (max-width: 786px) {
+  .singlemessage106,
+  .singlemessage106Unwatch,
   .singlemessage102Unwatch,
   .singlemessage102,
   .singlemessage101Unwatch,
@@ -203,5 +231,9 @@
 }
 #GREENMeBitel {
   color: rgb(6, 116, 11);
+  font-weight: 600;
+}
+#BlueMeBitel {
+  color: rgb(6, 35, 116);
   font-weight: 600;
 }

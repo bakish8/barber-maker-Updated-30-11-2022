@@ -4,8 +4,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import {
   logout,
-  GetCancelNotification,
-  MakeAllMessagesBeWatch,
+  GetNotifications,
+  Watch_All_Notifications,
 } from '../actions/userActions'
 import Swal from 'sweetalert2'
 import 'moment/locale/he'
@@ -130,7 +130,6 @@ const Header = ({ socket }) => {
       )
     } else if (type === 2) {
       action = 'קבע'
-
       return (
         <>
           <div className='notificationGREENS'>
@@ -145,6 +144,27 @@ const Header = ({ socket }) => {
           <div className='notification177UnderLine'></div>
         </>
       )
+    } else if (type === 3) {
+      console.log(type)
+      console.log(type)
+      console.log(type)
+      console.log(type)
+      console.log(type)
+      console.log(type)
+      console.log(type)
+      console.log(type)
+      console.log(type)
+      console.log(type)
+      return (
+        <>
+          <div className='notificationBLUE'>
+            {`${senderName} `}
+            <span id='BlueMeBitel'>נרשם בהצלחה למערכת</span>
+            <div id='TimeOfNotifications107454'> {moment(now).fromNow()}</div>
+          </div>
+          <div className='notification177UnderLine'></div>
+        </>
+      )
     }
   }
   const handleRead = () => {
@@ -152,7 +172,7 @@ const Header = ({ socket }) => {
     setNotificationss([])
     setOpen(false)
     setMakeBLueONEdesapier(true)
-    dispatch(MakeAllMessagesBeWatch(userInfo._id))
+    dispatch(Watch_All_Notifications(userInfo._id))
   }
   /******************************************************** */
   /******************************************************** */
@@ -192,6 +212,18 @@ const Header = ({ socket }) => {
             timer: 4500,
             toast: true,
           })
+        } else if (data.type == 3) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'info',
+            timerProgressBar: true,
+            html: `<div id='righttoleeft'> ${data.senderName} נרשם למערכת בהצלחה</div>`,
+            showConfirmButton: false,
+            backdrop: `rgba(0,0,0,0.0)`,
+            allowOutsideClick: true,
+            timer: 4500,
+            toast: true,
+          })
         }
       })
     }
@@ -211,10 +243,8 @@ const Header = ({ socket }) => {
       console.log(notificationss)
     }
     if (user_connected_success && userInfo && userInfo.isAdmin) {
-      console.log(
-        `user connected succssessfully! dispatch GetCancelNotification`
-      )
-      dispatch(GetCancelNotification(userInfo._id))
+      console.log(`user connected succssessfully! dispatch GetNotifications`)
+      dispatch(GetNotifications(userInfo._id))
     }
   }, [notificationss, user_connected_success, userInfo])
   /********************************************** */
@@ -223,7 +253,7 @@ const Header = ({ socket }) => {
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       //**need to correct */
-      dispatch(GetCancelNotification(userInfo._id))
+      dispatch(GetNotifications(userInfo._id))
     }
     window.addEventListener('click', function (e) {
       if (one && two && trhee) {
@@ -241,7 +271,7 @@ const Header = ({ socket }) => {
         console.log('')
       }
       if (success_cancel_noti) {
-        console.log('dispatching GetCancelNotification') /***** */
+        console.log('dispatching GetNotifications') /***** */
       }
     })
   }, [one, two, trhee, success_cancel_noti, make_all_watch])
