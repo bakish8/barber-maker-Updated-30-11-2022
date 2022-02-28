@@ -933,7 +933,7 @@ const showAvilableTors = asyncHandler(async (req, res) => {
     owner: req.params.id,
     avilable: true,
     isPending: true,
-  })
+  }).populate('owner')
   console.log(clocks)
   if (clocks) {
     res.json(clocks)

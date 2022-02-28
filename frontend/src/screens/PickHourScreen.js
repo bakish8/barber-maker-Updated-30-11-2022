@@ -319,7 +319,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock.time,
                                 clock.date,
                                 clock.sapar,
-                                clock.owner.dayInWeek
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}
@@ -355,7 +356,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock.time,
                                 clock.date,
                                 clock.sapar,
-                                clock.owner.dayInWeek
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}
@@ -392,7 +394,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock.time,
                                 clock.date,
                                 clock.sapar,
-                                clock.owner.dayInWeek
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}
@@ -429,7 +432,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock.time,
                                 clock.date,
                                 clock.sapar,
-                                clock.owner.dayInWeek
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}
@@ -466,7 +470,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
                                 clock.time,
                                 clock.date,
                                 clock.sapar,
-                                clock.owner.dayInWeek
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
                               )
                             }
                             //onClick={() => openOKHandler(clock.time)}
