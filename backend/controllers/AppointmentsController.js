@@ -17,12 +17,21 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
   const year = clock.owner.Dateyear
   const month = clock.owner.Datemonth - 1
   const day = clock.owner.Dateday
-
+  console.log(`hour:${hour}`)
+  console.log(`minute:${minute}`)
+  console.log(`hour:${hour}`)
+  console.log(`minute:${minute}`)
+  console.log(`hour:${hour}`)
+  console.log(`minute:${minute}`)
+  console.log(`hour:${hour}`)
+  console.log(`minute:${minute}`)
   const m3 = moment({
     year: `${year}`,
     month: `${month}`,
     day: `${day}`,
     hour: `${hour}`,
+    //hour: parseInt(hour) + 1,
+
     minute: `${minute}`,
     second: 0,
     millisecond: 0,
@@ -38,7 +47,8 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
     name: name,
     phoneNumber: phoneNumber,
     notification: notification,
-    time: m3.tz('Asia/Jerusalem'),
+    //time: m3.tz('Asia/Jerusalem'),
+    time: m3,
     sapar: clocksmssapar,
     smsTime: clocksmstime,
     smsDate: clocksmsDate,
