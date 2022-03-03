@@ -99,19 +99,9 @@ passport.use(
         console.log(`__________________________________`) /**renmove** */
 
         var getAADProfile = async () => {
-          var options = {
-            url: baseUrl,
-            headers: {
-              Authorization: 'Bearer ' + accessToken,
-            },
-          }
-          console.log('Requesting to ' + options.url)
-          console.log('Requesting to ' + options.url)
-          console.log('Requesting to ' + options.url)
-
-          const { data } = await axios.get(baseUrl, options.headers)
+          console.log('Requesting to ' + baseUrl)
+          const { data } = await axios.get(baseUrl, accessToken)
           console.log(`data:${data}`)
-
           const profile2 = JSON.stringify(data)
           console.log(`profile2:${profile2}`)
         }
