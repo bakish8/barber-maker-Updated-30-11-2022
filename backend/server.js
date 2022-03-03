@@ -105,7 +105,7 @@ passport.use(
             },
           }
           console.log('Requesting to ' + options.url)
-          request(options, (err, response, body) => {
+          req(options, (err, response, body) => {
             if (err) {
               console.log('Error when calling ' + options.url)
               console.log(err)
