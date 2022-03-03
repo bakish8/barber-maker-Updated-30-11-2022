@@ -1,7 +1,8 @@
 //*****הגדרוות */
 import { google } from 'googleapis'
 const { OAuth2 } = google.auth
-export const BookmeOnGoogleCalender = (m1, userEmail) => {
+export const BookmeOnGoogleCalender = (m1, userEmail, RefreshToken) => {
+  console.log(`RefreshToken is :${RefreshToken}`)
   const SCOPES = [
     'https://www.googleapis.com/auth/calendar.readonly',
   ] /********* */
@@ -10,8 +11,7 @@ export const BookmeOnGoogleCalender = (m1, userEmail) => {
     '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'
   )
   OAuth2Client.setCredentials({
-    refresh_token:
-      '1//04gWcMbm5KBFVCgYIARAAGAQSNwF-L9IrV5GV1g0NDL85gGsAPhNUcGCQKyPJBrwCDMVfSyXGjyuOME81hdMaiBvlZZi4MoL0h58',
+    refresh_token: RefreshToken,
   })
   const calender = google.calendar({ version: 'v3', auth: OAuth2Client })
   const eventStartTime = new Date(m1)
