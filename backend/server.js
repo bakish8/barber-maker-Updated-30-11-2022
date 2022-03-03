@@ -88,8 +88,8 @@ passport.use(
       console.log(`gogole user is :${googleuser}`)
       if (!googleuser) {
         console.log('no google user found! create')
-        console.log(`profile:${profile}`)
-        console.log(`profile :${{ profile }}`)
+        const profile22 = JSON.parse(profile)
+        console.log(`profile:${profile22}`)
         console.log(`__________________________________`)
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
