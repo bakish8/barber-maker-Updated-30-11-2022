@@ -85,12 +85,13 @@ passport.use(
     async function (accessToken, refreshToken, profile, cb) {
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
-      console.log(`gogole user is :${googleuser}`)
+      console.log(`google accses token is : ${accessToken}`) //***renmove */
+      console.log(`gogole user is :${googleuser}`) /**renmove** */
       if (!googleuser) {
         console.log('no google user found! create')
-        const profile22 = JSON.stringify(profile)
-        console.log(`profile:${profile22}`)
-        console.log(`__________________________________`)
+        const profile22 = JSON.stringify(profile) /**renmove** */
+        console.log(`profile:${profile22}`) /**renmove** */
+        console.log(`__________________________________`) /**renmove** */
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
           email: profile.emails[0].value,
