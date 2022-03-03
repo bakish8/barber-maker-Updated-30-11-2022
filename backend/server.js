@@ -89,6 +89,7 @@ passport.use(
       if (!googleuser) {
         console.log('no google user found! create')
         console.log(`profile:${profile}`)
+        console.log(`profile phoneNumbers:${profile.phoneNumbers[0].value}`)
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
           email: profile.emails[0].value,

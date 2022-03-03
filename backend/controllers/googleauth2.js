@@ -1,4 +1,5 @@
 //*****new google make appointment try */
+//steps to be done...get google user from reducer to pick hour screen ig google user send the action to BookMEonGoogleCalenderControllerAction and then to google auth 2 with this file
 import { google } from 'googleapis'
 
 export const BookmeOnGoogleCalender2 = (m1, OAuth2Client) => {
