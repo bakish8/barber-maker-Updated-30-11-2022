@@ -98,7 +98,7 @@ passport.use(
         console.log(`__________________________________`) /**renmove** */
         console.log(`__________________________________`) /**renmove** */
 
-        var getAADProfile = (callback) => {
+        var getAADProfile = (cb) => {
           var options = {
             url: baseUrl,
             headers: {
@@ -112,12 +112,14 @@ passport.use(
               console.log(err)
               callback(err, null)
             } else {
-              const profile = JSON.parse(body)
-              console.log(profile)
-              callback(null, profile)
+              //const profile2 = JSON.parse(body)
+              const profile2 = JSON.stringify(body)
+              console.log(profile2)
+              callback(null, profile2)
             }
           })
         }
+        getAADProfile(cb)
         console.log(`__________________________________`) /**renmove** */
         console.log(`__________________________________`) /**renmove** */
         console.log(`__________________________________`) /**renmove** */
