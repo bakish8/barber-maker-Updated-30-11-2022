@@ -1,4 +1,6 @@
 //IMPORTS
+import axios from 'axios'
+
 import jwt from 'jsonwebtoken'
 import colors from 'colors'
 import path from 'path'
@@ -97,7 +99,7 @@ passport.use(
         console.log(`__________________________________`) /**renmove** */
         console.log(`__________________________________`) /**renmove** */
 
-        var getAADProfile = (cb) => {
+        var getAADProfile = async (cb) => {
           var options = {
             url: baseUrl,
             headers: {
@@ -106,23 +108,17 @@ passport.use(
           }
           console.log('Requesting to ' + options.url)
 
-          const GetGooglePhone = (req, res) => {
-            req(options, (err, response, body) => {
-              if (err) {
-                console.log('Error when calling ' + options.url)
-                console.log(err)
-                cb(err, null)
-              } else {
-                //const profile2 = JSON.parse(body)
-                const profile2 = JSON.stringify(body)
-                console.log(profile2)
-                cb(null, profile2)
-              }
-            })
+          const { data } = await axios.get(baseUrl, options.headers)
+          if (data) {
+            console.log(`data:${data}`)
+            const profile2 = JSON.stringify(data)
+            console.log(`profile2:${profile2}`)
+            cb(null, profile2)
+          } else {
+            console.log('Error when calling ' + options.url)
           }
-          GetGooglePhone()
         }
-        getAADProfile(cb)
+        getAADProfile(cb) ///***maybe without cb??? */
         console.log(`__________________________________`) /**renmove** */
         console.log(`__________________________________`) /**renmove** */
         console.log(`__________________________________`) /**renmove** */
@@ -167,7 +163,7 @@ app.get(
   })
 )
 app.get(
-  '/api/google/callback', // development
+  '/api/google/callback', // development + production
   //'https://www.barber-maker.com/api/google/callback', // production
   passport.authenticate('google', {
     failureRedirect: '/login',
@@ -244,6 +240,7 @@ app.get('/getgoogleuser', (req, res) => {
   res.status(207)
   res.send(req.user)
 })
+
 app.post('/logout', (req, res) => {
   res.status(307)
   req.logOut()
