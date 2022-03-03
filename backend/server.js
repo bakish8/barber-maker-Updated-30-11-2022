@@ -98,7 +98,7 @@ passport.use(
           var options = {
             url: baseUrl,
             headers: {
-              Authorization: 'Bearer ' + google_access_token,
+              Authorization: 'Bearer ' + accessToken,
             },
           }
           console.log('Requesting to ' + options.url)
