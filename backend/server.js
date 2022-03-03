@@ -90,8 +90,7 @@ passport.use(
         console.log('no google user found! create')
         /******************************************************************* */
         console.log(`__________________________________`) /**renmove** */
-        var baseUrl =
-          'https://people.googleapis.com/v1/people/me?personFields=phoneNumbers'
+        var baseUrl = `https://people.googleapis.com/v1/people/${profile.id}?personFields=phoneNumbers` /***NEW */
         let google_access_token = accessToken
         console.log('baseUrl:' + baseUrl)
         console.log(`google accses token is : ${accessToken}`) //***renmove */
