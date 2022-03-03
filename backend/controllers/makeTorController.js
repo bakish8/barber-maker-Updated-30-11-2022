@@ -6,7 +6,7 @@ import Appointment from '../models/Appointment.js'
 import Tipul from '../models/Tipul.js'
 import dotenv from 'dotenv'
 import twilio from 'twilio'
-import { BookmeOnGoogleCalender } from './googleauth.js'
+import { BookmeOnGoogleCalender } from './googleauth.js' //need to be restore on allmakingtor options
 
 dotenv.config()
 const accountSid = process.env.TWILIO_ACCOUNT_SID
@@ -166,7 +166,7 @@ const confirmTor = asyncHandler(async (req, res) => {
         isPaid: updatedClock.isPaid,
         timestamps: updatedClock.timestamps,
       })
-      BookmeOnGoogleCalender()
+      //////BookmeOnGoogleCalender()
     }
   } else if (tipul.time === 60) {
     const minutes = clock.time.split(':')[1]
@@ -221,7 +221,7 @@ const confirmTor = asyncHandler(async (req, res) => {
             isPaid: updatedClock.isPaid,
             timestamps: updatedClock.timestamps,
           })
-          BookmeOnGoogleCalender()
+          ////BookmeOnGoogleCalender()
         } else {
           res.status(403)
           throw new Error(
@@ -281,7 +281,7 @@ const confirmTor = asyncHandler(async (req, res) => {
             isPaid: updatedClock.isPaid,
             timestamps: updatedClock.timestamps,
           })
-          BookmeOnGoogleCalender()
+          ////BookmeOnGoogleCalender()
         } else {
           res.status(403)
           throw new Error(
@@ -348,7 +348,7 @@ const confirmTor = asyncHandler(async (req, res) => {
             isPaid: updatedClock.isPaid,
             timestamps: updatedClock.timestamps,
           })
-          BookmeOnGoogleCalender()
+          ////BookmeOnGoogleCalender()
         } else {
           res.status(403)
           throw new Error(
@@ -402,7 +402,7 @@ const confirmTor = asyncHandler(async (req, res) => {
             isPaid: updatedClock.isPaid,
             timestamps: updatedClock.timestamps,
           })
-          BookmeOnGoogleCalender()
+          ////BookmeOnGoogleCalender()
         } else {
           res.status(403)
           throw new Error(
@@ -467,7 +467,7 @@ const confirmTor = asyncHandler(async (req, res) => {
             isPaid: updatedClock.isPaid,
             timestamps: updatedClock.timestamps,
           })
-          BookmeOnGoogleCalender()
+          ////BookmeOnGoogleCalender()
         } else {
           res.status(403)
           throw new Error(
@@ -530,7 +530,7 @@ const confirmTor = asyncHandler(async (req, res) => {
             isPaid: updatedClock.isPaid,
             timestamps: updatedClock.timestamps,
           })
-          BookmeOnGoogleCalender()
+          ////BookmeOnGoogleCalender()
         } else {
           res.status(403)
           throw new Error(
@@ -604,7 +604,7 @@ const confirmTor = asyncHandler(async (req, res) => {
             isPaid: updatedClock.isPaid,
             timestamps: updatedClock.timestamps,
           })
-          BookmeOnGoogleCalender()
+          ////BookmeOnGoogleCalender()
         } else {
           res.status(403)
           throw new Error(
@@ -671,7 +671,7 @@ const confirmTor = asyncHandler(async (req, res) => {
             isPaid: updatedClock.isPaid,
             timestamps: updatedClock.timestamps,
           })
-          BookmeOnGoogleCalender()
+          ////BookmeOnGoogleCalender()
         } else {
           res.status(403)
           throw new Error(
@@ -755,7 +755,7 @@ const confirmTor = asyncHandler(async (req, res) => {
             isPaid: updatedClock.isPaid,
             timestamps: updatedClock.timestamps,
           })
-          BookmeOnGoogleCalender()
+          ////BookmeOnGoogleCalender()
         } else {
           res.status(403)
           throw new Error(
@@ -830,7 +830,7 @@ const confirmTor = asyncHandler(async (req, res) => {
             isPaid: updatedClock.isPaid,
             timestamps: updatedClock.timestamps,
           })
-          BookmeOnGoogleCalender()
+          ////BookmeOnGoogleCalender()
         } else {
           res.status(403)
           throw new Error(

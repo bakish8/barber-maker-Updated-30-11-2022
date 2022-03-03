@@ -57,6 +57,8 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
   appointment.save()
 })
 
+//need to be fixed to if is google user is logged in ==> use scope and send google user to next google caldner api function
+//if not a google user open a new Aouth passport screen and get accses to calender
 const BookMEonGoogleCalenderControllerAction = asyncHandler(
   async (req, res) => {
     const clock = await Clock.findById(req.params.id).populate(

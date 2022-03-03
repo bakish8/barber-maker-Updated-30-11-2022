@@ -196,10 +196,10 @@ const SingleWorkDayScreen = ({ history, match }) => {
               timer: 8000,
             }).then(history.push('/'))
           )
-          //.then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
-          .then(dispatch(SendTorWhatsapp(id, uid))) //sendins Whatsapp for client old way wuth Twilio Hooks//***returnn after dev */
+          .then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
+          .then(dispatch(SendTorWhatsapp(id, uid))) //sendins Whatsapp for client bY Confiemed whatsapp sender  and Templete*/
           .then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
-          //.then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed
+          .then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed --TRY NOW***************************************
           .then(
             dispatch(
               CreatelNotifications(

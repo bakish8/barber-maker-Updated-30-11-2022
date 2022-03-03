@@ -84,11 +84,11 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, cb) {
       const googleuser = await User.findOne({ googleId: profile.id })
-      console.log(`gogole user is :${profile.name}`)
+      console.log(`gogole user name is :${profile.name}`)
       console.log(`gogole user is :${googleuser}`)
       if (!googleuser) {
         console.log('no google user found! create')
-
+        console.log(`profile:${profile}`)
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
           email: profile.emails[0].value,
@@ -116,6 +116,7 @@ app.get(
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/user.phonenumbers.read',
+      'https://www.googleapis.com/auth/calendar.readonly', ///***********new */
     ],
   })
 )
