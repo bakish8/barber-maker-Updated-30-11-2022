@@ -106,9 +106,12 @@ passport.use(
             },
           }
           console.log('Requesting to ' + options.url)
+          console.log('Requesting to ' + options.url)
+          console.log('Requesting to ' + options.url)
 
           const { data } = await axios.get(baseUrl, options.headers)
           console.log(`data:${data}`)
+
           const profile2 = JSON.stringify(data)
           console.log(`profile2:${profile2}`)
         }
