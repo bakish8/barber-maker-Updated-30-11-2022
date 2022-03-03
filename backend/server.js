@@ -94,20 +94,42 @@ passport.use(
         console.log(`__________________________________`) /**renmove** */
         var baseUrl = `https://people.googleapis.com/v1/people/${profile.id}?personFields=phoneNumbers` /***NEW */
         console.log('baseUrl:' + baseUrl)
-        console.log(`google accses token is : ${accessToken}`) //***renmove */
-        console.log(`__________________________________`) /**renmove** */
-        console.log(`__________________________________`) /**renmove** */
+        var getAADProfile = (callback) => {
+          var options = {
+            url: baseUrl,
+            headers: {
+              Authorization: 'Bearer ' + google_access_token,
+            },
+          }
+          console.log('Requesting to ' + options.url)
 
-        var getAADProfile = async () => {
-          console.log('Requesting to ' + baseUrl)
-          const { data } = await axios.get(baseUrl, accessToken)
-          console.log(`data:${data}`)
-          const profile2 = JSON.stringify(data)
-          console.log(`profile2:${profile2}`)
+          request(options, (err, response, body) => {
+            if (err) {
+              console.log('Error when calling ' + options.url)
+              console.log(err)
+              callback(err, null)
+            } else {
+              const profile = JSON.parse(body)
+              console.log(profile)
+              callback(null, profile)
+            }
+          })
         }
-        getAADProfile()
-        console.log(`__________________________________`) /**renmove** */
-        console.log(`__________________________________`) /**renmove** */
+
+        getAADProfile((err, profile) => {
+          if (err) {
+            callback(err)
+          } else {
+            user.user_metadata = user.user_metadata || {}
+            user.user_metadata.phoneNumber = profile.phoneNumbers[0].value
+            const Phone_Number = user.user_metadata.phoneNumber
+            console.log(Phone_Number)
+            console.log(Phone_Number)
+            console.log(Phone_Number)
+            console.log(Phone_Number)
+          }
+        })
+
         /******************************************************************* */
         console.log(
           `_______________REGILAR USER NO PHONE INCLUDED___________________`
