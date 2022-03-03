@@ -85,10 +85,48 @@ passport.use(
     async function (accessToken, refreshToken, profile, cb) {
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
-      console.log(`google accses token is : ${accessToken}`) //***renmove */
       console.log(`gogole user is :${googleuser}`) /**renmove** */
       if (!googleuser) {
         console.log('no google user found! create')
+        /******************************************************************* */
+        console.log(`__________________________________`) /**renmove** */
+        var baseUrl =
+          'https://people.googleapis.com/v1/people/me?personFields=phoneNumbers'
+        let google_access_token = accessToken
+        console.log('baseUrl:' + baseUrl)
+        console.log(`google accses token is : ${accessToken}`) //***renmove */
+        console.log(`__________________________________`) /**renmove** */
+        console.log(`__________________________________`) /**renmove** */
+
+        var getAADProfile = (callback) => {
+          var options = {
+            url: baseUrl,
+            headers: {
+              Authorization: 'Bearer ' + google_access_token,
+            },
+          }
+          console.log('Requesting to ' + options.url)
+          request(options, (err, response, body) => {
+            if (err) {
+              console.log('Error when calling ' + options.url)
+              console.log(err)
+              callback(err, null)
+            } else {
+              const profile = JSON.parse(body)
+              console.log(profile)
+              callback(null, profile)
+            }
+          })
+        }
+        console.log(`__________________________________`) /**renmove** */
+        console.log(`__________________________________`) /**renmove** */
+        console.log(`__________________________________`) /**renmove** */
+        console.log(`__________________________________`) /**renmove** */
+        console.log(`__________________________________`) /**renmove** */
+
+        console.log(`__________________________________`) /**renmove** */
+        /******************************************************************* */
+
         const profile22 = JSON.stringify(profile) /**renmove** */
         console.log(`profile:${profile22}`) /**renmove** */
         console.log(`__________________________________`) /**renmove** */
