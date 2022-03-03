@@ -61,6 +61,10 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
 //if not a google user open a new Aouth passport screen and get accses to calender
 const BookMEonGoogleCalenderControllerAction = asyncHandler(
   async (req, res) => {
+    const GoogleInfo = req.body
+    console.log(`GoogleInfo is : ___ ${GoogleInfo}`)
+    console.log(`GoogleInfo is : ___ ${JSON.stringify(GoogleInfo)}`)
+
     const clock = await Clock.findById(req.params.id).populate(
       'owner',
       'Dateday Datemonth Dateyear dayInWeek'
