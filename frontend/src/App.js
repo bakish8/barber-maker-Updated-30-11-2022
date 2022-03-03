@@ -34,6 +34,7 @@ import Admin from './screens/Admin'
 import PickTipulScreen from './screens/PickTipulScreen'
 import { myContext } from './actions/Context'
 import { io } from 'socket.io-client'
+import TermsandConditaions from './screens/TermsAndConditions'
 
 const App = () => {
   const userObject = useContext(myContext)
@@ -116,6 +117,11 @@ const App = () => {
           />
           <Route path='/admin/reports' component={ReportsScreen} exact />
           <Route path='/privecypolicy' component={PrivecyPolicy} exact />
+          <Route
+            path='/termsandconditaions'
+            component={TermsandConditaions}
+            exact
+          />
           <Route path='/admin' component={Admin} exact />
 
           <Route path='/' component={HomeScreen} exact />
