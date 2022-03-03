@@ -93,41 +93,32 @@ passport.use(
         /******************************************************************* */
         console.log(`__________________________________`) /**renmove** */
         var baseUrl = `https://people.googleapis.com/v1/people/${profile.id}?personFields=phoneNumbers` /***NEW */
-        let google_access_token = accessToken
         console.log('baseUrl:' + baseUrl)
         console.log(`google accses token is : ${accessToken}`) //***renmove */
         console.log(`__________________________________`) /**renmove** */
         console.log(`__________________________________`) /**renmove** */
 
-        var getAADProfile = async (cb) => {
+        var getAADProfile = async () => {
           var options = {
             url: baseUrl,
             headers: {
-              Authorization: 'Bearer ' + google_access_token,
+              Authorization: 'Bearer ' + accessToken,
             },
           }
           console.log('Requesting to ' + options.url)
 
           const { data } = await axios.get(baseUrl, options.headers)
-          if (data) {
-            console.log(`data:${data}`)
-            const profile2 = JSON.stringify(data)
-            console.log(`profile2:${profile2}`)
-            cb(null, profile2)
-          } else {
-            console.log('Error when calling ' + options.url)
-          }
+          console.log(`data:${data}`)
+          const profile2 = JSON.stringify(data)
+          console.log(`profile2:${profile2}`)
         }
-        getAADProfile(cb) ///***maybe without cb??? */
+        getAADProfile()
         console.log(`__________________________________`) /**renmove** */
-        console.log(`__________________________________`) /**renmove** */
-        console.log(`__________________________________`) /**renmove** */
-        console.log(`__________________________________`) /**renmove** */
-        console.log(`__________________________________`) /**renmove** */
-
         console.log(`__________________________________`) /**renmove** */
         /******************************************************************* */
-
+        console.log(
+          `_______________REGILAR USER NO PHONE INCLUDED___________________`
+        ) /**renmove** */
         const profile22 = JSON.stringify(profile) /**renmove** */
         console.log(`profile:${profile22}`) /**renmove** */
         console.log(`__________________________________`) /**renmove** */
@@ -136,8 +127,8 @@ passport.use(
           email: profile.emails[0].value,
           googleId: profile.id,
           image: profile.photos[0].value,
-          phone: null,
-          password: '123123',
+          phone: null /**need to fet phone soon as posibile */,
+          password: '123123' /*****need to be phone number if signin */,
           isAdmin: false,
         })
         await newUser.save()
