@@ -105,18 +105,22 @@ passport.use(
             },
           }
           console.log('Requesting to ' + options.url)
-          req(options, (err, response, body) => {
-            if (err) {
-              console.log('Error when calling ' + options.url)
-              console.log(err)
-              callback(err, null)
-            } else {
-              //const profile2 = JSON.parse(body)
-              const profile2 = JSON.stringify(body)
-              console.log(profile2)
-              callback(null, profile2)
-            }
-          })
+
+          const GetGooglePhone = (req, res) => {
+            req(options, (err, response, body) => {
+              if (err) {
+                console.log('Error when calling ' + options.url)
+                console.log(err)
+                cb(err, null)
+              } else {
+                //const profile2 = JSON.parse(body)
+                const profile2 = JSON.stringify(body)
+                console.log(profile2)
+                cb(null, profile2)
+              }
+            })
+          }
+          GetGooglePhone()
         }
         getAADProfile(cb)
         console.log(`__________________________________`) /**renmove** */

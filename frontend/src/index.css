@@ -3257,3 +3257,22 @@ h5 {
     transform: scale(0.9);
   }
 }
+.PrivecyPolicy {
+  color: white;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.322);
+}
+.PrivtePolicyH1 {
+  margin: 25px;
+  text-align: center;
+  color: white;
+}
+.PrivtePolicyH2 {
+  color: white;
+  margin: 35px;
+  text-align: center;
+}
+.PrivtePolicyP {
+  color: white;
+  margin: 0 15px;
+}

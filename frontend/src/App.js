@@ -29,6 +29,7 @@ import ReportsScreen from './screens/ReportsScreen'
 import SettingsScreen from './screens/SettingsScreen'
 import NewTipulScreen from './screens/NewTipulScreen'
 import SingleReportScreen from './screens/SingleReportScreen'
+import PrivecyPolicy from './screens/PrivecyPolicy'
 import Admin from './screens/Admin'
 import PickTipulScreen from './screens/PickTipulScreen'
 import { myContext } from './actions/Context'
@@ -114,6 +115,7 @@ const App = () => {
             exact
           />
           <Route path='/admin/reports' component={ReportsScreen} exact />
+          <Route path='/privecypolicy' component={PrivecyPolicy} exact />
           <Route path='/admin' component={Admin} exact />
 
           <Route path='/' component={HomeScreen} exact />
