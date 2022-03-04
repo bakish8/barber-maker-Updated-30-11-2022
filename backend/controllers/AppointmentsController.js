@@ -63,7 +63,7 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
   async (req, res) => {
     let GoogleInfo = JSON.stringify(req.body)
     console.log(`GoogleInfo is : ___ ${GoogleInfo}`)
-    const RefreshToken = GoogleInfo.token
+    const RefreshToken = req.body.token
     console.log(`RefreshToken is : ___ ${RefreshToken}`)
 
     const clock = await Clock.findById(req.params.id).populate(
