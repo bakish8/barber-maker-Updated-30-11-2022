@@ -1930,7 +1930,7 @@ export const BookMEonGoogleCalenderAction =
 
       const { data } = await axios.post(
         `/api/appointments/bookmeongooglecalender/${id}/${uid}`,
-        { GoogleToken },
+        GoogleToken,
         config
       )
       dispatch({
