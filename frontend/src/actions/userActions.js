@@ -1911,8 +1911,7 @@ export const SendNotificationSMS = (id, uid) => async (dispatch, getState) => {
 }
 
 export const BookMEonGoogleCalenderAction =
-  (id, uid, { userGoogleInfo }) =>
-  async (dispatch, getState) => {
+    (id, uid) => async (dispatch, getState) => {
     try {
       dispatch({
         type: BookMEonGoogleCalender_REQUEST,
@@ -1930,7 +1929,6 @@ export const BookMEonGoogleCalenderAction =
 
       const { data } = await axios.post(
         `/api/appointments/bookmeongooglecalender/${id}/${uid}`,
-        { userGoogleInfo },
         config
       )
       dispatch({

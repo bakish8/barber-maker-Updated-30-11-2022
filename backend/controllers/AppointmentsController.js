@@ -61,13 +61,9 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
 //if not a google user open a new Aouth passport screen and get accses to calender
 const BookMEonGoogleCalenderControllerAction = asyncHandler(
   async (req, res) => {
-    let test = req.body
-    let GoogleInfo = JSON.stringify(req.body)
-    let GoogleInfo2 = JSON.parse(req.body)
-    console.log(`GoogleInfo is : ___ ${GoogleInfo}`)
-    console.log(`GoogleInfo2 is : ___ ${GoogleInfo2}`)
-    const RefreshToken = GoogleInfo2.token
-    console.log(`RefreshToken is : ___ ${RefreshToken}`)
+    console.log(`Book ME on Google Calender Controller Action`)
+    console.log(`Book ME on Google Calender Controller Action`)
+    console.log(`Book ME on Google Calender Controller Action`)
 
     const clock = await Clock.findById(req.params.id).populate(
       'owner',
@@ -90,9 +86,11 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
       second: 0,
       millisecond: 0,
     }).tz('Asia/Jerusalem')
+    console.log(`m1::::::::::::::::::::::::::::::::::::::::::::::${m1}`)
+    console.log(`m1::::::::::::::::::::::::::::::::::::::::::::::${user}`)
 
     //BookmeOnGoogleCalender(m1, user.email)
-    BookmeOnGoogleCalender(m1, user.email, RefreshToken) //*
+    // BookmeOnGoogleCalender(m1, user.email, RefreshToken) //*
   }
 )
 

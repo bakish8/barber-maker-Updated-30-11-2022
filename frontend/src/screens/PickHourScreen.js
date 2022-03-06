@@ -49,9 +49,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const [user, setUser] = useState('')
 
   /******************************************** */
-  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
-  const { userGoogleInfo, Gsuccess } = userGoogleLogin
-  console.log(userGoogleInfo)
+  // const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
+  // const { userGoogleInfo, Gsuccess } = userGoogleLogin
+  // console.log(userGoogleInfo)
   /******************************************** */
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -205,13 +205,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
           //.then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
           .then(dispatch(SendTorWhatsapp(id, uid))) //sendins Whatsapp for client bY Confiemed whatsapp sender  and Templete*/
           .then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
-          .then(console.log(userGoogleInfo))
-          .then(console.log(userGoogleInfo.token))
-          .then(
-            dispatch(
-              BookMEonGoogleCalenderAction(id, uid, userGoogleInfo.token)
-            )
-          ) //need To Be Fixed --TRY NOW***************************************
+          .then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed --TRY NOW***************************************
           .then(
             dispatch(
               CreatelNotifications(
