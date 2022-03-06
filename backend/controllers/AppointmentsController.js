@@ -61,8 +61,8 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
 //if not a google user open a new Aouth passport screen and get accses to calender
 const BookMEonGoogleCalenderControllerAction = asyncHandler(
   async (req, res) => {
-    const RefreshToken = req.body.GoogleToken
-    console.log(RefreshToken)
+    const OAuth2Client = req.body
+    console.log(OAuth2Client)
     console.log(`Book ME on Google Calender Controller Action`)
     console.log(`Book ME on Google Calender Controller Action`)
     console.log(`Book ME on Google Calender Controller Action`)
@@ -92,7 +92,7 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
     console.log(`m1::::::::::::::::::::::::::::::::::::::::::::::${user}`)
 
     //BookmeOnGoogleCalender(m1, user.email)
-    BookmeOnGoogleCalender(m1, user.email, RefreshToken) //*
+    BookmeOnGoogleCalender(m1, user.email, OAuth2Client) //*
   }
 )
 
