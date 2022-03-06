@@ -18,9 +18,16 @@ export const BookmeOnGoogleCalender = (m1, userEmail) => {
 
   const calender = google.calendar({ version: 'v3', auth: OAuth2Client })
   const eventStartTime = new Date(m1)
+  console.log(`eventStartTime:${eventStartTime}`)
   eventStartTime.setDate(eventStartTime.getDay()) //***זה ישים לנו תזכורת למחר בגוגל קלנדר */
+  console.log(`eventStartTime AFTER:${eventStartTime}`)
+
   const eventEndTime = new Date(m1)
+  console.log(`eventEndTime:${eventEndTime}`)
+
   eventEndTime.setMinutes(eventEndTime.getMinutes() + 30) //***זה יוסיף חצי שעה */
+  console.log(`eventEndTime AFTER:${eventEndTime}`)
+
   const event = {
     summary: 'תור למספרה',
     location: 'עלי 4, אשקלון',
@@ -36,6 +43,7 @@ export const BookmeOnGoogleCalender = (m1, userEmail) => {
     colorId: 9,
     attendees: [{ email: 'omribakish8@gmail.com' }, { email: userEmail }],
   }
+  console.log(`event:${event}`)
   //******מוודא שלא ישלח לנו ארורר במידה ויש כבר מישהו בשעה הזאת לכל משתמש יש את היומן שלו יכולים להיות 2 מספתפרים לאותה שעה לשני ספרים שונים */
   calender.freebusy.query(
     {

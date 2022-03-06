@@ -72,7 +72,11 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
     const year = clock.owner.Dateyear
     const month = clock.owner.Datemonth - 1
     const day = clock.owner.Dateday
-
+    console.log(`hour:${hour}`)
+    console.log(`minute:${minute}`)
+    console.log(`year:${year}`)
+    console.log(`month:${month}`)
+    console.log(`day:${day}`)
     const m1 = moment({
       year: `${year}`,
       month: `${month}`,
@@ -82,6 +86,7 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
       second: 0,
       millisecond: 0,
     }).tz('Asia/Jerusalem')
+    console.log(`m1:${m1}`)
 
     BookmeOnGoogleCalender(m1, user.email)
   }
