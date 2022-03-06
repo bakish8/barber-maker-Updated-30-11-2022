@@ -1912,7 +1912,6 @@ export const SendNotificationSMS = (id, uid) => async (dispatch, getState) => {
 
 export const BookMEonGoogleCalenderAction =
   (id, uid) => async (dispatch, getState) => {
-    console.log(`ACTION DISPATCH GOOGLE TOKEN IS :${GoogleToken}`)
     try {
       dispatch({
         type: BookMEonGoogleCalender_REQUEST,
