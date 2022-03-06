@@ -61,6 +61,8 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
 //if not a google user open a new Aouth passport screen and get accses to calender
 const BookMEonGoogleCalenderControllerAction = asyncHandler(
   async (req, res) => {
+    const GoogleToken = req.body
+    console.log(GoogleToken)
     console.log(`Book ME on Google Calender Controller Action`)
     console.log(`Book ME on Google Calender Controller Action`)
     console.log(`Book ME on Google Calender Controller Action`)

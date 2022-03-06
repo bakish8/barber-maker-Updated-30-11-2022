@@ -38,6 +38,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const dispatch = useDispatch()
   const [socket, setSocket] = useState(null)
   const [showOK, setShowOK] = useState(false)
+  const [There_is_A_google_User, setThere_is_A_google_User] = useState(false)
+  const [GoogleToken, setGoogleToken] = useState('')
   const [TipilChoosenTime, setTipilChoosenTime] = useState('')
   const openOKHandler = () => setShowOK(true)
   const closeOKHandler = () => setShowOK(false)
@@ -155,6 +157,8 @@ const SingleWorkDayScreen = ({ history, match }) => {
     if (userGoogleInfo) {
       console.log(`userGoogleInfo::::::::::::::::${userGoogleInfo}`)
       console.log(userGoogleInfo.token)
+      setThere_is_A_google_User(true)
+      setGoogleToken(userGoogleInfo.token)
     }
   }, [userGoogleInfo])
 
@@ -211,7 +215,10 @@ const SingleWorkDayScreen = ({ history, match }) => {
           //.then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
           .then(dispatch(SendTorWhatsapp(id, uid))) //sendins Whatsapp for client bY Confiemed whatsapp sender  and Templete*/
           .then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
-          .then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed --TRY NOW***************************************
+          .then(
+            There_is_A_google_User &&
+              dispatch(BookMEonGoogleCalenderAction(id, uid, GoogleToken))
+          ) //need To Be Fixed --TRY NOW***************************************
           .then(
             dispatch(
               CreatelNotifications(
