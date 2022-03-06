@@ -1911,8 +1911,7 @@ export const SendNotificationSMS = (id, uid) => async (dispatch, getState) => {
 }
 
 export const BookMEonGoogleCalenderAction =
-  (id, uid, { GoogleToken }) =>
-  async (dispatch, getState) => {
+  (id, uid) => async (dispatch, getState) => {
     console.log(`ACTION DISPATCH GOOGLE TOKEN IS :${GoogleToken}`)
     try {
       dispatch({
@@ -1931,7 +1930,7 @@ export const BookMEonGoogleCalenderAction =
 
       const { data } = await axios.post(
         `/api/appointments/bookmeongooglecalender/${id}/${uid}`,
-        { GoogleToken },
+
         config
       )
       dispatch({
