@@ -10,14 +10,14 @@ export const BookmeOnGoogleCalender = (m1, userEmail, OAuth2Client) => {
   const SCOPES = [
     'https://www.googleapis.com/auth/calendar.readonly',
   ] /********* */
-  const OAuth2Client = new OAuth2(
+  const OAuth2Client1 = new OAuth2(
     '452001077432-h4lhfoemnipvlbokdtamftv3p7m0rr9f.apps.googleusercontent.com',
     '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'
   )
-  OAuth2Client.setCredentials({
+  OAuth2Client1.setCredentials({
     refresh_token: OAuth2Client.token,
   })
-  const calender = google.calendar({ version: 'v3', auth: OAuth2Client })
+  const calender = google.calendar({ version: 'v3', auth: OAuth2Client1 })
   const eventStartTime = new Date(m1)
   eventStartTime.setDate(eventStartTime.getDay()) //***זה ישים לנו תזכורת למחר בגוגל קלנדר */
   const eventEndTime = new Date(m1)
