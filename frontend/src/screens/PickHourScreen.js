@@ -158,7 +158,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
       console.log(`userGoogleInfo::::::::::::::::${userGoogleInfo}`)
       console.log(userGoogleInfo.token)
       setThere_is_A_google_User(true)
-      setGoogleToken(userGoogleInfo.token)
+      setGoogleToken(userGoogleInfo)
     }
   }, [userGoogleInfo])
 
