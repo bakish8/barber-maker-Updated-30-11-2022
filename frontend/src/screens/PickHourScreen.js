@@ -49,9 +49,9 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const [user, setUser] = useState('')
 
   /******************************************** */
-  // const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
-  // const { userGoogleInfo, Gsuccess } = userGoogleLogin
-  // console.log(userGoogleInfo)
+  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
+  const { userGoogleInfo, Gsuccess } = userGoogleLogin
+  console.log(userGoogleInfo)
   /******************************************** */
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -151,6 +151,12 @@ const SingleWorkDayScreen = ({ history, match }) => {
       history.push('/login')
     }
   }, [dispatch, history, userInfo, confirmsuccess, confirm])
+  useEffect(() => {
+    if (userGoogleInfo) {
+      console.log(`userGoogleInfo::::::::::::::::${userGoogleInfo}`)
+      console.log(userGoogleInfo.token)
+    }
+  }, [userGoogleInfo])
 
   useEffect(() => {
     if (tipulimDeets && tipulimDeets.time === 60) {
