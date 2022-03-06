@@ -1,7 +1,7 @@
 //*****הגדרוות */
 import { google } from 'googleapis'
 const { OAuth2 } = google.auth
-export const GBookmeOnGoogleCalender = (m1, userEmail, OAuth2Client) => {
+export const BookmeOnGoogleCalender = (m1, userEmail, OAuth2Client) => {
   console.log(`OAuth2Client is :${OAuth2Client}`)
   console.log(`OAuth2Client is :${OAuth2Client}`)
   console.log(`OAuth2Client is :${OAuth2Client}`)
