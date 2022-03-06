@@ -6,7 +6,6 @@ import Appointment from '../models/Appointment.js'
 import Tipul from '../models/Tipul.js'
 import dotenv from 'dotenv'
 import twilio from 'twilio'
-import { BookmeOnGoogleCalender } from './googleauth.js' //need to be restore on allmakingtor options
 
 dotenv.config()
 const accountSid = process.env.TWILIO_ACCOUNT_SID
