@@ -1,7 +1,4 @@
 //IMPORTS
-import axios from 'axios'
-
-import jwt from 'jsonwebtoken'
 import colors from 'colors'
 import path from 'path'
 import express from 'express'
@@ -31,12 +28,9 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import { Server, Socket } from 'socket.io'
 import http from 'http'
 const SSocket = Socket
-
 import User from './models/userModel.js'
-//const JWT_SECRET = process.env.JWT_SECRET
 import cors from 'cors'
-// RANDOM FOR SESSION
-let random = Math.floor(Math.random() * 100000000000) + 1
+let random = Math.floor(Math.random() * 100000000000) + 1 // RANDOM FOR SESSION
 const app = express()
 app.use(express.json())
 app.use(
@@ -44,7 +38,6 @@ app.use(
     origin: '*',
   })
 )
-
 // ███████╗███████╗███████╗███████╗██╗ ██████╗ ███╗   ██╗
 // ██╔════╝██╔════╝██╔════╝██╔════╝██║██╔═══██╗████╗  ██║
 // ███████╗█████╗  ███████╗███████╗██║██║   ██║██╔██╗ ██║
@@ -64,7 +57,6 @@ app.use(
 // ██║   ██║██║   ██║██║   ██║██║   ██║██║     ██╔══╝      ██╔═══╝ ██╔══██║╚════██║╚════██║██╔═══╝ ██║   ██║██╔══██╗   ██║
 // ╚██████╔╝╚██████╔╝╚██████╔╝╚██████╔╝███████╗███████╗    ██║     ██║  ██║███████║███████║██║     ╚██████╔╝██║  ██║   ██║
 //  ╚═════╝  ╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝╚══════╝    ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝
-
 app.use(passport.initialize())
 app.use(passport.session())
 passport.serializeUser((user, done) => {
@@ -88,22 +80,19 @@ passport.use(
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
       if (!googleuser) {
-        console.log(
-          `_________no google user found! create...________`
-        ) /**renmove** */
+        console.log(`__no google user found! create..._`)
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
           email: profile.emails[0].value,
           googleId: profile.id,
           image: profile.photos[0].value,
-          phone: null /**need to fet phone soon as posibile */,
-          password: '123123' /*****need to be phone number if signin */,
+          phone: null,
+          password: '123123' /*****need to be selected by user */,
           isAdmin: false,
         })
         await newUser.save()
         console.log('New User Created By Google_!_!_!')
         const googlenewuser = await User.findOne({ googleId: profile.id })
-        console.log(`googlenewuser:::::${googlenewuser}`)
         cb(null, googlenewuser)
       } else {
         cb(null, googleuser)
@@ -117,8 +106,7 @@ app.get(
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
-      'https://www.googleapis.com/auth/user.phonenumbers.read',
-      'https://www.googleapis.com/auth/calendar.readonly', ///***********new */
+      'https://www.googleapis.com/auth/calendar.readonly',
     ],
   })
 )
@@ -132,14 +120,12 @@ app.get(
     res.redirect('/') //production //
   }
 )
-
 // ██╗███╗   ██╗████████╗███████╗██████╗ ██╗   ██╗ █████╗ ██╗
 // ██║████╗  ██║╚══██╔══╝██╔════╝██╔══██╗██║   ██║██╔══██╗██║
 // ██║██╔██╗ ██║   ██║   █████╗  ██████╔╝██║   ██║███████║██║
 // ██║██║╚██╗██║   ██║   ██╔══╝  ██╔══██╗╚██╗ ██╔╝██╔══██║██║
 // ██║██║ ╚████║   ██║   ███████╗██║  ██║ ╚████╔╝ ██║  ██║███████╗
 // ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝
-
 setInterval(function () {
   const currentTime = new Date()
   console.log(
@@ -167,16 +153,6 @@ if (process.env.NODE_ENV === 'development') {
 // ██╔══██║██╔═══╝ ██║
 // ██║  ██║██║     ██║
 // ╚═╝  ╚═╝╚═╝     ╚═╝ 's
-//ForgotMyPASSword Routes
-// app.use('/api/forgot-password', (req, res, next) => {
-//   const { email } = req.body
-//   console.log(JWT_SECRET)
-//   console.log(email)
-//   console.log(JWT_SECRET)
-//   console.log(email)
-//   const NewSecret = JWT_SECRET + email
-// })
-
 app.use('/api/forgot-password', ForgotpasswordRoutes)
 app.use('/api/notifications', notificationsRoutes)
 app.use('/api/products', productRoutes)
@@ -208,11 +184,9 @@ app.post('/logout', (req, res) => {
 //Upload
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
-
-//Production
 if (process.env.NODE_ENV === 'production') {
+  //Production
   app.use(express.static(path.join(__dirname, '/frontend/build')))
-
   app.get('*', (req, res) =>
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
   )
@@ -221,14 +195,13 @@ if (process.env.NODE_ENV === 'production') {
     res.send('API is running....')
   })
 }
-
 app.use(notFound)
 app.use(errorHandler)
 
+//IO +SERVER
 const server = http.createServer(app)
 //Run When Client Connenct
 const io = new Server(server)
-
 let onlineUsers = []
 //add new connected user to the array onlineUsers
 const addNewUser = (username, socketId) => {
@@ -254,7 +227,6 @@ const getUser = (username) => {
     console.log('user for Socket Not Found ')
   }
 }
-
 io.on('connection', (SSocket) => {
   console.log('someone is connected')
   SSocket.on('newUser', (username) => {
@@ -274,10 +246,9 @@ io.on('connection', (SSocket) => {
       } else if (type == 3) {
         console.log(`type is 3 !!!`) //new user signUp
       }
-      ////
-      console.log(`receiverName:::${receiverName}`)
-      console.log(`time:::${time}`)
-      console.log(`dayInWeek:::${dayInWeek}`)
+      console.log(`receiverName:${receiverName}`)
+      console.log(`time:${time}`)
+      console.log(`dayInWeek:${dayInWeek}`)
       let receiver = getUser(receiverName)
       if (receiver) {
         io.to(receiver.socketId).emit('getNotification', {
@@ -290,14 +261,12 @@ io.on('connection', (SSocket) => {
     }
   )
 })
-
 // ██████╗  ██████╗ ██████╗ ████████╗
 // ██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝
 // ██████╔╝██║   ██║██████╔╝   ██║
 // ██╔═══╝ ██║   ██║██╔══██╗   ██║
 // ██║     ╚██████╔╝██║  ██║   ██║
 // ╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝
-
 const PORT = process.env.PORT || 5000
 server.listen(
   PORT,
