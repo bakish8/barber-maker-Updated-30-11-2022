@@ -88,10 +88,9 @@ passport.use(
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
       if (!googleuser) {
-        console.log('no google user found! create')
-        const profile22 = JSON.stringify(profile) /**renmove** */
-        console.log(`profile:${profile22}`) /**renmove** */
-        console.log(`__________________________________`) /**renmove** */
+        console.log(
+          `_________no google user found! create...________`
+        ) /**renmove** */
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
           email: profile.emails[0].value,
@@ -104,7 +103,25 @@ passport.use(
         await newUser.save()
         console.log('New User Created By Google_!_!_!')
         const googlenewuser = await User.findOne({ googleId: profile.id })
-        console.log(googlenewuser)
+        console.log(`googlenewuser:::::${googlenewuser}`)
+
+        var options = {
+          url: baseUrl,
+          headers: {
+            Authorization:
+              'Bearer ' +
+              'ya29.A0ARrdaM9XzoqWVp05DoyHubZIMiiJgWr7K_mAipjqjydJsQRgYLF-58cCzdpfcEaL77F0gCe2iXPrNI9ZKNq3AudaljzxPFhkMNYc05rFFtOv82wx0J9-Xc_SaNfP3OXuaOIIAC7o6XNs7EIAAe1Cn0sf-xzn',
+          },
+        }
+        const { data } = await axios.get(
+          `https://people.googleapis.com/v1/people/${userInfo.googleId}?personFields=phoneNumbers`,
+          options
+        )
+
+        console.log(`______________________________`)
+        console.log(data)
+        console.log(`______________________________`)
+
         cb(null, googlenewuser)
       } else {
         cb(null, googleuser)
