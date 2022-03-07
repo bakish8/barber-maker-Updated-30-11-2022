@@ -13,7 +13,15 @@ main {
   height: inherit;
   width: 100%;
 }
-
+#Copyrights {
+  margin: 0 auto;
+  transition: ease-in 0.1s;
+}
+#Copyrights:hover {
+  color: rgb(0, 225, 255);
+  transform: scale(1.1);
+  text-decoration: none;
+}
 .ImageOne {
   z-index: -500;
 }
