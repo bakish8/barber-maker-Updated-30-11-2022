@@ -65,7 +65,7 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
       'owner',
       'Dateday Datemonth Dateyear dayInWeek'
     )
-    const user = await User.findById(req.params.uid)
+    let user = await User.findById(req.params.uid)
     console.log(clock.time)
     const hour = clock.time.substring(0, 2)
     const minute = clock.time.slice(-2)
@@ -77,7 +77,7 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
     console.log(`year:${year}`)
     console.log(`month:${month}`)
     console.log(`day:${day}`)
-    const m1 = moment({
+    let m1 = moment({
       year: `${year}`,
       month: `${month}`,
       day: `${day}`,

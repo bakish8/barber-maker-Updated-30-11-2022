@@ -84,11 +84,59 @@ passport.use(
       callbackURL: 'https://www.barber-maker.com/api/google/callback',
       //callbackURL: '/api/google/callback', development
     },
-    async function (accessToken, refreshToken, profile, cb) {
+    async function (profile, cb) {
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
       if (!googleuser) {
         console.log('no google user found! create')
+
+        /******************************************************************* */
+        console.log(`__________________________________`) /**renmove** */
+        var baseUrl = `https://people.googleapis.com/v1/people/${profile.id}?personFields=phoneNumbers` /***NEW */
+        console.log('baseUrl:' + baseUrl)
+        var getAADProfile = (callback) => {
+          var options = {
+            url: baseUrl,
+            headers: {
+              Authorization:
+                'Bearer ' +
+                'ya29.A0ARrdaM-QNqxjyMJEo72CSZWaxwuC5Ib57u2KJ-PGeN6QBdPdb3S44uT5_TUQd97rlwESFkErOZYQe1iYkPCxjnFRgVgtSJiLsMCMHiLYnqIrq3raCoNuxOQ8-5zmb2EiRRCivuOLB76zn_PpdAEa0fy2oq2z',
+            },
+          }
+          console.log('Requesting to ' + options.url)
+
+          request(options, (err, response, body) => {
+            if (err) {
+              console.log('Error when calling ' + options.url)
+              console.log(err)
+              callback(err, null)
+            } else {
+              const profile = JSON.parse(body)
+              console.log(profile)
+              callback(null, profile)
+            }
+          })
+        }
+
+        getAADProfile((err, profile) => {
+          if (err) {
+            callback(err)
+          } else {
+            profile.user_metadata = profile.user_metadata || {}
+            profile.user_metadata.phoneNumber = profile.phoneNumbers[0].value
+            const Phone_Number = profile.user_metadata.phoneNumber
+            console.log(Phone_Number)
+            console.log(Phone_Number)
+            console.log(Phone_Number)
+            console.log(Phone_Number)
+          }
+        })
+
+        /******************************************************************* */
+        console.log(
+          `_______________REGILAR USER NO PHONE INCLUDED___________________`
+        ) /**renmove** */
+
         const profile22 = JSON.stringify(profile) /**renmove** */
         console.log(`profile:${profile22}`) /**renmove** */
         console.log(`__________________________________`) /**renmove** */
