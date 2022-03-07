@@ -88,36 +88,8 @@ passport.use(
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
       if (!googleuser) {
-        console.log('no google user found! create')
-
-        /******************************************************************* */
-        // console.log(`__________________________________`) /**renmove** */
-        // var baseUrl = `https://people.googleapis.com/v1/people/${profile.id}?personFields=phoneNumbers` /***NEW */
-        // console.log('baseUrl:' + baseUrl)
-        // var getAADProfile = () => {
-        //   var options = {
-        //     url: baseUrl,
-        //     headers: {
-        //       Authorization:
-        //         'Bearer ' +
-        //         'ya29.A0ARrdaM-QNqxjyMJEo72CSZWaxwuC5Ib57u2KJ-PGeN6QBdPdb3S44uT5_TUQd97rlwESFkErOZYQe1iYkPCxjnFRgVgtSJiLsMCMHiLYnqIrq3raCoNuxOQ8-5zmb2EiRRCivuOLB76zn_PpdAEa0fy2oq2z',
-        //     },
-        //   }
-        //   console.log('Requesting to ' + options.url)
-        //   request(options, (err, response, body) => {
-        //     if (err) {
-        //       console.log('Error when calling ' + options.url)
-        //       console.log(err)
-        //     } else {
-        //       const profile = JSON.parse(body)
-        //       console.log(profile)
-        //     }
-        //   })
-        // }
-        // getAADProfile()
-        /******************************************************************* */
         console.log(
-          `____________CREATING GOOGLE USER____________________`
+          `___________________no google user found! create one now..._______________`
         ) /**renmove** */
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
@@ -134,6 +106,9 @@ passport.use(
         console.log(googlenewuser)
         cb(null, googlenewuser)
       } else {
+        console.log(
+          ` _______________google user found!..._______________`
+        ) /**renmove** */
         cb(null, googleuser)
       }
     }
@@ -223,6 +198,8 @@ app.get('/api/config/paypal', (req, res) =>
 )
 app.get('/getgoogleuser', (req, res) => {
   console.log(req.user)
+  console.log(req.user)
+
   res.status(207)
   res.send(req.user)
 })
