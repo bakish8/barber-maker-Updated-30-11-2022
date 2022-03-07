@@ -104,24 +104,6 @@ passport.use(
         console.log('New User Created By Google_!_!_!')
         const googlenewuser = await User.findOne({ googleId: profile.id })
         console.log(`googlenewuser:::::${googlenewuser}`)
-
-        var options = {
-          url: baseUrl,
-          headers: {
-            Authorization:
-              'Bearer ' +
-              'ya29.A0ARrdaM9XzoqWVp05DoyHubZIMiiJgWr7K_mAipjqjydJsQRgYLF-58cCzdpfcEaL77F0gCe2iXPrNI9ZKNq3AudaljzxPFhkMNYc05rFFtOv82wx0J9-Xc_SaNfP3OXuaOIIAC7o6XNs7EIAAe1Cn0sf-xzn',
-          },
-        }
-        const { data } = await axios.get(
-          `https://people.googleapis.com/v1/people/${userInfo.googleId}?personFields=phoneNumbers`,
-          options
-        )
-
-        console.log(`______________________________`)
-        console.log(data)
-        console.log(`______________________________`)
-
         cb(null, googlenewuser)
       } else {
         cb(null, googleuser)
