@@ -19,8 +19,7 @@ export const BookmeOnGoogleCalender = (m1, userEmail) => {
   const calender = google.calendar({ version: 'v3', auth: OAuth2Client })
   const eventStartTime = new Date(m1)
   console.log(`eventStartTime:${eventStartTime}`)
-  eventStartTime.setDate(eventStartTime.getDay()) //***זה ישים לנו תזכורת למחר בגוגל קלנדר */
-  console.log(`eventStartTime AFTER:${eventStartTime}`)
+  // eventStartTime.setDate(eventStartTime.getDay()) //***זה ישים לנו תזכורת למחר בגוגל קלנדר */
 
   const eventEndTime = new Date(m1)
   console.log(`eventEndTime:${eventEndTime}`)
