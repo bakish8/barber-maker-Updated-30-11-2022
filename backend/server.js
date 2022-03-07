@@ -84,13 +84,14 @@ passport.use(
       callbackURL: 'https://www.barber-maker.com/api/google/callback',
       //callbackURL: '/api/google/callback', development
     },
-    async function (profile, cb) {
+    async function (accessToken, refreshToken, profile, cb) {
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
       if (!googleuser) {
-        console.log(
-          `___________________no google user found! create one now..._______________`
-        ) /**renmove** */
+        console.log('no google user found! create')
+        const profile22 = JSON.stringify(profile) /**renmove** */
+        console.log(`profile:${profile22}`) /**renmove** */
+        console.log(`__________________________________`) /**renmove** */
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
           email: profile.emails[0].value,
@@ -106,9 +107,6 @@ passport.use(
         console.log(googlenewuser)
         cb(null, googlenewuser)
       } else {
-        console.log(
-          ` _______________google user found!..._______________`
-        ) /**renmove** */
         cb(null, googleuser)
       }
     }
