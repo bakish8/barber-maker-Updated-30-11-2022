@@ -94,7 +94,7 @@ passport.use(
         console.log(`__________________________________`) /**renmove** */
         var baseUrl = `https://people.googleapis.com/v1/people/${profile.id}?personFields=phoneNumbers` /***NEW */
         console.log('baseUrl:' + baseUrl)
-        var getAADProfile = (callback) => {
+        var getAADProfile = () => {
           var options = {
             url: baseUrl,
             headers: {
@@ -104,42 +104,20 @@ passport.use(
             },
           }
           console.log('Requesting to ' + options.url)
-
           request(options, (err, response, body) => {
             if (err) {
               console.log('Error when calling ' + options.url)
               console.log(err)
-              callback(err, null)
             } else {
               const profile = JSON.parse(body)
               console.log(profile)
-              callback(null, profile)
             }
           })
         }
-
-        getAADProfile((err, profile) => {
-          if (err) {
-            callback(err)
-          } else {
-            profile.user_metadata = profile.user_metadata || {}
-            profile.user_metadata.phoneNumber = profile.phoneNumbers[0].value
-            const Phone_Number = profile.user_metadata.phoneNumber
-            console.log(Phone_Number)
-            console.log(Phone_Number)
-            console.log(Phone_Number)
-            console.log(Phone_Number)
-          }
-        })
-
         /******************************************************************* */
         console.log(
-          `_______________REGILAR USER NO PHONE INCLUDED___________________`
+          `____________CREATING GOOGLE USER____________________`
         ) /**renmove** */
-
-        const profile22 = JSON.stringify(profile) /**renmove** */
-        console.log(`profile:${profile22}`) /**renmove** */
-        console.log(`__________________________________`) /**renmove** */
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
           email: profile.emails[0].value,
@@ -244,8 +222,6 @@ app.get('/api/config/paypal', (req, res) =>
 )
 app.get('/getgoogleuser', (req, res) => {
   console.log(req.user)
-  console.log(req.user)
-
   res.status(207)
   res.send(req.user)
 })
