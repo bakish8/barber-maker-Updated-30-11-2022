@@ -67,7 +67,9 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
     )
     let user = await User.findById(req.params.uid)
     console.log(clock.time)
-    const hour = clock.time.substring(0, 2)
+
+    const hour1 = clock.time.substring(0, 2)
+    const hour = parseInt(hour1) - 2
     const minute = clock.time.slice(-2)
     const year = clock.owner.Dateyear
     const month = clock.owner.Datemonth - 1
