@@ -2,11 +2,7 @@
 import { google } from 'googleapis'
 const { OAuth2 } = google.auth
 export const BookmeOnGoogleCalender = (m1, userEmail) => {
-  const SCOPES = [
-    'https://www.googleapis.com/auth/calendar.readonly',
-  ] /********* */
-
-  const OAuth2Client = new OAuth2(
+  let OAuth2Client = new OAuth2(
     '452001077432-h4lhfoemnipvlbokdtamftv3p7m0rr9f.apps.googleusercontent.com',
     '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'
   )
@@ -16,18 +12,18 @@ export const BookmeOnGoogleCalender = (m1, userEmail) => {
   })
   console.log(`OAuth2Client is :${OAuth2Client}`)
 
-  const calender = google.calendar({ version: 'v3', auth: OAuth2Client })
-  const eventStartTime = new Date(m1)
+  let calender = google.calendar({ version: 'v3', auth: OAuth2Client })
+  let eventStartTime = new Date(m1)
   console.log(`eventStartTime:${eventStartTime}`)
   // eventStartTime.setDate(eventStartTime.getDay()) //***זה ישים לנו תזכורת למחר בגוגל קלנדר */
 
-  const eventEndTime = new Date(m1)
+  let eventEndTime = new Date(m1)
   console.log(`eventEndTime:${eventEndTime}`)
 
   eventEndTime.setMinutes(eventEndTime.getMinutes() + 30) //***זה יוסיף חצי שעה */
   console.log(`eventEndTime AFTER:${eventEndTime}`)
 
-  const event = {
+  let event = {
     summary: 'תור למספרה',
     location: 'עלי 4, אשקלון',
     description: 'תספורת גבר',
@@ -55,7 +51,7 @@ export const BookmeOnGoogleCalender = (m1, userEmail) => {
     },
     (err, res) => {
       if (err) return console.error('FREE-BUSY QUIRY ERROR ! :', err)
-      const eventsArr = res.data.calendars.primary.busy
+      let eventsArr = res.data.calendars.primary.busy
       if (eventsArr.length === 0)
         return calender.events.insert(
           { calendarId: 'primary', resource: event },
