@@ -293,7 +293,7 @@ const Header = ({ socket }) => {
               <Navbar.Brand id='navbar-brand'>
                 {' '}
                 <div id='navlogodiv'>
-                  <img src={logo} alt='logo' id='' id='navlogo' />
+                  <img src={logo} alt='logo' id='navlogo' />
                 </div>
                 <div className='healineAnimationNavBAR' id='navbarHeadline'>
                   {' '}

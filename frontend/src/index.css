@@ -3,16 +3,14 @@ main {
   background-image: linear-gradient(
       to top,
       #000000 0%,
-      #383838a6 30%,
-      #4d4d4db0 50%,
-      #000000 70%,
+      #252525b0 50%,
       #000000 100%
     ),
-    url('https://i.ibb.co/YcGwRv0/2025.jpg');
-  background-size: cover;
+    url('https://images.unsplash.com/photo-1591541924200-d1217b346bf6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80');
   height: inherit;
   width: 100%;
 }
+
 #Copyrights {
   margin: 0 auto;
   transition: ease-in 0.1s;
@@ -34,6 +32,55 @@ main {
   box-shadow: 14px 14px 8px rgba(0, 4, 20, 0.603);
   margin-bottom: 10px;
   margin-top: 20px;
+}
+.openVirtualBarberShopImage1 {
+  background-image: url('https://i.ibb.co/MhnB2ZR/barber-home-page-dark.png');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 110vh;
+  background-size: cover;
+  font-family: 'Secular One', sans-serif;
+  text-align: center;
+}
+#formoredeetsBtn {
+  font-family: sans-serif;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  width: 40%;
+  height: 50px;
+  line-height: 50px;
+  background-color: rgb(0, 140, 196);
+  color: white;
+  border-radius: 10px;
+  font-size: 20px;
+}
+#formoredeetsBtn:hover {
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid white;
+}
+#workcorrectly {
+  color: white;
+  font-size: 60px;
+}
+#workcorrectly2 {
+  color: white;
+  font-size: 40px;
+}
+#workcorrectly3 {
+  color: rgb(0, 183, 255);
+  font-size: 70px;
+}
+#workcorrectly4 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: rgb(145, 145, 145);
+  font-size: 27px;
+  font-weight: 300;
+}
+.smartsmallcounter {
+  transform: scale(0.4);
 }
 .contentImage1 {
   display: flex;
@@ -635,6 +682,14 @@ h1 {
 }
 
 @media (max-width: 786px) {
+  #workcorrectly3,
+  #workcorrectly {
+    font-size: 28px;
+  }
+  #formoredeetsBtn,
+  #workcorrectly4 {
+    font-size: 18px;
+  }
   #centermeAndBlock {
     transform: scale(0.85);
     margin-right: 50px;
@@ -1228,7 +1283,7 @@ textarea {
   color: rgb(255, 255, 255);
   height: 200px;
 
-  border-bottom: 2px solid rgba(255, 255, 255, 0.253);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.404);
 }
 @media (max-width: 786px) {
   .TR_CLASS {

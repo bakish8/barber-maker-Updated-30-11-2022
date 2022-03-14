@@ -123,9 +123,8 @@ const App = () => {
             exact
           />
           <Route path='/admin' component={Admin} exact />
-
-          <Route path='/' component={HomeScreen} exact />
         </Container>
+        <Route path='/' component={HomeScreen} exact />
       </main>
 
       <Footer />

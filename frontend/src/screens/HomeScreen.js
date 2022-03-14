@@ -9,6 +9,9 @@ import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
 import { listProducts } from '../actions/productActions' //ייבוא של האקשן עצמו שמביא את אמוצרים.
+
+import EmailMeTheDeetsComponent from '../components/HomePage/EmailMeTheDeetsComponent'
+import OpenVirtualBarberShop from '../components/HomePage/openVirtualBarberShop'
 import ImageOne from '../components/HomePage/ImageOne'
 import ImageTWO from '../components/HomePage/ImageTWO'
 import ImageThree from '../components/HomePage/ImageThree'
@@ -56,6 +59,7 @@ const HomeScreen = ({ match }) => {
   return (
     <>
       <Meta />
+
       <Link to='/picksapar' className='call-to-us'>
         <div className='call-to-us__label'>
           <div className='callTousFIXED2'>
@@ -64,6 +68,8 @@ const HomeScreen = ({ match }) => {
           </div>
         </div>
       </Link>
+      <OpenVirtualBarberShop />
+      <EmailMeTheDeetsComponent />
       <div>
         <ImageOne />
       </div>

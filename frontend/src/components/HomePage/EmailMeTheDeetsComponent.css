@@ -1,0 +1,57 @@
+.EmailMeTheDeetsComponent {
+  height: 55px;
+  background-image: linear-gradient(to top, #00a9ddd8 0%, #00a9dd9c 100%),
+    url('https://i.ibb.co/MZ65dgQ/NFTS.png');
+  background-size: cover;
+  width: 100%;
+  height: 10vh;
+  font-size: 15px;
+  color: rgb(255, 255, 255);
+}
+.Container {
+  margin: 0 auto;
+}
+
+#tellmemore {
+  line-height: 55px;
+  margin-right: 10%;
+  font-size: 25px;
+  font-family: 'Secular One', sans-serif;
+}
+
+.contact__option-icon {
+  cursor: pointer;
+  font-size: 2rem;
+  margin-right: 8.5rem;
+  margin-bottom: 0.5rem;
+  transition: 0.2 ease-in;
+  text-decoration: none;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.contact__option-icon:active,
+.contact__option-icon:hover {
+  transform: scale(1.2);
+  color: rgb(255, 255, 255);
+}
+@media (max-width: 786px) {
+  #tellmemore,
+  .contact__option-icon {
+    transform: scale(0.8);
+    margin-right: 0.5rem;
+  }
+  .Container {
+    position: relative;
+    right: 20px;
+  }
+}
+@media (min-width: 1279px) {
+  #tellmemore,
+  .contact__option-icon {
+  }
+}
+
+#aaaa {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
