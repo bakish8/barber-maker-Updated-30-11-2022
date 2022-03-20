@@ -104,10 +104,8 @@ const FAQ = () => {
                     </i>
                   </div>
                   <div class='detail'>
-                    <h4
-                      className={ShowAnswer2 ? 'questionanswer' : 'question2'}
-                    >
-                      ?מה לגבי קבלת תשלום במערכת
+                    <h4 className={ShowAnswer2 ? 'questionanswer' : 'question'}>
+                      ?ניתן לקבל תשלום
                     </h4>
                     <p
                       className={ShowAnswer2 ? 'Showmeanswer' : 'Hidemeanswer'}
@@ -138,9 +136,7 @@ const FAQ = () => {
                     </i>
                   </div>
                   <div class='detail'>
-                    <h4
-                      className={ShowAnswer3 ? 'questionanswer' : 'question2'}
-                    >
+                    <h4 className={ShowAnswer3 ? 'questionanswer' : 'question'}>
                       ?אני מקבל אתר משלי{' '}
                     </h4>
                     <p
@@ -172,10 +168,8 @@ const FAQ = () => {
                     </i>
                   </div>
                   <div class='detail'>
-                    <h4
-                      className={ShowAnswer4 ? 'questionanswer' : 'question2'}
-                    >
-                      ?מה לגבי תזכורות ווצאפ{' '}
+                    <h4 className={ShowAnswer4 ? 'questionanswer' : 'question'}>
+                      ?ניתן לתזכר בווצאפ{' '}
                     </h4>
                     <p
                       className={ShowAnswer4 ? 'Showmeanswer' : 'Hidemeanswer'}
@@ -205,9 +199,7 @@ const FAQ = () => {
                     </i>
                   </div>
                   <div class='detail'>
-                    <h4
-                      className={ShowAnswer5 ? 'questionanswer' : 'question2'}
-                    >
+                    <h4 className={ShowAnswer5 ? 'questionanswer' : 'question'}>
                       ?מה עם יחס אישי
                     </h4>
                     <p

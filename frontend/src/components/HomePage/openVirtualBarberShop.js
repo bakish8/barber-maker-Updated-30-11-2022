@@ -1,5 +1,5 @@
 import React from 'react'
-
+import SmartCounter from './SmartCounter'
 const OpenVirtualBarberShop = () => (
   <div className='openVirtualBarberShopImage1'>
     <div>
@@ -9,6 +9,10 @@ const OpenVirtualBarberShop = () => (
       <br />
       <span id='workcorrectly4'>נהל את המספרה שלך בצורה חכמה ומתקדמת</span>
       <div id='formoredeetsBtn'>לפרטים נוספים</div>{' '}
+      <div className='SmartCountersmall'>
+        {' '}
+        <SmartCounter />
+      </div>
     </div>{' '}
   </div>
 )

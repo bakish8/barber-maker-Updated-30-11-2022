@@ -29,7 +29,7 @@ section#faqs .content article {
   display: flex;
   gap: 1.4rem;
   height: fit-content;
-  background: rgba(0, 0, 0, 0.39);
+  background: rgba(0, 0, 0, 0.29);
   cursor: pointer;
 }
 section#faqs .content article:hover {

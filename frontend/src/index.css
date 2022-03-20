@@ -6,7 +6,7 @@ main {
       #252525b0 50%,
       #000000 100%
     ),
-    url('https://images.unsplash.com/photo-1591541924200-d1217b346bf6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80');
+    url('https://i.ibb.co/LJM5hhV/background-after.png');
   height: inherit;
   width: 100%;
   margin: 0;
@@ -43,7 +43,7 @@ main {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 110vh;
+  height: 100%;
   background-size: cover;
   font-family: 'Secular One', sans-serif;
   text-align: center;
@@ -61,6 +61,16 @@ main {
   border-radius: 10px;
   font-size: 20px;
 }
+.SmartCountersmall {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .SmartCountersmall {
+    display: none;
+  }
+}
+
 #formoredeetsBtn:hover {
   background-color: rgba(255, 255, 255, 0);
   border: 1px solid white;
@@ -131,7 +141,7 @@ main {
   border-radius: 50px;
   margin-top: 100px;
   width: 80%;
-  margin: 0 auto;
+  margin: 8vh auto;
   margin-bottom: 50px;
 }
 #barbermaker-system-headline {
