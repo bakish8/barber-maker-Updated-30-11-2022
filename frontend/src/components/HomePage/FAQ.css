@@ -3,7 +3,6 @@
 }
 .weareBarberMaker {
   font-family: 'Secular One', sans-serif;
-  color: white;
   font-size: 25px;
 }
 
@@ -95,4 +94,33 @@ section#faqs a.btn {
 }
 .artucle5 {
   display: flex;
+}
+
+@media (max-width: 786px) {
+  section#faqs .content article p {
+    font-size: 15px;
+  }
+  .question2 {
+    font-size: 15px;
+    position: absolute;
+    color: white;
+    left: 100px;
+    right: 100px;
+  }
+  .question {
+    font-size: 20px;
+    position: absolute;
+    color: white;
+    left: 100px;
+    right: 100px;
+  }
+  section#faqs .content article {
+    background: rgb(0, 0, 0);
+    margin-bottom: 15px;
+  }
+
+  section#faqs .content {
+    display: block;
+    gap: 1rem;
+  }
 }

@@ -107,7 +107,7 @@ const FAQ = () => {
                     <h4
                       className={ShowAnswer2 ? 'questionanswer' : 'question2'}
                     >
-                      ?הלקוחות שלי יוכלו לשלם במערכת{' '}
+                      ?מה לגבי קבלת תשלום במערכת
                     </h4>
                     <p
                       className={ShowAnswer2 ? 'Showmeanswer' : 'Hidemeanswer'}
