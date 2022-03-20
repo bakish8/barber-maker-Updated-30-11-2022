@@ -135,6 +135,8 @@ main {
   margin-bottom: 50px;
 }
 #barbermaker-system-headline {
+  font-family: 'Secular One', sans-serif;
+
   font-size: 55px;
   text-shadow: 1px 5px 5px #000;
 }
@@ -667,6 +669,8 @@ h1 {
 }
 
 #ourproducts {
+  font-family: 'Secular One', sans-serif;
+
   margin-right: auto;
   margin-left: auto;
   margin-top: 30px;
@@ -674,12 +678,14 @@ h1 {
   text-align: center;
   display: flex;
   justify-content: center;
-  color: #00c3ff;
+  color: #ffffff;
   background-image: linear-gradient(to top, #3126260e 0%, #0000006b 100%);
   border-radius: 12px;
   max-width: 550px;
 }
 #ourproducts2 {
+  font-family: 'Secular One', sans-serif;
+
   font-size: 50px;
   text-shadow: 2px 2px 4px black;
   transition: 0.5s ease-in;
