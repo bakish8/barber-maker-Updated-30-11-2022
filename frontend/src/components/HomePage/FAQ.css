@@ -1,0 +1,98 @@
+.imageParalaxxxx {
+  width: 100%;
+}
+.weareBarberMaker {
+  font-family: 'Secular One', sans-serif;
+  color: white;
+  font-size: 25px;
+}
+
+/* ========================== FAQS =========================== */
+.faqsss {
+  margin: 25px;
+  text-align: center;
+  color: white;
+}
+section#faqs h2 {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+section#faqs .content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+section#faqs .content article {
+  padding: 2rem;
+  border-radius: 0.7rem;
+  display: flex;
+  gap: 1.4rem;
+  height: fit-content;
+  background: rgba(0, 0, 0, 0.39);
+  cursor: pointer;
+}
+section#faqs .content article:hover {
+  background-color: black;
+}
+
+.icon {
+  text-align: center;
+  text-shadow: 3px 2px 2px black;
+  font-size: 35px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  z-index: 2;
+}
+
+section#faqs .content article p {
+  font-size: 18px;
+  color: rgb(219, 219, 219);
+}
+
+section#faqs .content article.open p {
+}
+
+section#faqs a.btn {
+}
+
+.Hidemeanswer {
+  display: none;
+  transition: 0.2s ease-in;
+}
+.Showmeanswer {
+  transition: 0.2s ease-in;
+}
+.question {
+  position: relative;
+  color: white;
+  left: 115px;
+}
+.question2 {
+  position: relative;
+  color: white;
+  left: 50px;
+}
+.questionanswer {
+  color: white;
+  text-decoration-line: underline;
+  text-underline-offset: 5px;
+}
+#imggggggg {
+  position: absolute;
+  transform: rotate(-30deg);
+  width: 85px;
+  height: 85px;
+  opacity: 0.25;
+}
+
+.artucle4 {
+  display: none;
+}
+.artucle5 {
+  display: flex;
+}
