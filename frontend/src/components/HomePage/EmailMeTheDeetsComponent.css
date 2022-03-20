@@ -6,6 +6,7 @@
   width: 100%;
   font-size: 15px;
   color: rgb(255, 255, 255);
+  z-index: 933;
 }
 .Container {
   margin: 0 auto;
