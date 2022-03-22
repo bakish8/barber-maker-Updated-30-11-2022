@@ -22,6 +22,7 @@ const PickSaparScreen = ({ history }) => {
 
   useEffect(() => {
     if (!userInfo) {
+      console.log(`there is no user`)
       history.push('/login')
     } else if (!userInfo.phone) {
       Swal.fire({
