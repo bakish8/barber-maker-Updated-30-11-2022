@@ -9,7 +9,8 @@ import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { registerNewTipul } from '../actions/userActions'
 
-const NewTipulScreen = ({ location, history }) => {
+const NewTipulScreen = ({ location, history, match }) => {
+  let BussinesId = match.params.id
   const [TipulName, setTipulName] = useState('')
   const [TipulTime, setTipulTime] = useState('')
   const [TipulCost, setTipulCost] = useState('')
@@ -17,19 +18,26 @@ const NewTipulScreen = ({ location, history }) => {
 
   const [message, setMessage] = useState(null)
   const dispatch = useDispatch()
-  const userRegister = useSelector((state) => state.userRegister)
-  const { success, loading, error, userInfo } = userRegister
-  const redirect = location.search ? location.search.split('=')[1] : '/'
+  const userLogin = useSelector((state) => state.userLogin)
+  const { success, loading, error, userInfo } = userLogin
+  const RegisterNewTipulStore = useSelector(
+    (state) => state.RegisterNewTipulStore
+  )
+  const { newTipulsuccess, newTipulloading, newTipul, newTipulerror } =
+    RegisterNewTipulStore
+
+  const redirect = `/business/${BussinesId}`
 
   useEffect(() => {
-    if (userInfo) {
+    if ((userInfo.isAdmin = false)) {
       history.push(redirect)
     }
-    if (success === false) {
+
+    if (error || newTipulerror) {
       console.log(error)
       Swal.fire({
         title: 'משהו השתבש',
-        text: error,
+        text: newTipulerror,
         icon: 'error',
         focusConfirm: true,
         confirmButtonText: 'אוקי, הבנתי',
@@ -41,7 +49,30 @@ const NewTipulScreen = ({ location, history }) => {
         },
       })
     }
-  }, [history, userInfo, redirect, message])
+    if (newTipul || newTipulsuccess) {
+      Swal.fire({
+        title: 'הטיפול שביקשת נוצר בהצלחה',
+        text: success,
+        icon: 'success',
+        focusConfirm: true,
+        confirmButtonText: 'תודה',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      }).then(history.push(redirect))
+    }
+  }, [
+    history,
+    userInfo,
+    redirect,
+    message,
+    newTipulerror,
+    newTipul,
+    newTipulsuccess,
+  ])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -67,7 +98,16 @@ const NewTipulScreen = ({ location, history }) => {
       console.log(TipulTime)
       console.log(TipulCost)
       console.log(TipulImage)
-      dispatch(registerNewTipul(TipulName, TipulTime, TipulCost, TipulImage))
+      dispatch(
+        registerNewTipul(
+          TipulName,
+          TipulTime,
+          TipulCost,
+          TipulImage,
+          BussinesId
+        )
+      )
+      //dispatch(registerNewTipul(TipulName, TipulTime, TipulCost, TipulImage))
     }
   }
 

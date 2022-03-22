@@ -35,6 +35,11 @@ import PickTipulScreen from './screens/PickTipulScreen'
 import { myContext } from './actions/Context'
 import { io } from 'socket.io-client'
 import TermsandConditaions from './screens/TermsAndConditions'
+import BarberShop from './screens/business/BarberShop'
+import PickSapar from './screens/business/PickSapar'
+import PickDate from './screens/business/PickDate'
+import PickTipul from './screens/business/PickTipul'
+import PickTime from './screens/business/PickTime'
 
 const App = () => {
   const userObject = useContext(myContext)
@@ -114,6 +119,7 @@ const App = () => {
             component={SingleReportScreen}
             exact
           />
+
           <Route path='/admin/reports' component={ReportsScreen} exact />
           <Route path='/privecypolicy' component={PrivecyPolicy} exact />
           <Route
@@ -122,6 +128,31 @@ const App = () => {
             exact
           />
           <Route path='/admin' component={Admin} exact />
+
+          <Route path='/business/:id' component={BarberShop} exact />
+          <Route path='/business/:id/picksapar' component={PickSapar} exact />
+          <Route path='/business/:id/maketor/:sid' component={PickDate} exact />
+          <Route
+            path='/business/:id/picktipul/:did'
+            component={PickTipul} /****TO BE FIX */
+            exact
+          />
+          <Route
+            path='/business/:id/settings'
+            component={SettingsScreen}
+            exact
+          />
+          <Route
+            path='/business/:id/settings/newtipul'
+            component={NewTipulScreen}
+            exact
+          />
+
+          <Route
+            path='/business/:id/maketor/:wid/:tid'
+            component={PickTime}
+            exact
+          />
         </Container>
         <Route path='/' component={HomeScreen} exact />
       </main>

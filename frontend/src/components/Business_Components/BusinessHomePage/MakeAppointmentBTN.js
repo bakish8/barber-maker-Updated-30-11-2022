@@ -2,10 +2,10 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom'
 
 import React from 'react'
-const MakeTorBtn = () => {
+const MakeAppointmentBG = (props) => {
   return (
     <>
-      <LinkContainer to={`/picksapar`}>
+      <LinkContainer to={`/business/${props.businessID}/picksapar`}>
         <div className='button_container'>
           <i id='arrowleft' className='fas fa-long-arrow-alt-right'></i>
 
@@ -18,4 +18,4 @@ const MakeTorBtn = () => {
     </>
   )
 }
-export default MakeTorBtn
+export default MakeAppointmentBG

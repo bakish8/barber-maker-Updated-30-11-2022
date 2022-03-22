@@ -16,6 +16,7 @@ import makeTor from './routes/makeTorRoutes.js'
 import cancelTorRoutes from './routes/cancelTorRoutes.js'
 import reportsRouts from './routes/reportsRouts.js'
 import ForgotpasswordRoutes from './routes/ForgotpasswordRoutes.js'
+import BusinessRoutes from './routes/BusinessRoutes.js'
 import searchRoutes from './routes/searchRoutes.js'
 import sendmessagesRoutes from './routes/sendmessagesRoutes.js'
 import appointmentsRoutes from './routes/appointmentsRoutes.js'
@@ -153,6 +154,7 @@ if (process.env.NODE_ENV === 'development') {
 // ██╔══██║██╔═══╝ ██║
 // ██║  ██║██║     ██║
 // ╚═╝  ╚═╝╚═╝     ╚═╝ 's
+app.use('/api/business', BusinessRoutes)
 app.use('/api/forgot-password', ForgotpasswordRoutes)
 app.use('/api/notifications', notificationsRoutes)
 app.use('/api/products', productRoutes)

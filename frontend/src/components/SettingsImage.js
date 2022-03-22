@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
 
-const SettingsImage = () => (
+//const SettingsImage = () => (
+const SettingsImage = (props) => (
   <>
     <Row>
       {' '}
@@ -25,7 +26,8 @@ const SettingsImage = () => (
           <div>
             <Link
               style={{ textDecoration: 'none' }}
-              to='/admin/settings/newtipul'
+              //to='/admin/settings/newtipul'
+              to={`/business/${props.BussinessId}/settings/newtipul`}
             >
               <button id='centermeAndBlock1' class='maketorbtn'>
                 <span>הוסף טיפול חדש</span>

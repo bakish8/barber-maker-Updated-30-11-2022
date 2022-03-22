@@ -27,6 +27,9 @@ const GetTipulDeets = asyncHandler(async (req, res) => {
 })
 
 const getSaparim = asyncHandler(async (req, res) => {
+  console.log(`Getting saparim`)
+  console.log(`Getting saparim`)
+  console.log(`Getting saparim`)
   const sapars = await User.find({ isAdmin: true })
   res.json(sapars)
 })

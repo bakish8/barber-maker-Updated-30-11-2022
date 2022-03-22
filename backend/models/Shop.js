@@ -27,6 +27,18 @@ const shopSchema = mongoose.Schema(
         ref: 'User',
       },
     ],
+    clients: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    tipulim: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tipul',
+      },
+    ],
   },
   {
     timestamps: true,

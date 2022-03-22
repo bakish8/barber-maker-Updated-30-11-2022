@@ -1292,11 +1292,19 @@ export const GET_REPORT_DEETS_BY_ID_Reducer = (state = {}, action) => {
 export const RegisterNewTipulReducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_NEW_TIPUL_REQUEST:
-      return { loading: true }
+      return { newTipulloading: true }
     case CREATE_NEW_TIPUL_SUCCESS:
-      return { success: true, loading: false, userInfo: action.payload }
+      return {
+        newTipulsuccess: true,
+        newTipulloading: false,
+        newTipul: action.payload,
+      }
     case CREATE_NEW_TIPUL_FAIL:
-      return { success: false, loading: false, error: action.payload }
+      return {
+        newTipulsuccess: false,
+        newTipulloading: false,
+        newTipulerror: action.payload,
+      }
     default:
       return state
   }

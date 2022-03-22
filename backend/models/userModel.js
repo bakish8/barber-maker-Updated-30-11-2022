@@ -38,6 +38,10 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    WorkingIn: {
+      type: String,
+      required: false,
+    },
     commentsForTipul: {
       type: String,
       required: false,

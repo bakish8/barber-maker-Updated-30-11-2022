@@ -227,7 +227,6 @@ import {
   USER_UPDATE_COMMENTS_FOR_TIPUL_FAIL,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
-import { useState } from 'react'
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -2280,7 +2279,8 @@ export const getReportDeetsById = (id) => async (dispatch, getState) => {
 }
 
 export const registerNewTipul =
-  (name, time, cost, image) => async (dispatch, getState) => {
+  //(name, time, cost, image,BussinesId) => async (dispatch, getState) => {
+  (name, time, cost, image, BussinesId) => async (dispatch, getState) => {
     try {
       dispatch({
         type: CREATE_NEW_TIPUL_REQUEST,
@@ -2296,8 +2296,9 @@ export const registerNewTipul =
         },
       }
       const { data } = await axios.post(
-        '/api/users/tipulim',
-        { name, time, cost, image },
+        //'/api/users/tipulim',
+        '/api/business/tipulim' /*********** */,
+        { name, time, cost, image, BussinesId },
         config
       )
 

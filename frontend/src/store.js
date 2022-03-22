@@ -91,6 +91,11 @@ import {
   orderListMyReducer,
   orderListReducer,
 } from './reducers/orderReducers'
+import {
+  BusinessWorkersListReducer,
+  GetBusinessDetailsReducer,
+  BusinessTreatmentsListReducer,
+} from './reducers/BusinessReducers/Business_User_Reducer'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -149,7 +154,7 @@ const reducer = combineReducers({
   Weekly_REPORTS_LIST: Weekly_REPORTS_LIST_Reducer,
   MONTHLY_REPORTS_LIST: MONTHLY_REPORTS_LIST_Reducer,
   GET_REPORT_DEETS_BY_ID: GET_REPORT_DEETS_BY_ID_Reducer,
-  RegisterNewTipul: RegisterNewTipulReducer,
+  RegisterNewTipulStore: RegisterNewTipulReducer,
   TipulimList: TipulimListReducer,
   SearchOneUser: SearchOneUserReducer,
   userUpdateCoomentsForTipul: userUpdateCoomentsForTipulReducer,
@@ -177,6 +182,9 @@ const reducer = combineReducers({
   RESET_MY_PASSWORD: RESET_MY_PASSWORD_REDUCER,
   BUILD_RESET_PAGE_FOR_PHONE: BUILD_RESET_PAGE_FOR_PHONE_REDUCER,
   SendTorSMS_RESET: SendTorSMS_RESET_Reducer,
+  GetBusinessDetails: GetBusinessDetailsReducer,
+  BusinessWorkersList: BusinessWorkersListReducer,
+  BusinessTreatmentsList: BusinessTreatmentsListReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
