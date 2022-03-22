@@ -43,6 +43,7 @@ const PickTime = ({ history, match }) => {
   const closeOKHandler = () => setShowOK(false)
   const WorkDayid = match.params.wid
   const Tipulid = match.params.tid
+  const BusinessId = match.params.bid
   console.log(WorkDayid)
   console.log(Tipulid)
   console.log('_____________')
@@ -200,7 +201,7 @@ const PickTime = ({ history, match }) => {
               text: ` שובצת לתור בתאריך ${date} ,בשעה ${time}  אנו נתזכר אותך כשעה לפני התספורת , המשך יום נעים`,
               showConfirmButton: false,
               timer: 8000,
-            }).then(history.push('/'))
+            }).then(history.push(`/business/${BusinessId}`))
           )
           //.then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
           .then(dispatch(SendTorWhatsapp(id, uid))) //sendins Whatsapp for client bY Confiemed whatsapp sender  and Templete*/
