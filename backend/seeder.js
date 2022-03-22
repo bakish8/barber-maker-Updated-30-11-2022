@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import users from './data/users.js'
 import products from './data/products.js'
+import business from './data/business.js'
 import workingdays from './data/workingdays.js'
 import clocks from './data/clocks.js'
 import tipulim from './data/tipulim.js'
@@ -17,6 +18,7 @@ import Appointment from './models/Appointment.js'
 import Reports from './models/Reports.js'
 import Tipul from './models/Tipul.js'
 import connectDB from './config/db.js'
+import Shop from './models/Shop.js'
 
 dotenv.config()
 
@@ -32,6 +34,7 @@ const importData = async () => {
     await Appointment.deleteMany()
     await Reports.deleteMany()
     await Tipul.deleteMany()
+    await Shop.deleteMany()
 
     const createdTipulim = await Tipul.insertMany(tipulim)
 
@@ -41,17 +44,23 @@ const importData = async () => {
     const sampleProducts = products.map((product) => {
       return { ...product, user: adminUser } //הופך את כל המוצרים שהבעלים שלהם יהיה האדמין שמצאונ
     })
+    //****hard coded */
+    const createdBusiness = await User.insertMany(business) //הכנסת כל העסקים לדאטה בייס
+    const BusinessDemo1 = createdBusiness[0] //העסק הראשון
+    BusinessDemo1.shopOwner = adminUser //הבעלים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
+    BusinessDemo1.workers = adminUser //העובדים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
+    await BusinessDemo1.save()
 
     let sampleWorkingdays = workingdays.map((workingday) => {
       return { ...workingday, owner: adminUser } //הופך את כל את הבעלים של כל ימי העבודה בסידר לאדמין שמצאנו המשתמש הראשון
     })
 
+    await Shop.insertMany(sampleProducts) //הכנסת כל המוצרים לדאטה בייס
     await Product.insertMany(sampleProducts) //הכנסת כל המוצרים לדאטה בייס
     let createdWorkingdays = await WorkingDay.insertMany(sampleWorkingdays) //הכנסת כל ימי העבודה לדאטה בייס
 
     for (let i = 0; i < sampleWorkingdays.length; i++) {
       //לולאה שמכניס לכל ימי העבודה את כל השעות
-
       let workingday = createdWorkingdays[i] //יום העבודה הראשון שנוצר
       let workingdayIdOwnerOfClock = workingday._id
       let workingdayDateOfClock = workingday.date
@@ -94,7 +103,8 @@ const importData = async () => {
     for (let workday of insertedWORKDAYS) {
       AdminUSER.workingdays.push(workday)
     }
-    await AdminUSER.save()
+    AdminUSER.WorkingIn = BusinessDemo1._id //הגדרה שהאדמין הראשון עובד במספרה הראשונה
+    await AdminUSER.save() //שמירה סופית של האדמין
 
     console.log('Data Imported!!!!!!!'.green.inverse) //הדאטה יובאה בהצלחה
     process.exit()
