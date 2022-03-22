@@ -1,5 +1,5 @@
 //קובץ הסידרס שמכניס את כל האטה בסיס מתיקיית דאטה ומוחק את כל היוזרס המוצרים וההזמנות ומזין את הדאטת בסיס
-
+///***3 TY]ES OF AdminUser AdminUser2 adminUser  AdminUSER*/
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import colors from 'colors'
@@ -39,23 +39,36 @@ const importData = async () => {
     const createdTipulim = await Tipul.insertMany(tipulim)
 
     const createdUsers = await User.insertMany(users) //הכנסת כל המשתמשים לדאטה בייס
-    const adminUser = createdUsers[0]._id //אדמין
+    const createdBusiness = await Shop.insertMany(business) //הכנסת כל המשתמשים לדאטה בייס
+    const adminUser = createdUsers[0]._id //אדמין 1 איידי לצורך הכנסת ימי עבודה ושעות לאדמין
+    const adminUser2 = createdUsers[1]._id ////////******בהמשך נשתמש להכנסת ימי עבודה גם לאדמין 2 *****
+    const AdminUser = createdUsers[0] //אדמין שלם לצורך הכנסת בעלים ועובדים לעסק ולציין שאדמין עובד בעסק מסוים
+    const AdminUser2 = createdUsers[1] //אדמין 2 שלם לצורך הכנסת בעלים ועובדים לעסק ולציין שאדמין עובד בעסק מסוים
+
+    //****hard coded */
+    const BusinessDemo1 = createdBusiness[0] //העסק הראשון
+    BusinessDemo1.shopOwner = AdminUser //הבעלים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
+    BusinessDemo1.workers = AdminUser //העובדים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
+    await BusinessDemo1.save()
+
+    const BusinessDemo2 = createdBusiness[1] //העסק השני
+    BusinessDemo2.shopOwner = AdminUser2 //הבעלים של החנות הראשונה הוא האדמין השני המשתמש השני
+    BusinessDemo2.workers = AdminUser2 //העובדים של החנות הראשונה הוא האדמין השני המשתמש השני
+    await BusinessDemo2.save()
+
+    AdminUser2.WorkingIn = BusinessDemo2._id //הגדרה שהאדמין הראשון עובד במספרה הראשונה
+    await AdminUser2.save() //שמירה סופית של היוזר הראשון אדמין
+
+    //****hard coded */
 
     const sampleProducts = products.map((product) => {
       return { ...product, user: adminUser } //הופך את כל המוצרים שהבעלים שלהם יהיה האדמין שמצאונ
     })
-    //****hard coded */
-    const createdBusiness = await User.insertMany(business) //הכנסת כל העסקים לדאטה בייס
-    const BusinessDemo1 = createdBusiness[0] //העסק הראשון
-    BusinessDemo1.shopOwner = adminUser //הבעלים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
-    BusinessDemo1.workers = adminUser //העובדים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
-    await BusinessDemo1.save()
 
     let sampleWorkingdays = workingdays.map((workingday) => {
       return { ...workingday, owner: adminUser } //הופך את כל את הבעלים של כל ימי העבודה בסידר לאדמין שמצאנו המשתמש הראשון
     })
 
-    await Shop.insertMany(sampleProducts) //הכנסת כל המוצרים לדאטה בייס
     await Product.insertMany(sampleProducts) //הכנסת כל המוצרים לדאטה בייס
     let createdWorkingdays = await WorkingDay.insertMany(sampleWorkingdays) //הכנסת כל ימי העבודה לדאטה בייס
 
@@ -101,10 +114,10 @@ const importData = async () => {
     let AdminUSER = await User.findById(adminUser._id)
 
     for (let workday of insertedWORKDAYS) {
-      AdminUSER.workingdays.push(workday)
+      AdminUSER.workingdays.push(workday) //דחיפת ימי העבודה ליוזר הראשון
     }
     AdminUSER.WorkingIn = BusinessDemo1._id //הגדרה שהאדמין הראשון עובד במספרה הראשונה
-    await AdminUSER.save() //שמירה סופית של האדמין
+    await AdminUSER.save() //שמירה סופית של היוזר הראשון אדמין
 
     console.log('Data Imported!!!!!!!'.green.inverse) //הדאטה יובאה בהצלחה
     process.exit()

@@ -14,16 +14,15 @@ const shopSchema = mongoose.Schema(
     },
     phone: {
       type: Number,
+      unique: true,
     },
     shopOwner: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: 'User',
     },
     workers: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
         ref: 'User',
       },
     ],
