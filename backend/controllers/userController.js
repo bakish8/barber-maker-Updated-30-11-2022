@@ -21,6 +21,7 @@ const authUser = asyncHandler(async (req, res) => {
       image: user.image,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
+      workingIn: user.WorkingIn, //***NEW */
     })
   } else {
     res.status(401)
@@ -46,6 +47,7 @@ const authUserBYphone = asyncHandler(async (req, res) => {
       image: user.image,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
+      workingIn: user.WorkingIn, //***NEW */
     })
   } else {
     res.status(401)

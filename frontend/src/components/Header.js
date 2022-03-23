@@ -14,10 +14,18 @@ import CoolNavBar from './CoolNavBar/CoolNavBar.js'
 import AdminMessages from '../components/AdminMessages/AdminMessages'
 import './Header.css'
 import moment from 'moment'
+import {
+  getBuissnesDetails,
+  getBuissnesDetailsfornav,
+} from '../actions/BuissnesActions/Buissnes_User_Actions'
+import CoolNavBarBussines from './CoolNavBar/CoolNavBarBussines'
 
 moment.locale('he')
-const Header = ({ socket }) => {
-  //*************************** */
+const Header = ({ socket, match }) => {
+  let Firstlocation = window.location.pathname.split('/')[1]
+  console.log(`window location is:${Firstlocation}`) //*************************** */
+  const barberid = window.location.pathname.split('/')[2]
+
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo, success: user_connected_success } = userLogin
@@ -43,11 +51,24 @@ const Header = ({ socket }) => {
   const [open, setOpen] = useState(false)
   const [MakeBLueONEdesapier, setMakeBLueONEdesapier] = useState(true)
   //*************************************** */
+  const [FirstlocationIsBusiness, setFirstlocationIsBusiness] = useState(false)
   const [stateForActiveAdminLINK, setstateForActiveAdminLINK] = useState(false)
   const [stateForActiveUserLINK, setstateForActiveUserLINK] = useState(false)
   const [stateForActiveCARTLINK, setstateForActiveCARTLINK] = useState(false)
   const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
   const { userGoogleInfo, Gsuccess } = userGoogleLogin
+
+  /*************** */
+  const GetBusinessDetailsfornav = useSelector(
+    (state) => state.GetBusinessDetailsfornav
+  )
+  const {
+    loading: GetBusinessDetailsloading,
+    business,
+    success: GetBusinessDetailssuccess,
+    error: GetBusinessDetailserror,
+  } = GetBusinessDetailsfornav
+  /***********New**** */
 
   const userLoginEMAIL = useSelector((state) => state.userLoginEMAIL)
   const {
@@ -179,6 +200,11 @@ const Header = ({ socket }) => {
   /******************************************************** */
 
   useEffect(() => {
+    if (Firstlocation === 'business') {
+      //dispatch(get buissnes details)
+      dispatch(getBuissnesDetailsfornav(barberid))
+      setFirstlocationIsBusiness(true)
+    }
     if (socket && socket != null) {
       console.log(' SOCKET ! ! !')
 
@@ -289,15 +315,39 @@ const Header = ({ socket }) => {
       <header id='navbar'>
         <Navbar variant='dark' expand='lg' collapseOnSelect>
           <Container id='nabarr'>
-            <LinkContainer to='/'>
+            <LinkContainer
+              to={FirstlocationIsBusiness ? `/business/${barberid}` : '/'}
+            >
               <Navbar.Brand id='navbar-brand'>
                 {' '}
                 <div id='navlogodiv'>
-                  <img src={logo} alt='logo' id='navlogo' />
+                  <img
+                    src={
+                      FirstlocationIsBusiness && GetBusinessDetailssuccess
+                        ? business.logo
+                        : logo
+                    }
+                    alt='logo'
+                    id={
+                      GetBusinessDetailssuccess && !business.logoNameOnNav
+                        ? 'navlogo2'
+                        : 'navlogo'
+                    }
+                  />
                 </div>
                 <div className='healineAnimationNavBAR' id='navbarHeadline'>
                   {' '}
-                  <h6 id='barbermakerH1Nav'> BARBER Maker</h6>
+                  <h6 id='barbermakerH1Nav'>
+                    {FirstlocationIsBusiness &&
+                    GetBusinessDetailssuccess &&
+                    business.logoNameOnNav ? (
+                      business.name
+                    ) : GetBusinessDetailssuccess && !business.logoNameOnNav ? (
+                      <div id='displaynonePlease'></div>
+                    ) : (
+                      'BARBER Maker'
+                    )}
+                  </h6>
                 </div>
               </Navbar.Brand>
             </LinkContainer>
@@ -412,9 +462,15 @@ const Header = ({ socket }) => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        <aside>
-          <CoolNavBar />
-        </aside>
+        {FirstlocationIsBusiness && GetBusinessDetailssuccess ? (
+          <aside>
+            <CoolNavBarBussines logo={business.logo} businessId={barberid} />
+          </aside>
+        ) : (
+          <aside>
+            <CoolNavBar />
+          </aside>
+        )}
       </header>
       {open && (
         <div className='notifications'>

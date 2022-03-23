@@ -95,6 +95,7 @@ import {
   BusinessWorkersListReducer,
   GetBusinessDetailsReducer,
   BusinessTreatmentsListReducer,
+  GetBusinessDetailsReducerfornav,
 } from './reducers/BusinessReducers/Business_User_Reducer'
 
 const reducer = combineReducers({
@@ -183,6 +184,7 @@ const reducer = combineReducers({
   BUILD_RESET_PAGE_FOR_PHONE: BUILD_RESET_PAGE_FOR_PHONE_REDUCER,
   SendTorSMS_RESET: SendTorSMS_RESET_Reducer,
   GetBusinessDetails: GetBusinessDetailsReducer,
+  GetBusinessDetailsfornav: GetBusinessDetailsReducerfornav,
   BusinessWorkersList: BusinessWorkersListReducer,
   BusinessTreatmentsList: BusinessTreatmentsListReducer,
 })

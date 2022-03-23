@@ -4,6 +4,9 @@ import {
   BUSINESS_DETAILS_REQUEST,
   BUSINESS_DETAILS_SUCCESS,
   BUSINESS_DETAILS_FAIL,
+  BUSINESS_DETAILS_FORNAV_REQUEST,
+  BUSINESS_DETAILS_FORNAV_SUCCESS,
+  BUSINESS_DETAILS_FORNAV_FAIL,
   WORKERS_LIST_REQUEST,
   WORKERS_LIST_SUCCESS,
   WORKERS_LIST_FAIL,
@@ -45,6 +48,43 @@ export const getBuissnesDetails = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: BUSINESS_DETAILS_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const getBuissnesDetailsfornav = (id) => async (dispatch, getState) => {
+  console.log(`getBuissnesDetailsfornav`)
+  try {
+    dispatch({
+      type: BUSINESS_DETAILS_FORNAV_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/business/${id}/fornav`, config)
+
+    dispatch({
+      type: BUSINESS_DETAILS_FORNAV_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: BUSINESS_DETAILS_FORNAV_FAIL,
       payload: message,
     })
   }

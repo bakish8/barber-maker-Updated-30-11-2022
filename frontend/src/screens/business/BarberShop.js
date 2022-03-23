@@ -35,6 +35,7 @@ const BarberShop = ({ history, match }) => {
           <MakeAppointmentBG
             businessImage={business.image}
             businessID={business._id}
+            websiteColors={business.websiteColors}
           />
         </div>
       )}

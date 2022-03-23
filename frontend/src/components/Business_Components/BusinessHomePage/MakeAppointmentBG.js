@@ -16,7 +16,10 @@ const MakeAppointmentBG = (props) => {
       strength={400}
     >
       <div className='contentImage1'>
-        <MakeAppointmentBTN businessID={props.businessID} />
+        <MakeAppointmentBTN
+          businessID={props.businessID}
+          websiteColors={props.websiteColors}
+        />
       </div>{' '}
     </Parallax>
   )

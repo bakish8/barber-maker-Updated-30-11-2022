@@ -11,8 +11,8 @@ import Swal from 'sweetalert2'
 import { listOfWorkers } from '../../actions/BuissnesActions/Buissnes_User_Actions'
 
 const PickSapar = ({ history, match }) => {
-  const shopid = match.params.id
-  console.log(`shopid: ${shopid}`)
+  const businessid = match.params.id
+  console.log(`businessid: ${businessid}`)
   const dispatch = useDispatch()
   const [message, setMessage] = useState(null)
 
@@ -68,7 +68,7 @@ const PickSapar = ({ history, match }) => {
         }
       })
     } else {
-      dispatch(listOfWorkers(shopid))
+      dispatch(listOfWorkers(businessid))
       //dispatch(listSaparim())
     }
   }, [dispatch, history, userInfo])
@@ -98,7 +98,7 @@ const PickSapar = ({ history, match }) => {
                 <div id='centermeAndBlock' className='scaleAbit'>
                   <WorkerItem
                     key={worker._id}
-                    BusinessID={shopid}
+                    BusinessID={businessid}
                     id={worker._id}
                     phone={worker.phone}
                     name={worker.name}

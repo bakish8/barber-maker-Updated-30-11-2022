@@ -18,7 +18,7 @@ import Appointment from './models/Appointment.js'
 import Reports from './models/Reports.js'
 import Tipul from './models/Tipul.js'
 import connectDB from './config/db.js'
-import Shop from './models/Shop.js'
+import Business from './models/Business.js'
 
 dotenv.config()
 
@@ -34,12 +34,12 @@ const importData = async () => {
     await Appointment.deleteMany()
     await Reports.deleteMany()
     await Tipul.deleteMany()
-    await Shop.deleteMany()
+    await Business.deleteMany()
 
     const createdTipulim = await Tipul.insertMany(tipulim)
 
     const createdUsers = await User.insertMany(users) //הכנסת כל המשתמשים לדאטה בייס
-    const createdBusiness = await Shop.insertMany(business) //הכנסת כל המשתמשים לדאטה בייס
+    const createdBusiness = await Business.insertMany(business) //הכנסת כל המשתמשים לדאטה בייס
     const adminUser = createdUsers[0]._id //אדמין 1 איידי לצורך הכנסת ימי עבודה ושעות לאדמין
     const adminUser2 = createdUsers[1]._id ////////******בהמשך נשתמש להכנסת ימי עבודה גם לאדמין 2 *****
     const AdminUser = createdUsers[0] //אדמין שלם לצורך הכנסת בעלים ועובדים לעסק ולציין שאדמין עובד בעסק מסוים
@@ -47,12 +47,12 @@ const importData = async () => {
 
     //****hard coded */
     const BusinessDemo1 = createdBusiness[0] //העסק הראשון
-    BusinessDemo1.shopOwner = AdminUser //הבעלים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
+    BusinessDemo1.businessOwner = AdminUser //הבעלים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
     BusinessDemo1.workers = AdminUser //העובדים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
     await BusinessDemo1.save()
 
     const BusinessDemo2 = createdBusiness[1] //העסק השני
-    BusinessDemo2.shopOwner = AdminUser2 //הבעלים של החנות הראשונה הוא האדמין השני המשתמש השני
+    BusinessDemo2.businessOwner = AdminUser2 //הבעלים של החנות הראשונה הוא האדמין השני המשתמש השני
     BusinessDemo2.workers = AdminUser2 //העובדים של החנות הראשונה הוא האדמין השני המשתמש השני
     await BusinessDemo2.save()
 

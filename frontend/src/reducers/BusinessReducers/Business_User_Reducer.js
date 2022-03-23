@@ -2,6 +2,9 @@ import {
   BUSINESS_DETAILS_FAIL,
   BUSINESS_DETAILS_REQUEST,
   BUSINESS_DETAILS_SUCCESS,
+  BUSINESS_DETAILS_FORNAV_REQUEST,
+  BUSINESS_DETAILS_FORNAV_SUCCESS,
+  BUSINESS_DETAILS_FORNAV_FAIL,
   WORKERS_LIST_REQUEST,
   WORKERS_LIST_SUCCESS,
   WORKERS_LIST_FAIL,
@@ -21,6 +24,23 @@ export const GetBusinessDetailsReducer = (state = {}, action) => {
         success: true,
       }
     case BUSINESS_DETAILS_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const GetBusinessDetailsReducerfornav = (state = {}, action) => {
+  switch (action.type) {
+    case BUSINESS_DETAILS_FORNAV_REQUEST:
+      return { loading: true }
+    case BUSINESS_DETAILS_FORNAV_SUCCESS:
+      return {
+        loading: false,
+        business: action.payload,
+        success: true,
+      }
+    case BUSINESS_DETAILS_FORNAV_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state

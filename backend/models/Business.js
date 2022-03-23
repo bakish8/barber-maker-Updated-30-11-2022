@@ -2,21 +2,32 @@ import mongoose from 'mongoose'
 
 const shopSchema = mongoose.Schema(
   {
-    shopName: {
+    businessName: {
       type: String,
       required: true,
     },
     location: {
       type: String,
     },
+    websiteColors: {
+      type: String,
+      enum: ['black+white', 'black+blue'],
+      default: 'black+white',
+    },
     image: {
       type: String,
+    },
+    logo: {
+      type: String,
+    },
+    logoNameOnNav: {
+      type: Boolean,
     },
     phone: {
       type: Number,
       unique: true,
     },
-    shopOwner: {
+    businessOwner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
@@ -44,6 +55,6 @@ const shopSchema = mongoose.Schema(
   }
 )
 
-const Shop = mongoose.model('Shop', shopSchema)
+const Business = mongoose.model('Business', shopSchema)
 
-export default Shop
+export default Business

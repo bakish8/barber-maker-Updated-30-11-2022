@@ -7,12 +7,38 @@ const MakeAppointmentBG = (props) => {
     <>
       <LinkContainer to={`/business/${props.businessID}/picksapar`}>
         <div className='button_container'>
-          <i id='arrowleft' className='fas fa-long-arrow-alt-right'></i>
+          <i
+            id={
+              props.websiteColors === 'black+blue'
+                ? 'arrowleft'
+                : props.websiteColors === 'black+white'
+                ? 'arrowleftblackandwhite'
+                : 'dontdisplay'
+            }
+            className='fas fa-long-arrow-alt-right'
+          ></i>
 
-          <button className='maketorbtn'>
+          <button
+            className={
+              props.websiteColors === 'black+blue'
+                ? 'maketorbtn'
+                : props.websiteColors === 'black+white'
+                ? 'maketorbtnblackwhite'
+                : 'maketorbtn'
+            }
+          >
             <span>קבע תור</span>
           </button>
-          <i id='arrowright' className='fas fa-long-arrow-alt-left'></i>
+          <i
+            id={
+              props.websiteColors === 'black+blue'
+                ? 'arrowright'
+                : props.websiteColors === 'black+white'
+                ? 'arrowrightblackandwhite'
+                : 'dontdisplay'
+            }
+            className='fas fa-long-arrow-alt-left'
+          ></i>
         </div>
       </LinkContainer>
     </>

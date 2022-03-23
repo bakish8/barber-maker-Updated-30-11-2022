@@ -5,13 +5,24 @@ import { listProducts } from '../actions/productActions' //ייבוא של הא�
 import { Route } from 'react-router-dom'
 import SettingsImage from '../components/SettingsImage.js'
 //const AdminScreen = ({}) => {
-const AdminScreen = ({ match }) => {
+const AdminScreen = ({ history, match }) => {
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   const BussinessId = match.params.id
   useEffect(() => {}, [])
 
+  useEffect(() => {
+    if (!userInfo.isAdmin || userInfo.WorkingIn != BussinessId) {
+      history.push(`/business/${BussinessId}`)
+    }
+  }, [userInfo])
+
   return (
     <>
-      <SettingsImage BussinessId={BussinessId} />
+      {userInfo.isAdmin && userInfo.WorkingIn != BussinessId && (
+        <SettingsImage BussinessId={BussinessId} />
+      )}
     </>
   )
 }

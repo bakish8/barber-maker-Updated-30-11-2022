@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler'
-import Shop from '../models/Shop.js'
+import Business from '../models/Business.js'
 import Tipul from '../models/Tipul.js'
 import User from '../models/userModel.js'
 
@@ -8,21 +8,39 @@ const getBusinessDetailsPage = asyncHandler(async (req, res) => {
   console.log('Spesific Business Page load From Business Controller !!!')
   const { id } = req.params
   console.log(`id:${id}`)
-  const BusinessFound = await Shop.findOne({ _id: id })
+  const BusinessFound = await Business.findOne({ _id: id })
   if (BusinessFound) {
     console.log(BusinessFound)
     res.json({
       _id: BusinessFound._id,
-      name: BusinessFound.shopName,
+      name: BusinessFound.businessName,
       email: BusinessFound.location,
+      websiteColors: BusinessFound.websiteColors,
       image: BusinessFound.image,
+      logo: BusinessFound.logo,
       phone: BusinessFound.phone,
-      shopOwner: BusinessFound.shopOwner,
+      businessOwner: BusinessFound.businessOwner,
       workers: BusinessFound.workers,
       clients: BusinessFound.clients,
     })
   } else {
     console.log(`Error Business Not Found`)
+    res.status(404)
+    throw new Error(' the business not found')
+  }
+})
+//loading details + check if token is Verfied after email send + send email user to load in temp page
+const getBusinessDetailsForNavBar = asyncHandler(async (req, res) => {
+  const { id } = req.params
+  const BusinessFound = await Business.findOne({ _id: id })
+  if (BusinessFound) {
+    res.json({
+      //_id: BusinessFound._id,
+      name: BusinessFound.businessName,
+      logo: BusinessFound.logo,
+      logoNameOnNav: BusinessFound.logoNameOnNav,
+    })
+  } else {
     res.status(404)
     throw new Error(' the business not found')
   }
@@ -37,7 +55,7 @@ const getBusinessWorkers = asyncHandler(async (req, res) => {
 const registerNewTipulForBussines = asyncHandler(async (req, res) => {
   const { name, time, cost, image, BussinesId } = req.body
 
-  const BusinessFound = await Shop.findOne({ _id: BussinesId }).populate(
+  const BusinessFound = await Business.findOne({ _id: BussinesId }).populate(
     'tipulim'
   )
   if (!BusinessFound) {
@@ -63,7 +81,7 @@ const registerNewTipulForBussines = asyncHandler(async (req, res) => {
           image,
           BussinesId,
         })
-        //****make sure u save the tipul in shop */
+        //****make sure u save the tipul in business */
         BusinessFound.tipulim.push(tipul)
         BusinessFound.save()
 
@@ -82,7 +100,7 @@ const registerNewTipulForBussines = asyncHandler(async (req, res) => {
 })
 
 const getreatments = asyncHandler(async (req, res) => {
-  const BusinessFound = await Shop.findOne({ _id: req.params.id }).populate(
+  const BusinessFound = await Business.findOne({ _id: req.params.id }).populate(
     'tipulim'
   )
   if (BusinessFound) {
@@ -99,6 +117,7 @@ const getreatments = asyncHandler(async (req, res) => {
 
 export {
   getBusinessDetailsPage,
+  getBusinessDetailsForNavBar,
   getBusinessWorkers,
   registerNewTipulForBussines,
   getreatments,
