@@ -8,6 +8,7 @@ const containerStyle = {
   height: '400px',
 }
 
+/******position and center need tp be props */
 const center = {
   lat: 31.6659,
   lng: 34.56352,
@@ -16,6 +17,8 @@ const position = {
   lat: 31.6659,
   lng: 34.56352,
 }
+/******position and center need tp be props */
+
 const onLoad = (marker) => {
   console.log('marker: ', marker)
 }

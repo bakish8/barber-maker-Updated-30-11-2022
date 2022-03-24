@@ -2,7 +2,10 @@ import React, { useEffect, useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux' //מה שישחליט מה לשגר
 import { getBuissnesDetails } from '../../actions/BuissnesActions/Buissnes_User_Actions'
 import MakeAppointmentBG from '../../components/Business_Components/BusinessHomePage/MakeAppointmentBG'
-
+import ImageTWO from '../../components/HomePage/ImageTWO'
+import Aos from 'aos'
+import 'aos/dist/aos.css' ////add AOS effects
+//add nav bar only spesific barber cab make actions
 const BarberShop = ({ history, match }) => {
   const barberid = match.params.id
   const dispatch = useDispatch()
@@ -27,16 +30,22 @@ const BarberShop = ({ history, match }) => {
       console.log(`error`)
     }
   }, [history, userInfo, business])
-
+  useEffect(() => {
+    Aos.init({ duration: 700 })
+  }, [])
   return (
     <>
       {business && success && (
         <div>
-          <MakeAppointmentBG
-            businessImage={business.image}
-            businessID={business._id}
-            websiteColors={business.websiteColors}
-          />
+          <div>
+            <MakeAppointmentBG
+              businessImage={business.image}
+              businessID={business._id}
+              websiteColors={business.websiteColors}
+            />
+          </div>
+
+          <ImageTWO />
         </div>
       )}
     </>

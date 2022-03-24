@@ -7,7 +7,9 @@ const shopSchema = mongoose.Schema(
       required: true,
     },
     location: {
-      type: String,
+      /*** */ name: { type: String },
+      lat: { type: String },
+      lng: { type: String },
     },
     websiteColors: {
       type: String,
