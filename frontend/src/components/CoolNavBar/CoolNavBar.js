@@ -8,7 +8,9 @@ import Backdrop from '../UIelements/Backdrop'
 import './CoolNavBar.css'
 import logo from '../../D.gif'
 import { Link } from 'react-router-dom'
-const CoolNavBar = () => {
+const CoolNavBar = (props) => {
+  console.log(props.Administrate)
+
   const [isSmall, setisSmall] = useState(false)
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
@@ -110,7 +112,7 @@ const CoolNavBar = () => {
           </div>
         </div>
       )}
-      {userInfo && userInfo.isAdmin && (
+      {userInfo && userInfo.isAdmin && props.Administrate && (
         <div className='cool-nav-bar-div'>
           <div
             className={`cool-nav cool-nav-white ${

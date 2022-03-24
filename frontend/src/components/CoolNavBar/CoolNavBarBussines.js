@@ -8,6 +8,7 @@ import Backdrop from '../UIelements/Backdrop'
 import './CoolNavBar.css'
 import { Link } from 'react-router-dom'
 const CoolNavBarBussines = (props) => {
+  console.log(props.Administrate)
   const [isSmall, setisSmall] = useState(false)
   const [Propsi, setPropsi] = useState(false)
   const dispatch = useDispatch()
@@ -54,6 +55,14 @@ const CoolNavBarBussines = (props) => {
       setPropsi(true)
     } else {
       setPropsi(false)
+    }
+    if (props.Administrate) {
+      console.log(`props.Administrate`)
+      console.log(props.Administrate)
+
+      console.log(`________________________________________`)
+    } else {
+      console.log(props.Administrate)
     }
   }, [props])
 
@@ -132,7 +141,7 @@ const CoolNavBarBussines = (props) => {
           </div>
         </div>
       )}
-      {userInfo && userInfo.isAdmin && Administrate && (
+      {userInfo && userInfo.isAdmin && props.Administrate && (
         <div className='cool-nav-bar-div'>
           <div
             className={`cool-nav cool-nav-white ${

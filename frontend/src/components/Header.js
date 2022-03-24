@@ -489,7 +489,7 @@ const Header = ({ socket, match }) => {
           </aside>
         ) : (
           <aside>
-            <CoolNavBar />
+            <CoolNavBar Administrate={Administrate} />
           </aside>
         )}
       </header>
