@@ -35,7 +35,7 @@ const getBusinessDetailsForNavBar = asyncHandler(async (req, res) => {
   const BusinessFound = await Business.findOne({ _id: id })
   if (BusinessFound) {
     res.json({
-      //_id: BusinessFound._id,
+      id: BusinessFound._id,
       name: BusinessFound.businessName,
       logo: BusinessFound.logo,
       logoNameOnNav: BusinessFound.logoNameOnNav,

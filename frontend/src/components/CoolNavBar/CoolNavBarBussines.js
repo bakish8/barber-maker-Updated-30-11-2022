@@ -132,7 +132,7 @@ const CoolNavBarBussines = (props) => {
           </div>
         </div>
       )}
-      {userInfo && userInfo.isAdmin && (
+      {userInfo && userInfo.isAdmin && Administrate && (
         <div className='cool-nav-bar-div'>
           <div
             className={`cool-nav cool-nav-white ${

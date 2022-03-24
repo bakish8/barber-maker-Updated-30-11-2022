@@ -22,9 +22,18 @@ import CoolNavBarBussines from './CoolNavBar/CoolNavBarBussines'
 
 moment.locale('he')
 const Header = ({ socket, match }) => {
+  console.log(window.location)
+  console.log(window.location.hostname)
+  console.log(window.location.host)
+
+  console.log(window.location.pathname.split('/')[0])
+  console.log(window.location.pathname.split('/')[1])
+  console.log(window.location.pathname.split('/')[-1])
+
+  /****Fix in a way that getiing _id from sucsses bussines for nav and not fard coded because the changes of the url*/
   let Firstlocation = window.location.pathname.split('/')[1]
-  console.log(`window location is:${Firstlocation}`) //*************************** */
-  const barberid = window.location.pathname.split('/')[2]
+  //console.log(`window location is:${Firstlocation}`)
+  const BusinessId = window.location.pathname.split('/')[2]
 
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
@@ -46,19 +55,17 @@ const Header = ({ socket, match }) => {
 
   const cancelNotiList = useSelector((state) => state.cancelNotiList)
   const { loading, notifications, error } = cancelNotiList
-  /************************************** */
   const [notificationss, setNotificationss] = useState([])
   const [open, setOpen] = useState(false)
   const [MakeBLueONEdesapier, setMakeBLueONEdesapier] = useState(true)
-  //*************************************** */
-  const [FirstlocationIsBusiness, setFirstlocationIsBusiness] = useState(false)
+  //const [FirstlocationIsBusiness, setFirstlocationIsBusiness] = useState(false)
   const [stateForActiveAdminLINK, setstateForActiveAdminLINK] = useState(false)
   const [stateForActiveUserLINK, setstateForActiveUserLINK] = useState(false)
   const [stateForActiveCARTLINK, setstateForActiveCARTLINK] = useState(false)
+  const [Administrate, setAdministrate] = useState(false)
   const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
   const { userGoogleInfo, Gsuccess } = userGoogleLogin
 
-  /*************** */
   const GetBusinessDetailsfornav = useSelector(
     (state) => state.GetBusinessDetailsfornav
   )
@@ -68,7 +75,6 @@ const Header = ({ socket, match }) => {
     success: GetBusinessDetailssuccess,
     error: GetBusinessDetailserror,
   } = GetBusinessDetailsfornav
-  /***********New**** */
 
   const userLoginEMAIL = useSelector((state) => state.userLoginEMAIL)
   const {
@@ -82,7 +88,7 @@ const Header = ({ socket, match }) => {
     dispatch(logout())
   }
 
-  console.log(userInfo)
+  console.log(userInfo) /*****/
   console.log(userGoogleInfo)
 
   if (Gsuccess) {
@@ -115,10 +121,6 @@ const Header = ({ socket, match }) => {
   const one = document.getElementById('navbarContainerItem')
   const two = document.getElementById('navbarContainerItem2')
   const trhee = document.getElementById('navbarContainerItem3')
-
-  /******************************************************** */
-  /******************************************************** */
-  /******************************************************** */
 
   /*****Hard Code <span>היום-hard coded</span> */
   const displayNotification = ({
@@ -167,15 +169,6 @@ const Header = ({ socket, match }) => {
       )
     } else if (type === 3) {
       console.log(type)
-      console.log(type)
-      console.log(type)
-      console.log(type)
-      console.log(type)
-      console.log(type)
-      console.log(type)
-      console.log(type)
-      console.log(type)
-      console.log(type)
       return (
         <>
           <div className='notificationBLUE'>
@@ -195,15 +188,17 @@ const Header = ({ socket, match }) => {
     setMakeBLueONEdesapier(true)
     dispatch(Watch_All_Notifications(userInfo._id))
   }
-  /******************************************************** */
-  /******************************************************** */
-  /******************************************************** */
 
   useEffect(() => {
-    if (Firstlocation === 'business') {
-      //dispatch(get buissnes details)
-      dispatch(getBuissnesDetailsfornav(barberid))
-      setFirstlocationIsBusiness(true)
+    //if (Firstlocation === 'business') {
+    if (
+      !window.location.host === 'barber-maker.com:3000' ||
+      Firstlocation === 'business'
+    ) {
+      console.log(' we are in Barber-Maker.com or localHost 300 ! ! !')
+      //getting buissnes details
+      dispatch(getBuissnesDetailsfornav(BusinessId))
+      //setFirstlocationIsBusiness(true)
     }
     if (socket && socket != null) {
       console.log(' SOCKET ! ! !')
@@ -263,6 +258,7 @@ const Header = ({ socket, match }) => {
       window.location.reload()
     }
   }, [successEmail])
+
   useEffect(() => {
     if (notificationss) {
       console.log(`notificationss`)
@@ -270,14 +266,32 @@ const Header = ({ socket, match }) => {
     }
     if (user_connected_success && userInfo && userInfo.isAdmin) {
       console.log(`user connected succssessfully! dispatch GetNotifications`)
-      dispatch(GetNotifications(userInfo._id))
+      dispatch(GetNotifications(userInfo._id)) /////Fix
     }
-  }, [notificationss, user_connected_success, userInfo])
-  /********************************************** */
+
+    if (userInfo && GetBusinessDetailssuccess) {
+      console.log('_____________________________________________________')
+      console.log(`userInfo._workingIn : ${userInfo.workingIn}`)
+      console.log(`BusinessId is : ${business.id}`)
+      console.log('_____________________________________________________')
+      if (business.id === userInfo.workingIn) {
+        setAdministrate(true)
+      } else {
+        setAdministrate(false)
+      }
+    }
+  }, [
+    notificationss,
+    user_connected_success,
+    userInfo,
+    GetBusinessDetailssuccess,
+    Administrate,
+  ])
 
   //USE EFFECT  for **states for clicking outside div
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
+      /////Fix
       //**need to correct */
       dispatch(GetNotifications(userInfo._id))
     }
@@ -305,9 +319,10 @@ const Header = ({ socket, match }) => {
     setOpen(!open)
     setMakeBLueONEdesapier(!MakeBLueONEdesapier)
   }
+
   return (
     <>
-      {userInfo && userInfo.isAdmin && MakeBLueONEdesapier ? (
+      {userInfo && userInfo.isAdmin && Administrate && MakeBLueONEdesapier ? ( /////Fix
         <AdminMessages list={notifications} />
       ) : (
         <div id='displaynone'></div>
@@ -316,14 +331,18 @@ const Header = ({ socket, match }) => {
         <Navbar variant='dark' expand='lg' collapseOnSelect>
           <Container id='nabarr'>
             <LinkContainer
-              to={FirstlocationIsBusiness ? `/business/${barberid}` : '/'}
+              to={
+                GetBusinessDetailssuccess && business
+                  ? `/business/${business.id}`
+                  : '/'
+              }
             >
               <Navbar.Brand id='navbar-brand'>
                 {' '}
                 <div id='navlogodiv'>
                   <img
                     src={
-                      FirstlocationIsBusiness && GetBusinessDetailssuccess
+                      GetBusinessDetailssuccess && business
                         ? business.logo
                         : logo
                     }
@@ -338,9 +357,7 @@ const Header = ({ socket, match }) => {
                 <div className='healineAnimationNavBAR' id='navbarHeadline'>
                   {' '}
                   <h6 id='barbermakerH1Nav'>
-                    {FirstlocationIsBusiness &&
-                    GetBusinessDetailssuccess &&
-                    business.logoNameOnNav ? (
+                    {GetBusinessDetailssuccess && business.logoNameOnNav ? (
                       business.name
                     ) : GetBusinessDetailssuccess && !business.logoNameOnNav ? (
                       <div id='displaynonePlease'></div>
@@ -354,7 +371,7 @@ const Header = ({ socket, match }) => {
 
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ml-auto'>
-                {userInfo && userInfo.isAdmin && (
+                {userInfo && userInfo.isAdmin && Administrate && (
                   <NavDropdown
                     onClick={ClickOnAdmin}
                     id='navbarContainerItem'
@@ -462,9 +479,13 @@ const Header = ({ socket, match }) => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        {FirstlocationIsBusiness && GetBusinessDetailssuccess ? (
+        {GetBusinessDetailssuccess && business ? (
           <aside>
-            <CoolNavBarBussines logo={business.logo} businessId={barberid} />
+            <CoolNavBarBussines
+              logo={business.logo}
+              businessId={business.id}
+              Administrate={Administrate}
+            />
           </aside>
         ) : (
           <aside>
