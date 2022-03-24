@@ -14,7 +14,7 @@ const getBusinessDetailsPage = asyncHandler(async (req, res) => {
     res.json({
       _id: BusinessFound._id,
       name: BusinessFound.businessName,
-      email: BusinessFound.location,
+      location: BusinessFound.location,
       websiteColors: BusinessFound.websiteColors,
       image: BusinessFound.image,
       logo: BusinessFound.logo,

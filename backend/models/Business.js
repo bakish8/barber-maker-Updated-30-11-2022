@@ -8,8 +8,8 @@ const shopSchema = mongoose.Schema(
     },
     location: {
       /*** */ name: { type: String },
-      lat: { type: String },
-      lng: { type: String },
+      lat: { type: Number },
+      lng: { type: Number },
     },
     websiteColors: {
       type: String,

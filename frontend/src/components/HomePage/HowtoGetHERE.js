@@ -2,6 +2,8 @@ import React from 'react'
 
 import { GoogleMap, LoadScript } from '@react-google-maps/api'
 import { Marker } from '@react-google-maps/api'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 const containerStyle = {
   width: '400px',
@@ -9,11 +11,11 @@ const containerStyle = {
 }
 
 /******position and center need tp be props */
-const center = {
+const BaseLocation = {
   lat: 31.6659,
   lng: 34.56352,
 }
-const position = {
+const position1 = {
   lat: 31.6659,
   lng: 34.56352,
 }
@@ -23,7 +25,34 @@ const onLoad = (marker) => {
   console.log('marker: ', marker)
 }
 
-const HowtoGetHERE = () => {
+const HowtoGetHERE = (props) => {
+  const [Center, setCenter] = useState({})
+  const [Position, setPosition] = useState({})
+  const [websiteColors, setwebsiteColors] = useState({})
+
+  //USE EFFECT  for Aos Effects
+  useEffect(() => {
+    if (props.location) {
+      console.log(props.websiteColors)
+      let lat = props.location.lat
+      let lng = props.location.lng
+      console.log(lat)
+      console.log(lng)
+      let position = { lat, lng }
+      let center = position
+      console.log(position)
+      console.log(center)
+      console.log(position1)
+      console.log(BaseLocation)
+      setPosition(position)
+      setCenter(center)
+    }
+    if (props.websiteColors) {
+      setwebsiteColors(props.websiteColors)
+    }
+  }, [props.websiteColors])
+
+  //styles google
   const styles = [
     {
       elementType: 'geometry',
@@ -257,6 +286,166 @@ const HowtoGetHERE = () => {
       ],
     },
   ]
+  const stylesBW = [
+    {
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#f5f5f5',
+        },
+      ],
+    },
+    {
+      elementType: 'labels.icon',
+      stylers: [
+        {
+          visibility: 'off',
+        },
+      ],
+    },
+    {
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#616161',
+        },
+      ],
+    },
+    {
+      elementType: 'labels.text.stroke',
+      stylers: [
+        {
+          color: '#f5f5f5',
+        },
+      ],
+    },
+    {
+      featureType: 'administrative.land_parcel',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#bdbdbd',
+        },
+      ],
+    },
+    {
+      featureType: 'poi',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#eeeeee',
+        },
+      ],
+    },
+    {
+      featureType: 'poi',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#757575',
+        },
+      ],
+    },
+    {
+      featureType: 'poi.park',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#e5e5e5',
+        },
+      ],
+    },
+    {
+      featureType: 'poi.park',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#9e9e9e',
+        },
+      ],
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#ffffff',
+        },
+      ],
+    },
+    {
+      featureType: 'road.arterial',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#757575',
+        },
+      ],
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#dadada',
+        },
+      ],
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#616161',
+        },
+      ],
+    },
+    {
+      featureType: 'road.local',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#9e9e9e',
+        },
+      ],
+    },
+    {
+      featureType: 'transit.line',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#e5e5e5',
+        },
+      ],
+    },
+    {
+      featureType: 'transit.station',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#eeeeee',
+        },
+      ],
+    },
+    {
+      featureType: 'water',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#c9c9c9',
+        },
+      ],
+    },
+    {
+      featureType: 'water',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#9e9e9e',
+        },
+      ],
+    },
+  ]
 
   return (
     <>
@@ -266,13 +455,16 @@ const HowtoGetHERE = () => {
       <div id='googleMap'>
         <LoadScript googleMapsApiKey='AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'>
           <GoogleMap
-            options={{ styles }}
+            options={websiteColors == 'black+white' ? { stylesBW } : { styles }}
             mapContainerStyle={containerStyle}
-            center={center}
+            center={props.location ? Center : BaseLocation}
             zoom={14}
           >
             {' '}
-            <Marker onLoad={onLoad} position={position} />
+            <Marker
+              onLoad={onLoad}
+              position={props.location ? Position : BaseLocation}
+            />
             <></>
           </GoogleMap>
         </LoadScript>

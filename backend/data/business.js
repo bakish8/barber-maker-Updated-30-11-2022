@@ -3,7 +3,7 @@
 const business = [
   {
     businessName: 'Avihay Meir',
-    location: { name: 'אשקלון,שילה 15', lat: '31.67060', lng: '34.55781' },
+    location: { name: 'אשקלון,שילה 15', lat: '31.6706', lng: '34.5578' },
     websiteColors: 'black+white',
     image: 'https://i.ibb.co/LZzRSrt/bgwhite.png',
     logo: 'https://i.ibb.co/Qjj3Qw7/IAM-BARBERSHOP-LOGO-WHITE2.png',
@@ -13,9 +13,10 @@ const business = [
     workers: null,
     clients: null,
   },
+
   {
     businessName: 'Premium',
-    location: { name: 'אשקלון,עלי 4', lat: '31.6659', lng: '34.56352' },
+    location: { name: 'אשדוד הרמבם 8', lat: '31.8049', lng: '34.6535' },
     websiteColors: 'black+white',
     image: 'https://i.ibb.co/hKKPxf8/bgbg3.png',
     logo: 'https://i.ibb.co/85qLSWY/Premium-Logo-Blank2.png',

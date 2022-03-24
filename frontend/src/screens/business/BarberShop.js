@@ -45,7 +45,10 @@ const BarberShop = ({ history, match }) => {
             />
           </div>
 
-          <ImageTWO />
+          <ImageTWO
+            location={business.location}
+            websiteColors={business.websiteColors}
+          />
         </div>
       )}
     </>
