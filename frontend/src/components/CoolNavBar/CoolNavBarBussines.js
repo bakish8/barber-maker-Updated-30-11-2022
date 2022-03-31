@@ -115,7 +115,7 @@ const CoolNavBarBussines = (props) => {
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to='/picksapar'
+                      to={`/business/${props.businessId}/picksapar`}
                     >
                       <p>קבע תור</p>
                     </LinkContainer>
@@ -188,14 +188,14 @@ const CoolNavBarBussines = (props) => {
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to='/admin/torim'
+                      to={`/business/${props.businessId}`}
                     >
                       <p>תורים</p>
                     </LinkContainer>
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to='/admin'
+                      to={`/business/${props.businessId}`} /**** Fix*/
                     >
                       <p>אפשרויות</p>
                     </LinkContainer>

@@ -437,9 +437,18 @@ const Header = ({ socket, match }) => {
                     <LinkContainer id='usernameactionsNAV' to='/profile'>
                       <NavDropdown.Item id='centerme'>פרופיל</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer id='usernameactionsNAV' to='/picksapar'>
+
+                    <LinkContainer
+                      id='usernameactionsNAV'
+                      to={
+                        GetBusinessDetailssuccess && business
+                          ? `/business/${business.id}/picksapar`
+                          : '/picksapar'
+                      }
+                    >
                       <NavDropdown.Item id='centerme'>קבע תור</NavDropdown.Item>
                     </LinkContainer>
+
                     <LinkContainer id='usernameactionsNAV' to='/cancel'>
                       <NavDropdown.Item id='centerme'>בטל תור</NavDropdown.Item>
                     </LinkContainer>
