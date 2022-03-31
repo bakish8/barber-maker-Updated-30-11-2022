@@ -26,7 +26,6 @@ import SingleWorkDay from './screens/SingleWorkDay'
 import PickHourScreen from './screens/PickHourScreen'
 import CancelTorScreen from './screens/CancelTorScreen'
 import ReportsScreen from './screens/ReportsScreen'
-import SettingsScreen from './screens/SettingsScreen'
 import NewTipulScreen from './screens/NewTipulScreen'
 import SingleReportScreen from './screens/SingleReportScreen'
 import PrivecyPolicy from './screens/PrivecyPolicy'
@@ -40,6 +39,10 @@ import PickSapar from './screens/business/PickSapar'
 import PickDate from './screens/business/PickDate'
 import PickTipul from './screens/business/PickTipul'
 import PickTime from './screens/business/PickTime'
+import AdminWorkingDays from './screens/business/admin/AdminWorkingDays'
+import AdminSingleWorkDay from './screens/business/admin/AdminSingleWorkDay'
+import AdminSettingsScreen from './screens/business/admin/AdminSettingsScreen'
+import AdminNewTipulScreen from './screens/business/admin/AdminNewTipulScreen'
 
 const App = () => {
   const userObject = useContext(myContext)
@@ -92,13 +95,13 @@ const App = () => {
             exact
           />
           <Route path='/admin/torim/' component={WorkingDaysScreen} exact />
+
           <Route path='/admin/workingday/:id' component={SingleWorkDay} exact />
           <Route
             path='/forgot-password/:id/:token'
             component={ForgottenPasswordResetByEmail}
             exact
           />
-          <Route path='/admin/settings' component={SettingsScreen} exact />
           <Route
             path='/admin/settings/newtipul'
             component={NewTipulScreen}
@@ -137,20 +140,33 @@ const App = () => {
             component={PickTipul} /****TO BE FIX */
             exact
           />
+
           <Route
-            path='/business/:id/settings'
-            component={SettingsScreen}
+            path='/business/:id/admin/:aid/settings/'
+            component={AdminSettingsScreen}
             exact
           />
+
           <Route
-            path='/business/:id/settings/newtipul'
-            component={NewTipulScreen}
+            path='/business/:id/admin/:aid/settings/newtipul'
+            component={AdminNewTipulScreen}
             exact
           />
 
           <Route
             path='/business/:id/maketor/:wid/:tid'
             component={PickTime}
+            exact
+          />
+          <Route
+            path='/business/:id/admin/:aid/workingdays'
+            component={AdminWorkingDays}
+            exact
+          />
+
+          <Route
+            path='/business/:bid/admin/:aid/workingdays/:id'
+            component={AdminSingleWorkDay}
             exact
           />
         </Container>

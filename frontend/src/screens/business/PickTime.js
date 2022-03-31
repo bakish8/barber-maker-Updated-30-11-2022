@@ -43,7 +43,7 @@ const PickTime = ({ history, match }) => {
   const closeOKHandler = () => setShowOK(false)
   const WorkDayid = match.params.wid
   const Tipulid = match.params.tid
-  const BusinessId = match.params.bid
+  const BusinessId = match.params.id
   console.log(WorkDayid)
   console.log(Tipulid)
   console.log('_____________')

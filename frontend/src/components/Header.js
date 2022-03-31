@@ -390,9 +390,18 @@ const Header = ({ socket, match }) => {
                     <LinkContainer id='usernameactionsNAV' to='/admin'>
                       <NavDropdown.Item>אפשרויות</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer id='usernameactionsNAV' to='/admin/torim'>
+
+                    <LinkContainer
+                      id='usernameactionsNAV'
+                      to={
+                        GetBusinessDetailssuccess && business
+                          ? `/business/${business.id}/admin/${userInfo._id}/workingdays`
+                          : `/admin/torim`
+                      }
+                    >
                       <NavDropdown.Item>תורים</NavDropdown.Item>
                     </LinkContainer>
+
                     <LinkContainer id='usernameactionsNAV' to='/admin/reports'>
                       <NavDropdown.Item>סיכומים</NavDropdown.Item>
                     </LinkContainer>
@@ -412,7 +421,10 @@ const Header = ({ socket, match }) => {
                     >
                       <NavDropdown.Item>הזמנות</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer id='usernameactionsNAV' to='/admin/settings'>
+                    <LinkContainer
+                      id='usernameactionsNAV'
+                      to={`/business/${business.id}/admin/${userInfo._id}/settings`}
+                    >
                       <NavDropdown.Item>הגדרות</NavDropdown.Item>
                     </LinkContainer>
                   </NavDropdown>
