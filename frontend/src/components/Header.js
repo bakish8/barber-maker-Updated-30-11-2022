@@ -387,7 +387,10 @@ const Header = ({ socket, match }) => {
                       </h4>
                     }
                   >
-                    <LinkContainer id='usernameactionsNAV' to='/admin'>
+                    <LinkContainer
+                      id='usernameactionsNAV'
+                      to={`/business/${business.id}/admin/${userInfo._id}/terminal`}
+                    >
                       <NavDropdown.Item>אפשרויות</NavDropdown.Item>
                     </LinkContainer>
 

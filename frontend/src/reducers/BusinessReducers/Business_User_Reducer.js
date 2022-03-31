@@ -11,7 +11,11 @@ import {
   TREATMENTS_LIST_REQUEST,
   TREATMENTS_LIST_SUCCESS,
   TREATMENTS_LIST_FAIL,
+  BUSINESS_USER_REGISTER_REQUEST,
+  BUSINESS_USER_REGISTER_SUCCESS,
+  BUSINESS_USER_REGISTER_FAIL,
 } from '../../constants/Business/Business_user_Consts'
+import { USER_LOGOUT } from '../../constants/userConstants'
 
 export const GetBusinessDetailsReducer = (state = {}, action) => {
   switch (action.type) {
@@ -71,6 +75,21 @@ export const BusinessTreatmentsListReducer = (
       return { tipulimloading: false, tipulim: action.payload }
     case TREATMENTS_LIST_FAIL:
       return { tipulimloading: false, tipulimerror: action.payload }
+    default:
+      return state
+  }
+}
+
+export const ClientRegisterReducer = (state = {}, action) => {
+  switch (action.type) {
+    case BUSINESS_USER_REGISTER_REQUEST:
+      return { loading: true }
+    case BUSINESS_USER_REGISTER_SUCCESS:
+      return { success: true, loading: false, userInfo: action.payload }
+    case BUSINESS_USER_REGISTER_FAIL:
+      return { success: false, loading: false, error: action.payload }
+    case USER_LOGOUT:
+      return {}
     default:
       return state
   }

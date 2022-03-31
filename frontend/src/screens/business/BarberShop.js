@@ -7,7 +7,7 @@ import Aos from 'aos'
 import 'aos/dist/aos.css' ////add AOS effects
 //add nav bar only spesific barber cab make actions
 const BarberShop = ({ history, match }) => {
-  const barberid = match.params.id
+  const BussinesID = match.params.id
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -16,12 +16,12 @@ const BarberShop = ({ history, match }) => {
   const { loading, business, success, error } = GetBusinessDetails
 
   useEffect(() => {
-    dispatch(getBuissnesDetails(barberid))
+    dispatch(getBuissnesDetails(BussinesID))
   }, [dispatch])
 
   useEffect(() => {
     if (!userInfo) {
-      history.push('/login') ///Fix to be login page for spesific
+      history.push(`/business/${BussinesID}/login`) ///TRY
     }
     if (business) {
       console.log(business)

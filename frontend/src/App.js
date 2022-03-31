@@ -43,6 +43,9 @@ import AdminWorkingDays from './screens/business/admin/AdminWorkingDays'
 import AdminSingleWorkDay from './screens/business/admin/AdminSingleWorkDay'
 import AdminSettingsScreen from './screens/business/admin/AdminSettingsScreen'
 import AdminNewTipulScreen from './screens/business/admin/AdminNewTipulScreen'
+import AdminTerminal from './screens/business/admin/AdminTerminal'
+import BussinesRegisterScreen from './screens/business/Register+Login/BussinesRegisterScreen'
+import BusinessLoginScreen from './screens/business/Register+Login/BusinessLoginScreen'
 
 const App = () => {
   const userObject = useContext(myContext)
@@ -133,6 +136,16 @@ const App = () => {
           <Route path='/admin' component={Admin} exact />
 
           <Route path='/business/:id' component={BarberShop} exact />
+          <Route
+            path='/business/:id/register'
+            component={BussinesRegisterScreen}
+            exact
+          />
+          <Route
+            path='/business/:id/login'
+            component={BusinessLoginScreen}
+            exact
+          />
           <Route path='/business/:id/picksapar' component={PickSapar} exact />
           <Route path='/business/:id/maketor/:sid' component={PickDate} exact />
           <Route
@@ -141,6 +154,11 @@ const App = () => {
             exact
           />
 
+          <Route
+            path='/business/:id/admin/:aid/terminal/'
+            component={AdminTerminal}
+            exact
+          />
           <Route
             path='/business/:id/admin/:aid/settings/'
             component={AdminSettingsScreen}

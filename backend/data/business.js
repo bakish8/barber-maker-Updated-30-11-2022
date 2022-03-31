@@ -11,7 +11,7 @@ const business = [
     phone: '0508633008',
     businessOwner: null,
     workers: null,
-    clients: null,
+    clients: [],
   },
 
   {
@@ -24,7 +24,7 @@ const business = [
     phone: '0509069090',
     businessOwner: null,
     workers: null,
-    clients: null,
+    clients: [],
   },
 ]
 

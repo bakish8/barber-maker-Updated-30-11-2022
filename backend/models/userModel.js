@@ -42,6 +42,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    ClientOfBusiness: {
+      type: String,
+      required: false,
+    },
     commentsForTipul: {
       type: String,
       required: false,

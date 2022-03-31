@@ -308,7 +308,9 @@ const AdminWorkingDays = ({ history, match }) => {
   //העברה לעמוד יום העבודה הספציפי
   const sendMEtoWorkPageFunction = (id) => {
     console.log(id)
-    history.push(`/admin/workingday/${id}`)
+    history.push(
+      `/business/${businessid}/admin/${userInfo._id}/workingdays/${id}`
+    )
   }
 
   //**COVERNET DATEPICKER FUNCTION המרת דייט פיקר לפורמט קריא*/

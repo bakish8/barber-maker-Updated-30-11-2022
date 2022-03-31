@@ -96,6 +96,7 @@ import {
   GetBusinessDetailsReducer,
   BusinessTreatmentsListReducer,
   GetBusinessDetailsReducerfornav,
+  ClientRegisterReducer,
 } from './reducers/BusinessReducers/Business_User_Reducer'
 
 const reducer = combineReducers({
@@ -187,6 +188,8 @@ const reducer = combineReducers({
   GetBusinessDetailsfornav: GetBusinessDetailsReducerfornav,
   BusinessWorkersList: BusinessWorkersListReducer,
   BusinessTreatmentsList: BusinessTreatmentsListReducer,
+
+  ClientRegister: ClientRegisterReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

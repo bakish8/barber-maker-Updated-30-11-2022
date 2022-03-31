@@ -391,7 +391,7 @@ export const register =
 
       const { data } = await axios.post(
         '/api/users',
-        { name, email, phone, password, image },
+        { name, email, phone, password, image, BussinesID: '0' },
         config
       )
 

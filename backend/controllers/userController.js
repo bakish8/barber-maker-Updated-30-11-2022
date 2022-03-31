@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 import generateToken from '../utils/generateToken.js'
 import User from '../models/userModel.js'
 import Tipul from '../models/Tipul.js'
+import Business from '../models/Business.js'
 // @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
@@ -78,10 +79,19 @@ const authGoogleUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, phone, password, image } = req.body
+  const { name, email, phone, password, image, businessid } = req.body
   console.log('phone')
   const userExists = await User.findOne({ email })
-
+  const business = await Business.findById(businessid).populate('clients')
+  console.log(`______________________________Business !!!!!!!`)
+  console.log(`______________________________Business !!!!!!!`)
+  console.log(`______________________________Business !!!!!!!`)
+  console.log(`______________________________Business !!!!!!!`)
+  console.log(`______________________________Business !!!!!!!`)
+  console.log(`______________________________Business !!!!!!!${business}`)
+  console.log(
+    `______________________________Business !!!!!!!${business.clients}`
+  )
   if (userExists) {
     res.status(400)
     throw new Error('המשתמש כבר קיים במערכת')
@@ -97,8 +107,12 @@ const registerUser = asyncHandler(async (req, res) => {
       phone,
       password,
       image: 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif',
+      ClientOfBusiness: businessid,
     })
+
     if (user) {
+      business.clients.push(user)
+      await business.save()
       res.status(201).json({
         _id: user._id,
         name: user.name,
@@ -108,6 +122,7 @@ const registerUser = asyncHandler(async (req, res) => {
         phone: user.phone,
         isAdmin: user.isAdmin,
         image: user.image,
+        ClientOfBusiness: businessid,
         token: generateToken(user._id),
       })
     } else {
@@ -125,8 +140,12 @@ const registerUser = asyncHandler(async (req, res) => {
       phone,
       password,
       image,
+      ClientOfBusiness: businessid,
     })
+
     if (user) {
+      business.clients.push({ user })
+      await business.save()
       res.status(201).json({
         _id: user._id,
         name: user.name,
@@ -136,6 +155,7 @@ const registerUser = asyncHandler(async (req, res) => {
         phone: user.phone,
         isAdmin: user.isAdmin,
         image: user.image,
+        ClientOfBusiness: user.ClientOfBusiness,
         token: generateToken(user._id),
       })
     } else {
