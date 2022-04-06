@@ -79,7 +79,8 @@ const BusinessLoginScreen = ({ location, history, match }) => {
   const SendTorSMS_RESET = useSelector((state) => state.SendTorSMS_RESET)
   const { loadingSendSMS, successSend, send } = SendTorSMS_RESET
 
-  const redirect = location.search ? location.search.split('=')[1] : '/'
+  //const redirect = location.search ? location.search.split('=')[1] : '/'
+  const redirect = `/business/${BussinesID}`
 
   const dispatchSearchUserAction = (email) => {
     dispatch(SearchOneUserBYEMAIL(email))

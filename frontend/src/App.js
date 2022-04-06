@@ -46,6 +46,8 @@ import AdminNewTipulScreen from './screens/business/admin/AdminNewTipulScreen'
 import AdminTerminal from './screens/business/admin/AdminTerminal'
 import BussinesRegisterScreen from './screens/business/Register+Login/BussinesRegisterScreen'
 import BusinessLoginScreen from './screens/business/Register+Login/BusinessLoginScreen'
+import AdminUserList from './screens/business/admin/AdminUserList'
+import AdminEditUserScreen from './screens/business/admin/AdminEditUserScreen'
 
 const App = () => {
   const userObject = useContext(myContext)
@@ -147,6 +149,16 @@ const App = () => {
             exact
           />
           <Route path='/business/:id/picksapar' component={PickSapar} exact />
+          <Route
+            path='/business/:id/admin/userlist'
+            component={AdminUserList}
+            exact
+          />
+          <Route
+            path='/business/:id/admin/user/:uid/edit'
+            component={AdminEditUserScreen}
+          />
+
           <Route path='/business/:id/maketor/:sid' component={PickDate} exact />
           <Route
             path='/business/:id/picktipul/:did'

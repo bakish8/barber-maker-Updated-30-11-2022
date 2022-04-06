@@ -144,7 +144,7 @@ const registerUser = asyncHandler(async (req, res) => {
     })
 
     if (user) {
-      business.clients.push({ user })
+      business.clients.push(user)
       await business.save()
       res.status(201).json({
         _id: user._id,

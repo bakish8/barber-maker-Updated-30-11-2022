@@ -37,7 +37,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     cancel_noti,
     error: errorcancel_noti,
   } = cancelNoti
-  const redirect = location.search ? location.search.split('=')[1] : '/'
+  const redirect = `/business/${BussinesID}`
 
   useEffect(() => {
     setSocket(io())
@@ -70,7 +70,11 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
           dayInWeek: 'defult', //*** hard coded and not needed*/
         })
       }
-
+      console.log(redirect)
+      console.log(redirect)
+      console.log(redirect)
+      console.log(redirect)
+      console.log(redirect)
       history.push(redirect)
     }
     if (success === false) {
@@ -237,7 +241,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
                   <Link
                     id='signUp'
                     className='whiteme'
-                    to={redirect ? `/login?redirect=${redirect}` : '/login'}
+                    to={`/business/${BussinesID}/login`}
                   >
                     התחבר
                   </Link>

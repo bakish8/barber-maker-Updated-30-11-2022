@@ -115,10 +115,59 @@ const getreatments = asyncHandler(async (req, res) => {
   }
 })
 
+const BussinesUserList = asyncHandler(async (req, res) => {
+  console.log(`getting specific users for business`)
+  const Users = await User.find({ ClientOfBusiness: req.params.id })
+  if (Users) {
+    res.json(Users)
+  } else {
+    console.log(`Error getting bussines users`)
+    res.status(404)
+    throw new Error(' the business not found')
+  }
+})
+
+const adminSideRegistaration = asyncHandler(async (req, res) => {
+  const { name, email, phone, password, businessid } = req.body
+  console.log('phone')
+  const userExists = await User.findOne({ email })
+  const business = await Business.findById(businessid).populate('clients')
+  console.log(`______________________________Business !!!!!!!${business}`)
+  if (userExists) {
+    res.status(400)
+    throw new Error('המשתמש כבר קיים במערכת')
+  }
+
+  let firstname = name.split(' ')[0]
+  let lastname = name.split(' ')[1]
+  const user = await User.create({
+    name,
+    firstname,
+    lastname,
+    email,
+    phone,
+    password,
+    image: 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif',
+    ClientOfBusiness: businessid,
+  })
+
+  if (user) {
+    console.log('user created sucssuusfully')
+    business.clients.push(user)
+    await business.save()
+    res.status(201).json(`user created`)
+  } else {
+    res.status(400)
+    throw new Error('אחד מהפרטים שגוי נסה שנית')
+  }
+})
+
 export {
   getBusinessDetailsPage,
   getBusinessDetailsForNavBar,
   getBusinessWorkers,
   registerNewTipulForBussines,
   getreatments,
+  BussinesUserList,
+  adminSideRegistaration,
 }

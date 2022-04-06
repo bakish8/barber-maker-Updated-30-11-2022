@@ -19,6 +19,12 @@ import {
   BUSINESS_USER_LOGIN_REQUEST,
   BUSINESS_USER_LOGIN_SUCCESS,
   BUSINESS_USER_LOGIN_FAIL,
+  BUSINESS_USER_LIST_REQUEST,
+  BUSINESS_USER_LIST_SUCCESS,
+  BUSINESS_USER_LIST_FAIL,
+  ADMIN_SIDE_REGISTER_REQUEST,
+  ADMIN_SIDE_REGISTER_SUCCESS,
+  ADMIN_SIDE_REGISTER_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { logout } from '../userActions'
 
@@ -213,6 +219,78 @@ export const register_client =
     } catch (error) {
       dispatch({
         type: BUSINESS_USER_REGISTER_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
+export const BussineslistUsers = (businessid) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: BUSINESS_USER_LIST_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(
+      `/api/business/${businessid}/users`,
+      config
+    )
+
+    dispatch({
+      type: BUSINESS_USER_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: BUSINESS_USER_LIST_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const AdminSideRegisterAction =
+  (name, email, phone, password, image, businessid) => async (dispatch) => {
+    try {
+      dispatch({
+        type: ADMIN_SIDE_REGISTER_REQUEST,
+      })
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+      const { data } = await axios.post(
+        //  '/api/users',
+        `/api/business/${businessid}/users`,
+        { name, email, phone, password, image, businessid },
+        config
+      )
+      dispatch({
+        type: ADMIN_SIDE_REGISTER_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: ADMIN_SIDE_REGISTER_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

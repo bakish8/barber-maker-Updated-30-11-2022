@@ -14,6 +14,14 @@ import {
   BUSINESS_USER_REGISTER_REQUEST,
   BUSINESS_USER_REGISTER_SUCCESS,
   BUSINESS_USER_REGISTER_FAIL,
+  BUSINESS_USER_LIST_REQUEST,
+  BUSINESS_USER_LIST_SUCCESS,
+  BUSINESS_USER_LIST_FAIL,
+  BUSINESS_USER_LIST_RESET,
+  ADMIN_SIDE_REGISTER_REQUEST,
+  ADMIN_SIDE_REGISTER_SUCCESS,
+  ADMIN_SIDE_REGISTER_FAIL,
+  ADMIN_SIDE_REGISTER_RESET,
 } from '../../constants/Business/Business_user_Consts'
 import { USER_LOGOUT } from '../../constants/userConstants'
 
@@ -90,6 +98,38 @@ export const ClientRegisterReducer = (state = {}, action) => {
       return { success: false, loading: false, error: action.payload }
     case USER_LOGOUT:
       return {}
+    default:
+      return state
+  }
+}
+
+export const BussinesuserListReducer = (state = { users: [] }, action) => {
+  switch (action.type) {
+    case BUSINESS_USER_LIST_REQUEST:
+      return { loading: true }
+    case BUSINESS_USER_LIST_SUCCESS:
+      return { loading: false, users: action.payload }
+    case BUSINESS_USER_LIST_FAIL:
+      return { loading: false, error: action.payload }
+    case BUSINESS_USER_LIST_RESET:
+      return { users: [] }
+    default:
+      return state
+  }
+}
+
+export const AdminSideRegisterReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_SIDE_REGISTER_REQUEST:
+      return { loading: true }
+    case ADMIN_SIDE_REGISTER_SUCCESS:
+      return { success: true, loading: false, userInfo: action.payload }
+    case ADMIN_SIDE_REGISTER_FAIL:
+      return { loading: false, error: action.payload }
+    case USER_LOGOUT:
+      return {}
+    case ADMIN_SIDE_REGISTER_RESET:
+      return { success: false }
     default:
       return state
   }
