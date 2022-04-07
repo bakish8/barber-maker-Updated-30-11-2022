@@ -48,6 +48,7 @@ import BussinesRegisterScreen from './screens/business/Register+Login/BussinesRe
 import BusinessLoginScreen from './screens/business/Register+Login/BusinessLoginScreen'
 import AdminUserList from './screens/business/admin/AdminUserList'
 import AdminEditUserScreen from './screens/business/admin/AdminEditUserScreen'
+import AdminNotificationsSettings from './screens/business/admin/AdminNotificationsSettings'
 
 const App = () => {
   const userObject = useContext(myContext)
@@ -143,6 +144,13 @@ const App = () => {
             component={BussinesRegisterScreen}
             exact
           />
+          <Route path='/business/:id/profile' component={ProfileScreen} exact />
+          <Route
+            path='/business/:id/cancel'
+            component={CancelTorScreen}
+            exact
+          />
+
           <Route
             path='/business/:id/login'
             component={BusinessLoginScreen}
@@ -174,6 +182,11 @@ const App = () => {
           <Route
             path='/business/:id/admin/:aid/settings/'
             component={AdminSettingsScreen}
+            exact
+          />
+          <Route
+            path='/business/:id/admin/:aid/settings/notifications'
+            component={AdminNotificationsSettings}
             exact
           />
 

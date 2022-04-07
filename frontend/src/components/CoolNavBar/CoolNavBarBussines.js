@@ -122,14 +122,14 @@ const CoolNavBarBussines = (props) => {
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to='/profile'
+                      to={`/business/${props.businessId}/profile`}
                     >
                       <p>פרופיל</p>
                     </LinkContainer>
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to='/cancel'
+                      to={`/business/${props.businessId}/cancel`}
                     >
                       <p>בטל תור</p>
                     </LinkContainer>
@@ -188,14 +188,14 @@ const CoolNavBarBussines = (props) => {
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to={`/business/${props.businessId}`}
+                      to={`/business/${props.businessId}/admin/${userInfo._id}/workingdays`}
                     >
                       <p>תורים</p>
                     </LinkContainer>
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to={`/business/${props.businessId}`} /**** Fix*/
+                      to={`/business/${props.businessId}/admin/${userInfo._id}/terminal`}
                     >
                       <p>אפשרויות</p>
                     </LinkContainer>
@@ -209,7 +209,7 @@ const CoolNavBarBussines = (props) => {
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to='/admin/userlist'
+                      to={`/business/${props.businessId}/admin/userlist`}
                     >
                       <p>לקוחות</p>
                     </LinkContainer>
@@ -230,7 +230,7 @@ const CoolNavBarBussines = (props) => {
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to='/admin/settings'
+                      to={`/business/${props.businessId}/admin/${userInfo._id}/settings`}
                     >
                       <p>הגדרות</p>
                     </LinkContainer>

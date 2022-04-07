@@ -17,7 +17,7 @@ import {
 } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
 import UserListFilter from '../../../components/Business_Components/Filters/UserListFilter'
 
-const AdminUserList = ({ history, match }) => {
+const AdminNotificationsSettings = ({ history, match }) => {
   const dispatch = useDispatch()
   const BussinesID = match.params.id
   //states
@@ -161,17 +161,7 @@ const AdminUserList = ({ history, match }) => {
           <i class='fas fa-angle-double-right'></i>
         </Link>
       </Col>
-      <h1 id='headlineme'>לקוחות</h1>{' '}
-      <Col className='text-right'>
-        <Button id='centermebtnwidh100' onClick={CreateClientHandler}>
-          <i className='fas fa-plus'></i> הכנס לקוח חדש
-        </Button>
-      </Col>
-      <Col className='text-right'>
-        <Button id='centermebtnwidh100' onClick={Search_Swal_Function}>
-          <i class='fas fa-search'></i> חפש לקוח קיים
-        </Button>
-      </Col>
+      <h1 id='headlineme'>הודעות ותזכורות </h1>{' '}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -185,10 +175,10 @@ const AdminUserList = ({ history, match }) => {
         >
           <thead>
             <tr id='tableheadlines'>
-              <th id='widthforUserListDelete'>פעולות</th>
-              <th>נייד</th>
+              <th id='widthforUserListDelete'>SMS</th>
+              <th id='widthforUserListDelete'>Whatsapp</th>
 
-              <th>שם</th>
+              <th>פעולות</th>
             </tr>
           </thead>
           <tbody id='centertext'>
@@ -196,41 +186,17 @@ const AdminUserList = ({ history, match }) => {
               <tr key={user._id} id='hoverandblue' className='TR_CLASS'>
                 <td>
                   {' '}
-                  <Button
-                    id='sizemefortable3Options'
-                    variant='danger'
-                    className='btn-sm'
-                    onClick={() => deleteHandler(user._id)}
-                  >
-                    <i id='IupNow' className='fas fa-trash'></i>
-                  </Button>
-                  <Button
-                    variant='success'
-                    id='sizemefortable3Options'
-                    className='btn-sm'
-                    onClick={() => deleteHandler(user._id)}
-                  >
-                    <i id='IupNow' class='fas fa-phone-alt'></i>
-                  </Button>
-                  <Button
-                    variant='info'
-                    id='sizemefortable3Options'
-                    className='btn-sm'
-                    onClick={() => send_ME_to_User_Page_Function(user._id)}
-                  >
-                    <i id='IupNow' class='fas fa-user-edit'></i>
-                  </Button>
+                  <form>
+                    <input type='checkbox' />
+                  </form>
                 </td>
 
-                <td
-                  onClick={() => send_ME_to_User_Page_Function(user._id)}
-                  id='PhoneTD'
-                >
-                  0{user.phone}
+                <td>
+                  <input type='checkbox' />
                 </td>
 
                 <td onClick={() => send_ME_to_User_Page_Function(user._id)}>
-                  {user.name}
+                  הודעת אישור לנייד של הלקוח בעת קביעת תור ע"י הלקוח
                 </td>
               </tr>
             ))}
@@ -248,4 +214,4 @@ const AdminUserList = ({ history, match }) => {
   )
 }
 
-export default AdminUserList
+export default AdminNotificationsSettings

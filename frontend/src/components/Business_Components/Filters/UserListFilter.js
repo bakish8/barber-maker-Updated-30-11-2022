@@ -9,10 +9,9 @@ import { Modal } from '@material-ui/core'
 import { BussineslistUsers } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
 
 const UserListFilter = (props) => {
-  console.log(props.users)
   const dispatch = useDispatch()
-  //   const BussinesuserList = useSelector((state) => state.BussinesuserList)
-  //   const { loading, error, users } = BussinesuserList
+  const BussinesuserList = useSelector((state) => state.BussinesuserList)
+  const { loading, error, users } = BussinesuserList
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
@@ -36,7 +35,7 @@ const UserListFilter = (props) => {
   }
 
   const getData = () => {
-    const usersList = props.users
+    const usersList = users
     if (usersList) {
       for (let user of usersList) {
         const li = document.createElement('li')
@@ -47,11 +46,11 @@ const UserListFilter = (props) => {
         }
         listItems.push(li)
         li.innerHTML = `
-       <div className='UserFilterUserInfo'>
-         <h4 id='user-name'>${user.name}</h4>
-   <h5 id='user-phone'>0${user.phone}</h5>
-       </div>
-       <img src=${user.image} /> `
+    <div className='UserFilterUserInfo'>
+      <h4 id='user-name'>${user.name}</h4>
+<h5 id='user-phone'>0${user.phone}</h5>
+    </div>
+    <img src=${user.image} /> `
         if (result) {
           result.appendChild(li)
         }
@@ -77,7 +76,7 @@ const UserListFilter = (props) => {
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      //   dispatch(BussineslistUsers(props.BussinesID))//************** */
+      dispatch(BussineslistUsers(props.BussinesID)) //************** */
     } else {
       console.log('u ar enot an admin')
     }
@@ -104,7 +103,20 @@ const UserListFilter = (props) => {
               ></input>
             </header>
 
-            <ul id='UserFilterresult' className='user-list'></ul>
+            <ul id='UserFilterresult' className='user-list'>
+              {loading ? (
+                <div>
+                  <h3 id='loadingUSERFILTER'>...טוען</h3>
+                  <li>
+                    <Loader />
+                  </li>
+                </div>
+              ) : error ? (
+                <Message variant='danger'>{error}</Message>
+              ) : (
+                <div></div>
+              )}
+            </ul>
           </div>
         </Modal>
       ) : (

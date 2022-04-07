@@ -29,19 +29,32 @@ const SettingsImage = (props) => (
               //to='/admin/settings/newtipul'
               to={`/business/${props.BussinessId}/admin/${props.OwnerId}/settings/newtipul`}
             >
-              <button id='centermeAndBlock1' class='maketorbtn'>
+              <button id='centermeAndBlock2' class='maketorbtn'>
                 <span>הוסף טיפול חדש</span>
               </button>
             </Link>
 
             <Link style={{ textDecoration: 'none' }} to='/admin/reports/'>
-              <button id='centermeAndBlock1' class='maketorbtn'>
+              <button id='centermeAndBlock2' class='maketorbtn'>
                 <span>הגדר יום חופש</span>
               </button>
             </Link>
             <Link style={{ textDecoration: 'none' }} to='/admin/userlist/'>
-              <button id='centermeAndBlock1' class='maketorbtn'>
+              <button id='centermeAndBlock2' class='maketorbtn'>
                 <span>הגדר ספר חדש</span>
+              </button>
+            </Link>
+            <Link
+              style={{ textDecoration: 'none' }}
+              to={`/business/${props.BussinessId}/admin/${props.OwnerId}/settings/notifications`}
+            >
+              <button id='centermeAndBlock2' class='maketorbtn'>
+                <span>הודעות ותזכורות</span>
+              </button>
+            </Link>
+            <Link style={{ textDecoration: 'none' }} to='/admin/userlist/'>
+              <button id='centermeAndBlock2' class='maketorbtn'>
+                <span>הגדרות עיצוב</span>
               </button>
             </Link>
           </div>

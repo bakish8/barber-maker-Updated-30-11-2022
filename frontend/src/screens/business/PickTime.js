@@ -204,7 +204,8 @@ const PickTime = ({ history, match }) => {
             }).then(history.push(`/business/${BusinessId}`))
           )
           //.then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
-          .then(dispatch(SendTorWhatsapp(id, uid))) //sendins Whatsapp for client bY Confiemed whatsapp sender  and Templete*/
+          //.then(dispatch(SendTorWhatsapp(id, uid))) //sendins Whatsapp for client bY Confiemed whatsapp sender  and Templete*/
+          .then(dispatch(SendTorWhatsapp(id, uid, BusinessId))) //sendins Whatsapp for client bY Confiemed whatsapp sender  and Templete*/
           .then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
           .then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed --TRY NOW***************************************
           .then(

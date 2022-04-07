@@ -1779,47 +1779,49 @@ export const SendTorSMS = (id, uid) => async (dispatch, getState) => {
     })
   }
 }
-export const SendTorWhatsapp = (id, uid) => async (dispatch, getState) => {
-  console.log('whatsappppp!!!')
-  console.log('whatsappppp!!!')
-  console.log('whatsappppp!!!')
-  console.log('whatsappppp!!!')
-  try {
-    dispatch({
-      type: SEND_WHATSAPP_TOR_REQUEST,
-    })
+export const SendTorWhatsapp =
+  (id, uid, BusinessId) => async (dispatch, getState) => {
+    //export const SendTorWhatsapp = (id, uid) => async (dispatch, getState) => {
+    console.log('whatsappppp!!!')
+    console.log('whatsappppp!!!')
+    console.log('whatsappppp!!!')
+    try {
+      dispatch({
+        type: SEND_WHATSAPP_TOR_REQUEST,
+      })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-        'Access-Control-Allow-Origin': '*',
-      },
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
+
+      const { data } = await axios.post(
+        `/api/messages/whatsapp`,
+        //{ id, uid },
+        { id, uid, BusinessId },
+        config
+      )
+      dispatch({
+        type: SEND_WHATSAPP_TOR_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: SEND_WHATSAPP_TOR_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
     }
-
-    const { data } = await axios.post(
-      `/api/messages/whatsapp`,
-      { id, uid },
-      config
-    )
-    dispatch({
-      type: SEND_WHATSAPP_TOR_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: SEND_WHATSAPP_TOR_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
   }
-}
 
 export const Send_RESET_PASS_SMS = (phone) => async (dispatch) => {
   try {

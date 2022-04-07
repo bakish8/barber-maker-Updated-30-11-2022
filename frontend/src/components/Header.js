@@ -408,7 +408,14 @@ const Header = ({ socket, match }) => {
                     <LinkContainer id='usernameactionsNAV' to='/admin/reports'>
                       <NavDropdown.Item>סיכומים</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer id='usernameactionsNAV' to='/admin/userlist'>
+                    <LinkContainer
+                      id='usernameactionsNAV'
+                      to={
+                        GetBusinessDetailssuccess && business
+                          ? `/business/${business.id}/admin/userlist`
+                          : '/admin/userlist'
+                      }
+                    >
                       <NavDropdown.Item>לקוחות</NavDropdown.Item>
                     </LinkContainer>
 
@@ -449,7 +456,14 @@ const Header = ({ socket, match }) => {
                       </h4>
                     }
                   >
-                    <LinkContainer id='usernameactionsNAV' to='/profile'>
+                    <LinkContainer
+                      id='usernameactionsNAV'
+                      to={
+                        GetBusinessDetailssuccess && business
+                          ? `/business/${business.id}/profile`
+                          : '/profile'
+                      }
+                    >
                       <NavDropdown.Item id='centerme'>פרופיל</NavDropdown.Item>
                     </LinkContainer>
 
@@ -464,7 +478,14 @@ const Header = ({ socket, match }) => {
                       <NavDropdown.Item id='centerme'>קבע תור</NavDropdown.Item>
                     </LinkContainer>
 
-                    <LinkContainer id='usernameactionsNAV' to='/cancel'>
+                    <LinkContainer
+                      id='usernameactionsNAV'
+                      to={
+                        GetBusinessDetailssuccess && business
+                          ? `/business/${business.id}/cancel`
+                          : '/cancel'
+                      }
+                    >
                       <NavDropdown.Item id='centerme'>בטל תור</NavDropdown.Item>
                     </LinkContainer>
 

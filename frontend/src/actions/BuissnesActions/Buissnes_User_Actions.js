@@ -268,7 +268,7 @@ export const BussineslistUsers = (businessid) => async (dispatch, getState) => {
 }
 
 export const AdminSideRegisterAction =
-  (name, email, phone, password, image, businessid) => async (dispatch) => {
+  (name, email, phone, password, businessid) => async (dispatch) => {
     try {
       dispatch({
         type: ADMIN_SIDE_REGISTER_REQUEST,
@@ -281,7 +281,7 @@ export const AdminSideRegisterAction =
       const { data } = await axios.post(
         //  '/api/users',
         `/api/business/${businessid}/users`,
-        { name, email, phone, password, image, businessid },
+        { name, email, phone, password, businessid },
         config
       )
       dispatch({

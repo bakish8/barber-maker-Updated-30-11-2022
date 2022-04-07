@@ -6,6 +6,7 @@ import Appointment from '../models/Appointment.js'
 import Tipul from '../models/Tipul.js'
 import dotenv from 'dotenv'
 import twilio from 'twilio'
+import Business from '../models/Business.js'
 
 dotenv.config()
 const accountSid = process.env.TWILIO_ACCOUNT_SID
@@ -1323,14 +1324,19 @@ const SendSMS = asyncHandler(async (req, res) => {
 
 const Send_WHATSAPP_message = asyncHandler(async (req, res) => {
   console.log(req.body)
-  const { id, uid } = req.body
+  //  const { id, uid } = req.body
+  const { id, uid, BusinessId } = req.body
   console.log(`______________________________________________`)
   console.log(`id:${id}`)
   console.log(`______________________________________________`)
-  console.log(`id:${uid}`)
+  console.log(` user id:${uid}`)
+  console.log(`______________________________________________`)
+  console.log(` Business id:${BusinessId}`)
   const clock = await Clock.findById(id).populate('owner')
   const user = await User.findById(uid)
-  if (clock && user) {
+  const BusinessFound = await Business.findById(BusinessId) //****new */
+  // if (clock && user) {
+  if (clock && user && BusinessFound) {
     console.log(`______________________________________________`)
     console.log(`user:${uid}`)
     console.log(`______________________________________________`)
@@ -1338,7 +1344,8 @@ const Send_WHATSAPP_message = asyncHandler(async (req, res) => {
     try {
       client.messages
         .create({
-          body: `שלום ${user.name} , התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar} , מצפים לראותך צוות ברבר מייקר`,
+          //**USE FOR DEMO// body: `שלום ${user.name} , התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar} , מצפים לראותך צוות ברבר מייקר`,
+          body: `שלום ${user.name} , התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar} , מצפים לראותך צוות ${BusinessFound.businessName}`,
           to: `whatsapp:+972${user.phone}`,
           from: `whatsapp:+972526971902`,
         })

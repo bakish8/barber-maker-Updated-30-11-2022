@@ -892,6 +892,11 @@ body input {
   display: block;
   margin: 20px auto;
 }
+#centermeAndBlock2 {
+  display: block;
+  margin: 20px auto;
+  width: 60%;
+}
 #centermeAndBlock {
   display: block;
 }
