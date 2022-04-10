@@ -1,3 +1,5 @@
+//***Need TO add Google Calender Settings if not a goole user dont try to add google calener Fix */
+
 import Swal from 'sweetalert2'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment'
@@ -24,6 +26,7 @@ import {
   CreatelNotifications,
   SendTorWhatsapp,
 } from '../../actions/userActions.js'
+import { getBuissnesSettings } from '../../actions/BuissnesActions/Buissnes_User_Actions'
 
 import { io } from 'socket.io-client'
 
@@ -35,6 +38,8 @@ while (date.getMinutes() % 15 !== 0) {
 }
 
 const PickTime = ({ history, match }) => {
+  const BussinesID = match.params.id
+
   const dispatch = useDispatch()
   const [socket, setSocket] = useState(null)
   const [showOK, setShowOK] = useState(false)
@@ -70,6 +75,13 @@ const PickTime = ({ history, match }) => {
   const avilableTorsForOneHour = useSelector(
     (state) => state.avilableTorsForOneHour
   )
+  const GetBusinessSETTINGS = useSelector((state) => state.GetBusinessSETTINGS)
+  const {
+    loading: loading_settings,
+    business: business_settings,
+    success: success_settings,
+    error: error_settings,
+  } = GetBusinessSETTINGS
   const { clockListForOneHour, loadingForOneHour, errorForOneHour } =
     avilableTorsForOneHour
 
@@ -148,6 +160,7 @@ const PickTime = ({ history, match }) => {
       dispatch(workingDayDetails(WorkDayid))
       dispatch(AvilableWorkingDayTors(WorkDayid))
       dispatch(SpecificTipulDeetsAction(Tipulid))
+      dispatch(getBuissnesSettings(BussinesID))
     } else {
       history.push('/login')
     }
@@ -173,6 +186,58 @@ const PickTime = ({ history, match }) => {
       dispatch(AvilableWorkingDayTorsFor3hours(WorkDayid))
     }
   }, [dispatch, tipulimDeets])
+
+  const EndActionsFunction = (
+    id,
+    uid,
+    BusinessId,
+    time,
+    sapar,
+    sapar_id,
+    date,
+    dayInWeek,
+    now
+  ) => {
+    if (success_settings) {
+      console.log(
+        `we got business settings ......readt to choose between actions!!!`
+      )
+      if (business_settings.settings.sendSMSClientSide == true) {
+        //sendins costumize Sms massege
+        dispatch(SendTorSMS(id, uid, BusinessId))
+      }
+      if (business_settings.settings.sendWhatsappClientSide == true) {
+        //sending costumize Whatsapp massege
+        dispatch(SendTorWhatsapp(id, uid, BusinessId))
+      }
+      if (business_settings.settings.sendSMSClientSideReminder == true) {
+        //creates Sms Reminder
+        dispatch(SendNotificationSMS(id, uid, 'sms'))
+      }
+      if ((business_settings.settings.sendWhatsappClientSideReminder = true)) {
+        //creates Whatsapp  Reminder
+        dispatch(SendNotificationSMS(id, uid, 'whatsapp'))
+      }
+      if (business_settings.settings.bookingooglecalender == true) {
+        //creates A Booking on User Google Calender
+        dispatch(BookMEonGoogleCalenderAction(id, uid)) //Fix add 2 Hr More
+      }
+      //creating a notification and then handle it
+      dispatch(
+        CreatelNotifications(
+          id,
+          date,
+          time,
+          dayInWeek,
+          sapar,
+          uid,
+          sapar_id,
+          2, //Fix
+          now
+        )
+      ).then(handleNotification(2, sapar, time, dayInWeek, date)) //Fix
+    }
+  }
 
   const submitHandler = (id, time, date, sapar, dayInWeek, sapar_id) => {
     const uid = userInfo._id
@@ -203,27 +268,19 @@ const PickTime = ({ history, match }) => {
               timer: 8000,
             }).then(history.push(`/business/${BusinessId}`))
           )
-          //.then(dispatch(SendTorSMS(id, uid))) //sendins sms for client //***returnn after dev */
-          //.then(dispatch(SendTorWhatsapp(id, uid))) //sendins Whatsapp for client bY Confiemed whatsapp sender  and Templete*/
-          .then(dispatch(SendTorWhatsapp(id, uid, BusinessId))) //sendins Whatsapp for client bY Confiemed whatsapp sender  and Templete*/
-          .then(dispatch(SendNotificationSMS(id, uid))) //creating reminder Sms for client
-          .then(dispatch(BookMEonGoogleCalenderAction(id, uid))) //need To Be Fixed --TRY NOW***************************************
           .then(
-            dispatch(
-              CreatelNotifications(
-                id,
-                date,
-                time,
-                dayInWeek,
-                sapar,
-                uid,
-                sapar_id,
-                2,
-                now
-              )
+            EndActionsFunction(
+              id,
+              uid,
+              BusinessId,
+              time,
+              sapar,
+              sapar_id,
+              date,
+              dayInWeek,
+              now
             )
           )
-          .then(handleNotification(2, sapar, time, dayInWeek, date))
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         history.goBack()
       }

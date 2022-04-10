@@ -29,6 +29,24 @@ const getBusinessDetailsPage = asyncHandler(async (req, res) => {
     throw new Error(' the business not found')
   }
 })
+
+const getBusinessSettings = asyncHandler(async (req, res) => {
+  console.log('Spesific Business Page load From Business Controller !!!')
+  const { id } = req.params
+  console.log(`id:${id}`)
+  const BusinessFound = await Business.findOne({ _id: id })
+  if (BusinessFound) {
+    console.log(BusinessFound)
+    res.json({
+      settings: BusinessFound.settings,
+    })
+  } else {
+    console.log(`Error Business Not Found`)
+    res.status(404)
+    throw new Error(' the business not found')
+  }
+})
+
 //loading details + check if token is Verfied after email send + send email user to load in temp page
 const getBusinessDetailsForNavBar = asyncHandler(async (req, res) => {
   const { id } = req.params
@@ -162,6 +180,69 @@ const adminSideRegistaration = asyncHandler(async (req, res) => {
   }
 })
 
+const UpdateBussinesSettingsController = asyncHandler(async (req, res) => {
+  const {
+    sendSMSClientSide_CheckBox_state,
+    sendWhatsappClientSide_CheckBox_state,
+    sendSMSAdminSide_CheckBox_state,
+    sendWhatsappAdminSide_CheckBox_state,
+    sendSMSClientSideCancel_CheckBox_state,
+    sendWhatsappClientSideCancel_CheckBox_state,
+    sendSMSAdminSideCancel_CheckBox_state,
+    sendWhatsappAdminSideCancel_CheckBox_state,
+    sendSMSClientSideReminder_CheckBox_state,
+    sendWhatsappClientSideReminder_CheckBox_state,
+    sendSMSAdminSideReminder_CheckBox_state,
+    sendWhatsappAdminSideReminder_CheckBox_state,
+    BookUSERSongooglCalender,
+    BusinessNotificationsTime,
+    BussinesID,
+  } = req.body
+  const Businesss = await Business.findById(BussinesID)
+
+  if (Businesss) {
+    console.log('___________________________________________________')
+    console.log(BookUSERSongooglCalender)
+    console.log('___________________________________________________')
+    console.log('___________________________________________________')
+    console.log('___________________________________________________')
+    console.log(Businesss.settings)
+    Businesss.settings.sendSMSClientSide = sendSMSClientSide_CheckBox_state
+    Businesss.settings.sendWhatsappClientSide =
+      sendWhatsappClientSide_CheckBox_state
+    Businesss.settings.sendSMSAdminSide = sendSMSAdminSide_CheckBox_state
+    Businesss.settings.sendWhatsappAdminSide =
+      sendWhatsappAdminSide_CheckBox_state
+    Businesss.settings.sendSMSClientSideCancel =
+      sendSMSClientSideCancel_CheckBox_state
+    Businesss.settings.sendWhatsappClientSideCancel =
+      sendWhatsappClientSideCancel_CheckBox_state
+    Businesss.settings.sendSMSAdminSideCancel =
+      sendSMSAdminSideCancel_CheckBox_state
+    Businesss.settings.sendWhatsappAdminSideCancel =
+      sendWhatsappAdminSideCancel_CheckBox_state
+    Businesss.settings.sendSMSClientSideReminder =
+      sendSMSClientSideReminder_CheckBox_state
+    Businesss.settings.sendWhatsappClientSideReminder =
+      sendWhatsappClientSideReminder_CheckBox_state
+    Businesss.settings.sendSMSAdminSideReminder =
+      sendSMSAdminSideReminder_CheckBox_state
+    Businesss.settings.sendWhatsappAdminSideReminder =
+      sendWhatsappAdminSideReminder_CheckBox_state
+    Businesss.settings.bookingooglecalender = BookUSERSongooglCalender
+    Businesss.settings.notificationsTime = BusinessNotificationsTime
+
+    const updatedBusinesss = await Businesss.save()
+
+    res.json({
+      settings: updatedBusinesss.settings,
+    })
+  } else {
+    res.status(404)
+    throw new Error('המשתמש אינו נמצא')
+  }
+})
+
 export {
   getBusinessDetailsPage,
   getBusinessDetailsForNavBar,
@@ -170,4 +251,6 @@ export {
   getreatments,
   BussinesUserList,
   adminSideRegistaration,
+  getBusinessSettings,
+  UpdateBussinesSettingsController,
 }

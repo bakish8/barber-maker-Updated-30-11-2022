@@ -1303,21 +1303,43 @@ const getMyTorim = asyncHandler(async (req, res) => {
 })
 
 const SendSMS = asyncHandler(async (req, res) => {
+  const { BusinessId } = req.body
   const clock = await Clock.findById(req.params.id).populate('owner')
   const user = await User.findById(req.params.uid)
-  if (user && clock && serviseSID) {
-    try {
-      client.messages
-        .create({
-          body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ברבר מייקר `,
-          messagingServiceSid: 'MG9ba56c1fdaa9b554e7c28fa0c27e0c73',
-          to: `+972${user.phone}`,
-        })
-        .then((message) => console.log(message.sid))
-        .done()
-    } catch (e) {
-      console.log(e.code)
-      console.log(e.message)
+  if (!BusinessId) {
+    if (user && clock && serviseSID) {
+      try {
+        client.messages
+          .create({
+            body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ברבר מייקר `,
+            messagingServiceSid: 'MG9ba56c1fdaa9b554e7c28fa0c27e0c73',
+            to: `+972${user.phone}`,
+          })
+          .then((message) => console.log(message.sid))
+          .done()
+      } catch (e) {
+        console.log(e.code)
+        console.log(e.message)
+      }
+    }
+  } else {
+    const BusinessFound = await Business.findById(BusinessId)
+    if (BusinessFound) {
+      if (user && clock && serviseSID) {
+        try {
+          client.messages
+            .create({
+              body: `שלום ${user.name} ,התור שלך נקבע בהצלחה לתאריך ${clock.owner.date} ביום ${clock.owner.dayInWeek} בשעה ${clock.time} לספר ${clock.sapar}, מצפים לראותך צוות ${BusinessFound.businessName}`,
+              messagingServiceSid: 'MG9ba56c1fdaa9b554e7c28fa0c27e0c73',
+              to: `+972${user.phone}`,
+            })
+            .then((message) => console.log(message.sid))
+            .done()
+        } catch (e) {
+          console.log(e.code)
+          console.log(e.message)
+        }
+      }
     }
   }
 })

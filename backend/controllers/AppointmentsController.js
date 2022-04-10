@@ -6,6 +6,7 @@ import Appointment from '../models/Appointment.js'
 import { BookmeOnGoogleCalender } from './googleauth.js'
 
 const AppointmentsMake = asyncHandler(async (req, res) => {
+  const { type } = req.body
   const clock = await Clock.findById(req.params.id).populate(
     'owner',
     'Dateday Datemonth Dateyear dayInWeek'
@@ -53,6 +54,7 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
     smsTime: clocksmstime,
     smsDate: clocksmsDate,
     smsDay: clocksmsdayInWeek,
+    reminderType: type,
   })
   appointment.save()
 })

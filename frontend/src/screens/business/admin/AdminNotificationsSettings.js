@@ -1,156 +1,172 @@
+//***Need TO add Google Calender Settings Fix */
+///need to reset swal when loading page
 import React, { useEffect, useState } from 'react'
 import { Table, Button, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../../../components/Message'
 import Loader from '../../../components/Loader'
-import {
-  listUsers,
-  deleteUser,
-  registerByADMIN,
-} from '../../../actions/userActions'
 import { Link } from 'react-router-dom'
-import swal from 'sweetalert'
 import Swal from 'sweetalert2'
 import {
-  AdminSideRegisterAction,
-  BussineslistUsers,
+  getBuissnesSettings,
+  updateSettings,
 } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
-import UserListFilter from '../../../components/Business_Components/Filters/UserListFilter'
 
 const AdminNotificationsSettings = ({ history, match }) => {
   const dispatch = useDispatch()
   const BussinesID = match.params.id
   //states
-  const [ShowUserFilter, setShowUserFilter] = useState(false)
-  const [word, setWord] = useState('') /****chiled state* */
-  const AdminSideRegister = useSelector((state) => state.AdminSideRegister)
-  const { success } = AdminSideRegister
-  const send_ME_to_User_Page_Function = (id) => {
-    history.push(`/business/${BussinesID}/admin/user/${id}/edit`)
-  }
-  const BussinesuserList = useSelector((state) => state.BussinesuserList)
-  const { loading, error, users } = BussinesuserList
+  let Ranger = document.getElementById('BusinessNotificationsTimeInput')
+
+  const [BookUSERSongooglCalender, setBookUSERSongooglCalender] =
+    useState(false)
+
+  const [
+    sendSMSClientSide_CheckBox_state,
+    setsendSMSClientSide_CheckBox_state,
+  ] = useState(false)
+
+  const [
+    sendWhatsappClientSide_CheckBox_state,
+    setsendWhatsappClientSide_CheckBox_state,
+  ] = useState(false)
+  const [sendSMSAdminSide_CheckBox_state, setsendSMSAdminSide_CheckBox_state] =
+    useState(false)
+  const [
+    sendWhatsappAdminSide_CheckBox_state,
+    setsendWhatsappAdminSide_CheckBox_state,
+  ] = useState(false)
+  const [
+    sendSMSClientSideCancel_CheckBox_state,
+    setsendSMSClientSideCancel_CheckBox_state,
+  ] = useState(false)
+  const [
+    sendWhatsappClientSideCancel_CheckBox_state,
+    setsendWhatsappClientSideCancel_CheckBox_state,
+  ] = useState(false)
+  const [
+    sendSMSAdminSideCancel_CheckBox_state,
+    setsendSMSAdminSideCancel_CheckBox_state,
+  ] = useState(false)
+  const [
+    sendWhatsappAdminSideCancel_CheckBox_state,
+    setsendWhatsappAdminSideCancel_CheckBox_state,
+  ] = useState(false)
+  const [
+    sendSMSClientSideReminder_CheckBox_state,
+    setsendSMSClientSideReminder_CheckBox_state,
+  ] = useState(false)
+  const [
+    sendWhatsappClientSideReminder_CheckBox_state,
+    setsendWhatsappClientSideReminder_CheckBox_state,
+  ] = useState(false)
+  const [
+    sendSMSAdminSideReminder_CheckBox_state,
+    setsendSMSAdminSideReminder_CheckBox_state,
+  ] = useState(false)
+  const [
+    sendWhatsappAdminSideReminder_CheckBox_state,
+    setsendWhatsappAdminSideReminder_CheckBox_state,
+  ] = useState(false)
+
+  const [BusinessNotificationsTime, setBusinessNotificationsTime] = useState('')
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-  const userDelete = useSelector((state) => state.userDelete)
-  const { success: successDelete } = userDelete
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      cancelButton: 'btn btn-outline-primary btn-md btn-block',
-      confirmButton: 'btn btn-outline-primary btn-md btn-block',
-      denyButton: 'btn btn-outline-primary btn-md btn-block',
-    },
-  })
+  const UpdateBusinessSETTINGS = useSelector(
+    (state) => state.UpdateBusinessSETTINGS
+  )
+  const { success_settings } = UpdateBusinessSETTINGS
+  const GetBusinessSETTINGS = useSelector((state) => state.GetBusinessSETTINGS)
+  const { loading, business, success, error } = GetBusinessSETTINGS
 
   //useEffect
   useEffect(() => {
-    if ((userInfo && userInfo.isAdmin) || success) {
-      dispatch(BussineslistUsers(BussinesID))
-      //dispatch(listUsers())
+    if (success_settings) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        html: `ההגדרות עודכנו בהצלחה`,
+        showConfirmButton: false,
+        timerProgressBar: true,
+        backdrop: `rgba(0,0,0,0.0)`,
+        allowOutsideClick: true,
+        timer: 4500,
+        toast: true,
+      })
+    }
+  }, [success_settings])
+
+  //useEffect
+  useEffect(() => {
+    if (Ranger) {
+      console.log('Ranger')
+      console.log(Ranger.value)
+    }
+  }, [Ranger])
+
+  useEffect(() => {
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(getBuissnesSettings(BussinesID))
     } else {
       history.push(`/business/${BussinesID}`)
     }
+  }, [dispatch, history, userInfo])
+  //useEffect
+  useEffect(() => {
+    if (business && success) {
+      console.log(`________________________________________`)
+      console.log(`______________________BUSINESS__________________`)
+      console.log(`______________________BUSINESS__________________`)
+      console.log(`______________________BUSINESS__________________`)
+      console.log(`________________________________________`)
 
-    if (word != '') {
-      setShowUserFilter(false)
-      history.push(`/business/${BussinesID}/admin/user/${word}/edit`)
-      setWord('')
-    }
-  }, [dispatch, history, successDelete, userInfo, success, word])
-
-  //Functions
-  const deleteHandler = (id) => {
-    swal({
-      title: '?אתה בטוח',
-      text: 'ברגע שתמחק את משתמש זה לא יהיה ניתן להשיבו למערכת',
-      icon: 'warning',
-      buttons: ['ביטול', 'מחק משתמש'],
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        swal('משתמש זה  נמחק בהצלחה מהמערכת', {
-          icon: 'success',
-        }).then(dispatch(deleteUser(id)))
-      } else {
-        console.log('your user is safe')
+      if (business.settings.sendSMSClientSide) {
+        setsendSMSClientSide_CheckBox_state(true)
       }
-    })
-  }
-  const CreateClientHandler = async () => {
-    const { value: formValues } = await Swal.fire({
-      imageUrl: 'https://i.ibb.co/k5YCM8z/animation-200-kyobojkk.gif',
-      imageWidth: 100,
-      imageHeight: 100,
-      title: 'הוסף משתמש חדש ',
-      footer: `הססמא שהונפקה ללקוח זה מספר הנייד שהזנת`,
-      confirmButtonText: 'רשום משתמש חדש',
 
-      html:
-        '<input id="swal-input1" class="swal2-input">' +
-        `<label for="swal-input1">${'  '}שם</label>` +
-        '<input id="swal-input2" class="swal2-input">' +
-        '<label for="swal-input2">אימייל</label>' +
-        '<input id="swal-input3" class="swal2-input">' +
-        `<label for="swal-input3">${'  '} נייד</label>`,
-
-      focusConfirm: false,
-      preConfirm: async () => {
-        return [
-          document.getElementById('swal-input1').value,
-          document.getElementById('swal-input2').value,
-          document.getElementById('swal-input3').value,
-        ]
-      },
-    })
-
-    if (formValues) {
-      const name = formValues[0]
-      const email = formValues[1]
-      const phone = formValues[2]
-      const password = formValues[2]
-      const image = 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif'
-      await dispatch(
-        AdminSideRegisterAction(name, email, phone, password, image, BussinesID)
-      )
+      if (business.settings.sendWhatsappClientSide) {
+        setsendWhatsappClientSide_CheckBox_state(true)
+      }
+      if (business.settings.sendSMSAdminSide) {
+        setsendSMSAdminSide_CheckBox_state(true)
+      }
+      if (business.settings.sendWhatsappAdminSide) {
+        setsendWhatsappAdminSide_CheckBox_state(true)
+      }
+      if (business.settings.sendSMSClientSideCancel) {
+        setsendSMSClientSideCancel_CheckBox_state(true)
+      }
+      if (business.settings.sendWhatsappClientSideCancel) {
+        setsendWhatsappClientSideCancel_CheckBox_state(true)
+      }
+      if (business.settings.sendSMSAdminSideCancel) {
+        setsendSMSAdminSideCancel_CheckBox_state(true)
+      }
+      if (business.settings.sendWhatsappAdminSideCancel) {
+        setsendWhatsappAdminSideCancel_CheckBox_state(true)
+      }
+      if (business.settings.sendSMSClientSideReminder) {
+        setsendSMSClientSideReminder_CheckBox_state(true)
+      }
+      if (business.settings.sendWhatsappClientSideReminder) {
+        setsendWhatsappClientSideReminder_CheckBox_state(true)
+      }
+      if (business.settings.sendSMSAdminSideReminder) {
+        setsendSMSAdminSideReminder_CheckBox_state(true)
+      }
+      if (business.settings.sendWhatsappAdminSideReminder) {
+        setsendWhatsappAdminSideReminder_CheckBox_state(true)
+      }
+      if (business.settings.bookingooglecalender) {
+        setBookUSERSongooglCalender(true)
+      }
+      if (business.settings.notificationsTime) {
+        setBusinessNotificationsTime(business.settings.notificationsTime)
+      }
+    } else {
+      console.log('error No business found in admin notification screen')
     }
-  }
-  const Search_Swal_Function = () => {
-    swalWithBootstrapButtons
-      .fire({
-        title: 'בחר דרך חיפוש',
-        text: `תוכל לחפש משתמשים קיימים לפי מספר נייד או שם,תוכל גם ליצור משתמש חדש שיקבל את תור זה`,
-        imageUrl: 'https://i.ibb.co/hYWCLW3/output-onlinegiftools-1.gif',
-        imageWidth: 100,
-        imageHeight: 100,
-        imageAlt: 'חיפוש',
-        color: 'black',
-        showCancelButton: true,
-        showDenyButton: true,
-        denyButtonText: `חפש לפי נייד`,
-        denyButtonColor: 'rgb(0, 132, 255)',
-
-        cancelButtonText: '(בפיתוח)Siri חפש באמצעות ',
-        cancelButtonColor: 'rgb(0, 180, 255)',
-        confirmButtonColor: 'rgb(0, 132, 255)',
-        confirmButtonText: 'חפש לפי שם',
-      })
-      .then(async (result) => {
-        if (result.isConfirmed) {
-          setShowUserFilter(true)
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          console.log('כאן נשים את הלוגיק של החיפוש לפי אימייל או משהו')
-          Swal.fire({
-            title: 'בפיתוח',
-            text: `רכיב זה נמצא בפיתוח`,
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'אוקי,תודה',
-          })
-        } else if (result.isDenied) {
-          setShowUserFilter(true)
-        }
-      })
-  }
+  }, [dispatch, business, success])
 
   //Return
 
@@ -166,49 +182,240 @@ const AdminNotificationsSettings = ({ history, match }) => {
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
-      ) : (
-        <Table
-          bordered
-          responsive
-          className='whiteme'
-          id='tablewhiteUserLIST_table'
-        >
-          <thead>
-            <tr id='tableheadlines'>
-              <th id='widthforUserListDelete'>SMS</th>
-              <th id='widthforUserListDelete'>Whatsapp</th>
+      ) : business ? (
+        <>
+          <Table
+            bordered
+            responsive
+            className='whiteme'
+            id='tablewhiteUserLIST_table'
+          >
+            <thead>
+              <tr id='tableheadlines'>
+                <th id='widthforUserListDelete'>SMS</th>
+                <th id='widthforUserListDelete'>Whatsapp</th>
 
-              <th>פעולות</th>
-            </tr>
-          </thead>
-          <tbody id='centertext'>
-            {users.map((user) => (
-              <tr key={user._id} id='hoverandblue' className='TR_CLASS'>
-                <td>
-                  {' '}
-                  <form>
-                    <input type='checkbox' />
-                  </form>
-                </td>
-
-                <td>
-                  <input type='checkbox' />
-                </td>
-
-                <td onClick={() => send_ME_to_User_Page_Function(user._id)}>
-                  הודעת אישור לנייד של הלקוח בעת קביעת תור ע"י הלקוח
-                </td>
+                <th>פעולות</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
-      {ShowUserFilter && (
-        <UserListFilter
-          close={() => setShowUserFilter(false)}
-          changeWord={(word) => setWord(word)}
-          BussinesID={BussinesID}
-        />
+            </thead>
+            <tbody id='centertext'>
+              <td>
+                {' '}
+                <input
+                  onClick={() =>
+                    setsendSMSClientSide_CheckBox_state(
+                      !sendSMSClientSide_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendSMSClientSide_CheckBox_state}
+                />
+              </td>
+              <td>
+                <input
+                  onClick={() =>
+                    setsendWhatsappClientSide_CheckBox_state(
+                      !sendWhatsappClientSide_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendWhatsappClientSide_CheckBox_state}
+                />
+              </td>
+              <td>הודעת אישור תור לנייד של הלקוח בעת קביעת תור ע"י הלקוח</td>
+            </tbody>
+            <tbody id='centertext'>
+              <td>
+                {' '}
+                <input
+                  onClick={() =>
+                    setsendSMSAdminSide_CheckBox_state(
+                      !sendSMSAdminSide_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendSMSAdminSide_CheckBox_state}
+                />
+              </td>
+              <td>
+                <input
+                  onClick={() =>
+                    setsendWhatsappAdminSide_CheckBox_state(
+                      !sendWhatsappAdminSide_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendWhatsappAdminSide_CheckBox_state}
+                />
+              </td>
+              <td>הודעת אישור תור לנייד של הלקוח בעת קביעת תור ע"י המנהל</td>
+            </tbody>
+            <tbody id='centertext'>
+              <td>
+                {' '}
+                <input
+                  onClick={() =>
+                    setsendSMSClientSideCancel_CheckBox_state(
+                      !sendSMSClientSideCancel_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendSMSClientSideCancel_CheckBox_state}
+                />
+              </td>
+              <td>
+                <input
+                  onClick={() =>
+                    setsendWhatsappClientSideCancel_CheckBox_state(
+                      !sendWhatsappClientSideCancel_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendWhatsappClientSideCancel_CheckBox_state}
+                />
+              </td>
+              <td>הודעת ביטול תור לנייד של הלקוח בעת ביטול תור ע"י הלקוח</td>
+            </tbody>
+            <tbody id='centertext'>
+              <td>
+                {' '}
+                <input
+                  onClick={() =>
+                    setsendSMSAdminSideCancel_CheckBox_state(
+                      !sendSMSAdminSideCancel_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendSMSAdminSideCancel_CheckBox_state}
+                />
+              </td>
+              <td>
+                <input
+                  onClick={() =>
+                    setsendWhatsappAdminSideCancel_CheckBox_state(
+                      !sendWhatsappAdminSideCancel_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendWhatsappAdminSideCancel_CheckBox_state}
+                />
+              </td>
+              <td>הודעת ביטול תור לנייד של הלקוח בעת ביטול תור ע"י המנהל</td>
+            </tbody>
+            <tbody id='centertext'>
+              <td>
+                {' '}
+                <input
+                  onClick={() =>
+                    setsendSMSClientSideReminder_CheckBox_state(
+                      !sendSMSClientSideReminder_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendSMSClientSideReminder_CheckBox_state}
+                />
+              </td>
+              <td>
+                <input
+                  onClick={() =>
+                    setsendWhatsappClientSideReminder_CheckBox_state(
+                      !sendWhatsappClientSideReminder_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendWhatsappClientSideReminder_CheckBox_state}
+                />
+              </td>
+              <td>התראת תזכורת לנייד של הלקוח לאחר קביעת תור ע"י הלקוח</td>
+            </tbody>
+            <tbody id='centertext'>
+              <td>
+                {' '}
+                <input
+                  onClick={() =>
+                    setsendSMSAdminSideReminder_CheckBox_state(
+                      !sendSMSAdminSideReminder_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendSMSAdminSideReminder_CheckBox_state}
+                />
+              </td>
+              <td>
+                <input
+                  onClick={() =>
+                    setsendWhatsappAdminSideReminder_CheckBox_state(
+                      !sendWhatsappAdminSideReminder_CheckBox_state
+                    )
+                  }
+                  type='checkbox'
+                  checked={sendWhatsappAdminSideReminder_CheckBox_state}
+                />
+              </td>
+              <td>התראת תזכורת לנייד של הלקוח לאחר קביעת תור ע"י מנהל</td>
+            </tbody>
+
+            <tbody id='centertext'>
+              <td className='BigcheckboxInput'>
+                {' '}
+                <input
+                  onClick={() =>
+                    setBookUSERSongooglCalender(!BookUSERSongooglCalender)
+                  }
+                  type='checkbox'
+                  checked={BookUSERSongooglCalender}
+                />
+              </td>
+              <td></td>
+              <td>במידה וקיימת הרשאה -שיבוץ ביומן גוגל של הלקוח</td>
+            </tbody>
+
+            <tbody id='centertext'>
+              <td>
+                <input
+                  id='BusinessNotificationsTimeInput'
+                  onChange={() => setBusinessNotificationsTime(Ranger.value)}
+                  type='range'
+                  min={0}
+                  max={120}
+                  step={10}
+                  value={BusinessNotificationsTime}
+                />
+              </td>
+              <td>{BusinessNotificationsTime} דקות</td>
+
+              <td>זמן ההתראה לפני התור</td>
+            </tbody>
+          </Table>
+          <Button
+            id='updateProfileBTN'
+            onClick={() =>
+              dispatch(
+                updateSettings(
+                  sendSMSClientSide_CheckBox_state,
+                  sendWhatsappClientSide_CheckBox_state,
+                  sendSMSAdminSide_CheckBox_state,
+                  sendWhatsappAdminSide_CheckBox_state,
+                  sendSMSClientSideCancel_CheckBox_state,
+                  sendWhatsappClientSideCancel_CheckBox_state,
+                  sendSMSAdminSideCancel_CheckBox_state,
+                  sendWhatsappAdminSideCancel_CheckBox_state,
+                  sendSMSClientSideReminder_CheckBox_state,
+                  sendWhatsappClientSideReminder_CheckBox_state,
+                  sendSMSAdminSideReminder_CheckBox_state,
+                  sendWhatsappAdminSideReminder_CheckBox_state,
+                  BookUSERSongooglCalender,
+                  BusinessNotificationsTime,
+                  BussinesID
+                )
+              )
+            }
+          >
+            עדכן
+          </Button>
+        </>
+      ) : (
+        <div />
       )}
     </>
   )

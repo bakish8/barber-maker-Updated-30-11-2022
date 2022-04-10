@@ -120,7 +120,6 @@ const ProfileScreen = ({ location, history }) => {
               hover
               responsive
               className='table-sm'
-              className='whiteme'
               id='tablewhite'
             >
               <thead>

@@ -17,6 +17,8 @@ const business = [
       sendWhatsappClientSideReminder: true,
       sendSMSAdminSideReminder: true,
       sendWhatsappAdminSideReminder: false,
+      bookingooglecalender: false,
+      notificationsTime: 60,
     },
     websiteColors: 'black+white',
     image: 'https://i.ibb.co/LZzRSrt/bgwhite.png',
@@ -44,6 +46,9 @@ const business = [
       sendWhatsappClientSideReminder: true,
       sendSMSAdminSideReminder: true,
       sendWhatsappAdminSideReminder: false,
+      bookingooglecalender: false,
+
+      notificationsTime: 30,
     },
     websiteColors: 'black+white',
     image: 'https://i.ibb.co/hKKPxf8/bgbg3.png',

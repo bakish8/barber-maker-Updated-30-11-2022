@@ -25,6 +25,12 @@ import {
   ADMIN_SIDE_REGISTER_REQUEST,
   ADMIN_SIDE_REGISTER_SUCCESS,
   ADMIN_SIDE_REGISTER_FAIL,
+  BUSINESS_SETTINGS_REQUEST,
+  BUSINESS_SETTINGS_SUCCESS,
+  BUSINESS_SETTINGS_FAIL,
+  UPDATE_SETTINGS_REQUEST,
+  UPDATE_SETTINGS_SUCCESS,
+  UPDATE_SETTINGS_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { logout } from '../userActions'
 
@@ -102,6 +108,106 @@ export const getBuissnesDetailsfornav = (id) => async (dispatch) => {
     })
   }
 }
+
+export const getBuissnesSettings = (id) => async (dispatch) => {
+  console.log(`getBuissnesDetailsfornav`)
+  try {
+    dispatch({
+      type: BUSINESS_SETTINGS_REQUEST,
+    })
+    // const {
+    //   userLogin: { userInfo },
+    // } = getState()
+
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${userInfo.token}`,
+    //   },
+    // }
+
+    const { data } = await axios.get(`/api/business/${id}/settings`)
+
+    dispatch({
+      type: BUSINESS_SETTINGS_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: BUSINESS_SETTINGS_FAIL,
+      payload: message,
+    })
+  }
+}
+export const updateSettings =
+  (
+    sendSMSClientSide_CheckBox_state,
+    sendWhatsappClientSide_CheckBox_state,
+    sendSMSAdminSide_CheckBox_state,
+    sendWhatsappAdminSide_CheckBox_state,
+    sendSMSClientSideCancel_CheckBox_state,
+    sendWhatsappClientSideCancel_CheckBox_state,
+    sendSMSAdminSideCancel_CheckBox_state,
+    sendWhatsappAdminSideCancel_CheckBox_state,
+    sendSMSClientSideReminder_CheckBox_state,
+    sendWhatsappClientSideReminder_CheckBox_state,
+    sendSMSAdminSideReminder_CheckBox_state,
+    sendWhatsappAdminSideReminder_CheckBox_state,
+    BookUSERSongooglCalender,
+    BusinessNotificationsTime,
+    BussinesID
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: UPDATE_SETTINGS_REQUEST,
+      })
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+      const { data } = await axios.post(
+        `/api/business/${BussinesID}/settings`,
+        {
+          sendSMSClientSide_CheckBox_state,
+          sendWhatsappClientSide_CheckBox_state,
+          sendSMSAdminSide_CheckBox_state,
+          sendWhatsappAdminSide_CheckBox_state,
+          sendSMSClientSideCancel_CheckBox_state,
+          sendWhatsappClientSideCancel_CheckBox_state,
+          sendSMSAdminSideCancel_CheckBox_state,
+          sendWhatsappAdminSideCancel_CheckBox_state,
+          sendSMSClientSideReminder_CheckBox_state,
+          sendWhatsappClientSideReminder_CheckBox_state,
+          sendSMSAdminSideReminder_CheckBox_state,
+          sendWhatsappAdminSideReminder_CheckBox_state,
+          BookUSERSongooglCalender,
+          BusinessNotificationsTime,
+          BussinesID,
+        },
+        config
+      )
+      dispatch({
+        type: UPDATE_SETTINGS_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: UPDATE_SETTINGS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
 
 /*****get a list of workers for a spesific buissness */
 

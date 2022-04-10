@@ -22,6 +22,12 @@ import {
   ADMIN_SIDE_REGISTER_SUCCESS,
   ADMIN_SIDE_REGISTER_FAIL,
   ADMIN_SIDE_REGISTER_RESET,
+  BUSINESS_SETTINGS_REQUEST,
+  BUSINESS_SETTINGS_SUCCESS,
+  BUSINESS_SETTINGS_FAIL,
+  UPDATE_SETTINGS_REQUEST,
+  UPDATE_SETTINGS_SUCCESS,
+  UPDATE_SETTINGS_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { USER_LOGOUT } from '../../constants/userConstants'
 
@@ -37,6 +43,40 @@ export const GetBusinessDetailsReducer = (state = {}, action) => {
       }
     case BUSINESS_DETAILS_FAIL:
       return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const GetBusinessSETTINGSReducer = (state = {}, action) => {
+  switch (action.type) {
+    case BUSINESS_SETTINGS_REQUEST:
+      return { loading: true }
+    case BUSINESS_SETTINGS_SUCCESS:
+      return {
+        loading: false,
+        business: action.payload,
+        success: true,
+      }
+    case BUSINESS_SETTINGS_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const UpdateBusinessSETTINGSReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_SETTINGS_REQUEST:
+      return { loading_update: true }
+    case UPDATE_SETTINGS_SUCCESS:
+      return {
+        loading_update: false,
+        settings: action.payload,
+        success_settings: true,
+      }
+    case UPDATE_SETTINGS_FAIL:
+      return { loading_update: false, error: action.payload }
     default:
       return state
   }

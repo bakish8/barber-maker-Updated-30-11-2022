@@ -24,6 +24,8 @@ const shopSchema = mongoose.Schema(
       sendWhatsappClientSideReminder: { type: Boolean },
       sendSMSAdminSideReminder: { type: Boolean },
       sendWhatsappAdminSideReminder: { type: Boolean },
+      bookingooglecalender: { type: Boolean },
+      notificationsTime: { type: Number },
     },
     websiteColors: {
       type: String,

@@ -1746,39 +1746,43 @@ export const listMyTorim = () => async (dispatch, getState) => {
   }
 }
 
-export const SendTorSMS = (id, uid) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: SEND_SMS_TOR_REQUEST,
-    })
+export const SendTorSMS =
+  (id, uid, BusinessId) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: SEND_SMS_TOR_REQUEST,
+      })
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-        'Access-Control-Allow-Origin': '*',
-      },
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
+      const { data } = await axios.post(
+        `/api/messages/${id}/${uid}`,
+        { BusinessId },
+        config
+      )
+      dispatch({
+        type: SEND_SMS_TOR_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: SEND_SMS_TOR_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
     }
-
-    const { data } = await axios.post(`/api/messages/${id}/${uid}`, config)
-    dispatch({
-      type: SEND_SMS_TOR_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: SEND_SMS_TOR_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
   }
-}
 export const SendTorWhatsapp =
   (id, uid, BusinessId) => async (dispatch, getState) => {
     //export const SendTorWhatsapp = (id, uid) => async (dispatch, getState) => {
@@ -1879,37 +1883,42 @@ export const SendCancelTorSMS = (id, uid) => async (dispatch, getState) => {
   }
 }
 
-export const SendNotificationSMS = (id, uid) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: SEND_NotificationSMS_REQUEST,
-    })
-    const {
-      userLogin: { userInfo },
-    } = getState()
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-        'Access-Control-Allow-Origin': '*',
-      },
-    }
+export const SendNotificationSMS =
+  (id, uid, type) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: SEND_NotificationSMS_REQUEST,
+      })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
 
-    const { data } = await axios.post(`/api/appointments/${id}/${uid}`, config)
-    dispatch({
-      type: SEND_NotificationSMS_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: SEND_NotificationSMS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+      const { data } = await axios.post(
+        `/api/appointments/${id}/${uid}`,
+        { type },
+        config
+      )
+      dispatch({
+        type: SEND_NotificationSMS_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: SEND_NotificationSMS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
   }
-}
 
 export const BookMEonGoogleCalenderAction =
   (id, uid) => async (dispatch, getState) => {

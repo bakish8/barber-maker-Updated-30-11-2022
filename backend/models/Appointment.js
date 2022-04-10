@@ -23,6 +23,7 @@ var AppointmentSchema = new mongoose.Schema({
   smsTime: String,
   smsDate: String,
   smsDay: String,
+  reminderType: { type: String, enum: ['whatsapp', 'sms'] },
 })
 
 // ███╗   ███╗███████╗████████╗██╗  ██╗ ██████╗ ██████╗ ███████╗
@@ -67,6 +68,9 @@ AppointmentSchema.statics.sendNotifications = function (callback) {
   function sendNotifications(appointments) {
     const client = new Twilio(accountSid, authToken)
     appointments.forEach(function (appointment) {
+      console.log(
+        `Running Worker for OMRI BAKISH ! ! ! CHECK IF WHATSSAPP SMS OR BOTH APPITMENT SETTINGS REMINDER`
+      )
       // Create options to send the message
       const options = {
         to: `+972${appointment.phoneNumber}`,

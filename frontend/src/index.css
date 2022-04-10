@@ -3458,3 +3458,10 @@ h5 {
   color: white;
   margin: 0 15px;
 }
+
+.BigcheckboxInput {
+  position: relative;
+  left: 78px;
+  color: red;
+  transform: scale(1.3);
+}
