@@ -219,8 +219,8 @@ const PickTime = ({ history, match }) => {
         dispatch(SendNotificationSMS(id, uid, 'whatsapp'))
       }
       if (business_settings.settings.bookingooglecalender == true) {
-        //creates A Booking on User Google Calender
-        dispatch(BookMEonGoogleCalenderAction(id, uid)) //Fix add 2 Hr More
+        //Booking on User+Admin Google Calender
+        dispatch(BookMEonGoogleCalenderAction(id, uid))
       }
       //creating a notification and then handle it
       dispatch(

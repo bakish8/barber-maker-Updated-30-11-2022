@@ -68,6 +68,7 @@ AppointmentSchema.statics.sendNotifications = function (callback) {
   function sendNotifications(appointments) {
     const client = new Twilio(accountSid, authToken)
     appointments.forEach(function (appointment) {
+      console.log(appointment.reminderType)
       console.log(
         `Running Worker for OMRI BAKISH ! ! ! CHECK IF WHATSSAPP SMS OR BOTH APPITMENT SETTINGS REMINDER`
       )
@@ -79,21 +80,38 @@ AppointmentSchema.statics.sendNotifications = function (callback) {
         body: `שלום ${appointment.name}. להזכירך נפגשים במספרה בשעה ${appointment.smsTime} ,מצפה לראותך ${appointment.sapar} ,במידה ואינך מגיע יש באפשרותך לבטל את התור בלחיצה כאן`,
         /* eslint-enable max-len */
       }
-      // Send the message!
-      client.messages.create(options, function (err, response) {
-        if (err) {
-          // Just log it for now
-          console.error(err)
-        } else {
-          // Log the last few digits of a phone number
-          let masked = appointment.phoneNumber.substr(
-            0,
-            appointment.phoneNumber.length - 5
+      if (appointment.reminderType == 'sms') {
+        console.log(`SMS REMINDER TIME ...TRYING TO SEND IT !`)
+        // Send the message!
+        client.messages.create(options, function (err, response) {
+          if (err) {
+            // Just log it for now
+            console.error(err)
+          } else {
+            // Log the last few digits of a phone number
+            let masked = appointment.phoneNumber.substr(
+              0,
+              appointment.phoneNumber.length - 5
+            )
+            masked += '*****'
+            console.log(`SMS Message sent to ${masked}`)
+          }
+        })
+      } else if (appointment.reminderType == 'whatsapp') {
+        console.log(`whatsapp REMINDER TIME ...TRYING TO SEND IT !`)
+        client.messages
+          .create({
+            body: `שלום ${appointment.name}. להזכירך נפגשים במספרה בשעה ${appointment.smsTime} ,מצפה לראותך ${appointment.sapar} ,במידה ואינך מגיע יש באפשרותך לבטל את התור בלחיצה כאן`,
+            to: `whatsapp:+972${appointment.phoneNumber}`,
+            from: `whatsapp:+972526971902`,
+          })
+          .then((message) =>
+            console.log(
+              `EMMMM...I SEND WHATSAPP MESSAGE  !! AND THIS IS MESSAGE SID :${message.sid}`
+            )
           )
-          masked += '*****'
-          console.log(`Message sent to ${masked}`)
-        }
-      })
+          .done()
+      }
     })
     // Don't wait on success/failure, just indicate all messages have been
     // queued for delivery

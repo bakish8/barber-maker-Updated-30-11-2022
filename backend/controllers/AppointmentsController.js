@@ -71,7 +71,7 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
     console.log(clock.time)
 
     const hour1 = clock.time.substring(0, 2)
-    const hour = parseInt(hour1) - 2
+    const hour = parseInt(hour1) //- 2
     const minute = clock.time.slice(-2)
     const year = clock.owner.Dateyear
     const month = clock.owner.Datemonth - 1
@@ -90,6 +90,10 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
       second: 0,
       millisecond: 0,
     }).tz('Asia/Jerusalem')
+    console.log(`m1:${m1}`)
+    console.log(`m1:${m1}`)
+    console.log(`m1:${m1}`)
+    console.log(`m1:${m1}`)
     console.log(`m1:${m1}`)
 
     BookmeOnGoogleCalender(m1, user.email)
