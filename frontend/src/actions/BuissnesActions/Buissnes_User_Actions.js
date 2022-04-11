@@ -31,6 +31,9 @@ import {
   UPDATE_SETTINGS_REQUEST,
   UPDATE_SETTINGS_SUCCESS,
   UPDATE_SETTINGS_FAIL,
+  BUSINESS_DETAILS_FOR_DESIGN_REQUEST,
+  BUSINESS_DETAILS_FOR_DESIGN_SUCCESS,
+  BUSINESS_DETAILS_FOR_DESIGN_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { logout } from '../userActions'
 
@@ -71,7 +74,6 @@ export const getBuissnesDetails = (id) => async (dispatch, getState) => {
   }
 }
 
-// export const getBuissnesDetailsfornav = (id) => async (dispatch, getState) => {
 export const getBuissnesDetailsfornav = (id) => async (dispatch) => {
   console.log(`getBuissnesDetailsfornav`)
   try {
@@ -104,6 +106,42 @@ export const getBuissnesDetailsfornav = (id) => async (dispatch) => {
     }
     dispatch({
       type: BUSINESS_DETAILS_FORNAV_FAIL,
+      payload: message,
+    })
+  }
+}
+export const getBuissnesDetailsforDesign = (id) => async (dispatch) => {
+  console.log(`getBuissnesDetailsforDesign`)
+  try {
+    dispatch({
+      type: BUSINESS_DETAILS_FOR_DESIGN_REQUEST,
+    })
+    // const {
+    //   userLogin: { userInfo },
+    // } = getState()
+
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${userInfo.token}`,
+    //   },
+    // } //Fix
+
+    const { data } = await axios.get(`/api/business/${id}/design`)
+
+    dispatch({
+      type: BUSINESS_DETAILS_FOR_DESIGN_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: BUSINESS_DETAILS_FOR_DESIGN_FAIL,
       payload: message,
     })
   }

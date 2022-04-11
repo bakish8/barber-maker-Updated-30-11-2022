@@ -28,6 +28,9 @@ import {
   UPDATE_SETTINGS_REQUEST,
   UPDATE_SETTINGS_SUCCESS,
   UPDATE_SETTINGS_FAIL,
+  BUSINESS_DETAILS_FOR_DESIGN_REQUEST,
+  BUSINESS_DETAILS_FOR_DESIGN_SUCCESS,
+  BUSINESS_DETAILS_FOR_DESIGN_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { USER_LOGOUT } from '../../constants/userConstants'
 
@@ -93,6 +96,23 @@ export const GetBusinessDetailsReducerfornav = (state = {}, action) => {
         success: true,
       }
     case BUSINESS_DETAILS_FORNAV_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const GetBusinessDetailsReducerfordesign = (state = {}, action) => {
+  switch (action.type) {
+    case BUSINESS_DETAILS_FOR_DESIGN_REQUEST:
+      return { loading: true }
+    case BUSINESS_DETAILS_FOR_DESIGN_SUCCESS:
+      return {
+        loading: false,
+        business: action.payload,
+        success: true,
+      }
+    case BUSINESS_DETAILS_FOR_DESIGN_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state

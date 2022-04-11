@@ -26,7 +26,10 @@ const ImageAdmin = (props) => {
               <span>סיכומים</span>
             </button>
           </Link>
-          <Link style={{ textDecoration: 'none' }} to='/admin/userlist/'>
+          <Link
+            style={{ textDecoration: 'none' }}
+            to={`/business/${props.BussinessId}/admin/userlist`}
+          >
             <button id='centermeAndBlock1' class='maketorbtn'>
               <span>לקוחות</span>
             </button>

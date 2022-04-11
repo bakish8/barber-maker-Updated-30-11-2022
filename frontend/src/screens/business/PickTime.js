@@ -122,17 +122,14 @@ const PickTime = ({ history, match }) => {
   const handleNotification = (type, sapar, time, dayInWeek, date) => {
     let NOW = moment()
     let now = NOW.toDate()
-    console.log(`type:::${type}`)
-    console.log(`time:::${sapar}`)
-    console.log(`time:::${time}`)
-    console.log(`dayInWeek:::${dayInWeek}`)
-    console.log(`dayInWeek:::${dayInWeek}`)
-    console.log(`dayInWeek:::${dayInWeek}`)
-    console.log(`dayInWeek:::${dayInWeek}`)
+    console.log(`---type--- :${type}`)
+    console.log(`---sapar name---- :${sapar}`)
+    console.log(`---time--- :${time}`)
+    console.log(` --Day In the Week--:${dayInWeek}`)
     if (socket) {
       socket.emit('sendNotification', {
         senderName: user.name,
-        receiverName: sapar, //*** */
+        receiverName: sapar,
         type,
         time,
         dayInWeek,
@@ -212,11 +209,25 @@ const PickTime = ({ history, match }) => {
       }
       if (business_settings.settings.sendSMSClientSideReminder == true) {
         //creates Sms Reminder
-        dispatch(SendNotificationSMS(id, uid, 'sms'))
+        dispatch(
+          SendNotificationSMS(
+            id,
+            uid,
+            'sms',
+            business_settings.settings.notificationsTime
+          )
+        )
       }
       if ((business_settings.settings.sendWhatsappClientSideReminder = true)) {
         //creates Whatsapp  Reminder
-        dispatch(SendNotificationSMS(id, uid, 'whatsapp'))
+        dispatch(
+          SendNotificationSMS(
+            id,
+            uid,
+            'whatsapp',
+            business_settings.settings.notificationsTime
+          )
+        )
       }
       if (business_settings.settings.bookingooglecalender == true) {
         //Booking on User+Admin Google Calender
@@ -232,10 +243,10 @@ const PickTime = ({ history, match }) => {
           sapar,
           uid,
           sapar_id,
-          2, //Fix
+          2,
           now
         )
-      ).then(handleNotification(2, sapar, time, dayInWeek, date)) //Fix
+      ).then(handleNotification(2, sapar, time, dayInWeek, date))
     }
   }
 

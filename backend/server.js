@@ -242,9 +242,9 @@ io.on('connection', (SSocket) => {
     'sendNotification',
     ({ senderName, receiverName, type, time, dayInWeek }) => {
       if (type == 1) {
-        console.log(`type is 1 !!!`) //making tor
+        console.log(`type is 1 !!!`) //cancaling tor
       } else if (type == 2) {
-        console.log(`type is 2 !!!`) //cancaling tor
+        console.log(`type is 2 !!!`) // making tor
       } else if (type == 3) {
         console.log(`type is 3 !!!`) //new user signUp
       }

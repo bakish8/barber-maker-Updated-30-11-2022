@@ -1884,7 +1884,7 @@ export const SendCancelTorSMS = (id, uid) => async (dispatch, getState) => {
 }
 
 export const SendNotificationSMS =
-  (id, uid, type) => async (dispatch, getState) => {
+  (id, uid, type, notificationsTime) => async (dispatch, getState) => {
     try {
       dispatch({
         type: SEND_NotificationSMS_REQUEST,
@@ -1902,7 +1902,7 @@ export const SendNotificationSMS =
 
       const { data } = await axios.post(
         `/api/appointments/${id}/${uid}`,
-        { type },
+        { type, notificationsTime },
         config
       )
       dispatch({

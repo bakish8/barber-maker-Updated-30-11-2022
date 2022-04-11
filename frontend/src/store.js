@@ -101,6 +101,7 @@ import {
   AdminSideRegisterReducer,
   GetBusinessSETTINGSReducer,
   UpdateBusinessSETTINGSReducer,
+  GetBusinessDetailsReducerfordesign,
 } from './reducers/BusinessReducers/Business_User_Reducer'
 
 const reducer = combineReducers({
@@ -190,6 +191,7 @@ const reducer = combineReducers({
   SendTorSMS_RESET: SendTorSMS_RESET_Reducer,
   GetBusinessDetails: GetBusinessDetailsReducer,
   GetBusinessDetailsfornav: GetBusinessDetailsReducerfornav,
+  GetBusinessDetailsfordesign: GetBusinessDetailsReducerfordesign,
   BusinessWorkersList: BusinessWorkersListReducer,
   BusinessTreatmentsList: BusinessTreatmentsListReducer,
 

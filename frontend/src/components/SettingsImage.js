@@ -34,12 +34,18 @@ const SettingsImage = (props) => (
               </button>
             </Link>
 
-            <Link style={{ textDecoration: 'none' }} to='/admin/reports/'>
+            <Link
+              style={{ textDecoration: 'none' }}
+              to={`/business/${props.BussinessId}/admin/${props.OwnerId}/workingdays`}
+            >
               <button id='centermeAndBlock2' class='maketorbtn'>
                 <span>הגדר יום חופש</span>
               </button>
             </Link>
-            <Link style={{ textDecoration: 'none' }} to='/admin/userlist/'>
+            <Link
+              style={{ textDecoration: 'none' }}
+              to={`/business/${props.BussinessId}/admin/userlist`}
+            >
               <button id='centermeAndBlock2' class='maketorbtn'>
                 <span>הגדר ספר חדש</span>
               </button>
@@ -52,7 +58,10 @@ const SettingsImage = (props) => (
                 <span>הודעות ותזכורות</span>
               </button>
             </Link>
-            <Link style={{ textDecoration: 'none' }} to='/admin/userlist/'>
+            <Link
+              style={{ textDecoration: 'none' }}
+              to={`/business/${props.BussinessId}/admin/${props.OwnerId}/settings/design`}
+            >
               <button id='centermeAndBlock2' class='maketorbtn'>
                 <span>הגדרות עיצוב</span>
               </button>

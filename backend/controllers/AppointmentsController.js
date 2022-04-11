@@ -6,7 +6,7 @@ import Appointment from '../models/Appointment.js'
 import { BookmeOnGoogleCalender } from './googleauth.js'
 
 const AppointmentsMake = asyncHandler(async (req, res) => {
-  const { type } = req.body
+  const { type, notificationsTime } = req.body
   const clock = await Clock.findById(req.params.id).populate(
     'owner',
     'Dateday Datemonth Dateyear dayInWeek'
@@ -31,15 +31,13 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
     month: `${month}`,
     day: `${day}`,
     hour: `${hour}`,
-    //hour: parseInt(hour) + 1,
-
     minute: `${minute}`,
     second: 0,
     millisecond: 0,
   })
   const name = user.name
   const phoneNumber = user.phone
-  const notification = 60
+  const notification = notificationsTime
   const clocksmsDate = clock.date
   const clocksmssapar = clock.sapar
   const clocksmstime = clock.time
@@ -48,7 +46,6 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
     name: name,
     phoneNumber: phoneNumber,
     notification: notification,
-    //time: m3.tz('Asia/Jerusalem'),
     time: m3,
     sapar: clocksmssapar,
     smsTime: clocksmstime,
@@ -69,7 +66,6 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
     )
     let user = await User.findById(req.params.uid)
     console.log(clock.time)
-
     const hour1 = clock.time.substring(0, 2)
     const hour = parseInt(hour1) //- 2
     const minute = clock.time.slice(-2)
@@ -90,12 +86,7 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
       second: 0,
       millisecond: 0,
     }).tz('Asia/Jerusalem')
-    console.log(`m1:${m1}`)
-    console.log(`m1:${m1}`)
-    console.log(`m1:${m1}`)
-    console.log(`m1:${m1}`)
-    console.log(`m1:${m1}`)
-
+    console.log(`m1 Time ---BookMEonGoogleCalenderControllerAction---:${m1}`)
     BookmeOnGoogleCalender(m1, user.email)
   }
 )

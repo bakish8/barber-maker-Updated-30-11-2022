@@ -30,6 +30,27 @@ const getBusinessDetailsPage = asyncHandler(async (req, res) => {
   }
 })
 
+//need to add more Design Elements
+const getBusinessDesignSettings = asyncHandler(async (req, res) => {
+  const { id } = req.params
+  const BusinessFound = await Business.findOne({ _id: id })
+  if (BusinessFound) {
+    console.log(`Return Business Design Deetails`)
+    res.json({
+      name: BusinessFound.businessName,
+      location: BusinessFound.location,
+      websiteColors: BusinessFound.websiteColors,
+      image: BusinessFound.image,
+      logo: BusinessFound.logo,
+      logoNameOnNav: BusinessFound.logoNameOnNav,
+    })
+  } else {
+    console.log(`Error Business Not Found`)
+    res.status(404)
+    throw new Error(' the business not found')
+  }
+})
+
 const getBusinessSettings = asyncHandler(async (req, res) => {
   console.log('Spesific Business Page load From Business Controller !!!')
   const { id } = req.params
@@ -253,4 +274,5 @@ export {
   adminSideRegistaration,
   getBusinessSettings,
   UpdateBussinesSettingsController,
+  getBusinessDesignSettings,
 }

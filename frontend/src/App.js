@@ -49,6 +49,7 @@ import BusinessLoginScreen from './screens/business/Register+Login/BusinessLogin
 import AdminUserList from './screens/business/admin/AdminUserList'
 import AdminEditUserScreen from './screens/business/admin/AdminEditUserScreen'
 import AdminNotificationsSettings from './screens/business/admin/AdminNotificationsSettings'
+import AdminDesignSettingsScreen from './screens/business/admin/AdminDesignSettingsScreen'
 
 const App = () => {
   const userObject = useContext(myContext)
@@ -182,6 +183,11 @@ const App = () => {
           <Route
             path='/business/:id/admin/:aid/settings/'
             component={AdminSettingsScreen}
+            exact
+          />
+          <Route
+            path='/business/:id/admin/:aid/settings/design'
+            component={AdminDesignSettingsScreen}
             exact
           />
           <Route
