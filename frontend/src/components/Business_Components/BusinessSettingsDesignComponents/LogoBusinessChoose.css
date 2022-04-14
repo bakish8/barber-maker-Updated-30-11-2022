@@ -1,0 +1,41 @@
+.Logo_CHANGE_Container {
+  margin: 0 auto;
+  border: 3px black solid;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 900px;
+  text-align: center;
+  background-image: linear-gradient(
+      to top,
+      #000000 0%,
+      #252525b0 50%,
+      #000000 100%
+    ),
+    url('https://i.ibb.co/LJM5hhV/background-after.png');
+  max-height: 430px;
+  overflow-y: auto;
+  display: block;
+}
+.LogoCircle {
+  transform: scale(0.8);
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  background-color: rgb(31, 31, 31);
+  cursor: pointer;
+  border-radius: 50%;
+  max-width: 200px;
+  transition: ease-in 0.5s;
+}
+.LogoCircle:hover {
+  transform: scale(0.9);
+}
+.changeLogoInputAdressPlace {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  max-width: 400px;
+}
+.changelOGOnOW {
+  font-size: 25px;
+  color: white;
+}

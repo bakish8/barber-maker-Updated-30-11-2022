@@ -10,13 +10,17 @@ import {
   getBusinessSettings,
   UpdateBussinesSettingsController,
   getBusinessDesignSettings,
+  UpdateBussinesDesigenSettings,
 } from '../controllers/BusinessController.js'
 
 const router = express.Router()
 
 router.route('/:id').get(getBusinessDetailsPage)
 router.route('/:id/fornav').get(getBusinessDetailsForNavBar)
-router.route('/:id/design').get(getBusinessDesignSettings)
+router
+  .route('/:id/design')
+  .get(getBusinessDesignSettings)
+  .post(UpdateBussinesDesigenSettings)
 router
   .route('/:id/settings')
   .get(getBusinessSettings)

@@ -599,6 +599,9 @@ const getCLOCKSForTodayRECIPT = asyncHandler(async (req, res) => {
 })
 
 const getCLOCKSForThisWeekRECIPT = asyncHandler(async (req, res) => {
+  console.log(`GETTING CLOCK LISR RECIPT FOR THIS WEEK CONTROLLER CONSOLE LOG`)
+  console.log(`GETTING CLOCK LISR RECIPT FOR THIS WEEK CONTROLLER CONSOLE LOG`)
+  console.log(`GETTING CLOCK LISR RECIPT FOR THIS WEEK CONTROLLER CONSOLE LOG`)
   // ליום  הנוכי הזה יחזיר את התורים המשולמים ליום אחד'
   const searchDate = new Date()
   const FormatedSearchDate = moment(searchDate).format()
@@ -697,6 +700,11 @@ const getCLOCKSForThisWeekRECIPT = asyncHandler(async (req, res) => {
       }
       res.json(arr.flat())
     } else if (dayInWeek === 'שלישי') {
+      console.log(`SHLISHI`)
+      console.log(`SHLISHI`)
+      console.log(`SHLISHI`)
+      console.log(`SHLISHI`)
+
       const workingdays = await WorkingDay.find({
         dayInWeek: { $nin: ['שבת'] },
         owner: req.user._id,
@@ -835,7 +843,7 @@ const getCLOCKSForThisWeekRECIPT = asyncHandler(async (req, res) => {
             dayMinus3,
             dayMinus2,
             dayMinus1,
-          ],
+          ], //mabt day - 1 day -2 and so onn in suterdays
         },
       })
       let arr = []
@@ -852,42 +860,10 @@ const getCLOCKSForThisWeekRECIPT = asyncHandler(async (req, res) => {
       }
       res.json(arr.flat())
     }
-    //אם זה יום שבת תצציג את השבוע שהיה
   } else {
-    const workingday = await WorkingDay.find({
-      owner: req.user._id,
-      dayInWeek: { $nin: ['שבת'] },
-      Datemonth: month,
-      Dateyear: year,
-      Dateday: {
-        $in: [day - 1, day - 2],
-      },
-    })
-    if (workingday) {
-      const workingdays = await WorkingDay.find({
-        dayInWeek: { $nin: ['שבת'] },
-        owner: req.user._id,
-        Datemonth: month,
-        Dateyear: year,
-        Dateday: {
-          $in: [day, day - 1, day - 2, day - 3, day - 4, day - 5],
-        },
-      })
-
-      let arr = []
-      for (let workingday of workingdays) {
-        let clocks = await Clock.find({
-          date: workingday.date,
-          owner: workingday.id,
-          isPaid: true,
-        })
-          .populate('mistaper')
-          .populate('tipul')
-
-        arr.push(clocks)
-      }
-      res.json(arr)
-    }
+    console.log(`LAST CAUSE CONSOLE LOG`)
+    res.status(404)
+    throw new Error('Error working day recipt for week not found') //New
   }
 })
 

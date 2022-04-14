@@ -5,6 +5,7 @@ import MakeAppointmentBG from '../../components/Business_Components/BusinessHome
 import ImageTWO from '../../components/HomePage/ImageTWO'
 import Aos from 'aos'
 import 'aos/dist/aos.css' ////add AOS effects
+import Swal from 'sweetalert2'
 //add nav bar only spesific barber cab make actions
 const BarberShop = ({ history, match }) => {
   const BussinesID = match.params.id
@@ -14,6 +15,15 @@ const BarberShop = ({ history, match }) => {
   const { userInfo } = userLogin
   const GetBusinessDetails = useSelector((state) => state.GetBusinessDetails)
   const { loading, business, success, error } = GetBusinessDetails
+  const UpdateBusinessDesignSettings = useSelector(
+    (state) => state.UpdateBusinessDesignSettings
+  )
+  const {
+    design_settings,
+    success_design_settings,
+    loading_update_design_settings,
+    error_design_settings,
+  } = UpdateBusinessDesignSettings
 
   useEffect(() => {
     dispatch(getBuissnesDetails(BussinesID))
@@ -33,6 +43,25 @@ const BarberShop = ({ history, match }) => {
   useEffect(() => {
     Aos.init({ duration: 700 })
   }, [])
+
+  useEffect(() => {
+    if (success_design_settings) {
+      console.log(' Update Made succsessfully ! ! !')
+      window.location.reload()
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        html: `ההגדרות עודכנו בהצלחה`,
+        showConfirmButton: false,
+        timerProgressBar: true,
+        backdrop: `rgba(0,0,0,0.0)`,
+        allowOutsideClick: true,
+        timer: 4500,
+        toast: true,
+      })
+    }
+  }, [success_design_settings])
+
   return (
     <>
       {business && success && (

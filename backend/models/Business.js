@@ -29,7 +29,16 @@ const shopSchema = mongoose.Schema(
     },
     websiteColors: {
       type: String,
-      enum: ['black+white', 'black+blue'],
+      enum: [
+        'black+white',
+        'black+blue',
+        'white+blue',
+        'black+orange',
+        'yellow+black',
+        'pink+white',
+        'white+pink',
+        'strongrey+white',
+      ],
       default: 'black+white',
     },
     image: {

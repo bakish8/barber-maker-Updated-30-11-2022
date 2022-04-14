@@ -31,8 +31,31 @@ import {
   BUSINESS_DETAILS_FOR_DESIGN_REQUEST,
   BUSINESS_DETAILS_FOR_DESIGN_SUCCESS,
   BUSINESS_DETAILS_FOR_DESIGN_FAIL,
+  UPDATE_DESIGN_SETTINGS_REQUEST,
+  UPDATE_DESIGN_SETTINGS_SUCCESS,
+  UPDATE_DESIGN_SETTINGS_FAIL,
+  GET_LOCATION_GEO_REQUEST,
+  GET_LOCATION_GEO_SUCCESS,
+  GET_LOCATION_GEO_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { USER_LOGOUT } from '../../constants/userConstants'
+
+export const GetBusinessGeoReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_LOCATION_GEO_REQUEST:
+      return { loading: true }
+    case GET_LOCATION_GEO_SUCCESS:
+      return {
+        loadingGeo: false,
+        businessGeo: action.payload,
+        successGeo: true,
+      }
+    case GET_LOCATION_GEO_FAIL:
+      return { loadingGeo: false, errorGeo: action.payload }
+    default:
+      return state
+  }
+}
 
 export const GetBusinessDetailsReducer = (state = {}, action) => {
   switch (action.type) {
@@ -80,6 +103,26 @@ export const UpdateBusinessSETTINGSReducer = (state = {}, action) => {
       }
     case UPDATE_SETTINGS_FAIL:
       return { loading_update: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const UpdateBusinessDesignSettingsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_DESIGN_SETTINGS_REQUEST:
+      return { loading_update_design_settings: true }
+    case UPDATE_DESIGN_SETTINGS_SUCCESS:
+      return {
+        loading_update_design_settings: false,
+        design_settings: action.payload,
+        success_design_settings: true,
+      }
+    case UPDATE_DESIGN_SETTINGS_FAIL:
+      return {
+        loading_update_design_settings: false,
+        error_design_settings: action.payload,
+      }
     default:
       return state
   }

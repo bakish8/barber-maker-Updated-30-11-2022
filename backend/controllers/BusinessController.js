@@ -264,6 +264,58 @@ const UpdateBussinesSettingsController = asyncHandler(async (req, res) => {
   }
 })
 
+const UpdateBussinesDesigenSettings = asyncHandler(async (req, res) => {
+  const {
+    name,
+    location,
+    lat,
+    lng,
+    businessNameOnNavState,
+    colors,
+    logo,
+    MainPic,
+  } = req.body
+  const { id } = req.params
+  const Businesss = await Business.findById(id)
+
+  if (Businesss) {
+    console.log('___________________________________________________')
+    console.log(Businesss)
+    console.log('___________________________________________________')
+    console.log('___________________________________________________')
+    console.log('___________________________________________________')
+    console.log(name)
+    console.log(location)
+    console.log(businessNameOnNavState)
+    console.log(colors)
+    console.log(logo)
+    console.log(MainPic)
+
+    Businesss.businessName = name
+    Businesss.location.name = location
+    Businesss.location.lat = lat
+    Businesss.location.lng = lng
+    Businesss.logoNameOnNav = businessNameOnNavState
+    Businesss.websiteColors = colors
+    Businesss.logo = logo
+    Businesss.image = MainPic
+
+    const updatedBusinesss = await Businesss.save()
+
+    res.json(
+      updatedBusinesss.businessName,
+      updatedBusinesss.location.name,
+      updatedBusinesss.logoNameOnNav.name,
+      updatedBusinesss.websiteColors,
+      updatedBusinesss.logo,
+      updatedBusinesss.image
+    )
+  } else {
+    res.status(404)
+    throw new Error('העסק אינו נמצא')
+  }
+})
+
 export {
   getBusinessDetailsPage,
   getBusinessDetailsForNavBar,
@@ -275,4 +327,5 @@ export {
   getBusinessSettings,
   UpdateBussinesSettingsController,
   getBusinessDesignSettings,
+  UpdateBussinesDesigenSettings,
 }

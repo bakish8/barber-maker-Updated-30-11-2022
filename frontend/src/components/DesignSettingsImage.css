@@ -2,23 +2,33 @@
   transform: scale(0.5);
 }
 #businessLogoDesignSettings {
+  cursor: pointer;
   height: 80px;
   margin: 0 0;
   padding: 0 0;
 }
 #businessMakeTorBGimage {
+  cursor: pointer;
   height: 80px;
   margin: 0 0;
   padding: 0 0;
 }
-#blackanddwhite {
-  width: 50px;
-  height: 50px;
-  background-image: linear-gradient(
-      to top,
-      #000000 0%,
-      #252525b0 50%,
-      #000000 100%
-    ),
-    url('https://i.ibb.co/xStDV11/black-white.png');
+/* #blackanddwhite {
+  background-image: url('https://i.ibb.co/xStDV11/black-white.png');
+background-color: black;
+} */
+
+.TDcolorsBinders {
+  cursor: pointer;
+}
+.SettingsInputs {
+  height: 10px;
+  width: 200px;
+  margin: 10px auto;
+}
+.SettingsInputsInput {
+  background-color: rgba(255, 255, 255, 0.049);
+  color: white;
+  border-radius: 10%;
+  text-align: center;
 }

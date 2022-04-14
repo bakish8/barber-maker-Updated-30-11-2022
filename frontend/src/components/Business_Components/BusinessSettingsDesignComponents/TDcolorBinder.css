@@ -1,0 +1,38 @@
+.TDcolorBinder_Container {
+  margin: 0 auto;
+  background-color: white;
+  border: 3px black solid;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 900px;
+  text-align: center;
+  display: block;
+  background-image: linear-gradient(
+      to top,
+      #000000 0%,
+      #252525b0 50%,
+      #000000 100%
+    ),
+    url('https://i.ibb.co/LJM5hhV/background-after.png');
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.colorTD {
+  margin: 10px auto;
+  transition: 0.3;
+  transform: scale(0.8);
+}
+.colorTD:hover {
+  margin: 10px auto;
+  border: 5px solid rgb(165, 165, 165);
+  transform: scale(1.1);
+}
+
+.Choosecolor {
+  font-size: 40px;
+  color: white;
+}
+#imChoosen {
+  border: 5px solid rgb(255, 0, 0);
+}

@@ -34,6 +34,12 @@ import {
   BUSINESS_DETAILS_FOR_DESIGN_REQUEST,
   BUSINESS_DETAILS_FOR_DESIGN_SUCCESS,
   BUSINESS_DETAILS_FOR_DESIGN_FAIL,
+  UPDATE_DESIGN_SETTINGS_REQUEST,
+  UPDATE_DESIGN_SETTINGS_SUCCESS,
+  UPDATE_DESIGN_SETTINGS_FAIL,
+  GET_LOCATION_GEO_REQUEST,
+  GET_LOCATION_GEO_SUCCESS,
+  GET_LOCATION_GEO_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { logout } from '../userActions'
 
@@ -153,15 +159,6 @@ export const getBuissnesSettings = (id) => async (dispatch) => {
     dispatch({
       type: BUSINESS_SETTINGS_REQUEST,
     })
-    // const {
-    //   userLogin: { userInfo },
-    // } = getState()
-
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // }
 
     const { data } = await axios.get(`/api/business/${id}/settings`)
 
@@ -246,6 +243,88 @@ export const updateSettings =
       })
     }
   }
+
+export const updateDesignSettings =
+  (
+    id,
+    name,
+    location,
+    lat,
+    lng,
+    businessNameOnNavState,
+    colors,
+    logo,
+    MainPic
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: UPDATE_DESIGN_SETTINGS_REQUEST,
+      })
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+      const { data } = await axios.post(
+        `/api/business/${id}/design`,
+
+        {
+          name,
+          location,
+          lat,
+          lng,
+          businessNameOnNavState,
+          colors,
+          logo,
+          MainPic,
+        },
+        config
+      )
+      dispatch({
+        type: UPDATE_DESIGN_SETTINGS_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: UPDATE_DESIGN_SETTINGS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+export const FindGeoLocationByName = (name) => async (dispatch) => {
+  console.log(name)
+  try {
+    dispatch({
+      type: GET_LOCATION_GEO_REQUEST,
+    })
+
+    const { data } = await axios.get(
+      `https://maps.googleapis.com/maps/api/geocode/json`,
+      {
+        params: {
+          address: name,
+          key: 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw', //**Fix env */
+        },
+      }
+    )
+    dispatch({
+      type: GET_LOCATION_GEO_SUCCESS,
+      payload: data,
+    }).then(console.log(data))
+  } catch (error) {
+    dispatch({
+      type: GET_LOCATION_GEO_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
 
 /*****get a list of workers for a spesific buissness */
 

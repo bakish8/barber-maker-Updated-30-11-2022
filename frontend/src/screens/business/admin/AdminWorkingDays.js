@@ -1953,7 +1953,7 @@ const AdminWorkingDays = ({ history, match }) => {
                         <Message>
                           לא נמצאו קבלות או תשלומים עבור שבוע זה
                         </Message>
-                      ) : (
+                      ) : resultWEEK ? (
                         resultWEEK
                           .sort(
                             (a, b) =>
@@ -1984,6 +1984,8 @@ const AdminWorkingDays = ({ history, match }) => {
                               )}
                             </tr>
                           ))
+                      ) : (
+                        <></>
                       )}
                     </tbody>
                   </Table>
