@@ -396,7 +396,7 @@ const Header = ({ socket, match }) => {
 
             <Navbar.Collapse id='basic-navbar-nav'>
               <Nav className='ml-auto'>
-                {userInfo && userInfo.isAdmin && Administrate && (
+                {business && userInfo && userInfo.isAdmin && Administrate && (
                   <NavDropdown
                     onClick={ClickOnAdmin}
                     id='navbarContainerItem'
@@ -522,7 +522,13 @@ const Header = ({ socket, match }) => {
                     </NavDropdown.Item>
                   </NavDropdown>
                 ) : (
-                  <LinkContainer to='/login'>
+                  <LinkContainer
+                    to={
+                      GetBusinessDetailssuccess && Firstlocation === 'business'
+                        ? `/business/${business.id}/login`
+                        : '/login'
+                    }
+                  >
                     <Nav.Link>
                       <h3 id='navlinks'>
                         <i className='fas fa-user'></i> כנס

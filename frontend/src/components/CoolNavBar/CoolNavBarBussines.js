@@ -20,7 +20,7 @@ const CoolNavBarBussines = (props) => {
 
   const logoutHandler = () => {
     setisSmallFunction()
-    dispatch(logout())
+    dispatch(logout(props.businessId ? props.businessId : ''))
   }
 
   console.log(userInfo)
@@ -290,14 +290,14 @@ const CoolNavBarBussines = (props) => {
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to='/login'
+                      to={`/business/${props.businessId}/login`}
                     >
                       <p>התחבר</p>
                     </LinkContainer>
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to='/register'
+                      to={`/business/${props.businessId}/register`}
                     >
                       <p>הירשם</p>
                     </LinkContainer>
