@@ -377,14 +377,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
                   <Col>
                     <div className='whiteme'>
                       לקוח חדש?{' '}
-                      <Link
-                        id='signUp'
-                        to={
-                          redirect
-                            ? `/register?redirect=${redirect}`
-                            : '/register'
-                        }
-                      >
+                      <Link id='signUp' to={`/business/${BussinesID}/register`}>
                         הירשם
                       </Link>
                     </div>
@@ -452,14 +445,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
                   <Col>
                     <div className='whiteme'>
                       לקוח חדש?{' '}
-                      <Link
-                        id='signUp'
-                        to={
-                          redirect
-                            ? `/register?redirect=${redirect}`
-                            : '/register'
-                        }
-                      >
+                      <Link id='signUp' to={`/business/${BussinesID}/register`}>
                         הירשם
                       </Link>
                     </div>

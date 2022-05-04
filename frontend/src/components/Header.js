@@ -36,8 +36,17 @@ const Header = ({ socket, match }) => {
   const BusinessId = window.location.pathname.split('/')[2]
 
   const dispatch = useDispatch()
+  const ClientRegister = useSelector((state) => state.ClientRegister)
+  const {
+    success: Rsuccess,
+    loading: Rloading,
+    error: Rerror,
+    userInfo: RuserInfo,
+  } = ClientRegister
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo, success: user_connected_success } = userLogin
+
   const cancelNoti = useSelector((state) => state.cancelNoti)
   const {
     loading: loading_cancel_noti,
@@ -85,7 +94,11 @@ const Header = ({ socket, match }) => {
   } = userLoginEMAIL
 
   const logoutHandler = () => {
-    dispatch(logout())
+    if (Firstlocation === 'business') {
+      dispatch(logout(BusinessId))
+    } else {
+      dispatch(logout())
+    }
   }
 
   console.log(userInfo) /*****/
@@ -257,7 +270,19 @@ const Header = ({ socket, match }) => {
     if (successEmail) {
       window.location.reload()
     }
-  }, [successEmail])
+  }, [successEmail, Rsuccess])
+
+  useEffect(() => {
+    if (Rsuccess) {
+      console.log(`user ${RuserInfo.name} is Registerd Now`)
+      console.log(`user ${RuserInfo.name} is Registerd Now`)
+      console.log(`user ${RuserInfo.name} is Registerd Now`)
+      console.log(`user ${RuserInfo.name} is Registerd Now`)
+      console.log(`user ${RuserInfo.name} is Registerd Now`)
+      console.log(`user ${RuserInfo.name} is Registerd Now`)
+      console.log(`user ${RuserInfo.name} is Registerd Now`)
+    }
+  }, [Rsuccess])
 
   useEffect(() => {
     if (notificationss) {

@@ -49,9 +49,10 @@ export const GetBusinessGeoReducer = (state = {}, action) => {
         loadingGeo: false,
         businessGeo: action.payload,
         successGeo: true,
+        errorGeo: false,
       }
     case GET_LOCATION_GEO_FAIL:
-      return { loadingGeo: false, errorGeo: action.payload }
+      return { successGeo: false, loadingGeo: false, errorGeo: true }
     default:
       return state
   }

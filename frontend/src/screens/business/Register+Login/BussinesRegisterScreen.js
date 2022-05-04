@@ -46,6 +46,11 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
   console.log(`socket:${socket}`)
   useEffect(() => {
     if (userInfo) {
+      console.log(`userInfo is : .....`)
+      console.log(`userInfo is : ....`)
+      console.log(`userInfo is : ..`)
+      console.log(`userInfo is : .`)
+      console.log(userInfo)
       let NOW = moment()
       let now = NOW.toDate()
       dispatch(

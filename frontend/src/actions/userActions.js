@@ -330,9 +330,22 @@ export const Googlelogin = (email) => async (dispatch) => {
   }
 }
 
-export const logout = () => async (dispatch, req, res) => {
-  document.location.href = '/login'
+export const logout = (Bid) => async (dispatch, req, res) => {
+  console.log(Bid)
+  console.log(Bid)
+  console.log(Bid)
+  console.log(Bid)
+  console.log(Bid)
+  console.log(Bid)
+  console.log(Bid)
 
+  if (Bid) {
+    console.log(`BidBidBidBidBidBidBid`)
+    console.log(`BidBidBidBidBidBidBid`)
+    document.location.href = `/business/${Bid}/login`
+  } else {
+    document.location.href = '/login'
+  }
   localStorage.removeItem('userInfo')
   localStorage.removeItem('cartItems')
   localStorage.removeItem('shippingAddress')

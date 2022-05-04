@@ -41,6 +41,7 @@ import {
   GET_LOCATION_GEO_SUCCESS,
   GET_LOCATION_GEO_FAIL,
 } from '../../constants/Business/Business_user_Consts'
+import { USER_LOGIN_SUCCESS } from '../../constants/userConstants'
 import { logout } from '../userActions'
 
 export const getBuissnesDetails = (id) => async (dispatch, getState) => {
@@ -49,17 +50,8 @@ export const getBuissnesDetails = (id) => async (dispatch, getState) => {
     dispatch({
       type: BUSINESS_DETAILS_REQUEST,
     })
-    const {
-      userLogin: { userInfo },
-    } = getState()
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
-
-    const { data } = await axios.get(`/api/business/${id}`, config)
+    const { data } = await axios.get(`/api/business/${id}`)
 
     dispatch({
       type: BUSINESS_DETAILS_SUCCESS,
@@ -434,7 +426,7 @@ export const register_client =
       })
 
       dispatch({
-        type: BUSINESS_USER_LOGIN_SUCCESS,
+        type: USER_LOGIN_SUCCESS,
         payload: data,
       })
 

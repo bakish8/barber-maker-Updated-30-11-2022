@@ -24,7 +24,7 @@ const PickSapar = ({ history, match }) => {
 
   useEffect(() => {
     if (!userInfo) {
-      history.push('/login')
+      history.push(`/business/${businessid}/login`)
     } else if (!userInfo.phone) {
       Swal.fire({
         title: `פרטי התקשרות חסרים`,

@@ -30,9 +30,6 @@ const BarberShop = ({ history, match }) => {
   }, [dispatch])
 
   useEffect(() => {
-    if (!userInfo) {
-      history.push(`/business/${BussinesID}/login`) ///TRY
-    }
     if (business) {
       console.log(business)
       console.log(business.image)

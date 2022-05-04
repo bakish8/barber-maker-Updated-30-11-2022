@@ -106,7 +106,7 @@ const DesignSettingsImage = (props, match) => {
   }, [success_design_settings])
 
   useEffect(() => {
-    if (businessGeo) {
+    if (businessGeo && successGeo == true && businessGeo.results[0]) {
       console.log(
         ` the business Geo lat is ${businessGeo.results[0].geometry.location.lat}! ! !`
       )
@@ -129,21 +129,24 @@ const DesignSettingsImage = (props, match) => {
           image
         )
       )
+    } else if (errorGeo == true && successGeo == false && !businessGeo) {
+      setTimeout(
+        () =>
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            html: `שגיאה-המיקום שהזנת אינו נמצא`,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            backdrop: `rgba(0,0,0,0.0)`,
+            allowOutsideClick: true,
+            timer: 4500,
+            toast: true,
+          }),
+        2000
+      )
     }
-    if (errorGeo) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        html: `שגיאה-המיקום שהזנת אינו נמצא`,
-        showConfirmButton: false,
-        timerProgressBar: true,
-        backdrop: `rgba(0,0,0,0.0)`,
-        allowOutsideClick: true,
-        timer: 4500,
-        toast: true,
-      })
-    }
-  }, [businessGeo])
+  }, [businessGeo, successGeo, errorGeo])
 
   const openSwal = () => {
     Swal.fire({
