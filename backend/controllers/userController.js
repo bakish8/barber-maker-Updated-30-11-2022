@@ -80,87 +80,155 @@ const authGoogleUser = asyncHandler(async (req, res) => {
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, phone, password, image, businessid } = req.body
-  console.log('phone')
   const userExists = await User.findOne({ email })
-  const business = await Business.findById(businessid).populate('clients')
-  console.log(`______________________________Business !!!!!!!`)
-  console.log(`______________________________Business !!!!!!!`)
-  console.log(`______________________________Business !!!!!!!`)
-  console.log(`______________________________Business !!!!!!!`)
-  console.log(`______________________________Business !!!!!!!`)
-  console.log(`______________________________Business !!!!!!!${business}`)
-  console.log(
-    `______________________________Business !!!!!!!${business.clients}`
-  )
-  if (userExists) {
-    res.status(400)
-    throw new Error('המשתמש כבר קיים במערכת')
-  }
-  if (image === null) {
-    let firstname = name.split(' ')[0]
-    let lastname = name.split(' ')[1]
-    const user = await User.create({
-      name,
-      firstname,
-      lastname,
-      email,
-      phone,
-      password,
-      image: 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif',
-      ClientOfBusiness: businessid,
-    })
+  console.log(` ${businessid}...searching...`)
 
-    if (user) {
-      business.clients.push(user)
-      await business.save()
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        firstname: firstname,
-        lastname: lastname,
-        email: user.email,
-        phone: user.phone,
-        isAdmin: user.isAdmin,
-        image: user.image,
-        ClientOfBusiness: businessid,
-        token: generateToken(user._id),
-      })
-    } else {
+  if (businessid != 0) {
+    console.log(`business is not a 0`)
+    console.log(`business Id is ${businessid}...searching...`)
+    const business = await Business.findById(businessid).populate('clients')
+
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`____Business Clients!!!!!!!${business.clients}`)
+    if (userExists) {
       res.status(400)
-      throw new Error('אחד מהפרטים שגוי נסה שנית')
+      throw new Error('המשתמש כבר קיים במערכת')
+    }
+    if (image === null) {
+      let firstname = name.split(' ')[0]
+      let lastname = name.split(' ')[1]
+      const user = await User.create({
+        name,
+        firstname,
+        lastname,
+        email,
+        phone,
+        password,
+        image: 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif',
+        ClientOfBusiness: businessid,
+      })
+
+      if (user) {
+        business.clients.push(user)
+        await business.save()
+        res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          firstname: firstname,
+          lastname: lastname,
+          email: user.email,
+          phone: user.phone,
+          isAdmin: user.isAdmin,
+          image: user.image,
+          ClientOfBusiness: businessid,
+          token: generateToken(user._id),
+        })
+      } else {
+        res.status(400)
+        throw new Error('אחד מהפרטים שגוי נסה שנית')
+      }
+    } else {
+      let firstname = name.split(' ')[0]
+      let lastname = name.split(' ')[1]
+      const user = await User.create({
+        name,
+        firstname,
+        lastname,
+        email,
+        phone,
+        password,
+        image,
+        ClientOfBusiness: businessid,
+      })
+
+      if (user) {
+        business.clients.push(user)
+        await business.save()
+        res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          firstname: firstname,
+          lastname: lastname,
+          email: user.email,
+          phone: user.phone,
+          isAdmin: user.isAdmin,
+          image: user.image,
+          ClientOfBusiness: user.ClientOfBusiness,
+          token: generateToken(user._id),
+        })
+      } else {
+        res.status(400)
+        throw new Error('אחד מהפרטים שגוי נסה שנית')
+      }
     }
   } else {
-    let firstname = name.split(' ')[0]
-    let lastname = name.split(' ')[1]
-    const user = await User.create({
-      name,
-      firstname,
-      lastname,
-      email,
-      phone,
-      password,
-      image,
-      ClientOfBusiness: businessid,
-    })
-
-    if (user) {
-      business.clients.push(user)
-      await business.save()
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        firstname: firstname,
-        lastname: lastname,
-        email: user.email,
-        phone: user.phone,
-        isAdmin: user.isAdmin,
-        image: user.image,
-        ClientOfBusiness: user.ClientOfBusiness,
-        token: generateToken(user._id),
-      })
-    } else {
+    console.log(`business is  a 0`)
+    if (userExists) {
       res.status(400)
-      throw new Error('אחד מהפרטים שגוי נסה שנית')
+      throw new Error('המשתמש כבר קיים במערכת')
+    }
+    if (image === null) {
+      let firstname = name.split(' ')[0]
+      let lastname = name.split(' ')[1]
+      const user = await User.create({
+        name,
+        firstname,
+        lastname,
+        email,
+        phone,
+        password,
+        image: 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif',
+        ClientOfBusiness: businessid,
+      })
+
+      if (user) {
+        res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          firstname: firstname,
+          lastname: lastname,
+          email: user.email,
+          phone: user.phone,
+          isAdmin: user.isAdmin,
+          image: user.image,
+          ClientOfBusiness: businessid,
+          token: generateToken(user._id),
+        })
+      } else {
+        res.status(400)
+        throw new Error('אחד מהפרטים שגוי נסה שנית')
+      }
+    } else {
+      let firstname = name.split(' ')[0]
+      let lastname = name.split(' ')[1]
+      const user = await User.create({
+        name,
+        firstname,
+        lastname,
+        email,
+        phone,
+        password,
+        image,
+        ClientOfBusiness: businessid,
+      })
+
+      if (user) {
+        res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          firstname: firstname,
+          lastname: lastname,
+          email: user.email,
+          phone: user.phone,
+          isAdmin: user.isAdmin,
+          image: user.image,
+          ClientOfBusiness: user.ClientOfBusiness,
+          token: generateToken(user._id),
+        })
+      } else {
+        res.status(400)
+        throw new Error('אחד מהפרטים שגוי נסה שנית')
+      }
     }
   }
 })

@@ -150,7 +150,7 @@ const RegisterScreen = ({ location, history }) => {
         text: 'שדה השם הוא שדה חובה נא להזין את השם המלא שלך בעברית או באנגלית חשוב שהשם לא יכלול מספרים או אותיות מיוחידות כמו:?!@#$%^&*) ',
       })
     } else {
-      dispatch(register(name, email, phone, password, image))
+      dispatch(register(name, email, phone, password, image, 0))
     }
   }
   const GoogleSigninsubmitHandler = () => {

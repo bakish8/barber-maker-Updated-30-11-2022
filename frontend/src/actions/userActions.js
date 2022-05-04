@@ -390,7 +390,7 @@ export const registerByADMIN =
   }
 
 export const register =
-  (name, email, phone, password, image) => async (dispatch) => {
+  (name, email, phone, password, image, businessid) => async (dispatch) => {
     try {
       dispatch({
         type: USER_REGISTER_REQUEST,
@@ -404,7 +404,7 @@ export const register =
 
       const { data } = await axios.post(
         '/api/users',
-        { name, email, phone, password, image, BussinesID: '0' },
+        { name, email, phone, password, image, businessid },
         config
       )
 
