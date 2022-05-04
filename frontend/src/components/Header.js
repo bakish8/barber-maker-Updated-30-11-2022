@@ -208,7 +208,7 @@ const Header = ({ socket, match }) => {
       !window.location.host === 'barber-maker.com:3000' ||
       Firstlocation === 'business'
     ) {
-      console.log(' we are in Barber-Maker.com or localHost 300 ! ! !')
+      console.log(' we are in Barber-Maker.com or localHost 3000 ! ! !')
       //getting buissnes details
       dispatch(getBuissnesDetailsfornav(BusinessId))
       //setFirstlocationIsBusiness(true)
@@ -271,6 +271,17 @@ const Header = ({ socket, match }) => {
       window.location.reload()
     }
   }, [successEmail, Rsuccess])
+
+  useEffect(() => {
+    if (userInfo && user_connected_success) {
+      if (userInfo.workingIn) {
+        dispatch(getBuissnesDetailsfornav(userInfo.workingIn))
+      }
+      if (userInfo.ClientOfBusiness) {
+        dispatch(getBuissnesDetailsfornav(userInfo.ClientOfBusiness))
+      }
+    }
+  }, [userInfo])
 
   useEffect(() => {
     if (Rsuccess) {

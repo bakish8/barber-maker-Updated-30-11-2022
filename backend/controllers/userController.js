@@ -14,16 +14,32 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ phone: email }) //need to be fixed  is phone all the way
 
   if (user && (await user.matchPassword(password))) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      image: user.image,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
-      workingIn: user.WorkingIn, //***NEW */
-    })
+    if (user.WorkingIn) {
+      console.log(user.WorkingIn)
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        image: user.image,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+        workingIn: user.WorkingIn, //***NEW */
+      })
+    } else if (user.ClientOfBusiness) {
+      console.log(`user client in: ${user.ClientOfBusiness}`)
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        image: user.image,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+        workingIn: user.WorkingIn, //***NEW */
+        ClientOfBusiness: user.ClientOfBusiness, //***NEW */
+      })
+    }
   } else {
     res.status(401)
     throw new Error('Invalid email or password')

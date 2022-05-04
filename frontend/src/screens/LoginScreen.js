@@ -80,7 +80,20 @@ const LoginScreen = ({ location, history }) => {
       console.log(emailToSendTo)
     }
     if (userInfo || userInfoEmail) {
-      history.push(redirect)
+      if (userInfo) {
+        if (userInfo.workingIn) {
+          console.log(userInfo.workingIn)
+          history.push(`/business/${userInfo.workingIn}`)
+        } else if (
+          userInfo.ClientOfBusiness &&
+          userInfo.ClientOfBusiness != 0
+        ) {
+          console.log(userInfo.ClientOfBusiness)
+          history.push(`/business/${userInfo.ClientOfBusiness}`)
+        } else {
+          history.push(redirect)
+        }
+      }
     }
     if (successuserfound) {
       console.log('susses!')
