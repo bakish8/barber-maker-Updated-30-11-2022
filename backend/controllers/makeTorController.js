@@ -145,7 +145,12 @@ const UNPayTor = asyncHandler(async (req, res) => {
 const confirmTor = asyncHandler(async (req, res) => {
   const clock = await Clock.findById(req.params.id).populate('owner')
   const user = await User.findById(req.params.uid)
-  const { Tipulid } = req.body
+  const { Tipulid, BussinesID } = req.body
+  //**make user without a barbershop a client after First TIME */
+  if (user && user.ClientOfBusiness === 0) {
+    user.ClientOfBusiness === BussinesID
+    await user.save()
+  }
   const tipul = await Tipul.findById(Tipulid)
 
   if (tipul.time === 30) {

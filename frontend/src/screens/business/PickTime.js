@@ -268,7 +268,7 @@ const PickTime = ({ history, match }) => {
       if (result.isConfirmed) {
         let NOW = moment()
         let now = NOW.toDate()
-        dispatch(confirmTor(id, uid, Tipulid))
+        dispatch(confirmTor(id, uid, Tipulid, BussinesID))
           .then(
             Swal.fire({
               position: 'top-end',

@@ -1248,39 +1248,40 @@ export const PICKWorkingDay =
     }
   }
 
-export const confirmTor = (id, uid, Tipulid) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: CONFIRM_TOR_REQUEST,
-    })
-    const {
-      userLogin: { userInfo },
-    } = getState()
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+export const confirmTor =
+  (id, uid, Tipulid, BussinesID) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: CONFIRM_TOR_REQUEST,
+      })
+      const {
+        userLogin: { userInfo },
+      } = getState()
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+      const { data } = await axios.put(
+        `/api/maketor/${id}/${uid}`,
+        { Tipulid, BussinesID },
+        config
+      )
+      dispatch({
+        type: CONFIRM_TOR_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: CONFIRM_TOR_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
     }
-    const { data } = await axios.put(
-      `/api/maketor/${id}/${uid}`,
-      { Tipulid },
-      config
-    )
-    dispatch({
-      type: CONFIRM_TOR_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: CONFIRM_TOR_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
   }
-}
 export const CancelMyTor = (id, uid) => async (dispatch, getState) => {
   try {
     dispatch({
