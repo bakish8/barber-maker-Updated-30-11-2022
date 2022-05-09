@@ -147,9 +147,31 @@ const confirmTor = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.uid)
   const { Tipulid, BussinesID } = req.body
   //**make user without a barbershop a client after First TIME */
-  if (user && user.ClientOfBusiness === 0) {
-    user.ClientOfBusiness === BussinesID
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
+  if (user && user.ClientOfBusiness == '0') {
+    console.log(`user Client OF business is 0 Now Changing to ${BussinesID}`)
+    user.ClientOfBusiness = BussinesID
     await user.save()
+  } else {
+    console.log(`user He Is Already Client of Bussiness....`)
   }
   const tipul = await Tipul.findById(Tipulid)
 
