@@ -110,16 +110,14 @@ const SingleWorkDayScreen = ({ history, match }) => {
     let NOW = moment()
     let now = NOW.toDate()
     console.log(`type:::${type}`)
-    console.log(`time:::${sapar}`)
+    console.log(`sapar name:::${sapar}`)
     console.log(`time:::${time}`)
     console.log(`dayInWeek:::${dayInWeek}`)
-    console.log(`dayInWeek:::${dayInWeek}`)
-    console.log(`dayInWeek:::${dayInWeek}`)
-    console.log(`dayInWeek:::${dayInWeek}`)
+
     if (socket) {
       socket.emit('sendNotification', {
         senderName: user.name,
-        receiverName: sapar, //*** */
+        receiverName: sapar,
         type,
         time,
         dayInWeek,

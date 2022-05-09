@@ -135,7 +135,6 @@ const Header = ({ socket, match }) => {
   const two = document.getElementById('navbarContainerItem2')
   const trhee = document.getElementById('navbarContainerItem3')
 
-  /*****Hard Code <span>היום-hard coded</span> */
   const displayNotification = ({
     senderName,
     type,

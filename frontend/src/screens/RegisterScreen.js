@@ -43,31 +43,6 @@ const RegisterScreen = ({ location, history }) => {
   console.log(`socket:${socket}`)
   useEffect(() => {
     if (userInfo) {
-      let NOW = moment()
-      let now = NOW.toDate()
-      dispatch(
-        CreatelNotifications(
-          null,
-          null,
-          null,
-          null,
-          'עומרי בקיש', //*** hard coded*/
-          userInfo._id,
-          '621a8fe40bbc4f94883207a3', //*** hard coded*/
-          3,
-          now
-        )
-      )
-      if (socket) {
-        socket.emit('sendNotification', {
-          senderName: userInfo.name,
-          receiverName: 'עומרי בקיש', //*** hard coded*/
-          type: 3,
-          time: '00:00', //*** hard coded and not needed*/
-          dayInWeek: 'defult', //*** hard coded and not needed*/
-        })
-      }
-
       history.push(redirect)
     }
     if (success === false) {

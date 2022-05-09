@@ -104,6 +104,7 @@ import {
   GetBusinessDetailsReducerfordesign,
   UpdateBusinessDesignSettingsReducer,
   GetBusinessGeoReducer,
+  GetAdminNameReducer,
 } from './reducers/BusinessReducers/Business_User_Reducer'
 
 const reducer = combineReducers({
@@ -210,6 +211,8 @@ const reducer = combineReducers({
   UpdateBusinessDesignSettings: UpdateBusinessDesignSettingsReducer,
 
   GetBusinessGeo: GetBusinessGeoReducer,
+
+  GetAdminName: GetAdminNameReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

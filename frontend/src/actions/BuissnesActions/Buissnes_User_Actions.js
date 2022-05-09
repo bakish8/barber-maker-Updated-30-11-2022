@@ -40,6 +40,9 @@ import {
   GET_LOCATION_GEO_REQUEST,
   GET_LOCATION_GEO_SUCCESS,
   GET_LOCATION_GEO_FAIL,
+  ADMIN_NAME_REQUEST,
+  ADMIN_NAME_SUCCESS,
+  ADMIN_NAME_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { USER_LOGIN_SUCCESS } from '../../constants/userConstants'
 import { logout } from '../userActions'
@@ -67,6 +70,37 @@ export const getBuissnesDetails = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: BUSINESS_DETAILS_FAIL,
+      payload: message,
+    })
+  }
+}
+export const getAdminName = (id) => async (dispatch, getState) => {
+  console.log(`getting  with business id :${id} Admin Name details... `)
+  console.log(`getting  with business id :${id} Admin Name details... `)
+  console.log(`getting  with business id :${id} Admin Name details... `)
+  console.log(`getting  with business id :${id} Admin Name details... `)
+  console.log(`getting  with business id :${id} Admin Name details... `)
+  try {
+    dispatch({
+      type: ADMIN_NAME_REQUEST,
+    })
+
+    const { data } = await axios.get(`/api/business/adminame/${id}`)
+
+    dispatch({
+      type: ADMIN_NAME_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: ADMIN_NAME_FAIL,
       payload: message,
     })
   }

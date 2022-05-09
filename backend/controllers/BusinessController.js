@@ -29,6 +29,62 @@ const getBusinessDetailsPage = asyncHandler(async (req, res) => {
     throw new Error(' the business not found')
   }
 })
+const getAdminNameForSocket = asyncHandler(async (req, res) => {
+  console.log(' Finging business and then admin name!!!')
+  const { id } = req.params
+  console.log(`id:${id}`)
+  const BusinessFound = await Business.findOne({ _id: id })
+  if (BusinessFound) {
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    console.log(`BusinessFound`)
+    if (BusinessFound.businessOwner) {
+      const AdminFound = await User.findOne({
+        _id: BusinessFound.businessOwner,
+      })
+      if (AdminFound) {
+        console.log(AdminFound.name)
+        console.log(AdminFound.name)
+        console.log(AdminFound.name)
+        console.log(AdminFound.name)
+        console.log(AdminFound.name)
+        console.log(AdminFound.name)
+        console.log(AdminFound.name)
+        console.log(AdminFound.name)
+        console.log(AdminFound.name)
+        console.log(AdminFound.name)
+
+        res.json({
+          name: AdminFound.name,
+          id: AdminFound._id,
+        })
+      } else {
+        console.log(`Error Admin Not Found`)
+        res.status(404)
+        throw new Error(' the Admin not found')
+      }
+    }
+  } else {
+    console.log(`Error Business Not Found`)
+    res.status(404)
+    throw new Error(' the business not found')
+  }
+})
 
 //need to add more Design Elements
 const getBusinessDesignSettings = asyncHandler(async (req, res) => {
@@ -328,4 +384,5 @@ export {
   UpdateBussinesSettingsController,
   getBusinessDesignSettings,
   UpdateBussinesDesigenSettings,
+  getAdminNameForSocket,
 }

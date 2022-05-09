@@ -45,7 +45,6 @@ const importData = async () => {
     const AdminUser = createdUsers[0] //אדמין שלם לצורך הכנסת בעלים ועובדים לעסק ולציין שאדמין עובד בעסק מסוים
     const AdminUser2 = createdUsers[1] //אדמין 2 שלם לצורך הכנסת בעלים ועובדים לעסק ולציין שאדמין עובד בעסק מסוים
 
-    //****hard coded */
     const BusinessDemo1 = createdBusiness[0] //העסק הראשון
     BusinessDemo1.businessOwner = AdminUser //הבעלים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
     BusinessDemo1.workers = AdminUser //העובדים של החנות הראשונה הוא האדמין הראשון המשתמש הראשון
@@ -58,8 +57,6 @@ const importData = async () => {
 
     AdminUser2.WorkingIn = BusinessDemo2._id //הגדרה שהאדמין הראשון עובד במספרה הראשונה
     await AdminUser2.save() //שמירה סופית של היוזר הראשון אדמין
-
-    //****hard coded */
 
     const sampleProducts = products.map((product) => {
       return { ...product, user: adminUser } //הופך את כל המוצרים שהבעלים שלהם יהיה האדמין שמצאונ

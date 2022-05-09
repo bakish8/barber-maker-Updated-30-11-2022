@@ -37,6 +37,9 @@ import {
   GET_LOCATION_GEO_REQUEST,
   GET_LOCATION_GEO_SUCCESS,
   GET_LOCATION_GEO_FAIL,
+  ADMIN_NAME_REQUEST,
+  ADMIN_NAME_SUCCESS,
+  ADMIN_NAME_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { USER_LOGOUT } from '../../constants/userConstants'
 
@@ -70,6 +73,23 @@ export const GetBusinessDetailsReducer = (state = {}, action) => {
       }
     case BUSINESS_DETAILS_FAIL:
       return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const GetAdminNameReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_NAME_REQUEST:
+      return { loading: true }
+    case ADMIN_NAME_SUCCESS:
+      return {
+        AdmiNameloading: false,
+        AdmiName: action.payload,
+        AdmiNamesuccess: true,
+      }
+    case ADMIN_NAME_FAIL:
+      return { AdmiNameloading: false, AdmiNameerror: action.payload }
     default:
       return state
   }

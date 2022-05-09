@@ -1,3 +1,5 @@
+//****need To Bring Back Admin ID and Only AFTER registeration !!!*/
+
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
@@ -8,7 +10,11 @@ import Message from '../../../components/Message'
 import Loader from '../../../components/Loader'
 import FormContainer from '../../../components/FormContainer'
 import { CreatelNotifications, register } from '../../../actions/userActions'
-import { register_client } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
+import {
+  getAdminName,
+  getBuissnesDetails,
+  register_client,
+} from '../../../actions/BuissnesActions/Buissnes_User_Actions'
 import './LoginScreen.css'
 import moment from 'moment'
 import { io } from 'socket.io-client'
@@ -37,6 +43,9 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     cancel_noti,
     error: errorcancel_noti,
   } = cancelNoti
+  const GetAdminName = useSelector((state) => state.GetAdminName)
+  const { AdmiNameloading, AdmiName, AdmiNamesuccess, AdmiNameerror } =
+    GetAdminName
   const redirect = `/business/${BussinesID}`
 
   useEffect(() => {
@@ -53,34 +62,46 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
       console.log(userInfo)
       let NOW = moment()
       let now = NOW.toDate()
-      dispatch(
-        CreatelNotifications(
-          null,
-          null,
-          null,
-          null,
-          'עומרי בקיש', //*** hard coded*/
-          userInfo._id,
-          '621a8fe40bbc4f94883207a3', //*** hard coded*/
-          3,
-          now
+
+      dispatch(getAdminName(BussinesID))
+      /*/**add if business foudn user bussines owner */
+      if (AdmiName) {
+        console.log(`AdmiName is Found :${AdmiName.name}`)
+        console.log(`admin Id is Found :${AdmiName.id}`)
+        console.log(`admin Id is Found :${AdmiName.id}`)
+        console.log(`admin Id is Found :${AdmiName.id}`)
+        console.log(`admin Id is Found :${AdmiName.id}`)
+        console.log(`admin Id is Found :${AdmiName.id}`)
+        console.log(`admin Id is Found :${AdmiName.id}`)
+        console.log(`admin Id is Found :${AdmiName.id}`)
+        console.log(`admin Id is Found :${AdmiName.id}`)
+
+        dispatch(
+          CreatelNotifications(
+            null,
+            null,
+            null,
+            null,
+            AdmiName.name,
+            userInfo._id,
+            AdmiName.id,
+            3,
+            now
+          )
         )
-      )
-      if (socket) {
-        socket.emit('sendNotification', {
-          senderName: userInfo.name,
-          receiverName: 'עומרי בקיש', //*** hard coded*/
-          type: 3,
-          time: '00:00', //*** hard coded and not needed*/
-          dayInWeek: 'defult', //*** hard coded and not needed*/
-        })
+        if (socket) {
+          socket.emit('sendNotification', {
+            senderName: userInfo.name,
+            receiverName: AdmiName.name,
+            type: 3,
+            time: '00:00',
+            dayInWeek: 'defult',
+          })
+        }
+
+        console.log(`redirect:${redirect}`)
+        history.push(redirect)
       }
-      console.log(redirect)
-      console.log(redirect)
-      console.log(redirect)
-      console.log(redirect)
-      console.log(redirect)
-      history.push(redirect)
     }
     if (success === false) {
       console.log(error)
@@ -98,7 +119,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
         },
       })
     }
-  }, [history, userInfo, redirect, message, success, socket])
+  }, [history, userInfo, redirect, message, success, socket, AdmiName])
 
   const submitHandler = (e) => {
     e.preventDefault()
