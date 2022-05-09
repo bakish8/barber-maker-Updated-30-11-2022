@@ -35,6 +35,27 @@ var AppointmentSchema = new mongoose.Schema({
 
 //Calculate time agains appintment
 AppointmentSchema.methods.requiresNotification = function (FormatedSearchDate) {
+  console.log(
+    `Monent This Time ${moment(this.time).tz('Asia/Jerusalem').utc()}`
+  )
+  console.log(
+    `FormatedSearchDate utc  ${moment(FormatedSearchDate)
+      .add(3, 'hours')
+      .utc()}`
+  )
+  console.log(
+    `Duration is :${Math.round(
+      moment
+        .duration(
+          moment(this.time)
+            .tz('Asia/Jerusalem')
+            .utc()
+            // .diff(moment(FormatedSearchDate).utc())
+            .diff(moment(FormatedSearchDate).add(3, 'hours').utc())
+        )
+        .asMinutes()
+    )}`
+  )
   return (
     Math.round(
       moment
@@ -42,7 +63,8 @@ AppointmentSchema.methods.requiresNotification = function (FormatedSearchDate) {
           moment(this.time)
             .tz('Asia/Jerusalem')
             .utc()
-            .diff(moment(FormatedSearchDate).utc())
+            //.diff(moment(FormatedSearchDate).utc())
+            .diff(moment(FormatedSearchDate).add(3, 'hours').utc())
         )
         .asMinutes()
     ) === this.notification
@@ -53,6 +75,8 @@ AppointmentSchema.statics.sendNotifications = function (callback) {
   //now
   const searchDate = new Date()
   const FormatedSearchDate = moment(searchDate).format()
+  console.log(`FormatedSearchDate Before:${FormatedSearchDate}`)
+
   Appointment.find().then(function (appointments) {
     appointments = appointments.filter(function (appointment) {
       return appointment.requiresNotification(FormatedSearchDate)
