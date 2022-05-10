@@ -129,9 +129,6 @@ const Header = ({ socket, match }) => {
       const password2 = formValues[1]
       alert(` password reset !`)
       //await dispatch(registerByADMIN(name, email, phone, password, image))
-      //await confirmNewUser(phone, name, time, ChoosenClock)
-    } else if (result.isDenied) {
-      alert(`deniend no password valued!`)
     }
   }
 
