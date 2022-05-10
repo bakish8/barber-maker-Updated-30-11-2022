@@ -109,10 +109,8 @@ const Header = ({ socket, match }) => {
       }
     }
     if (userGoogleInfo.google_password_reset) {
-      alert(google_password_reset)
-      alert(google_password_reset)
-      alert(google_password_reset)
-      alert(google_password_reset)
+      alert(`na ana banana tahat shel banana !!!`)
+
       console.log(`na ana banana tahat shel banana !!!`)
       console.log(`na ana banana tahat shel banana !!!`)
       console.log(`na ana banana tahat shel banana !!!`)
