@@ -88,7 +88,7 @@ passport.use(
           googleId: profile.id,
           image: profile.photos[0].value,
           phone: null,
-          password: '123123' /*****need to be selected by user */,
+          password: '123123' /*****need to be selected by user hard coded*/,
           isAdmin: false,
         })
         await newUser.save()

@@ -273,6 +273,12 @@ const Header = ({ socket, match }) => {
 
   useEffect(() => {
     if (userInfo && user_connected_success) {
+      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
+      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
+      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
+      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
+      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
+      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
       if (userInfo.workingIn) {
         dispatch(getBuissnesDetailsfornav(userInfo.workingIn))
       }
