@@ -225,6 +225,9 @@ import {
   USER_DETAILS_COMMENTS_FOR_TIPUL_SUCCESS,
   USER_DETAILS_COMMENTS_FOR_TIPUL_RESET,
   USER_UPDATE_COMMENTS_FOR_TIPUL_FAIL,
+  INITIAL_PASSWORD_REQUEST,
+  INITIAL_PASSWORD_SUCCESS,
+  INITIAL_PASSWORD_FAIL,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
@@ -2722,6 +2725,33 @@ export const RESET_MY_PASSWORD_ACTION =
     } catch (error) {
       dispatch({
         type: RESET_MY_PASSWORD_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+export const INITIAL_PASSWORD_ACTION =
+  (id, password) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: INITIAL_PASSWORD_REQUEST,
+      })
+
+      const { data } = await axios.put(`/api/forgot-password/${id}`, {
+        password,
+      })
+      console.log('data:')
+      console.log(data)
+
+      dispatch({
+        type: INITIAL_PASSWORD_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: INITIAL_PASSWORD_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

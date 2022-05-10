@@ -19,7 +19,9 @@ import {
   getBuissnesDetailsfornav,
 } from '../actions/BuissnesActions/Buissnes_User_Actions'
 import CoolNavBarBussines from './CoolNavBar/CoolNavBarBussines'
-
+import { Box, Modal } from '@material-ui/core'
+import { Table, Button, Row, Col, Form } from 'react-bootstrap'
+import { INITIAL_PASSWORD_ACTION } from '../actions/userActions'
 moment.locale('he')
 const Header = ({ socket, match }) => {
   console.log(window.location)
@@ -71,6 +73,10 @@ const Header = ({ socket, match }) => {
   const [stateForActiveAdminLINK, setstateForActiveAdminLINK] = useState(false)
   const [stateForActiveUserLINK, setstateForActiveUserLINK] = useState(false)
   const [stateForActiveCARTLINK, setstateForActiveCARTLINK] = useState(false)
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [ShowInitialGooglePassWordModel, setShowInitialGooglePassWordModel] =
+    useState(false)
   const [Administrate, setAdministrate] = useState(false)
   const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
   const { userGoogleInfo, Gsuccess } = userGoogleLogin
@@ -101,34 +107,7 @@ const Header = ({ socket, match }) => {
     }
   }
   const openNewPASSwordSwal = () => {
-    const { value: formValues } = Swal.fire({
-      imageUrl: 'https://i.ibb.co/k5YCM8z/animation-200-kyobojkk.gif',
-      imageWidth: 100,
-      imageHeight: 100,
-      title: 'הזן ססמא ראשונית',
-      footer: `הזן את הססמא שתשמש אותך להמשך הדרך`,
-      confirmButtonText: 'אישור',
-
-      html:
-        '<input id="swal-input1" class="swal2-input">' +
-        '<label for="swal-input1">הזן ססמא</label>' +
-        '<input id="swal-input2" class="swal2-input">' +
-        '<label for="swal-input2">הזו שנית</label>',
-
-      focusConfirm: false,
-      preConfirm: async () => {
-        return [
-          document.getElementById('swal-input1').value,
-          document.getElementById('swal-input2').value,
-        ]
-      },
-    })
-    if (formValues) {
-      const password = formValues[0]
-      const password2 = formValues[1]
-      alert(` password reset !`)
-      //await dispatch(registerByADMIN(name, email, phone, password, image))
-    }
+    setShowInitialGooglePassWordModel(true)
   }
 
   if (userGoogleInfo && Gsuccess) {
@@ -394,13 +373,99 @@ const Header = ({ socket, match }) => {
       }
     })
   }, [one, two, trhee, success_cancel_noti, make_all_watch])
+
+  const setOpenInitialPassModal = () => {
+    setShowInitialGooglePassWordModel(true)
+  }
+
   const ChangePositionHandler = () => {
     setOpen(!open)
     setMakeBLueONEdesapier(!MakeBLueONEdesapier)
   }
+  const ConfirmInitialPassWordHandler = (e) => {
+    e.preventDefault()
+    if (password !== confirmPassword) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        },
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'הססמאות אינן תואמות',
+        text: 'אנא נסה שנית',
+      })
+    } else {
+      //addd defence on action Fix
+      dispatch(INITIAL_PASSWORD_ACTION(userInfo._id, password))
+    }
+  }
 
   return (
     <>
+      {ShowInitialGooglePassWordModel && (
+        <Modal
+          id='ModalStyle'
+          open={setOpenInitialPassModal}
+          close={setOpenInitialPassModal}
+        >
+          <Box id='BOXlStyleForChooseTipul'>
+            <div id='reciptcloseNav'>
+              <button onClick={setOpenInitialPassModal} id='reciptcloseNavX'>
+                X
+              </button>
+              <div>
+                <Col md={12}>
+                  <h1 id='h1SugTipul'>הזן ססמא ראשונית</h1>
+                </Col>
+                <Col md={12}>
+                  {' '}
+                  <Form onSubmit={ConfirmInitialPassWordHandler}>
+                    <Form.Group
+                      controlId='password'
+                      type='password'
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    >
+                      <Form.Control
+                        as='input'
+                        type='password'
+                        id='formSelect'
+                      ></Form.Control>
+                    </Form.Group>
+                    <Form.Group
+                      controlId='confirmPassword'
+                      type='password'
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
+                    >
+                      <Form.Control
+                        as='input'
+                        type='password'
+                        id='formSelect'
+                      ></Form.Control>
+                    </Form.Group>
+
+                    <Button
+                      className='link buzz-out-on-hover'
+                      id='centermebtnHOsef'
+                      type='submit'
+                    >
+                      אישור
+                    </Button>
+                  </Form>
+                </Col>
+              </div>
+            </div>
+          </Box>
+        </Modal>
+      )}
       {userInfo && userInfo.isAdmin && Administrate && MakeBLueONEdesapier ? ( /////Fix
         <AdminMessages list={notifications} />
       ) : (

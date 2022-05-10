@@ -244,6 +244,9 @@ import {
   USER_UPDATE_COMMENTS_FOR_TIPUL_FAIL,
   ONE_WORKING_DAY_RESET,
   List_of_Potential_Users_By_FirstName_RESET,
+  INITIAL_PASSWORD_REQUEST,
+  INITIAL_PASSWORD_SUCCESS,
+  INITIAL_PASSWORD_FAIL,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -1460,6 +1463,26 @@ export const RESET_MY_PASSWORD_REDUCER = (state = {}, action) => {
         loadingreset: false,
         errorreset: action.payload,
         successreset: false,
+      }
+    default:
+      return state
+  }
+}
+
+export const INITIAL_PASSWORD_REDUCER = (state = {}, action) => {
+  switch (action.type) {
+    case INITIAL_PASSWORD_REQUEST:
+      return { loading: true }
+    case INITIAL_PASSWORD_SUCCESS:
+      return {
+        loadinginitial: false,
+        successinitial: true,
+      }
+    case INITIAL_PASSWORD_FAIL:
+      return {
+        loadinginitial: false,
+        errorinitial: action.payload,
+        successinitial: false,
       }
     default:
       return state

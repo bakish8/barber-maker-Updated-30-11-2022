@@ -86,10 +86,29 @@ const ResetPassword = asyncHandler(async (req, res) => {
     throw new Error('המשתמש אינו נמצא')
   }
 })
+const InitialPassword = asyncHandler(async (req, res) => {
+  const { id } = req.params
+  const user = await User.findById(id)
+  const { password } = req.body
+  if (user) {
+    if (password) {
+      console.log(`pass:${password}`)
+      user.password = req.body.password
+    }
+    const updatedUser = await user.save()
+    res.json({
+      succses: true,
+    })
+  } else {
+    res.status(404)
+    throw new Error('המשתמש אינו נמצא')
+  }
+})
 
 export {
   resetPageReload,
   ctrateResetPage,
   ResetPassword,
   ctrateResetPageForPhoneReset,
+  InitialPassword,
 }

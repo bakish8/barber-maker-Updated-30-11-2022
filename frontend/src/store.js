@@ -82,6 +82,7 @@ import {
   RESET_MY_PASSWORD_REDUCER,
   BUILD_RESET_PAGE_FOR_PHONE_REDUCER,
   SendTorSMS_RESET_Reducer,
+  INITIAL_PASSWORD_REDUCER,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -213,6 +214,8 @@ const reducer = combineReducers({
   GetBusinessGeo: GetBusinessGeoReducer,
 
   GetAdminName: GetAdminNameReducer,
+
+  INITIAL_PASSWORD: INITIAL_PASSWORD_REDUCER,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
