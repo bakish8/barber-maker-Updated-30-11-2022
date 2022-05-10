@@ -150,7 +150,7 @@ const Header = ({ socket, match }) => {
         text: 'הססמא הראשונית שהזנת נשמרה בהצלחה עכשיו אפשר להמשיך',
       })
     }
-  }, [userGoogleInfo, successinitial])
+  }, [successinitial])
 
   const ClickOnAdmin = () => {
     setstateForActiveAdminLINK(!stateForActiveAdminLINK)
@@ -448,7 +448,7 @@ const Header = ({ socket, match }) => {
                 </Col>
                 <Col md={12}>
                   {' '}
-                  <Form onSubmit={() => ConfirmInitialPassWordHandler()}>
+                  <Form onSubmit={ConfirmInitialPassWordHandler()}>
                     <Form.Group
                       controlId='password'
                       type='password'
