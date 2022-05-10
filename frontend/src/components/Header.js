@@ -100,6 +100,40 @@ const Header = ({ socket, match }) => {
       dispatch(logout())
     }
   }
+  const openNewPASSwordSwal = () => {
+    const { value: formValues } = Swal.fire({
+      imageUrl: 'https://i.ibb.co/k5YCM8z/animation-200-kyobojkk.gif',
+      imageWidth: 100,
+      imageHeight: 100,
+      title: 'הזן ססמא ראשונית',
+      footer: `הזן את הססמא שתשמש אותך להמשך הדרך`,
+      confirmButtonText: 'אישור',
+
+      html:
+        '<input id="swal-input1" class="swal2-input">' +
+        '<label for="swal-input1">הזן ססמא</label>' +
+        '<input id="swal-input2" class="swal2-input">' +
+        '<label for="swal-input2">הזו שנית</label>',
+
+      focusConfirm: false,
+      preConfirm: async () => {
+        return [
+          document.getElementById('swal-input1').value,
+          document.getElementById('swal-input2').value,
+          document.getElementById('swal-input3').value,
+        ]
+      },
+    })
+    if (formValues) {
+      const password = formValues[0]
+      const password2 = formValues[1]
+      alert(` password reset !`)
+      //await dispatch(registerByADMIN(name, email, phone, password, image))
+      //await confirmNewUser(phone, name, time, ChoosenClock)
+    } else if (result.isDenied) {
+      alert(`deniend no password valued!`)
+    }
+  }
 
   if (userGoogleInfo && Gsuccess) {
     if (userGoogleInfo.google_password_reset === true) {
@@ -107,30 +141,7 @@ const Header = ({ socket, match }) => {
         if (!window.location.hash) {
           window.location = window.location + '#loaded'
           //**************** */
-          const { value: formValues } = Swal.fire({
-            imageUrl: 'https://i.ibb.co/k5YCM8z/animation-200-kyobojkk.gif',
-            imageWidth: 100,
-            imageHeight: 100,
-            title: 'הזן ססמא ראשונית',
-            footer: `הזן את הססמא שתשמש אותך להמשך הדרך`,
-            confirmButtonText: 'אישור',
-
-            html:
-              '<input id="swal-input1" class="swal2-input">' +
-              '<label for="swal-input1">הזן ססמא</label>' +
-              '<input id="swal-input2" class="swal2-input">' +
-              '<label for="swal-input2">הזו שנית</label>',
-
-            focusConfirm: false,
-            preConfirm: async () => {
-              return [
-                document.getElementById('swal-input1').value,
-                document.getElementById('swal-input2').value,
-                document.getElementById('swal-input3').value,
-              ]
-            },
-          })
-
+          openNewPASSwordSwal()
           //AFTER RESER PASSWORD WITH THEN ---- window.location.reload()
         }
       }
