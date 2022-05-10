@@ -49,6 +49,9 @@ const Header = ({ socket, match }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo, success: user_connected_success } = userLogin
 
+  const INITIAL_PASSWORD = useSelector((state) => state.INITIAL_PASSWORD)
+  const { successinitial, errorinitial } = INITIAL_PASSWORD
+
   const cancelNoti = useSelector((state) => state.cancelNoti)
   const {
     loading: loading_cancel_noti,
@@ -112,14 +115,13 @@ const Header = ({ socket, match }) => {
 
   useEffect(() => {
     if (userGoogleInfo && Gsuccess) {
-      if ((userGoogleInfo.google_password_reset = true)) {
+      if (userGoogleInfo.google_password_reset === true) {
         window.onload = function () {
           if (!window.location.hash) {
             window.location = window.location + '#loaded'
-            //**************** */
-            openNewPASSwordSwal()
-            //AFTER RESER PASSWORD WITH THEN ---- window.location.reload()
           }
+          openNewPASSwordSwal()
+          //AFTER RESER PASSWORD WITH THEN ---- window.location.reload()
         }
       } else {
         window.onload = function () {
@@ -130,7 +132,25 @@ const Header = ({ socket, match }) => {
         }
       }
     }
-  }, [userGoogleInfo])
+    if (successinitial) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        },
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'הססמא הראשונית הוזנה בהצלחה',
+        text: 'הססמא הראשונית שהזנת נשמרה בהצלחה עכשיו אפשר להמשיך',
+      })
+    }
+  }, [userGoogleInfo, successinitial])
 
   const ClickOnAdmin = () => {
     setstateForActiveAdminLINK(!stateForActiveAdminLINK)
@@ -428,7 +448,7 @@ const Header = ({ socket, match }) => {
                 </Col>
                 <Col md={12}>
                   {' '}
-                  <Form onSubmit={ConfirmInitialPassWordHandler}>
+                  <Form onSubmit={() => ConfirmInitialPassWordHandler()}>
                     <Form.Group
                       controlId='password'
                       type='password'
