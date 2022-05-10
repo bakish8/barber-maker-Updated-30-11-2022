@@ -76,7 +76,7 @@ const authGoogleUser = asyncHandler(async (req, res) => {
   const { email } = req.body
   const user = await User.findOne({ email })
   if (user) {
-    if (user.googleId) {
+    if (user.google_password_reset) {
       res.json({
         _id: user._id,
         name: user.name,
@@ -85,7 +85,7 @@ const authGoogleUser = asyncHandler(async (req, res) => {
         image: user.image,
         isAdmin: user.isAdmin,
         token: generateToken(user._id),
-        googleId: user.googleId,
+        google_password_reset: user.google_password_reset,
       })
     } //***New */
     else {

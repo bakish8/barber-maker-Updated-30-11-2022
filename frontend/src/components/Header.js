@@ -101,21 +101,24 @@ const Header = ({ socket, match }) => {
     }
   }
 
-  console.log(userInfo) /*****/
-  console.log(userGoogleInfo)
-
   if (userGoogleInfo && Gsuccess) {
     window.onload = function () {
       if (!window.location.hash) {
         window.location = window.location + '#loaded'
-        window.location
-          .reload()
-          .then(
-            console.log(
-              `Google User is logged in : ${userGoogleInfo.name} and the googleId  is : ${userGoogleInfo.googleId}!!!!! `
-            )
-          )
+        window.location.reload()
       }
+    }
+    if (userGoogleInfo.google_password_reset) {
+      alert(google_password_reset)
+      alert(google_password_reset)
+      alert(google_password_reset)
+      alert(google_password_reset)
+      console.log(`na ana banana tahat shel banana !!!`)
+      console.log(`na ana banana tahat shel banana !!!`)
+      console.log(`na ana banana tahat shel banana !!!`)
+      console.log(`na ana banana tahat shel banana !!!`)
+      console.log(`na ana banana tahat shel banana !!!`)
+      console.log(`na ana banana tahat shel banana !!!`)
     }
   }
 
