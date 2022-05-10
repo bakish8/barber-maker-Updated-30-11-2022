@@ -254,8 +254,6 @@ const LoginScreen = ({ location, history }) => {
             SetPhoneToSendTo(phone)
             console.log(phone)
             return await fetch(`/api/search/phones/${phone}`)
-              ////******** */   dispatch(Create15PortForResetPASSWORD(email))
-
               .then((response) => {
                 if (!response.ok) {
                   throw new Error(response.statusText)

@@ -102,21 +102,45 @@ const Header = ({ socket, match }) => {
   }
 
   if (userGoogleInfo && Gsuccess) {
-    window.onload = function () {
-      if (!window.location.hash) {
-        window.location = window.location + '#loaded'
-        window.location.reload()
-      }
-    }
-    if (userGoogleInfo.google_password_reset) {
-      alert(`na ana banana tahat shel banana !!!`)
+    if (userGoogleInfo.google_password_reset === true) {
+      window.onload = function () {
+        if (!window.location.hash) {
+          window.location = window.location + '#loaded'
+          //**************** */
+          const { value: formValues } = Swal.fire({
+            imageUrl: 'https://i.ibb.co/k5YCM8z/animation-200-kyobojkk.gif',
+            imageWidth: 100,
+            imageHeight: 100,
+            title: 'הזן ססמא ראשונית',
+            footer: `הזן את הססמא שתשמש אותך להמשך הדרך`,
+            confirmButtonText: 'אישור',
 
-      console.log(`na ana banana tahat shel banana !!!`)
-      console.log(`na ana banana tahat shel banana !!!`)
-      console.log(`na ana banana tahat shel banana !!!`)
-      console.log(`na ana banana tahat shel banana !!!`)
-      console.log(`na ana banana tahat shel banana !!!`)
-      console.log(`na ana banana tahat shel banana !!!`)
+            html:
+              '<input id="swal-input1" class="swal2-input">' +
+              '<label for="swal-input1">הזן ססמא</label>' +
+              '<input id="swal-input2" class="swal2-input">' +
+              '<label for="swal-input2">הזו שנית</label>',
+
+            focusConfirm: false,
+            preConfirm: async () => {
+              return [
+                document.getElementById('swal-input1').value,
+                document.getElementById('swal-input2').value,
+                document.getElementById('swal-input3').value,
+              ]
+            },
+          })
+
+          //AFTER RESER PASSWORD WITH THEN ---- window.location.reload()
+        }
+      }
+    } else {
+      window.onload = function () {
+        if (!window.location.hash) {
+          window.location = window.location + '#loaded'
+          window.location.reload()
+        }
+      }
     }
   }
 
