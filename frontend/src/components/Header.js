@@ -104,11 +104,17 @@ const Header = ({ socket, match }) => {
   console.log(userInfo) /*****/
   console.log(userGoogleInfo)
 
-  if (Gsuccess) {
+  if (userGoogleInfo && Gsuccess) {
     window.onload = function () {
       if (!window.location.hash) {
         window.location = window.location + '#loaded'
-        window.location.reload()
+        window.location
+          .reload()
+          .then(
+            console.log(
+              `Google User is logged in : ${userGoogleInfo.name} and the googleId  is : ${userGoogleInfo.googleId}!!!!! `
+            )
+          )
       }
     }
   }

@@ -76,15 +76,29 @@ const authGoogleUser = asyncHandler(async (req, res) => {
   const { email } = req.body
   const user = await User.findOne({ email })
   if (user) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      image: user.image,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
-    })
+    if (user.googleId) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        image: user.image,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+        googleId: user.googleId,
+      })
+    } //***New */
+    else {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        image: user.image,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+      })
+    }
   } else {
     res.status(401)
     throw new Error('Google LogInFailed')
