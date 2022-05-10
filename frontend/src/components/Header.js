@@ -110,25 +110,27 @@ const Header = ({ socket, match }) => {
     setShowInitialGooglePassWordModel(true)
   }
 
-  if (userGoogleInfo && Gsuccess) {
-    if ((userGoogleInfo.google_password_reset = true)) {
-      window.onload = function () {
-        if (!window.location.hash) {
-          window.location = window.location + '#loaded'
-          //**************** */
-          openNewPASSwordSwal()
-          //AFTER RESER PASSWORD WITH THEN ---- window.location.reload()
+  useEffect(() => {
+    if (userGoogleInfo && Gsuccess) {
+      if ((userGoogleInfo.google_password_reset = true)) {
+        window.onload = function () {
+          if (!window.location.hash) {
+            window.location = window.location + '#loaded'
+            //**************** */
+            openNewPASSwordSwal()
+            //AFTER RESER PASSWORD WITH THEN ---- window.location.reload()
+          }
         }
-      }
-    } else {
-      window.onload = function () {
-        if (!window.location.hash) {
-          window.location = window.location + '#loaded'
-          window.location.reload()
+      } else {
+        window.onload = function () {
+          if (!window.location.hash) {
+            window.location = window.location + '#loaded'
+            window.location.reload()
+          }
         }
       }
     }
-  }
+  }, [userGoogleInfo])
 
   const ClickOnAdmin = () => {
     setstateForActiveAdminLINK(!stateForActiveAdminLINK)
