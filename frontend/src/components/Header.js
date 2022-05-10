@@ -120,7 +120,6 @@ const Header = ({ socket, match }) => {
         return [
           document.getElementById('swal-input1').value,
           document.getElementById('swal-input2').value,
-          document.getElementById('swal-input3').value,
         ]
       },
     })
