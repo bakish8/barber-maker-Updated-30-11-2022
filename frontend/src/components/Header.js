@@ -447,7 +447,7 @@ const Header = ({ socket, match }) => {
                 </Col>
                 <Col md={12}>
                   {' '}
-                  <Form onSubmit={ConfirmInitialPassWordHandler()}>
+                  <Form onSubmit={() => ConfirmInitialPassWordHandler()}>
                     <Form.Group
                       controlId='password'
                       type='password'
