@@ -404,8 +404,7 @@ const Header = ({ socket, match }) => {
     setOpen(!open)
     setMakeBLueONEdesapier(!MakeBLueONEdesapier)
   }
-  const ConfirmInitialPassWordHandler = (e) => {
-    e.preventDefault()
+  const ConfirmInitialPassWordHandler = () => {
     if (password !== confirmPassword) {
       const Toast = Swal.mixin({
         toast: true,
