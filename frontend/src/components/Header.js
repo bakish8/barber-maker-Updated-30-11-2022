@@ -133,6 +133,7 @@ const Header = ({ socket, match }) => {
       }
     }
     if (successinitial) {
+      setShowInitialGooglePassWordModel(false)
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
