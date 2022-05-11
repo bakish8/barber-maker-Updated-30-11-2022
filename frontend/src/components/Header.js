@@ -150,7 +150,7 @@ const Header = ({ socket, match }) => {
         text: 'הססמא הראשונית שהזנת נשמרה בהצלחה עכשיו אפשר להמשיך',
       })
     }
-  }, [successinitial])
+  }, [userGoogleInfo.google_password_reset, successinitial])
 
   const ClickOnAdmin = () => {
     setstateForActiveAdminLINK(!stateForActiveAdminLINK)
