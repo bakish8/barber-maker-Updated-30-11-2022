@@ -26,13 +26,15 @@ const CoolNavBarBussines = (props) => {
   console.log(userInfo)
   console.log(userGoogleInfo)
 
-  if (Gsuccess) {
-    window.onload = function () {
-      if (!window.location.hash) {
-        window.location.reload()
-      }
-    }
-  }
+  //Maybe this is the problem with reloading check... \
+  // ______________________________________________________
+  // if (Gsuccess) {
+  //   window.onload = function () {
+  //     if (!window.location.hash) {
+  //       window.location.reload()
+  //     }
+  //   }
+  // }
 
   const setisSmallFunction = () => {
     console.log('hgfh')
