@@ -87,8 +87,29 @@ const authGoogleUser = asyncHandler(async (req, res) => {
         token: generateToken(user._id),
         google_password_reset: user.google_password_reset,
       })
-    } //***New */
-    else {
+    } else if (user.WorkingIn) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        image: user.image,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+        WorkingIn: user.WorkingIn,
+      })
+    } else if (user.ClientOfBusiness) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        image: user.image,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+        ClientOfBusiness: user.ClientOfBusiness,
+      })
+    } else if (!user.WorkingIn && !user.ClientOfBusiness) {
       res.json({
         _id: user._id,
         name: user.name,

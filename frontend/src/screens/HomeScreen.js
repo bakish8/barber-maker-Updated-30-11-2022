@@ -32,7 +32,7 @@ import Nahel from '../components/Nahel/Nahel'
 import Tilt from 'react-parallax-tilt'
 import FAQ from '../components/HomePage/FAQ'
 
-const HomeScreen = ({ match }) => {
+const HomeScreen = ({ match, history }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1
 
@@ -40,8 +40,8 @@ const HomeScreen = ({ match }) => {
 
   const productList = useSelector((state) => state.productList) //מושכים מהפרוקדט רדיוסר מההצהרה שלנו את הארור האפשרי את המוצרים ואת הטעינה
   const { loading, error, products, page, pages } = productList
-  const [ValueScrollForBarberSystem, setValueScrollForBarberSystem] =
-    useState(false)
+  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
+  const { userGoogleInfo, Gsuccess } = userGoogleLogin
 
   //functions for scroll highet
   const fixScrollHighetForBarberSystem = () => {
@@ -56,6 +56,21 @@ const HomeScreen = ({ match }) => {
   useEffect(() => {
     Aos.init({ duration: 700 })
   }, [])
+
+  //redirect if userGoogleInfo with Bussines Id accsepted
+  useEffect(() => {
+    if (userGoogleInfo) {
+      if (userGoogleInfo.WorkingIn) {
+        history.push(`/business/${userGoogleInfo.workingIn}`)
+      } else if (
+        userGoogleInfo.ClientOfBusiness &&
+        userGoogleInfo.ClientOfBusiness != 0
+      ) {
+        history.push(`/business/${userGoogleInfo.ClientOfBusiness}`)
+      }
+    }
+  }, [userGoogleInfo])
+
   return (
     <>
       <Meta />
