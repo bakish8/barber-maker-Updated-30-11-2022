@@ -58,18 +58,18 @@ const HomeScreen = ({ match, history }) => {
   }, [])
 
   //redirect if userGoogleInfo with Bussines Id accsepted
-  useEffect(() => {
-    if (userGoogleInfo) {
-      if (userGoogleInfo.WorkingIn) {
-        history.push(`/business/${userGoogleInfo.workingIn}`)
-      } else if (
-        userGoogleInfo.ClientOfBusiness &&
-        userGoogleInfo.ClientOfBusiness != 0
-      ) {
-        history.push(`/business/${userGoogleInfo.ClientOfBusiness}`)
-      }
-    }
-  }, [userGoogleInfo])
+  // useEffect(() => {
+  //   if (userGoogleInfo) {
+  //     if (userGoogleInfo.WorkingIn) {
+  //       history.push(`/business/${userGoogleInfo.workingIn}`)
+  //     } else if (
+  //       userGoogleInfo.ClientOfBusiness &&
+  //       userGoogleInfo.ClientOfBusiness != 0
+  //     ) {
+  //       history.push(`/business/${userGoogleInfo.ClientOfBusiness}`)
+  //     }
+  //   }
+  // }, [userGoogleInfo])
 
   return (
     <>

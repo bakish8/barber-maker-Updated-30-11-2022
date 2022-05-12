@@ -118,6 +118,7 @@ const Header = ({ socket, match }) => {
       if (userGoogleInfo.google_password_reset === true) {
         window.onload = function () {
           if (!window.location.hash) {
+            window.location = window.location + '#loaded'
           }
           openNewPASSwordSwal()
           //AFTER RESER PASSWORD WITH THEN ---- window.location.reload()
@@ -125,6 +126,7 @@ const Header = ({ socket, match }) => {
       } else {
         window.onload = function () {
           if (!window.location.hash) {
+            window.location = window.location + '#loaded'
             window.location.reload()
           }
         }
