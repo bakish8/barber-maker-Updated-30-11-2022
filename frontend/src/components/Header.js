@@ -113,7 +113,9 @@ const Header = ({ socket, match }) => {
       window.onload = function () {
         if (!window.location.hash) {
           window.location = window.location + '#loaded'
-          window.location.reload()
+          window.location
+            .reload()
+            .then(console.log(`google Info user has come ....!`))
         }
       }
     } else {
