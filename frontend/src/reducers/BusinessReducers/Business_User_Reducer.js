@@ -40,6 +40,9 @@ import {
   ADMIN_NAME_REQUEST,
   ADMIN_NAME_SUCCESS,
   ADMIN_NAME_FAIL,
+  ALL_BUSINESS_REQUEST,
+  ALL_BUSINESS_SUCCESS,
+  ALL_BUSINESS_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { USER_LOGOUT } from '../../constants/userConstants'
 
@@ -56,6 +59,27 @@ export const GetBusinessGeoReducer = (state = {}, action) => {
       }
     case GET_LOCATION_GEO_FAIL:
       return { successGeo: false, loadingGeo: false, errorGeo: true }
+    default:
+      return state
+  }
+}
+export const GetAllBusinessReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ALL_BUSINESS_REQUEST:
+      return { loadingAllBusiness: true }
+    case ALL_BUSINESS_SUCCESS:
+      return {
+        loadingAllBusiness: false,
+        alllBusiness: action.payload,
+        successAllBusiness: true,
+        errorAllBusiness: false,
+      }
+    case ALL_BUSINESS_FAIL:
+      return {
+        successAllBusiness: false,
+        loadingAllBusiness: false,
+        errorAllBusiness: true,
+      }
     default:
       return state
   }

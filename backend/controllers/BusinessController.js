@@ -29,6 +29,39 @@ const getBusinessDetailsPage = asyncHandler(async (req, res) => {
     throw new Error(' the business not found')
   }
 })
+
+//GetAllBusinessForHomePage
+const GetAllBusinessForHomePage = asyncHandler(async (req, res) => {
+  console.log('Get All Business DEETS For HomePage !!!')
+  const Found = await Business.find({})
+  console.log(`Found*****************************`)
+  console.log(`Found*****************************`)
+  console.log(`Found*****************************`)
+  console.log(Found)
+  if (Found) {
+    res.json([
+      {
+        B_id: Found[0]._id,
+        B_name: Found[0].businessName,
+        B_logo: Found[0].logo,
+      },
+      {
+        B_id: Found[1]._id,
+        B_name: Found[1].businessName,
+        B_logo: Found[1].logo,
+      },
+      // {
+      //   B_id: Found[2]._id,
+      //   B_name: Found[2].businessName,
+      //   B_logo: Found[2].logo,
+      // }
+    ])
+  } else {
+    console.log(`Error Business Not Found`)
+    res.status(404)
+    throw new Error('ERROR!!!  the business.s was not found')
+  }
+})
 const getAdminNameForSocket = asyncHandler(async (req, res) => {
   console.log(' Finging business and then admin name!!!')
   const { id } = req.params
@@ -385,4 +418,5 @@ export {
   getBusinessDesignSettings,
   UpdateBussinesDesigenSettings,
   getAdminNameForSocket,
+  GetAllBusinessForHomePage,
 }

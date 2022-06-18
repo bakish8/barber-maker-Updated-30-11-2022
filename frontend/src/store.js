@@ -106,6 +106,7 @@ import {
   UpdateBusinessDesignSettingsReducer,
   GetBusinessGeoReducer,
   GetAdminNameReducer,
+  GetAllBusinessReducer,
 } from './reducers/BusinessReducers/Business_User_Reducer'
 
 const reducer = combineReducers({
@@ -216,6 +217,8 @@ const reducer = combineReducers({
   GetAdminName: GetAdminNameReducer,
 
   INITIAL_PASSWORD: INITIAL_PASSWORD_REDUCER,
+
+  GetAllBusiness: GetAllBusinessReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')

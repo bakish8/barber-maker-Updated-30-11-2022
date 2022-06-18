@@ -43,6 +43,9 @@ import {
   ADMIN_NAME_REQUEST,
   ADMIN_NAME_SUCCESS,
   ADMIN_NAME_FAIL,
+  ALL_BUSINESS_REQUEST,
+  ALL_BUSINESS_SUCCESS,
+  ALL_BUSINESS_FAIL,
 } from '../../constants/Business/Business_user_Consts'
 import { USER_LOGIN_SUCCESS } from '../../constants/userConstants'
 import { logout } from '../userActions'
@@ -74,6 +77,32 @@ export const getBuissnesDetails = (id) => async (dispatch, getState) => {
     })
   }
 }
+export const getBusissinesForHomePage = () => async (dispatch, getState) => {
+  console.log(`getting  buissness details for home page ... `)
+  try {
+    dispatch({
+      type: ALL_BUSINESS_REQUEST,
+    })
+    const { data } = await axios.get(`/api/business`)
+    dispatch({
+      type: ALL_BUSINESS_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: ALL_BUSINESS_FAIL,
+      payload: message,
+    })
+  }
+}
+
 export const getAdminName = (id) => async (dispatch, getState) => {
   console.log(`getting  with business id :${id} Admin Name details... `)
   console.log(`getting  with business id :${id} Admin Name details... `)

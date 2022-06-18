@@ -9,7 +9,6 @@ import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
 import { listProducts } from '../actions/productActions' //ייבוא של האקשן עצמו שמביא את אמוצרים.
-
 import EmailMeTheDeetsComponent from '../components/HomePage/EmailMeTheDeetsComponent'
 import OpenVirtualBarberShop from '../components/HomePage/openVirtualBarberShop'
 import ImageOne from '../components/HomePage/ImageOne'
@@ -31,17 +30,19 @@ import Kidma from '../components/KidmaTorim/Kidma'
 import Nahel from '../components/Nahel/Nahel'
 import Tilt from 'react-parallax-tilt'
 import FAQ from '../components/HomePage/FAQ'
-
+import Testimonials from '../components/BussinesWeWorkWith/Testimonials'
+import { getBusissinesForHomePage } from '../actions/BuissnesActions/Buissnes_User_Actions'
 const HomeScreen = ({ match, history }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1
-
   const dispatch = useDispatch() //הגדרת שיגור
 
   const productList = useSelector((state) => state.productList) //מושכים מהפרוקדט רדיוסר מההצהרה שלנו את הארור האפשרי את המוצרים ואת הטעינה
   const { loading, error, products, page, pages } = productList
   const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
   const { userGoogleInfo, Gsuccess } = userGoogleLogin
+  const GetAllBusiness = useSelector((state) => state.GetAllBusiness)
+  const { alllBusiness } = GetAllBusiness
 
   //functions for scroll highet
   const fixScrollHighetForBarberSystem = () => {
@@ -54,8 +55,13 @@ const HomeScreen = ({ match, history }) => {
 
   //USE EFFECT  for Aos Effects
   useEffect(() => {
-    Aos.init({ duration: 700 })
+    Aos.init({ duration: 500 })
   }, [])
+  useEffect(() => {
+    if (!alllBusiness) {
+      dispatch(getBusissinesForHomePage())
+    }
+  }, [alllBusiness])
 
   //redirect if userGoogleInfo with Bussines Id accsepted
   // useEffect(() => {
@@ -211,6 +217,17 @@ const HomeScreen = ({ match, history }) => {
             </>
           )}
         </div>
+        {alllBusiness ? (
+          <div data-aos='fade-up' id='centerSocialICONS'>
+            <Testimonials
+              Bussiness1={alllBusiness[0]}
+              Bussiness2={alllBusiness[1]}
+              history={history}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
         <div data-aos='fade-up' id='centerSocialICONS'>
           <LinkedinSpinnerIcon />
           <FacebookIcon />
