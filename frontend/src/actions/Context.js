@@ -12,7 +12,7 @@ export default function Context(props) {
   useEffect(() => {
     axios.get('/getgoogleuser', { withCredentials: true }).then((res) => {
       console.log(res)
-      dispatch(Googlelogin(res.data.email))
+      //  dispatch(Googlelogin(res.data.email))
     })
   }, [dispatch])
 

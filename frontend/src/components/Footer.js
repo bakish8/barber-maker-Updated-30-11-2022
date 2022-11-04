@@ -7,7 +7,9 @@ const Footer = () => {
       <Container>
         <Row>
           <a id='Copyrights' href='http://omri-protofilio.online/'>
-            <Col className='text-center py-3'>Copyright &copy; Omri Bakish</Col>
+            <Col className='text-center py-3'>
+              Copyright &copy; Omri Bakish{' '}
+            </Col>
           </a>
         </Row>
       </Container>

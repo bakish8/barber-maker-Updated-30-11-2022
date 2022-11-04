@@ -20,8 +20,7 @@ main {
   transition: ease-in 0.1s;
 }
 #Copyrights:hover {
-  color: rgb(0, 225, 255);
-  transform: scale(1.1);
+  color: rgb(183, 247, 255);
   text-decoration: none;
 }
 .ImageOne {

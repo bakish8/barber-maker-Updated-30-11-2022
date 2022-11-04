@@ -147,6 +147,10 @@ const LoginScreen = ({ location, history }) => {
   const submitHandler = (e) => {
     e.preventDefault()
     console.log(email)
+    console.log(email)
+    console.log(email)
+    console.log(email)
+    console.log(email)
     dispatch(emailLogin(email, password)) //send to actions and fowerd as email
   }
   const submitHandler2 = (e) => {

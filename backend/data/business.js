@@ -31,8 +31,9 @@ const business = [
   },
 
   {
-    businessName: 'Premium',
-    location: { name: 'אשדוד הרמבם 8', lat: '31.8049', lng: '34.6535' },
+    businessName: 'Avihay Meir',
+    location: { name: 'אשקלון סיוון 8', lat: '31.6710', lng: '34.5807' },
+
     settings: {
       sendSMSClientSide: true,
       sendWhatsappClientSide: true,
@@ -50,11 +51,11 @@ const business = [
 
       notificationsTime: 30,
     },
-    websiteColors: 'black+white',
-    image: 'https://i.ibb.co/hKKPxf8/bgbg3.png',
-    logo: 'https://i.ibb.co/85qLSWY/Premium-Logo-Blank2.png',
+    websiteColors: 'black+blue',
+    image: 'https://www.barber-maker.com/static/media/mistaper2.48fa0c62.jpg',
+    logo: 'https://i.ibb.co/p4cpnjV/AVIHAY-MEIR-HAITSTYLE-ARTIST.png',
     logoNameOnNav: false,
-    phone: '0509069090',
+    phone: '0545200623',
     businessOwner: null,
     workers: null,
     clients: [],
