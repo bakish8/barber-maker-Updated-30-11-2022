@@ -66,6 +66,13 @@ const AdminSingleWorkDay = ({ history, match }) => {
   /****date for todaky for recipet Functionality */
   const searchDate = new Date()
   const FormatedSearchDate = moment(searchDate).format()
+  console.log(FormatedSearchDate)
+  console.log(FormatedSearchDate)
+  console.log(FormatedSearchDate)
+  console.log(FormatedSearchDate)
+  console.log(FormatedSearchDate)
+  console.log(FormatedSearchDate)
+  console.log(FormatedSearchDate)
   const CalculateMonthmonth = FormatedSearchDate.substring(0, 7)
   const month = CalculateMonthmonth.slice(-2) * 1
   const CalculateDay = FormatedSearchDate.substring(0, 10)
@@ -172,7 +179,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
   const ClocksReciptOneDay = useSelector((state) => state.ClocksReciptOneDay)
   const { result1day } = ClocksReciptOneDay
 
-  const [afterdate, Setfterdate] = React.useState(false) //**caclculate if passed date for day state */
+  const [afterdate, Setfterdate] = useState(false) //**caclculate if passed date for day state */
 
   const ONE_WORKING_DAY = useSelector((state) => state.ONE_WORKING_DAY)
   const { onesuccess, oneworkingdays } = ONE_WORKING_DAY
@@ -1248,22 +1255,25 @@ const AdminSingleWorkDay = ({ history, match }) => {
         setdisplay1andhalf(false)
       }
     }
-
-    showTorHandler(
-      time,
-      date,
-      avilable,
-      mistaper,
-      id,
-      WorkDayid,
-      tipulimList,
-      isPaid,
-      TotalAmmountPaid,
-      paymentMethod,
-      creditLastDigits,
-      ReciptNumber,
-      clock
-    )
+    if (afterdate) {
+      console.log(`after date cant eddit TD`)
+    } else {
+      showTorHandler(
+        time,
+        date,
+        avilable,
+        mistaper,
+        id,
+        WorkDayid,
+        tipulimList,
+        isPaid,
+        TotalAmmountPaid,
+        paymentMethod,
+        creditLastDigits,
+        ReciptNumber,
+        clock
+      )
+    }
   }
 
   //BIG FUNCTION - WHEN CLICK ON TOR PANUI / TOR not Panui Handler
@@ -1899,12 +1909,27 @@ const AdminSingleWorkDay = ({ history, match }) => {
   //USE EFFECT  FOR RECIPT CREATING-IF PAST? - STATUS
   useEffect(() => {
     if (workingDay) {
+      console.log(year)
+      console.log(month)
+      console.log(day)
+      console.log(workingDay.Dateyear)
+      console.log(workingDay.Datemonth)
+      console.log(workingDay.Dateday)
+
       if (
         year === workingDay.Dateyear &&
         month === workingDay.Datemonth &&
         day >= workingDay.Dateday
       ) {
+        console.log(`Setfterdate TRUE`)
+        console.log(`Setfterdate TRUE`)
+        console.log(`Setfterdate TRUE`)
         Setfterdate(true)
+      } else {
+        console.log(`Setfterdate FALSE`)
+        console.log(`Setfterdate FALSE`)
+        console.log(`Setfterdate FALSE`)
+        Setfterdate(false)
       }
     }
   }, [workingDay])
@@ -2582,7 +2607,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
                               : ''}
                           </span>
                         </div>
-
                         <Button
                           className='ChhoseTipuliBTN'
                           onClick={() => {
@@ -2732,33 +2756,52 @@ const AdminSingleWorkDay = ({ history, match }) => {
             <h2 id='headlineme'>יום {workingDay.dayInWeek}</h2>
             <h2 id='dayinWeek'> {workingDay.date}</h2>
           </Col>
-          <div onClick={OpenSmallScreenOptions_Swal} id='SMALL_SCREEN_ACTIONS'>
-            <div id='actionsSmallScreen'>
-              {' '}
-              <div id='actions123123div'>
+          {!afterdate ? (
+            <div
+              onClick={OpenSmallScreenOptions_Swal}
+              id='SMALL_SCREEN_ACTIONS'
+            >
+              <div id='actionsSmallScreen'>
                 {' '}
-                <span id='thePlusIcon'>+ פעולות</span>
+                <div id='actions123123div'>
+                  {' '}
+                  <span id='thePlusIcon'>+ פעולות</span>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <></>
+          )}
 
           <Col md={12}>
             <div id='smallSicumScreen'>
-              <div onClick={swalDeleteChoose} className='OPTIONS-BTN-DELETE'>
-                <i id='plustrash' class='fas fa-trash'></i>
-              </div>{' '}
-              <div onClick={swalADDfunction} className='OPTIONS-BTN-HOSEF'>
-                <i id='plusplus' class='fas fa-plus'></i>
-              </div>{' '}
-              <div
-                onClick={setSHOW_TH_CHHOSE_FUNCTION}
-                className='CHOOSETORIM_BTNForSmallScreen'
-              >
-                בחר
-              </div>{' '}
-              <div onClick={showSicumNow} className='bigSicumBTNForSmallScreen'>
-                סיכום
-              </div>{' '}
+              {!afterdate ? (
+                <div>
+                  <div
+                    onClick={swalDeleteChoose}
+                    className='OPTIONS-BTN-DELETE'
+                  >
+                    <i id='plustrash' class='fas fa-trash'></i>
+                  </div>
+                  <div onClick={swalADDfunction} className='OPTIONS-BTN-HOSEF'>
+                    <i id='plusplus' class='fas fa-plus'></i>
+                  </div>{' '}
+                  <div
+                    onClick={setSHOW_TH_CHHOSE_FUNCTION}
+                    className='CHOOSETORIM_BTNForSmallScreen'
+                  >
+                    בחר
+                  </div>{' '}
+                  <div
+                    onClick={showSicumNow}
+                    className='bigSicumBTNForSmallScreen'
+                  >
+                    סיכום
+                  </div>{' '}
+                </div>
+              ) : (
+                <></>
+              )}
               <div
                 onClick={showFilterForSmallScreenFunction}
                 className='SINUN-BTN'
