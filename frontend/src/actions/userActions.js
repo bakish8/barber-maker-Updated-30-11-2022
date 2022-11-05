@@ -232,6 +232,10 @@ import {
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
 export const login = (email, password) => async (dispatch) => {
+  console.log(email, password)
+  console.log(email, password)
+  console.log(email, password)
+  console.log(email, password)
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,

@@ -11,9 +11,20 @@ import Business from '../models/Business.js'
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
   console.log(email)
+  console.log(email)
+  console.log(email)
+  console.log(email)
+  console.log(email)
+  console.log(email)
+  console.log(email)
+  console.log(email)
+  console.log(email)
+  console.log(email)
   const user = await User.findOne({ phone: email }) //need to be fixed  is phone all the way
 
   if (user && (await user.matchPassword(password))) {
+    console.log(`user password match`)
+
     if (user.WorkingIn) {
       console.log(user.WorkingIn)
       res.json({
@@ -38,6 +49,17 @@ const authUser = asyncHandler(async (req, res) => {
         token: generateToken(user._id),
         workingIn: user.WorkingIn, //***NEW */
         ClientOfBusiness: user.ClientOfBusiness, //***NEW */
+      })
+    } else {
+      console.log(`Fuck with em and get some money!`)
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        image: user.image,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
       })
     }
   } else {

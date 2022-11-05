@@ -33,7 +33,7 @@ const users = [
     lastname: 'בקיש',
     email: 'aviv@example.com',
     password: bcrypt.hashSync('123456', 10),
-    phone: 5079090,
+    phone: 509079090,
     image: 'https://i.ibb.co/L0wGpqc/789465321.jpg',
   },
   {

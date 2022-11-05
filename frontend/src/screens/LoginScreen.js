@@ -154,6 +154,19 @@ const LoginScreen = ({ location, history }) => {
     dispatch(emailLogin(email, password)) //send to actions and fowerd as email
   }
   const submitHandler2 = (e) => {
+    console.log(phone)
+    console.log(phone)
+    console.log(phone)
+    console.log(phone)
+    console.log(phone)
+    console.log(password)
+    console.log(password)
+    console.log(password)
+    console.log(password)
+    console.log(password)
+    console.log(password)
+    console.log(password)
+    console.log(password)
     e.preventDefault()
     dispatch(login(phone, password)) //send to actions and fowerd as email needto be fixed to phone fron action
   }
