@@ -104,7 +104,7 @@ const UserEditScreen = ({ match, history }) => {
   return (
     <>
       <Col md={12}>
-        <Link id='goback' to='/admin/userlist'>
+        <Link id='goback' onClick={() => history.goBack()}>
           <i class='fas fa-angle-double-right'></i>
         </Link>
       </Col>

@@ -9,6 +9,7 @@ import {
   workingDayDetails,
 } from '../../actions/userActions.js'
 import { TREATMENTSListAction } from '../../actions/BuissnesActions/Buissnes_User_Actions.js'
+import { PICK_WORKINGDAY_RESET } from '../../constants/userConstants.js'
 var date,
   array = []
 date = new Date()
@@ -18,6 +19,8 @@ while (date.getMinutes() % 15 !== 0) {
 
 const PickTipul = ({ history, match }) => {
   const dispatch = useDispatch()
+  dispatch({ type: PICK_WORKINGDAY_RESET })
+
   let BusinessId = match.params.id
   let WorkDayid = match.params.did
   const userLogin = useSelector((state) => state.userLogin)
@@ -46,7 +49,7 @@ const PickTipul = ({ history, match }) => {
     <>
       <Row>
         <Col md={12}>
-          <Link id='goback' to='/picksapar'>
+          <Link id='goback' to={`/business/${BusinessId}/picksapar`}>
             <i class='fas fa-angle-double-right'></i>
           </Link>
         </Col>

@@ -2088,7 +2088,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
         />
       </Col>
       <Col md={12}>
-        <Link id='goback' to='/admin/torim'>
+        <Link id='goback' onClick={() => history.goBack()}>
           <i className='fas fa-angle-double-right'></i>
         </Link>
       </Col>

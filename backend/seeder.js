@@ -40,7 +40,6 @@ const importData = async () => {
 
     const createdUsers = await User.insertMany(users) //הכנסת כל המשתמשים לדאטה בייס
     const createdBusiness = await Business.insertMany(business) //הכנסת כל העסקים לדאטה בייס
-    const adminUser = createdUsers[0]._id //אדמין 1 איידי לצורך הכנסת ימי עבודה ושעות לאדמין לא בשימוש כרגע
     const adminUser2 = createdUsers[1]._id /////אדמין 2 איידי לצורך הכנסת ימי עבודה ושעות לאדמין
     const AdminUser = createdUsers[0] //אדמין שלם לצורך הכנסת בעלים ועובדים לעסק ולציין שאדמין עובד בעסק מסוים
     const AdminUser2 = createdUsers[1] //אדמין 2 שלם לצורך הכנסת בעלים ועובדים לעסק ולציין שאדמין עובד בעסק מסוים
@@ -85,6 +84,7 @@ const importData = async () => {
             ...clock,
             owner: workingdayIdOwnerOfClock,
             date: workingdayDateOfClock,
+            sapar: AdminUser2.name,
           }
         })
         await Clock.insertMany(sampleClocks) //****מכניס את השעות לדאטה בייס */

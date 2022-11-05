@@ -21,11 +21,16 @@ const authUser = asyncHandler(async (req, res) => {
   console.log(email)
   console.log(email)
   const user = await User.findOne({ phone: email }) //need to be fixed  is phone all the way
+  console.log(user)
 
   if (user && (await user.matchPassword(password))) {
     console.log(`user password match`)
 
     if (user.WorkingIn) {
+      console.log(user.WorkingIn)
+      console.log(user.WorkingIn)
+      console.log(user.WorkingIn)
+      console.log(user.WorkingIn)
       console.log(user.WorkingIn)
       res.json({
         _id: user._id,

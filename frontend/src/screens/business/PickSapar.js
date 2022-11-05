@@ -76,7 +76,7 @@ const PickSapar = ({ history, match }) => {
   return (
     <Row>
       <Col md={12}>
-        <Link id='goback' to='/'>
+        <Link id='goback' onClick={() => history.goBack()}>
           <i class='fas fa-angle-double-right'></i>
         </Link>
       </Col>

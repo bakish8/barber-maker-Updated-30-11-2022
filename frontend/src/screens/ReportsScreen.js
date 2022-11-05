@@ -1059,7 +1059,7 @@ const ReportsScreen = ({ history }) => {
         </form>
       )}
       <Col md={12}>
-        <Link id='goback' to='/admin'>
+        <Link id='goback' onClick={() => history.goBack()}>
           <i class='fas fa-angle-double-right'></i>
         </Link>
       </Col>

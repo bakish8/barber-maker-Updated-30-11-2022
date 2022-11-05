@@ -108,7 +108,7 @@ const PickDateScreen = ({ location, history, match }) => {
       ) : (
         <Row id=''>
           <Col md={12}>
-            <Link id='goback' to='/picksapar'>
+            <Link id='goback' onClick={() => history.goBack()}>
               <i class='fas fa-angle-double-right'></i>
             </Link>
           </Col>

@@ -115,10 +115,6 @@ const PickTime = ({ history, match }) => {
   const { loadingFor3Hours, clockListFor3Hours, errorFor3Hours } =
     avilableTorsFor3Hours
 
-  const goback = () => {
-    history.push('/picksapar')
-  }
-
   const handleNotification = (type, sapar, time, dayInWeek, date) => {
     let NOW = moment()
     let now = NOW.toDate()
@@ -302,7 +298,7 @@ const PickTime = ({ history, match }) => {
     <>
       <Row>
         <Col md={12}>
-          <Link id='goback' to='/picksapar'>
+          <Link id='goback' onClick={() => history.goBack()}>
             <i class='fas fa-angle-double-right'></i>
           </Link>
         </Col>
@@ -565,7 +561,7 @@ const PickTime = ({ history, match }) => {
                   ) : (
                     <div id='weSorryAllTafus'>
                       אנו מצטערים, כל התורים תפוסים ביום זה{' '}
-                      <button onClick={() => goback()} id='anotherday'>
+                      <button onClick={() => history.goBack()} id='anotherday'>
                         קבע תור ליום אחר
                       </button>
                     </div>

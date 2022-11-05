@@ -103,7 +103,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
     avilableTorsFor3Hours
 
   const goback = () => {
-    history.push('/picksapar')
+    history.goBack()
   }
 
   const handleNotification = (type, sapar, time, dayInWeek, date) => {
@@ -230,7 +230,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
     <>
       <Row>
         <Col md={12}>
-          <Link id='goback' to='/picksapar'>
+          <Link id='goback' onClick={() => history.goBack()}>
             <i class='fas fa-angle-double-right'></i>
           </Link>
         </Col>

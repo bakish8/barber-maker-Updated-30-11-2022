@@ -92,7 +92,7 @@ const OrderScreen = ({ match, history }) => {
   ) : (
     <>
       <Col md={12}>
-        <Link id='goback' to='/admin/orderlist'>
+        <Link id='goback' onClick={() => history.goBack()}>
           <i class='fas fa-angle-double-right'></i>
         </Link>
       </Col>

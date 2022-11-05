@@ -63,7 +63,7 @@ const PlaceOrderScreen = ({ history }) => {
   return (
     <>
       <Col md={12}>
-        <Link id='goback' to='/payment'>
+        <Link id='goback' onClick={() => history.goBack()}>
           <i class='fas fa-angle-double-right'></i>
         </Link>
       </Col>
