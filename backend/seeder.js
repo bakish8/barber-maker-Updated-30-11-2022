@@ -39,9 +39,9 @@ const importData = async () => {
     const createdTipulim = await Tipul.insertMany(tipulim)
 
     const createdUsers = await User.insertMany(users) //הכנסת כל המשתמשים לדאטה בייס
-    const createdBusiness = await Business.insertMany(business) //הכנסת כל המשתמשים לדאטה בייס
-    const adminUser = createdUsers[0]._id //אדמין 1 איידי לצורך הכנסת ימי עבודה ושעות לאדמין
-    const adminUser2 = createdUsers[1]._id ////////******בהמשך נשתמש להכנסת ימי עבודה גם לאדמין 2 *****
+    const createdBusiness = await Business.insertMany(business) //הכנסת כל העסקים לדאטה בייס
+    const adminUser = createdUsers[0]._id //אדמין 1 איידי לצורך הכנסת ימי עבודה ושעות לאדמין לא בשימוש כרגע
+    const adminUser2 = createdUsers[1]._id /////אדמין 2 איידי לצורך הכנסת ימי עבודה ושעות לאדמין
     const AdminUser = createdUsers[0] //אדמין שלם לצורך הכנסת בעלים ועובדים לעסק ולציין שאדמין עובד בעסק מסוים
     const AdminUser2 = createdUsers[1] //אדמין 2 שלם לצורך הכנסת בעלים ועובדים לעסק ולציין שאדמין עובד בעסק מסוים
 
@@ -55,15 +55,17 @@ const importData = async () => {
     BusinessDemo2.workers = AdminUser2 //העובדים של החנות הראשונה הוא האדמין השני המשתמש השני
     await BusinessDemo2.save()
 
-    AdminUser2.WorkingIn = BusinessDemo2._id //הגדרה שהאדמין הראשון עובד במספרה הראשונה
-    await AdminUser2.save() //שמירה סופית של היוזר הראשון אדמין
+    AdminUser.WorkingIn = BusinessDemo1._id //הגדרה שהאדמין הראשון עובד במספרה הראשונה
+    await AdminUser.save() //שמירה סופית של היוזר הראשון אדמין
+    AdminUser2.WorkingIn = BusinessDemo2._id //הההגדרה שהאדמין השני עובד במספרה השניה
+    await AdminUser2.save() //שמירה סופית של היוזר השני אדמין
 
     const sampleProducts = products.map((product) => {
-      return { ...product, user: adminUser } //הופך את כל המוצרים שהבעלים שלהם יהיה האדמין שמצאונ
+      return { ...product, user: adminUser2 } //הופך את כל המוצרים שהבעלים שלהם יהיה האדמין שמצאונ
     })
 
     let sampleWorkingdays = workingdays.map((workingday) => {
-      return { ...workingday, owner: adminUser } //הופך את כל את הבעלים של כל ימי העבודה בסידר לאדמין שמצאנו המשתמש הראשון
+      return { ...workingday, owner: adminUser2 } //הופך את כל את הבעלים של כל ימי העבודה בסידר לאדמין שמצאנו המשתמש השני
     })
 
     await Product.insertMany(sampleProducts) //הכנסת כל המוצרים לדאטה בייס
@@ -102,19 +104,25 @@ const importData = async () => {
       await workingday.save()
     }
 
+    for (let tipul of createdTipulim) {
+      //מכניס את כל הטיפולים לעסק הראשון ושומר
+      BusinessDemo1.tipulim.push(tipul)
+      BusinessDemo2.tipulim.push(tipul)
+    }
+    await BusinessDemo1.save()
+    await BusinessDemo2.save()
+
     ///******מוצא את הימים החדשים לאחר שהוכנסו אליהם השעות ומכניס אותם למשתמש הראשון האדמין  */
     let insertedWORKDAYS = await WorkingDay.find({
-      owner: adminUser._id,
+      owner: adminUser2._id,
     })
     console.log(insertedWORKDAYS)
 
-    let AdminUSER = await User.findById(adminUser._id)
+    let AdminUSER = await User.findById(adminUser2._id)
 
     for (let workday of insertedWORKDAYS) {
-      AdminUSER.workingdays.push(workday) //דחיפת ימי העבודה ליוזר הראשון
+      AdminUSER.workingdays.push(workday) //דחיפת ימי העבודה ליוזר השני
     }
-    AdminUSER.WorkingIn = BusinessDemo1._id //הגדרה שהאדמין הראשון עובד במספרה הראשונה
-    await AdminUSER.save() //שמירה סופית של היוזר הראשון אדמין
 
     console.log('Data Imported!!!!!!!'.green.inverse) //הדאטה יובאה בהצלחה
     process.exit()
