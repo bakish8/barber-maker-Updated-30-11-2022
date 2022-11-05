@@ -249,7 +249,7 @@ const PickTime = ({ history, match }) => {
       ).then(handleNotification(2, sapar, time, dayInWeek, date))
     }
   }
-
+  ///
   const submitHandler = (id, time, date, sapar, dayInWeek, sapar_id) => {
     const uid = userInfo._id
     Swal.fire({
