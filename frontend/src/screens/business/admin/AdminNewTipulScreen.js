@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { Form, Button, Row, Col, Select } from 'react-bootstrap'
+import { Form, Button, Row, Col, Select, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../../../components/Message'
 import Loader from '../../../components/Loader'
 import FormContainer from '../../../components/FormContainer'
 import { registerNewTipul } from '../../../actions/userActions'
+import { TREATMENTSListAction } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
+import './AdminNewTipulScreen.css'
+import { Box, Modal } from '@material-ui/core'
 
 const AdminNewTipulScreen = ({ location, history, match }) => {
   let BussinesId = match.params.id
+  const [ShowNewTipulDialog, setShowNewTipulDialog] = useState(false)
   const [TipulName, setTipulName] = useState('')
   const [TipulTime, setTipulTime] = useState('')
   const [TipulCost, setTipulCost] = useState('')
@@ -26,11 +30,22 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
   const { newTipulsuccess, newTipulloading, newTipul, newTipulerror } =
     RegisterNewTipulStore
 
+  const BusinessTreatmentsList = useSelector(
+    (state) => state.BusinessTreatmentsList
+  )
+  const {
+    tipulim: tipulimList,
+    tipulimloading,
+    tipulimerror,
+  } = BusinessTreatmentsList
+
   const redirect = `/business/${BussinesId}`
 
   useEffect(() => {
     if ((userInfo.isAdmin = false)) {
       history.push(redirect)
+    } else {
+      dispatch(TREATMENTSListAction(BussinesId))
     }
 
     if (error || newTipulerror) {
@@ -113,74 +128,144 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
 
   return (
     <>
-      <div class='login-box'>
-        <FormContainer>
-          <h2 id='headlineme'>צור טיפול חדש</h2>
-          {message && <Message variant='danger'>{message}</Message>}
-          {error && <Message variant='danger'>{error}</Message>}
-          {loading && <Loader />}
-          <div id='centerme'>
-            <Form onSubmit={submitHandler} className='whitemeandblackbg'>
-              <div class='user-box'>
-                <Form.Group controlId='TipulName'>
-                  <Form.Control
-                    type='TipulName'
-                    placeholder='הכנס את שם הטיפול'
-                    value={TipulName}
-                    onChange={(e) => setTipulName(e.target.value)}
-                    required
-                  ></Form.Control>
-                </Form.Group>
-              </div>
+      <button onClick={() => setShowNewTipulDialog(!ShowNewTipulDialog)}>
+        צור טיפול חדש
+      </button>
+      {tipulimList ? (
+        <Col md={12}>
+          <div>
+            <Table bordered>
+              <thead id='centertext'>
+                <tr>
+                  <th id='tableheadlines' className='Payd_TH'>
+                    תמונה
+                  </th>
 
-              <div class='user-box'>
-                <Form.Group controlId='TipulTime'>
-                  <Form.Control
-                    as='select'
-                    type='TipulTime'
-                    value={TipulTime}
-                    onChange={(e) => setTipulTime(e.target.value)}
-                  >
-                    <option>בחר זמן למשך הטיפול</option>
+                  <th id='tableheadlines' className='TIPUL_TH'>
+                    מחיר
+                  </th>
+                  <th id='tableheadlines' className='hour_TH'>
+                    זמן
+                  </th>
+                  <th id='tableheadlines' className='CLIENT_TH'>
+                    שם
+                  </th>
+                </tr>
+              </thead>
 
-                    <option value='30'>חצי שעה</option>
-                    <option value='60'>שעה</option>
-                    <option value='90'>שעה וחצי</option>
-                    <option value='120'>שעתיים</option>
-                    <option value='150'>שעתיים וחצי</option>
-                    <option value='180'>שלוש שעות</option>
-                  </Form.Control>
-                </Form.Group>
-              </div>
-
-              <div class='user-box'>
-                <Form.Group controlId='TipulCost'>
-                  <Form.Control
-                    type='phone'
-                    placeholder='הכנס מחיר'
-                    value={TipulCost}
-                    onChange={(e) => setTipulCost(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
-              </div>
-              <div class='user-box'>
-                <Form.Group controlId='TipulImage'>
-                  <Form.Control
-                    type='TipulImage'
-                    placeholder='הכנס כתובת תמונה'
-                    value={TipulImage}
-                    onChange={(e) => setTipulImage(e.target.value)}
-                  ></Form.Control>
-                </Form.Group>
-              </div>
-
-              <Button type='submit' id='centermebtnlogin'>
-                צור טיפול חדש
-              </Button>
-            </Form>
+              <tbody id='centertext'>
+                {tipulimList.map((tipul) => (
+                  <tr className='tableGGG' key={tipul._id}>
+                    <td>
+                      <img className='imgTreatmentSmall' src={tipul.image} />
+                    </td>
+                    <td>{tipul.cost}</td>
+                    <td>{tipul.time}</td>
+                    <td>{tipul.name}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
           </div>
-        </FormContainer>
-      </div>
+        </Col>
+      ) : (
+        <></>
+      )}
+      {ShowNewTipulDialog ? (
+        <Modal
+          id='ModalStyle2'
+          open={() => setShowNewTipulDialog(true)}
+          close={() => setShowNewTipulDialog(false)}
+        >
+          <Box id='BOXlStyleForChooseTipul2'>
+            <div id='reciptcloseNav'>
+              <button
+                onClick={() => setShowNewTipulDialog(false)}
+                id='reciptcloseNavX'
+              >
+                X
+              </button>
+            </div>
+            <Col md={12}>
+              <h1 id='h1SugTipul'>צור טיפול חדש</h1>
+            </Col>
+
+            <Col md={12}>
+              <Form onSubmit={submitHandler} id='centeForm'>
+                <div className='CosaCosa'>
+                  <Form.Group controlId='TipulName' id='tipulimCooseOptions2'>
+                    <Form.Control
+                      type='TipulName'
+                      placeholder='הכנס את שם הטיפול'
+                      value={TipulName}
+                      onChange={(e) => setTipulName(e.target.value)}
+                      required
+                    ></Form.Control>
+                  </Form.Group>
+
+                  <label className='CosaCosaLabels' for='tipul_name'>
+                    שם
+                  </label>
+                </div>
+                <div className='CosaCosa'>
+                  <Form.Group controlId='TipulTime' id='tipulimCooseOptions2'>
+                    <Form.Control
+                      as='select'
+                      type='TipulTime'
+                      value={TipulTime}
+                      onChange={(e) => setTipulTime(e.target.value)}
+                    >
+                      <option>בחר זמן למשך הטיפול</option>
+
+                      <option value='30'>חצי שעה</option>
+                      <option value='60'>שעה</option>
+                      <option value='90'>שעה וחצי</option>
+                      <option value='120'>שעתיים</option>
+                      <option value='150'>שעתיים וחצי</option>
+                      <option value='180'>שלוש שעות</option>
+                    </Form.Control>
+                  </Form.Group>
+                  <label className='CosaCosaLabels' for='tipul'>
+                    זמן
+                  </label>
+                </div>
+
+                <div className='CosaCosa'>
+                  <Form.Group controlId='TipulCost' id='tipulimCooseOptions'>
+                    <Form.Control
+                      type='phone'
+                      placeholder='הכנס מחיר'
+                      value={TipulCost}
+                      onChange={(e) => setTipulCost(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                  <label className='CosaCosaLabels' for='tipul_cost'>
+                    מחיר
+                  </label>
+                </div>
+                <div className='CosaCosa'>
+                  <Form.Group controlId='TipulImage' id='tipulimCooseOptions'>
+                    <Form.Control
+                      type='TipulImage'
+                      placeholder='הכנס כתובת תמונה'
+                      value={TipulImage}
+                      onChange={(e) => setTipulImage(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                  <label className='CosaCosaLabels' for='tipul_img'>
+                    תמונה
+                  </label>
+                </div>
+                <Button className='ChhoseTipuliBTN' type='submit'>
+                  צור טיפול חדש
+                </Button>
+              </Form>
+            </Col>
+          </Box>
+        </Modal>
+      ) : (
+        <></>
+      )}
     </>
   )
 }

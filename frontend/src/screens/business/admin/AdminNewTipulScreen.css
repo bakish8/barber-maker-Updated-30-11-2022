@@ -1,0 +1,33 @@
+.imgTreatmentSmall{
+width: 100px;
+height: 100px;
+border-radius: 50px;
+}
+.tableGGG{
+color: white;
+cursor: pointer;
+}
+.tableGGG:hover{
+background-color: rgb(71, 149, 232);
+cursor: pointer;
+}
+
+.AddNewTipulClass{
+position: absolute;
+}
+
+.CosaCosa {
+display: flex;
+margin-top: 0px;
+}
+.CosaCosaLabels {
+position: relative;
+color: white;
+font-size: 1.5rem;
+right: 40px;
+top: 7px;
+}
+#moveMe2PX{
+position: relative;
+left: 100px;
+}

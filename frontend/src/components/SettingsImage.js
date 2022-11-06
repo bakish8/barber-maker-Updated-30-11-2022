@@ -26,11 +26,10 @@ const SettingsImage = (props) => (
           <div>
             <Link
               style={{ textDecoration: 'none' }}
-              //to='/admin/settings/newtipul'
               to={`/business/${props.BussinessId}/admin/${props.OwnerId}/settings/newtipul`}
             >
               <button id='centermeAndBlock2' class='maketorbtn'>
-                <span>הוסף טיפול חדש</span>
+                <span> טיפולים </span>
               </button>
             </Link>
 
