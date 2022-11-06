@@ -99,7 +99,31 @@ const AdminEditUserScreen = ({ match, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(updateUser({ _id: userId, name, email, isAdmin, image, phone }))
+    if (isAdmin) {
+      dispatch(
+        updateUser({
+          _id: userId,
+          name,
+          email,
+          isAdmin,
+          image,
+          phone,
+          BusinessId,
+        })
+      )
+    } else {
+      dispatch(
+        updateUser({
+          _id: userId,
+          name,
+          email,
+          isAdmin,
+          image,
+          phone,
+          BusinessId: '0',
+        })
+      )
+    }
   }
 
   return (

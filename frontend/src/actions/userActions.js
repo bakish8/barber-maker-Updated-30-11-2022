@@ -366,7 +366,19 @@ export const logout = (Bid) => async (dispatch, req, res) => {
 }
 
 export const registerByADMIN =
-  (name, email, phone, password, image) => async (dispatch) => {
+  (name, email, phone, password, image, businessid) => async (dispatch) => {
+    console.log(name)
+    console.log(email)
+    console.log(phone)
+    console.log(password)
+    console.log(image)
+    console.log(`_______________________________`)
+    console.log(`_______________________________`)
+    console.log(`_______________________________`)
+    console.log(`_______________________________`)
+    console.log(`_______________________________`)
+    console.log(`_______________________________`)
+    console.log(`_______________________________`)
     try {
       dispatch({
         type: USER_REGISTERByADMIN_REQUEST,
@@ -378,7 +390,7 @@ export const registerByADMIN =
       }
       const { data } = await axios.post(
         '/api/users',
-        { name, email, phone, password, image },
+        { name, email, phone, password, image, businessid },
         config
       )
       dispatch({
@@ -628,6 +640,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 }
 
 export const updateUser = (user) => async (dispatch, getState) => {
+
   try {
     dispatch({
       type: USER_UPDATE_REQUEST,

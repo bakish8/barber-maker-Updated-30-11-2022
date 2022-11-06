@@ -30,7 +30,6 @@ import {
   confirmTor,
   workingDayDetails,
   ReciptForThisWorkingDay,
-  SugeiTipulimAction,
 } from '../../../actions/userActions'
 import { Link } from 'react-router-dom'
 import ReactToPrint from 'react-to-print'
@@ -40,6 +39,7 @@ import CreditCard from '../../../components/CreditCard/CreditCard'
 import Cards from 'react-credit-cards'
 import NewsTicker from 'react-advanced-news-ticker'
 import { CONFIRM_TOR_RESET } from '../../../constants/userConstants'
+import { TREATMENTSListAction } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
 
 //?
 var date,
@@ -50,6 +50,8 @@ while (date.getMinutes() % 15 !== 0) {
 }
 
 const AdminSingleWorkDay = ({ history, match }) => {
+  let BusinessId = match.params.bid
+
   // ┬─┐┌─┐┌─┐ !┌─┐
   // ├┬┘├┤ ├┤   └─┐
   // ┴└─└─┘└    └─┘
@@ -146,8 +148,14 @@ const AdminSingleWorkDay = ({ history, match }) => {
   const [cvc, setCvc] = useState('')
   const [focus, setFocus] = useState('')
 
-  const TipulimList = useSelector((state) => state.TipulimList)
-  const { tipulimList } = TipulimList
+  const BusinessTreatmentsList = useSelector(
+    (state) => state.BusinessTreatmentsList
+  )
+  const {
+    tipulim: tipulimList,
+    tipulimloading,
+    tipulimerror,
+  } = BusinessTreatmentsList
 
   const [ShowUserFilter, setShowUserFilter] = useState(false)
   const [SHOWcreditForm, setSHOWcreditForm] = useState(false)
@@ -824,7 +832,9 @@ const AdminSingleWorkDay = ({ history, match }) => {
             const phone = formValues[2]
             const password = formValues[2]
             const image = 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif'
-            await dispatch(registerByADMIN(name, email, phone, password, image))
+            await dispatch(
+              registerByADMIN(name, email, phone, password, image, BusinessId)
+            )
             await confirmNewUser(phone, name, time, ChoosenClock)
           }
         } else if (result.isDenied) {
@@ -1446,6 +1456,8 @@ const AdminSingleWorkDay = ({ history, match }) => {
         })
         .then((result) => {
           if (result.isConfirmed) {
+            dispatch(TREATMENTSListAction(BusinessId))
+
             setChoosenClockTIME(time)
             setSHOWchooseTipul(true)
             CHOOSEB()
@@ -1812,7 +1824,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
       dispatch(workingDayDetails(WorkDayid))
       dispatch(WorkingDayTors(WorkDayid))
       dispatch(ReciptForThisWorkingDay(WorkDayid))
-      dispatch(SugeiTipulimAction())
+      dispatch(TREATMENTSListAction(BusinessId))
 
       if (word != '') {
         setShowUserFilter(false)
@@ -1886,7 +1898,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
     if (DeleteAllClockssuccess) {
       dispatch(WorkingDayTors(WorkDayid))
       dispatch(ReciptForThisWorkingDay(WorkDayid))
-      dispatch(SugeiTipulimAction())
+      dispatch(TREATMENTSListAction(BusinessId))
       dispatch(workingDayDetails(WorkDayid))
     }
   }, [
@@ -1917,9 +1929,9 @@ const AdminSingleWorkDay = ({ history, match }) => {
       console.log(workingDay.Dateday)
 
       if (
-        year === workingDay.Dateyear &&
+        year === workingDay.Dateyear && ////********asp need to be fix */
         month === workingDay.Datemonth &&
-        day >= workingDay.Dateday
+        day > workingDay.Dateday
       ) {
         console.log(`Setfterdate TRUE`)
         console.log(`Setfterdate TRUE`)
@@ -2150,6 +2162,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
 
           {ShowUserFilter && (
             <UserFilter
+              Bussines_ID={BusinessId}
               close={() => setShowUserFilter(false)}
               ChoosenClock={ChoosenClock}
               ChoosenClockTIME={ChoosenClockTIME}

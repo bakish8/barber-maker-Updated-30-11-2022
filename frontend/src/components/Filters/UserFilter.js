@@ -5,13 +5,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../Message'
 import Loader from '../Loader'
 import { Modal } from '@material-ui/core'
+import { BussineslistUsers } from '../../actions/BuissnesActions/Buissnes_User_Actions'
 
 const UserFilter = (props) => {
   console.log(props.ChoosenClock)
   console.log(props.selectV)
   const dispatch = useDispatch()
-  const userList = useSelector((state) => state.userList)
-  const { loading, error, users } = userList
+
+  const BussinesuserList = useSelector((state) => state.BussinesuserList)
+  const { loading, error, users } = BussinesuserList
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
   const handleCloseShowUserFilter = () => {
@@ -77,7 +80,8 @@ const UserFilter = (props) => {
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listUsers())
+      dispatch(BussineslistUsers(props.Bussines_ID))
+      //dispatch(listUsers())
     } else {
       console.log('u ar enot an admin')
     }

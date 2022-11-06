@@ -23,8 +23,8 @@ const AdminUserList = ({ history, match }) => {
   //states
   const [ShowUserFilter, setShowUserFilter] = useState(false)
   const [word, setWord] = useState('') /****chiled state* */
-  const AdminSideRegister = useSelector((state) => state.AdminSideRegister)
-  const { success } = AdminSideRegister
+  const AdminRegister = useSelector((state) => state.AdminRegister)
+  const { success } = AdminRegister
   const send_ME_to_User_Page_Function = (id) => {
     history.push(`/business/${BussinesID}/admin/user/${id}/edit`)
   }
@@ -110,7 +110,7 @@ const AdminUserList = ({ history, match }) => {
       const password = formValues[2]
       const image = 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif'
       await dispatch(
-        AdminSideRegisterAction(name, email, phone, password, image, BussinesID)
+        registerByADMIN(name, email, phone, password, image, BussinesID)
       )
     }
   }
@@ -157,7 +157,7 @@ const AdminUserList = ({ history, match }) => {
   return (
     <>
       <Col md={12}>
-        <Link id='goback' to='/'>
+        <Link id='goback' onClick={() => history.goBack()}>
           <i class='fas fa-angle-double-right'></i>
         </Link>
       </Col>

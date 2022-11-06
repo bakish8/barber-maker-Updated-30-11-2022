@@ -167,7 +167,32 @@ const registerUser = asyncHandler(async (req, res) => {
     const business = await Business.findById(businessid).populate('clients')
 
     console.log(`_Business !!!!!!!${business}`)
-    console.log(`____Business Clients!!!!!!!${business.clients}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
+    console.log(`_Business !!!!!!!${business}`)
     if (userExists) {
       res.status(400)
       throw new Error('המשתמש כבר קיים במערכת')
@@ -419,6 +444,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.phone = req.body.phone || user.phone
     user.image = req.body.image || user.image
     user.isAdmin = req.body.isAdmin
+    user.WorkingIn = req.body.BusinessId
 
     const updatedUser = await user.save()
 
@@ -431,6 +457,7 @@ const updateUser = asyncHandler(async (req, res) => {
       phone: updatedUser.phone,
       image: updatedUser.image,
       isAdmin: updatedUser.isAdmin,
+      WorkingIn: updatedUser.WorkingIn,
     })
   } else {
     res.status(404)
