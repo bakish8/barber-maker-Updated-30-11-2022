@@ -1438,6 +1438,55 @@ const SendSMSforReset = asyncHandler(async (req, res) => {
   res.json(theRandomNumber)
 })
 
+const DeleteTipul = asyncHandler(async (req, res) => {
+  const TipulFound = await Tipul.findById(req.params.id)
+  if (TipulFound) {
+    const BussinesFound = await Business.findByIdAndUpdate(req.params.bid, {
+      $pull: { tipulim: req.params.id },
+    })
+    await BussinesFound.save()
+    await TipulFound.remove()
+    console.log('הטיפול הוסר בהצלחה')
+    res.json({ message: 'הטיפול הוסר בהצלחה' })
+  } else {
+    console.log('הטיפול לא נמצא')
+    res.status(404)
+    throw new Error('הטיפול לא נמצא')
+  }
+})
+const UpdateTipul = asyncHandler(async (req, res) => {
+  const { TipulID, TipulName, TipulCost, TipulImage, TipulTime } = req.body
+
+  const TipulFound = await Tipul.findById(TipulID)
+  if (TipulFound) {
+    console.log(`TIPUL FOUND READT FOR UPDATE!!`)
+    console.log(`TIPUL FOUND READT FOR UPDATE!!`)
+    console.log(`TIPUL FOUND READT FOR UPDATE!!`)
+    console.log(`TIPUL FOUND READT FOR UPDATE!!`)
+    console.log(`TIPUL FOUND READT FOR UPDATE!!`)
+    console.log(TipulFound)
+    console.log(TipulID)
+    console.log(TipulName)
+    TipulFound.name = TipulName
+    TipulFound.time = TipulTime
+    TipulFound.cost = TipulCost
+    TipulFound.image = TipulImage
+
+    const updatedTipul = await TipulFound.save()
+
+    res.json({
+      name: updatedTipul.name,
+      time: updatedTipul.time,
+      cost: updatedTipul.cost,
+      image: updatedTipul.image,
+    })
+  } else {
+    console.log('הטיפול לא נמצא')
+    res.status(404)
+    throw new Error('הטיפול לא נמצא')
+  }
+})
+
 export {
   SendSMS,
   SendCANCELSMS,
@@ -1458,4 +1507,6 @@ export {
   showAvilableTorsFor3Hours,
   SendSMSforReset,
   Send_WHATSAPP_message,
+  DeleteTipul,
+  UpdateTipul,
 }

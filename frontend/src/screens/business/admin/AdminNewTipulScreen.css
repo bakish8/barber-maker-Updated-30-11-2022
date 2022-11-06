@@ -31,3 +31,18 @@ top: 7px;
 position: relative;
 left: 100px;
 }
+
+.DELETETipuliBTN {
+  font-size: 25px;
+  margin-top: 35px;
+  background-color: rgb(224, 64, 64);
+  color: black;
+  border-radius: 35px;
+  transition: 0.2s;
+margin-bottom: 20PX;
+
+}
+.DELETETipuliBTN:hover {
+  background-color: rgb(149, 42, 42);
+  transform: scale(1.1);
+}

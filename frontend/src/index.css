@@ -2230,6 +2230,83 @@ h6 {
 .call-to-us:hover:before {
   border-color: rgb(0, 177, 208);
 }
+
+/**call us btn**/
+.call-to-us2 {
+  position: fixed;
+  width: 90px;
+  height: 70px;
+  border-radius: 50%;
+  text-decoration: none;
+  animation: rotating 1.5s infinite;
+  background-color: #00c3ff7e;
+  left: 5px;
+  font-size: 11px;
+  z-index: 10000;
+}
+.call-to-us2:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  display: block;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: squeeze 2s infinite;
+}
+.call-to-us2:after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff url(https://i.ibb.co/zh4t4jv/Pngtree-vector-plus-icon-4232484.png)
+    center no-repeat;
+  border-radius: 50%;
+}
+.call-to-us__label {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background-color: rgb(0, 177, 208);
+  width: 100%;
+  height: 100%;
+  padding-top: 20px;
+  font-size: 12px;
+  font-family: Tahoma, sans-serif;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.call-to-us2:hover {
+  animation: none;
+}
+.call-to-us2:hover .call-to-us__label {
+  opacity: 1;
+  z-index: 2;
+  font-size: larger;
+  font-weight: 800;
+  color: rgb(0, 0, 0);
+  display: block;
+}
+.call-to-us2:hover:before {
+  border-color: rgb(0, 177, 208);
+}
+
+
+
+
+
+
+
 @keyframes squeeze {
   0% {
     width: 10px;
@@ -2714,6 +2791,7 @@ right: 15px;
   color: black;
   border-radius: 35px;
   transition: 0.2s;
+margin-bottom: 20PX;
 }
 .ChhoseTipuliBTN:hover {
   background-color: rgb(34, 161, 149);

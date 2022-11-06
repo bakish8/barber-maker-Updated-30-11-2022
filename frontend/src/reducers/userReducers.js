@@ -247,6 +247,13 @@ import {
   INITIAL_PASSWORD_REQUEST,
   INITIAL_PASSWORD_SUCCESS,
   INITIAL_PASSWORD_FAIL,
+  TIPUL_DELETE_REQUEST,
+  TIPUL_DELETE_SUCCESS,
+  TIPUL_DELETE_FAIL,
+  TIPUL_UPDATE_REQUEST,
+  TIPUL_UPDATE_SUCCESS,
+  TIPUL_UPDATE_FAIL,
+  TIPUL_UPDATE_RESET,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -1308,6 +1315,42 @@ export const RegisterNewTipulReducer = (state = {}, action) => {
         newTipulloading: false,
         newTipulerror: action.payload,
       }
+    default:
+      return state
+  }
+}
+
+export const TipulDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case TIPUL_DELETE_REQUEST:
+      return { TipulDelete: false, loading: true }
+    case TIPUL_DELETE_SUCCESS:
+      return { loading: false, successTipulDelete: true }
+    case TIPUL_DELETE_FAIL:
+      return {
+        successTipulDelete: false,
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const TipulUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case TIPUL_UPDATE_REQUEST:
+      return { loadingTipulUpdate: true }
+    case TIPUL_UPDATE_SUCCESS:
+      return {
+        loadingTipulUpdate: false,
+        successTipulUpdate: true,
+        TipulUpdated: action.payload,
+      }
+    case TIPUL_UPDATE_FAIL:
+      return { loadingTipulUpdate: false, errorTipulUpdate: action.payload }
+    case TIPUL_UPDATE_RESET:
+      return {}
     default:
       return state
   }

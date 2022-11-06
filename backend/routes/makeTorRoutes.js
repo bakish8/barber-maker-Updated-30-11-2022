@@ -15,13 +15,20 @@ import {
   showAvilableTorsFor2Hours,
   showAvilableTorsFor2HoursHALF,
   showAvilableTorsFor3Hours,
+  DeleteTipul,
+  UpdateTipul,
 } from '../controllers/makeTorController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
 router.route('/unpay/:id').put(protect, admin, UNPayTor)
 
 router.route('/picktipul').get(protect, GetSugeiTipulim)
-router.route('/picktipul/:id').get(protect, GetTipulDeets)
+router
+  .route('/picktipul/:id')
+  .get(protect, GetTipulDeets)
+  .put(protect, UpdateTipul)
+
+router.route('/picktipul/:id/:bid').delete(protect, DeleteTipul)
 
 router
   .route('/getavilableforonehour/:id')

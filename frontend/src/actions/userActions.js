@@ -228,6 +228,12 @@ import {
   INITIAL_PASSWORD_REQUEST,
   INITIAL_PASSWORD_SUCCESS,
   INITIAL_PASSWORD_FAIL,
+  TIPUL_DELETE_REQUEST,
+  TIPUL_DELETE_SUCCESS,
+  TIPUL_DELETE_FAIL,
+  TIPUL_UPDATE_FAIL,
+  TIPUL_UPDATE_SUCCESS,
+  TIPUL_UPDATE_REQUEST,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
@@ -640,7 +646,6 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 }
 
 export const updateUser = (user) => async (dispatch, getState) => {
-
   try {
     dispatch({
       type: USER_UPDATE_REQUEST,
@@ -2428,6 +2433,97 @@ export const SpecificTipulDeetsAction = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: GET_TIPUL_DEETS_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const updateTipul =
+  (TipulID, TipulName, TipulCost, TipulImage, TipulTime) =>
+  async (dispatch, getState) => {
+    console.log(TipulID)
+    console.log(TipulName)
+    console.log(TipulCost)
+    console.log(TipulImage)
+    console.log(TipulTime)
+    console.log(`______________________`)
+    try {
+      dispatch({
+        type: TIPUL_UPDATE_REQUEST,
+      })
+
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.put(
+        `/api/maketor/picktipul/${TipulID}`,
+        {
+          TipulID,
+          TipulName,
+          TipulCost,
+          TipulImage,
+          TipulTime,
+        },
+        config
+      )
+
+      dispatch({
+        type: TIPUL_UPDATE_SUCCESS,
+        payload: data,
+      })
+
+      localStorage.setItem('userInfo', JSON.stringify(data))
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+      }
+      dispatch({
+        type: TIPUL_UPDATE_FAIL,
+        payload: message,
+      })
+    }
+  }
+
+export const deleteTipul = (id, bid) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TIPUL_DELETE_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    await axios.delete(`/api/maketor/picktipul/${id}/${bid}`, config)
+
+    dispatch({
+      type: TIPUL_DELETE_SUCCESS,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: TIPUL_DELETE_FAIL,
       payload: message,
     })
   }

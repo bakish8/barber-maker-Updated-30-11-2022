@@ -7,7 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../../../components/Message'
 import Loader from '../../../components/Loader'
 import FormContainer from '../../../components/FormContainer'
-import { registerNewTipul } from '../../../actions/userActions'
+import {
+  deleteTipul,
+  registerNewTipul,
+  updateTipul,
+} from '../../../actions/userActions'
 import { TREATMENTSListAction } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
 import './AdminNewTipulScreen.css'
 import { Box, Modal } from '@material-ui/core'
@@ -19,6 +23,9 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
   const [TipulTime, setTipulTime] = useState('')
   const [TipulCost, setTipulCost] = useState('')
   const [TipulImage, setTipulImage] = useState('')
+  const [TipulID, setTipulID] = useState('')
+  const [ShowEdditOrDeleteTipulDialog, setShowEdditOrDeleteTipulDialog] =
+    useState(false)
 
   const [message, setMessage] = useState(null)
   const dispatch = useDispatch()
@@ -38,6 +45,19 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
     tipulimloading,
     tipulimerror,
   } = BusinessTreatmentsList
+  const TipulDelete = useSelector((state) => state.TipulDelete)
+  const {
+    loading: TipulDeleteloading,
+    successTipulDelete,
+    error: TipulDeleteerror,
+  } = TipulDelete
+  const TipulUpdate = useSelector((state) => state.TipulUpdate)
+  const {
+    loadingTipulUpdate,
+    successTipulUpdate,
+    TipulUpdated,
+    errorTipulUpdate,
+  } = TipulUpdate
 
   const redirect = `/business/${BussinesId}`
 
@@ -77,7 +97,37 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-      }).then(history.push(redirect))
+      })
+    }
+    if (successTipulDelete) {
+      Swal.fire({
+        title: 'הטיפול שביקשת הוסר בהצלחה',
+        text: success,
+        icon: 'success',
+        focusConfirm: true,
+        confirmButtonText: 'תודה',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      })
+    }
+    if (successTipulUpdate) {
+      Swal.fire({
+        title: 'הטיפול שביקשת עודכן בהצלחה',
+        text: success,
+        icon: 'success',
+        focusConfirm: true,
+        confirmButtonText: 'תודה',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      })
     }
   }, [
     history,
@@ -87,6 +137,8 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
     newTipulerror,
     newTipul,
     newTipulsuccess,
+    successTipulDelete,
+    successTipulUpdate,
   ])
 
   const submitHandler = (e) => {
@@ -109,6 +161,7 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
         text: 'אנא נסה שנית',
       })
     } else {
+      setShowNewTipulDialog(false)
       console.log(TipulName)
       console.log(TipulTime)
       console.log(TipulCost)
@@ -125,12 +178,75 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
       //dispatch(registerNewTipul(TipulName, TipulTime, TipulCost, TipulImage))
     }
   }
+  const ClickOnTipulHandler = (tipul) => {
+    console.log(tipul._id)
+    setTipulName(tipul.name)
+    setTipulTime(tipul.time)
+    setTipulCost(tipul.cost)
+    setTipulImage(tipul.image)
+    setTipulID(tipul._id)
+    setShowEdditOrDeleteTipulDialog(true)
+  }
+  {
+  }
+
+  const UpdateTipulHandler = () => {
+    setShowEdditOrDeleteTipulDialog(false)
+
+    console.log(TipulName)
+    console.log(TipulCost)
+    console.log(TipulImage)
+    console.log(TipulTime)
+
+    Swal.fire({
+      title: '?אתה בטוח',
+      text: `:האם אתה בטוח שברצונך לשמור את השינויים בטיפול  ${TipulName}  `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'כן אני בטוח',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(
+          updateTipul(TipulID, TipulName, TipulCost, TipulImage, TipulTime)
+        )
+      }
+    })
+  }
+  const DeleteTipulHandler = () => {
+    setShowEdditOrDeleteTipulDialog(false)
+    Swal.fire({
+      title: '?אתה בטוח',
+      text: `האם אתה בטוח שברצונך למחוק את הטיפול : ${TipulName}  `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'כן אני בטוח',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteTipul(TipulID, BussinesId))
+      }
+    })
+  }
 
   return (
     <>
-      <button onClick={() => setShowNewTipulDialog(!ShowNewTipulDialog)}>
-        צור טיפול חדש
+      <button
+        onClick={() => setShowNewTipulDialog(!ShowNewTipulDialog)}
+        className='call-to-us2'
+      >
+        <div className='call-to-us__label'>
+          <div className='callTousFIXED2'>
+            <span id='callTousFIXED'> צור </span>
+            <span id='callTousFIXED'> טיפול </span>
+          </div>
+        </div>
       </button>
+
       {tipulimList ? (
         <Col md={12}>
           <div>
@@ -155,7 +271,11 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
 
               <tbody id='centertext'>
                 {tipulimList.map((tipul) => (
-                  <tr className='tableGGG' key={tipul._id}>
+                  <tr
+                    onClick={() => ClickOnTipulHandler(tipul)}
+                    className='tableGGG'
+                    key={tipul._id}
+                  >
                     <td>
                       <img className='imgTreatmentSmall' src={tipul.image} />
                     </td>
@@ -197,7 +317,6 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
                     <Form.Control
                       type='TipulName'
                       placeholder='הכנס את שם הטיפול'
-                      value={TipulName}
                       onChange={(e) => setTipulName(e.target.value)}
                       required
                     ></Form.Control>
@@ -212,7 +331,6 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
                     <Form.Control
                       as='select'
                       type='TipulTime'
-                      value={TipulTime}
                       onChange={(e) => setTipulTime(e.target.value)}
                     >
                       <option>בחר זמן למשך הטיפול</option>
@@ -235,7 +353,6 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
                     <Form.Control
                       type='phone'
                       placeholder='הכנס מחיר'
-                      value={TipulCost}
                       onChange={(e) => setTipulCost(e.target.value)}
                     ></Form.Control>
                   </Form.Group>
@@ -248,7 +365,6 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
                     <Form.Control
                       type='TipulImage'
                       placeholder='הכנס כתובת תמונה'
-                      value={TipulImage}
                       onChange={(e) => setTipulImage(e.target.value)}
                     ></Form.Control>
                   </Form.Group>
@@ -263,6 +379,113 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
             </Col>
           </Box>
         </Modal>
+      ) : (
+        <></>
+      )}
+
+      {ShowEdditOrDeleteTipulDialog ? (
+        <>
+          <Modal
+            id='ModalStyle2'
+            open={() => setShowEdditOrDeleteTipulDialog(true)}
+            close={() => setShowEdditOrDeleteTipulDialog(false)}
+          >
+            <Box id='BOXlStyleForChooseTipul2'>
+              <div id='reciptcloseNav'>
+                <button
+                  onClick={() => setShowEdditOrDeleteTipulDialog(false)}
+                  id='reciptcloseNavX'
+                >
+                  X
+                </button>
+              </div>
+              <Col md={12}>
+                <h1 id='h1SugTipul'>ערוך או מחק טיפול זה</h1>
+              </Col>
+
+              <Col md={12}>
+                <Form id='centeForm'>
+                  <div className='CosaCosa'>
+                    <Form.Group controlId='TipulName' id='tipulimCooseOptions2'>
+                      <Form.Control
+                        type='TipulName'
+                        placeholder='הכנס את שם הטיפול'
+                        value={TipulName}
+                        onChange={(e) => setTipulName(e.target.value)}
+                        required
+                      ></Form.Control>
+                    </Form.Group>
+
+                    <label className='CosaCosaLabels' for='tipul_name'>
+                      שם
+                    </label>
+                  </div>
+                  <div className='CosaCosa'>
+                    <Form.Group controlId='TipulTime' id='tipulimCooseOptions2'>
+                      <Form.Control
+                        as='select'
+                        type='TipulTime'
+                        value={TipulTime}
+                        onChange={(e) => setTipulTime(e.target.value)}
+                      >
+                        <option>בחר זמן למשך הטיפול</option>
+
+                        <option value='30'>חצי שעה</option>
+                        <option value='60'>שעה</option>
+                        <option value='90'>שעה וחצי</option>
+                        <option value='120'>שעתיים</option>
+                        <option value='150'>שעתיים וחצי</option>
+                        <option value='180'>שלוש שעות</option>
+                      </Form.Control>
+                    </Form.Group>
+                    <label className='CosaCosaLabels' for='tipul'>
+                      זמן
+                    </label>
+                  </div>
+
+                  <div className='CosaCosa'>
+                    <Form.Group controlId='TipulCost' id='tipulimCooseOptions'>
+                      <Form.Control
+                        type='phone'
+                        placeholder='הכנס מחיר'
+                        value={TipulCost}
+                        onChange={(e) => setTipulCost(e.target.value)}
+                      ></Form.Control>
+                    </Form.Group>
+                    <label className='CosaCosaLabels' for='tipul_cost'>
+                      מחיר
+                    </label>
+                  </div>
+                  <div className='CosaCosa'>
+                    <Form.Group controlId='TipulImage' id='tipulimCooseOptions'>
+                      <Form.Control
+                        type='TipulImage'
+                        placeholder='הכנס כתובת תמונה'
+                        value={TipulImage}
+                        onChange={(e) => setTipulImage(e.target.value)}
+                      ></Form.Control>
+                    </Form.Group>
+                    <label className='CosaCosaLabels' for='tipul_img'>
+                      תמונה
+                    </label>
+                  </div>
+                  <Button
+                    onClick={() => UpdateTipulHandler()}
+                    className='ChhoseTipuliBTN'
+                  >
+                    עדכן
+                  </Button>
+                  <Button
+                    onClick={() => DeleteTipulHandler()}
+                    className='DELETETipuliBTN'
+                  >
+                    מחק{' '}
+                  </Button>
+                </Form>
+              </Col>
+            </Box>
+          </Modal>
+        </>
       ) : (
         <></>
       )}
