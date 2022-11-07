@@ -172,7 +172,7 @@ const Verfy4Digits = (props) => {
               ></input>
             </div>
             <small className='smallInfoDesignOnly'>
-              אנא הזן את ארבעת הספרות שקיבלת לנייד שלך כדי ליצור ססמא חדשה
+              אנא הזן את ארבעת הספרות שקיבלת לנייד שלך כדי ליצור סיסמה חדשה
             </small>
           </div>
         </Modal>

@@ -82,7 +82,7 @@ const AdminUserList = ({ history, match }) => {
       imageWidth: 100,
       imageHeight: 100,
       title: 'הוסף משתמש חדש ',
-      footer: `הססמא שהונפקה ללקוח זה מספר הנייד שהזנת`,
+      footer: `הסיסמה שהונפקה ללקוח זה מספר הנייד שהזנת`,
       confirmButtonText: 'רשום משתמש חדש',
 
       html:

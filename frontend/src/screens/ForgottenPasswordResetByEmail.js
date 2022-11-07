@@ -45,7 +45,7 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
     if (successreset) {
       Swal.fire({
         icon: 'success',
-        title: 'הססמא שלך שונתה בהצלחה',
+        title: 'הסיסמה שלך שונתה בהצלחה',
         text: 'כעת תועבר לעמוד ההתחברות',
         showConfirmButton: false,
         timer: 3500,
@@ -60,7 +60,7 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
       Swal.fire({
         position: 'top-end',
         icon: 'warning',
-        title: 'נא להזין את הססמא פעמיים',
+        title: 'נא להזין את הסיסמה פעמיים',
         text: 'ע"מ לאשר את ססמתך החדשה יש למלא את כל השדות',
         showConfirmButton: false,
         timer: 2500,
@@ -69,8 +69,8 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
       Swal.fire({
         position: 'top-end',
         icon: 'warning',
-        title: '!הססמא שבחרת קצרה מדי',
-        text: 'בחר ססמא בעלת 6 תווים לפחות ',
+        title: '!הסיסמה שבחרת קצרה מדי',
+        text: 'בחר סיסמה בעלת 6 תווים לפחות ',
         showConfirmButton: false,
         timer: 2500,
       })
@@ -79,8 +79,8 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
       Swal.fire({
         position: 'top-end',
         icon: 'warning',
-        title: '!הססמאות אינן תואמות',
-        text: 'כדי ליצור לך ססמא חדשה נסה שנית והזן ססמאות זהות ',
+        title: '!הסיסמהות אינן תואמות',
+        text: 'כדי ליצור לך סיסמה חדשה נסה שנית והזן סיסמהות זהות ',
         showConfirmButton: false,
         timer: 4500,
       })
@@ -96,13 +96,13 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
           {loading && <Loader />}
           <div id='centerme'>
             <Form onSubmit={submitHandler} className='loginForm'>
-              <h2 className='headlineme'>שחזור ססמא</h2>
+              <h2 className='headlineme'>שחזור סיסמה</h2>
               <div id='helloonreset'>{success && 'שלום' + ' ' + page.name}</div>
               <div class='user-box'>
                 <Form.Group controlId='password'>
                   <Form.Control
                     className='form-control'
-                    placeholder='הזן ססמא חדשה'
+                    placeholder='הזן סיסמה חדשה'
                     type='password'
                     value={NewPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
@@ -113,7 +113,7 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
                 <Form.Group controlId='password'>
                   <Form.Control
                     className='form-control'
-                    placeholder='חזור על הססמא החדשה'
+                    placeholder='חזור על הסיסמה החדשה'
                     type='password'
                     value={NewPassword2}
                     onChange={(e) => setNewPassword2(e.target.value)}

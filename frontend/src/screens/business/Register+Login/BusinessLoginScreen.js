@@ -127,7 +127,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
       dispatch(Create15PortForResetPASSWORD_withPhone(PhoneToSendTo))
       Swal.fire({
         title: 'קוד השחזור אומת בצלחה',
-        text: 'מיד תועבר לדף לשחזור הססמא שלך',
+        text: 'מיד תועבר לדף לשחזור הסיסמה שלך',
         icon: 'success',
         showCancelButton: false,
         showConfirmButton: false,
@@ -145,6 +145,25 @@ const BusinessLoginScreen = ({ location, history, match }) => {
     successSend,
     word,
   ])
+
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'שגיאה',
+        text: `${error}`,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> הבנתי',
+      })
+    }
+    if (errorEmail) {
+      Swal.fire({
+        icon: 'error',
+        title: 'שגיאה',
+        text: `${errorEmail}`,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> הבנתי',
+      })
+    }
+  }, [error, errorEmail])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -168,8 +187,8 @@ const BusinessLoginScreen = ({ location, history, match }) => {
   const Swal_I_Forgot_My_Pass = () => {
     console.log('Swal_I_Forgot_My_Pass')
     Swal.fire({
-      title: 'שחזור ססמא',
-      text: `ניתן לשחזר את הססמא באמצעות הנייד או האימייל `,
+      title: 'שחזור סיסמה',
+      text: `ניתן לשחזר את הסיסמה באמצעות הנייד או האימייל `,
       imageUrl: 'https://i.ibb.co/30z4Vsr/ezgif-com-gif-maker-15.gif',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -180,12 +199,12 @@ const BusinessLoginScreen = ({ location, history, match }) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: 'שחזור באמצעות אימייל',
-          text: `הזן את כתובת האימייל אליה ישלח קישור לשחזור הססמא שלך `,
+          text: `הזן את כתובת האימייל אליה ישלח קישור לשחזור הסיסמה שלך `,
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
           cancelButtonText: 'ביטול',
-          confirmButtonText: 'שחזר ססמא',
+          confirmButtonText: 'שחזר סיסמה',
           input: 'text',
           inputAttributes: {
             autocapitalize: 'off',
@@ -227,7 +246,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
         })
 
         // Swal.fire({
-        //   text: 'משחזר ססמא אנא המתן',
+        //   text: 'משחזר סיסמה אנא המתן',
         //   imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
         //   imageWidth: 400,
         //   imageHeight: 400,
@@ -242,12 +261,12 @@ const BusinessLoginScreen = ({ location, history, match }) => {
         console.log('your workingday is safe')
         Swal.fire({
           title: 'שחזור באמצעות הנייד',
-          text: `הזן את הנייד אליו ישלח קוד חד פעמי לשחזור הססמא  `,
+          text: `הזן את הנייד אליו ישלח קוד חד פעמי לשחזור הסיסמה  `,
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
           cancelButtonText: 'ביטול',
-          confirmButtonText: 'שחזר ססמא',
+          confirmButtonText: 'שחזר סיסמה',
           input: 'text',
           inputAttributes: {
             autocapitalize: 'off',
@@ -316,7 +335,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
       {LoginWithPhone && (
         <div class='login-box'>
           <FormContainer>
-            {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
             <div id='centerme'>
               <Form onSubmit={submitHandler2} className='loginForm'>
@@ -337,7 +355,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
                   <Form.Group controlId='password'>
                     <Form.Control
                       className='form-control'
-                      placeholder='ססמא'
+                      placeholder='סיסמה '
                       type='password'
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
@@ -350,7 +368,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
                     id='signUp'
                     onClick={Swal_I_Forgot_My_Pass}
                   >
-                    שחכתי ססמא
+                    שחכתי סיסמה
                   </btn>
                 </div>
                 <Button type='submit' className='loginBTN'>
@@ -391,7 +409,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
       {LoginWithEmail && (
         <div class='login-box'>
           <FormContainer>
-            {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
             <div id='centerme'>
               <Form onSubmit={submitHandler} className='loginForm'>
@@ -413,7 +430,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
                   <Form.Group controlId='password'>
                     <Form.Control
                       className='form-control'
-                      placeholder='ססמא'
+                      placeholder='סיסמה'
                       type='password'
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
@@ -426,7 +443,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
                     id='signUp'
                     onClick={Swal_I_Forgot_My_Pass}
                   >
-                    שחכתי ססמא
+                    שחכתי סיסמה
                   </btn>
                 </div>
                 <Button type='submit' className='loginBTN'>

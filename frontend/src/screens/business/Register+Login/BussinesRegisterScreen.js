@@ -140,7 +140,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
       })
       Toast.fire({
         icon: 'error',
-        title: 'הססמאות אינן תואמות',
+        title: 'הסיסמהות אינן תואמות',
         text: 'אנא נסה שנית',
       })
     } else if (phone.length != 10 || phone.substring(0, 2) != '05') {
@@ -238,7 +238,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
                 <Form.Group controlId='password'>
                   <Form.Control
                     type='password'
-                    placeholder='הכנס ססמא'
+                    placeholder='הכנס סיסמה'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -249,7 +249,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
                 <Form.Group controlId='confirmPassword'>
                   <Form.Control
                     type='password'
-                    placeholder='אשר ססמא'
+                    placeholder='אשר סיסמה'
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required

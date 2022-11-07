@@ -69,7 +69,7 @@ const authUser = asyncHandler(async (req, res) => {
     }
   } else {
     res.status(401)
-    throw new Error('Invalid email or password')
+    throw new Error('הנייד או סיסמה אינם תקינים אנא נסה שנית')
   }
 })
 
@@ -95,7 +95,7 @@ const authUserBYphone = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(401)
-    throw new Error('Invalid email or password')
+    throw new Error('האימייל או הסיסמה אינם תקינים אנא נסה שנית')
   }
 })
 

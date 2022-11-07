@@ -1429,7 +1429,7 @@ const SendSMSforReset = asyncHandler(async (req, res) => {
   const user = await User.findOne({ phone: phone })
   client.messages
     .create({
-      body: `הזן את הססמא הבאה לשחזור ססמתך באתר ברבר-מייקר: ${theRandomNumber}`,
+      body: `הזן את הסיסמה הבאה לשחזור ססמתך באתר ברבר-מייקר: ${theRandomNumber}`,
       messagingServiceSid: serviseSID,
       to: `+972${user.phone}`,
     })

@@ -280,11 +280,6 @@ const Header = ({ socket, match }) => {
       window.location.reload()
     }
   }, [successEmail, Rsuccess])
-  useEffect(() => {
-    if (successEmail) {
-      window.location.reload()
-    }
-  }, [successEmail, Rsuccess])
 
   useEffect(() => {
     if (userInfo && user_connected_success) {
@@ -376,20 +371,6 @@ const Header = ({ socket, match }) => {
     setOpen(!open)
     setMakeBLueONEdesapier(!MakeBLueONEdesapier)
   }
-
-  useEffect(() => {
-    if (userInfo && userInfo.isAdmin && Administrate && MakeBLueONEdesapier) {
-      console.log(`need to set show`)
-      console.log(`need to set show`)
-      console.log(`need to set show`)
-      console.log(`need to set show`)
-      console.log(`need to set show`)
-    } else {
-      console.log(userInfo.isAdmin)
-      console.log(Administrate)
-      console.log(MakeBLueONEdesapier)
-    }
-  }, [userInfo, Administrate, MakeBLueONEdesapier])
 
   return (
     <>
