@@ -46,7 +46,7 @@ const HomeScreen = ({ match, history }) => {
 
   //functions for scroll highet
   const fixScrollHighetForBarberSystem = () => {
-    const BarberSystem = document.getElementById('image4')
+    const BarberSystem = document.getElementById('RowAdds')
     window.scrollTo({
       top: BarberSystem.offsetTop,
       behavior: 'smooth',
@@ -92,76 +92,84 @@ const HomeScreen = ({ match, history }) => {
       <OpenVirtualBarberShop />
       <EmailMeTheDeetsComponent />
       <FAQ />
-      <div>
-        <ImageOne />
-      </div>
 
       <div className='grids'>
         {' '}
-        <div data-aos='fade-up' className='BOXS'>
-          <ImageTWO />
-        </div>
-        <Tilt>
-          <Row id='MAINADD' onClick={fixScrollHighetForBarberSystem}>
-            <Col md={4}>
-              <div data-aos='fade-right' id='Add1_div'>
-                <Kidma />
-              </div>
-            </Col>
-
-            <Col md={4}>
-              <div data-aos='zoom-in'>
-                <div id='circleBlack'>
-                  <img
-                    id='RollPullsmall'
-                    src='https://i.ibb.co/82t0dzn/ezgif-com-gif-maker-4.gif'
-                  />{' '}
-                  <img
-                    onClick={fixScrollHighetForBarberSystem}
-                    id='ScrollArrowDownForBarberMakerSystem'
-                    src='https://i.ibb.co/XDLjw4r/animation-200-kylde03u.gif'
-                  />{' '}
-                  <div
-                    data-aos='fade-right'
-                    data-aos-offset='180'
-                    data-aos-easing='ease-in-sine'
-                  >
-                    <img
-                      id='CalenerCoins'
-                      src='https://i.ibb.co/f1v07Fb/animation-500-kylh202z.gif'
-                    />{' '}
-                  </div>
-                  <img
-                    id='CoinsFalling'
-                    src='https://i.ibb.co/LgHPZmy/animation-300-kylf8gis.gif'
-                  />{' '}
-                  <img
-                    id='barbershopgif'
-                    src='https://i.ibb.co/tQL6Qrj/ezgif-com-gif-maker-2.gif'
-                  />
-                </div>{' '}
-              </div>
-            </Col>
-            <Col md={4}>
-              <img
-                id='underline12'
-                src='https://i.ibb.co/HnHc0hs/ezgif-com-gif-maker-6.gif'
-              />
-              <div data-aos='fade-left'>
-                <Nahel />
-              </div>
-            </Col>
-          </Row>
-        </Tilt>
         <div data-aos='flip-left' id='image4'>
           <ImageFour />
         </div>{' '}
         <div data-aos='zoom-in' id='ClientEffect'>
           <ExpendingCards />
         </div>{' '}
+        {alllBusiness ? (
+          <div data-aos='fade-up' id='centerSocialICONS'>
+            <Testimonials
+              Bussiness1={alllBusiness[0]}
+              Bussiness2={alllBusiness[1]}
+              history={history}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
         <div data-aos='flip-right' id='ClientEffect'>
           <ClientEffect />
         </div>{' '}
+        <div className='YouWantToo'>
+          <h1 className='YouWantTooi'>?רוצה גם</h1>
+          <Tilt className='TilTImainADD'>
+            <Row id='MAINADD' onClick={fixScrollHighetForBarberSystem}>
+              <Col md={4}>
+                <div data-aos='fade-right' id='Add1_div'>
+                  <Kidma />
+                </div>
+              </Col>
+
+              <Col md={4}>
+                <div data-aos='zoom-in'>
+                  <div id='circleBlack'>
+                    <img
+                      id='RollPullsmall'
+                      src='https://i.ibb.co/82t0dzn/ezgif-com-gif-maker-4.gif'
+                    />{' '}
+                    <img
+                      onClick={fixScrollHighetForBarberSystem}
+                      id='ScrollArrowDownForBarberMakerSystem'
+                      src='https://i.ibb.co/XDLjw4r/animation-200-kylde03u.gif'
+                    />{' '}
+                    <div
+                      data-aos='fade-right'
+                      data-aos-offset='180'
+                      data-aos-easing='ease-in-sine'
+                    >
+                      <img
+                        id='CalenerCoins'
+                        src='https://i.ibb.co/f1v07Fb/animation-500-kylh202z.gif'
+                      />{' '}
+                    </div>
+                    <img
+                      id='CoinsFalling'
+                      src='https://i.ibb.co/LgHPZmy/animation-300-kylf8gis.gif'
+                    />{' '}
+                    <img
+                      id='barbershopgif'
+                      src='https://i.ibb.co/tQL6Qrj/ezgif-com-gif-maker-2.gif'
+                    />
+                  </div>{' '}
+                </div>
+              </Col>
+              <Col md={4}>
+                <img
+                  id='underline12'
+                  src='https://i.ibb.co/HnHc0hs/ezgif-com-gif-maker-6.gif'
+                />
+                <div data-aos='fade-left'>
+                  <Nahel />
+                </div>
+              </Col>
+            </Row>
+          </Tilt>
+        </div>
         <Row id='RowAdds'>
           <Col>
             <Tilt className='TILT'>
@@ -185,49 +193,6 @@ const HomeScreen = ({ match, history }) => {
             </Tilt>
           </Col>
         </Row>
-        <div data-aos='fade-right' className='BOXS'>
-          <ImageThree />
-        </div>
-        <div data-aos='fade-right' className='BOXS'>
-          {!keyword ? (
-            <ProductCarousel />
-          ) : (
-            <Link to='/' className='btn btn-light'>
-              חזור
-            </Link>
-          )}
-
-          {loading ? (
-            <Loader />
-          ) : error ? (
-            <Message variant='danger'>{error}</Message>
-          ) : (
-            <>
-              <Row>
-                <Col md={12} sm={8}>
-                  <div id='centerme'>
-                    <Paginate
-                      pages={pages}
-                      page={page}
-                      keyword={keyword ? keyword : ''}
-                    />
-                  </div>
-                </Col>
-              </Row>
-            </>
-          )}
-        </div>
-        {alllBusiness ? (
-          <div data-aos='fade-up' id='centerSocialICONS'>
-            <Testimonials
-              Bussiness1={alllBusiness[0]}
-              Bussiness2={alllBusiness[1]}
-              history={history}
-            />
-          </div>
-        ) : (
-          <></>
-        )}
         <div data-aos='fade-up' id='centerSocialICONS'>
           <LinkedinSpinnerIcon />
           <FacebookIcon />

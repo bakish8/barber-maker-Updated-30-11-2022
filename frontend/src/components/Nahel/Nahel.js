@@ -4,7 +4,7 @@ import './Nahel.css'
 const Nahel = () => {
   return (
     <div id='container'>
-      <span id='נהלאת'> נהל את</span>
+      <span id='נהלאת'> לנהל את</span>
       <div id='flip'>
         <div>
           <div>
