@@ -62,7 +62,7 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
   const redirect = `/business/${BussinesId}`
 
   useEffect(() => {
-    if ((userInfo.isAdmin = false)) {
+    if (userInfo && !userInfo.isAdmin) {
       history.push(redirect)
     } else {
       dispatch(TREATMENTSListAction(BussinesId))
@@ -233,10 +233,18 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
     })
   }
 
+  const setShowNewTipulDialog_Function = () => {
+    setShowEdditOrDeleteTipulDialog(false)
+    setShowNewTipulDialog(!ShowNewTipulDialog)
+  }
+  const setShowEdditOrDeleteTipulDialog_Function = () => {
+    setShowNewTipulDialog(false)
+    setShowEdditOrDeleteTipulDialog(true)
+  }
   return (
     <>
       <button
-        onClick={() => setShowNewTipulDialog(!ShowNewTipulDialog)}
+        onClick={() => setShowNewTipulDialog_Function()}
         className='call-to-us2'
       >
         <div className='call-to-us__label'>
@@ -387,7 +395,7 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
         <>
           <Modal
             id='ModalStyle2'
-            open={() => setShowEdditOrDeleteTipulDialog(true)}
+            open={() => setShowEdditOrDeleteTipulDialog_Function()}
             close={() => setShowEdditOrDeleteTipulDialog(false)}
           >
             <Box id='BOXlStyleForChooseTipul2'>
