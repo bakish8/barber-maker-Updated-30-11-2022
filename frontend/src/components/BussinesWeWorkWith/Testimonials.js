@@ -20,10 +20,11 @@ const Testimonials = (props) => {
       avatar: props.Bussiness1.B_logo,
       id: props.Bussiness1.B_id,
     },
-    {
-      avatar: props.Bussiness2.B_logo,
-      id: props.Bussiness2.B_id,
-    },
+    // {
+    //   avatar: props.Bussiness2.B_logo,
+    //   id: props.Bussiness2.B_id,
+    // },
+    //fix by getting res jason array that ready and then convert hem to this data var
   ]
 
   const HistortPush = async (id) => {

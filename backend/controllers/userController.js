@@ -39,6 +39,7 @@ const authUser = asyncHandler(async (req, res) => {
         phone: user.phone,
         image: user.image,
         isAdmin: user.isAdmin,
+        isAdminOfAdmins: user.isAdminOfAdmins,
         token: generateToken(user._id),
         workingIn: user.WorkingIn, //***NEW */
       })
@@ -51,6 +52,7 @@ const authUser = asyncHandler(async (req, res) => {
         phone: user.phone,
         image: user.image,
         isAdmin: user.isAdmin,
+        isAdminOfAdmins: user.isAdminOfAdmins,
         token: generateToken(user._id),
         workingIn: user.WorkingIn, //***NEW */
         ClientOfBusiness: user.ClientOfBusiness, //***NEW */
@@ -64,6 +66,7 @@ const authUser = asyncHandler(async (req, res) => {
         phone: user.phone,
         image: user.image,
         isAdmin: user.isAdmin,
+        isAdminOfAdmins: user.isAdminOfAdmins,
         token: generateToken(user._id),
       })
     }
@@ -90,6 +93,7 @@ const authUserBYphone = asyncHandler(async (req, res) => {
       phone: user.phone,
       image: user.image,
       isAdmin: user.isAdmin,
+      isAdminOfAdmins: user.isAdminOfAdmins,
       token: generateToken(user._id),
       workingIn: user.WorkingIn, //***NEW */
     })
@@ -111,6 +115,7 @@ const authGoogleUser = asyncHandler(async (req, res) => {
         phone: user.phone,
         image: user.image,
         isAdmin: user.isAdmin,
+        isAdminOfAdmins: user.isAdminOfAdmins,
         token: generateToken(user._id),
         google_password_reset: user.google_password_reset,
       })
@@ -122,6 +127,7 @@ const authGoogleUser = asyncHandler(async (req, res) => {
         phone: user.phone,
         image: user.image,
         isAdmin: user.isAdmin,
+        isAdminOfAdmins: user.isAdminOfAdmins,
         token: generateToken(user._id),
         WorkingIn: user.WorkingIn,
       })
@@ -133,6 +139,7 @@ const authGoogleUser = asyncHandler(async (req, res) => {
         phone: user.phone,
         image: user.image,
         isAdmin: user.isAdmin,
+        isAdminOfAdmins: user.isAdminOfAdmins,
         token: generateToken(user._id),
         ClientOfBusiness: user.ClientOfBusiness,
       })
@@ -144,6 +151,7 @@ const authGoogleUser = asyncHandler(async (req, res) => {
         phone: user.phone,
         image: user.image,
         isAdmin: user.isAdmin,
+        isAdminOfAdmins: user.isAdminOfAdmins,
         token: generateToken(user._id),
       })
     }
@@ -222,6 +230,7 @@ const registerUser = asyncHandler(async (req, res) => {
           email: user.email,
           phone: user.phone,
           isAdmin: user.isAdmin,
+          isAdminOfAdmins: user.isAdminOfAdmins,
           image: user.image,
           ClientOfBusiness: businessid,
           token: generateToken(user._id),
@@ -255,6 +264,7 @@ const registerUser = asyncHandler(async (req, res) => {
           email: user.email,
           phone: user.phone,
           isAdmin: user.isAdmin,
+          isAdminOfAdmins: user.isAdminOfAdmins,
           image: user.image,
           ClientOfBusiness: user.ClientOfBusiness,
           token: generateToken(user._id),
@@ -293,6 +303,7 @@ const registerUser = asyncHandler(async (req, res) => {
           email: user.email,
           phone: user.phone,
           isAdmin: user.isAdmin,
+          isAdminOfAdmins: user.isAdminOfAdmins,
           image: user.image,
           ClientOfBusiness: businessid,
           token: generateToken(user._id),
@@ -324,6 +335,7 @@ const registerUser = asyncHandler(async (req, res) => {
           email: user.email,
           phone: user.phone,
           isAdmin: user.isAdmin,
+          isAdminOfAdmins: user.isAdminOfAdmins,
           image: user.image,
           ClientOfBusiness: user.ClientOfBusiness,
           token: generateToken(user._id),
@@ -350,6 +362,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       image: user.image,
       phone: user.phone,
       isAdmin: user.isAdmin,
+      isAdminOfAdmins: user.isAdminOfAdmins,
     })
   } else {
     res.status(404)

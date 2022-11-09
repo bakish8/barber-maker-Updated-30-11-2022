@@ -39,22 +39,13 @@ const GetAllBusinessForHomePage = asyncHandler(async (req, res) => {
   console.log(`Found*****************************`)
   console.log(Found)
   if (Found) {
+    //****Fix when add More business by RUN  aFunction  thats create  aarray of obj and thne res JSON this ... */
     res.json([
       {
         B_id: Found[0]._id,
         B_name: Found[0].businessName,
         B_logo: Found[0].logo,
       },
-      {
-        B_id: Found[1]._id,
-        B_name: Found[1].businessName,
-        B_logo: Found[1].logo,
-      },
-      // {
-      //   B_id: Found[2]._id,
-      //   B_name: Found[2].businessName,
-      //   B_logo: Found[2].logo,
-      // }
     ])
   } else {
     console.log(`Error Business Not Found`)
