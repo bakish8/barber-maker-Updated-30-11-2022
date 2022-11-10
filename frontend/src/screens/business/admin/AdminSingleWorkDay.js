@@ -317,6 +317,17 @@ const AdminSingleWorkDay = ({ history, match }) => {
   // ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
   // ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    },
+  })
   let checkboxes = document.querySelectorAll('.checkboxxx')
 
   const FixUP = () => {
@@ -531,13 +542,20 @@ const AdminSingleWorkDay = ({ history, match }) => {
   }
 
   const selectAllTors = () => {
-    setStateForPinuiBTN(true)
+    let ClocksNotAvilable = []
+
+    //  setStateForPinuiBTN(true)
     if (stateChecked === false) {
       setstateChecked(true)
       for (let checkbox of checkboxes) {
         checkbox.checked = true
         var valuetwo = checkbox.getAttribute('data-valuetwo')
-        const object = { id: checkbox.value, uid: valuetwo }
+        var value33 = checkbox.getAttribute('data-value33')
+        const object = {
+          id: checkbox.value,
+          uid: valuetwo,
+          avilablety: value33,
+        }
 
         let magenicVendor = ArrayOfSelectedTors.find(
           (vendor) => vendor['id'] === object.id
@@ -548,6 +566,30 @@ const AdminSingleWorkDay = ({ history, match }) => {
           console.log('לא מוסיף קיים כבר')
         }
       }
+      console.log(ArrayOfSelectedTors)
+      console.log(ArrayOfSelectedTors)
+      console.log(ArrayOfSelectedTors)
+      console.log(ArrayOfSelectedTors)
+      console.log(ArrayOfSelectedTors)
+
+      for (let clocki of ArrayOfSelectedTors) {
+        if (clocki.avilablety == 'false') {
+          console.log(clocki.avilablety)
+          console.log(clocki.avilablety)
+          console.log(clocki.avilablety)
+          console.log(clocki.avilablety)
+          console.log(clocki.avilablety)
+          console.log(clocki.avilablety)
+          ClocksNotAvilable.push(clocki)
+        }
+      }
+      console.log(ClocksNotAvilable)
+
+      if (ClocksNotAvilable.length) {
+        setStateForPinuiBTN(true)
+      } else {
+        setStateForPinuiBTN(false)
+      }
     } else {
       setstateChecked(false)
       for (let checkbox of checkboxes) {
@@ -555,7 +597,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
         ArrayOfSelectedTors.splice(checkbox.value)
       }
     }
-    console.log(ArrayOfSelectedTors)
   }
 
   const selectOneTor = (id, avilable, mistaper) => {
@@ -580,7 +621,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
         const uid = mistaper._id
 
         ArrayOfSelectedTors.push({ id: id, uid: uid })
-        console.log(ArrayOfSelectedTors)
         if (ArrayOfSelectedTors.length === 0) {
           setselect_OneTor(false)
         } else {
@@ -588,11 +628,11 @@ const AdminSingleWorkDay = ({ history, match }) => {
         }
       } else {
         ArrayOfSelectedTors.push({ id: id })
-        console.log(ArrayOfSelectedTors)
         if (ArrayOfSelectedTors.length === 0) {
           setselect_OneTor(false)
         } else {
           setselect_OneTor(true)
+          console.log(`ArrayOfSelectedTors : ${ArrayOfSelectedTors}`)
         }
       }
     }
@@ -1025,80 +1065,93 @@ const AdminSingleWorkDay = ({ history, match }) => {
       }
     })
   }
+
   // make this Hour Un-Payd Function
   const makeClockUnpaidHandler = (id, time, date) => {
-    if (id && time && date) {
-      Swal.fire({
-        title: '?אתה בטוח',
-        text: `תור זה מוגדר כמשולם במערכת,שינוי סטאטוס התשלום ישונה ל-לא שולם, עבור לקוח זה בתור בשעה ${time} בתאריך ${date}`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#B83122',
+    let CheckIfTimePassedForUnpay = CheckIfTimePassed(time)
 
-        cancelButtonText: 'ביטול',
-        confirmButtonText: 'כן אני בטוח',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire('תור זה הוגדר כלא שולם בהצלחה', {
-            icon: 'success',
-          }).then(dispatch(UNPayMyTor(id))) //** */
-        } else {
-          console.log('your payment is safe')
-        }
-      })
+    if (afterdate) {
+      console.log('isafter date cant change nothing sorry.....')
+    } else if (CheckIfTimePassedForUnpay) {
+      console.log('isafter Time cant change nothing sorry.....')
+    } else {
+      if (id && time && date) {
+        Swal.fire({
+          title: '?אתה בטוח',
+          text: `תור זה מוגדר כמשולם במערכת,שינוי סטאטוס התשלום ישונה ל-לא שולם, עבור לקוח זה בתור בשעה ${time} בתאריך ${date}`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#B83122',
+
+          cancelButtonText: 'ביטול',
+          confirmButtonText: 'כן אני בטוח',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire('תור זה הוגדר כלא שולם בהצלחה', {
+              icon: 'success',
+            }).then(dispatch(UNPayMyTor(id))) //** */
+          } else {
+            console.log('your payment is safe')
+          }
+        })
+      }
     }
   }
   ///make this Hour Payd Function
   const makeClockPAIDHandler = async (id, time, date, avilable) => {
-    if (!avilable) {
-      if (id && time && date) {
-        const { value: payment } = await Swal.fire({
-          title: 'בחר דרך תשלום',
-          input: 'select',
-          inputOptions: {
-            אשראי: 'אשראי',
-            מזומן: 'מזומן',
-            ביט: 'ביט',
-          },
-          inputPlaceholder: 'מהי הדרך שבה הלקוח שילם',
-          showCancelButton: true,
-          cancelButtonText: 'ביטול',
-          cancelButtonColor: 'rgb(194, 0, 0)',
-          confirmButtonColor: 'rgb(3, 148, 39)',
-          confirmButtonText: 'אישור תשלום',
-          inputValidator: (value) => {
-            return new Promise((resolve) => {
-              if (value === 'אשראי') {
-                setSHOWcreditForm(true)
-                resolve()
-              } else if (value === 'מזומן') {
-                Swal.fire(`הלקוח שילם ב: ${value}`).then(
-                  dispatch(
-                    PayMyTor(
-                      id,
-                      'cash',
-                      Math.floor(1000 + Math.random() * 9000),
-                      Math.floor(1000 + Math.random() * 9000)
+    if (afterdate) {
+      console.log('isafter date cant change nothing sorry.....')
+    } else {
+      if (!avilable) {
+        if (id && time && date) {
+          const { value: payment } = await Swal.fire({
+            title: 'בחר דרך תשלום',
+            input: 'select',
+            inputOptions: {
+              אשראי: 'אשראי',
+              מזומן: 'מזומן',
+              ביט: 'ביט',
+            },
+            inputPlaceholder: 'מהי הדרך שבה הלקוח שילם',
+            showCancelButton: true,
+            cancelButtonText: 'ביטול',
+            cancelButtonColor: 'rgb(194, 0, 0)',
+            confirmButtonColor: 'rgb(3, 148, 39)',
+            confirmButtonText: 'אישור תשלום',
+            inputValidator: (value) => {
+              return new Promise((resolve) => {
+                if (value === 'אשראי') {
+                  setSHOWcreditForm(true)
+                  resolve()
+                } else if (value === 'מזומן') {
+                  Swal.fire(`הלקוח שילם ב: ${value}`).then(
+                    dispatch(
+                      PayMyTor(
+                        id,
+                        'cash',
+                        Math.floor(1000 + Math.random() * 9000),
+                        Math.floor(1000 + Math.random() * 9000)
+                      )
                     )
                   )
-                )
-              } else if (value === 'ביט') {
-                Swal.fire(`הלקוח שילם ב: ${value}`).then(
-                  dispatch(
-                    PayMyTor(
-                      id,
-                      'bit',
-                      Math.floor(1000 + Math.random() * 9000),
-                      Math.floor(1000 + Math.random() * 9000)
+                } else if (value === 'ביט') {
+                  Swal.fire(`הלקוח שילם ב: ${value}`).then(
+                    dispatch(
+                      PayMyTor(
+                        id,
+                        'bit',
+                        Math.floor(1000 + Math.random() * 9000),
+                        Math.floor(1000 + Math.random() * 9000)
+                      )
                     )
                   )
-                )
-              } else {
-                resolve(' אתה צריך לבחור אחת מאפשרויות התשלום)')
-              }
-            })
-          },
-        })
+                } else {
+                  resolve(' אתה צריך לבחור אחת מאפשרויות התשלום)')
+                }
+              })
+            },
+          })
+        }
       }
     }
   }
@@ -1140,6 +1193,35 @@ const AdminSingleWorkDay = ({ history, match }) => {
     })
   }
 
+  const CheckIfTimePassed = (time) => {
+    const hourToCheck = time.substring(0, 2)
+    console.log(hourToCheck)
+    const minuteToCheck = time.slice(3)
+    console.log(minuteToCheck)
+
+    let searchDate2 = new Date()
+    let FormatedSearchDate2 = moment(searchDate2).format()
+    console.log(FormatedSearchDate2)
+    let CalculateminuteNow = FormatedSearchDate.slice(14)
+    let MinuteNow = CalculateminuteNow.substring(0, 2)
+    //let MinuteNow = '01'
+    let CalculateHourNow = FormatedSearchDate.slice(11)
+    let HourNow = CalculateHourNow.substring(0, 2)
+    //let HourNow = '09'
+    let timeNow = `${HourNow}:${MinuteNow}`
+    console.log(timeNow)
+    console.log(time)
+
+    if (
+      HourNow > hourToCheck ||
+      (HourNow === hourToCheck && MinuteNow > minuteToCheck)
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   const preshowTorHandler = (
     time,
     date,
@@ -1158,116 +1240,226 @@ const AdminSingleWorkDay = ({ history, match }) => {
     setChoosenClock(id)
     setChoosenClockTIME(time)
     setChoosenClockDATE(date)
-    console.log(`THE COOSEN CLOCK IS:${ChoosenClock}!!!!`)
-    var elementPos = clockList
-      .map(function (x) {
-        return x._id
-      })
-      .indexOf(id)
 
-    var objectFound = clockList[elementPos]
-    console.log(elementPos)
-    console.log(objectFound)
+    let CheckIfTimePassed_VAR = CheckIfTimePassed(time)
 
-    var ClockPlusHalfHour = clockList[elementPos + 1]
-    var ClockPlusHour = clockList[elementPos + 2]
-    var ClockPlusHourandHalf = clockList[elementPos + 3]
-    var ClockPlus2Hours = clockList[elementPos + 4]
-    var ClockPlus2HoursandHalf = clockList[elementPos + 5]
-    var ClockPlus3Hours = clockList[elementPos + 6]
-    console.log(elementPos + 1)
-    if (objectFound && objectFound.avilable) {
-      setdisplayhalf(true)
-      console.log(objectFound.time)
-      console.log(objectFound.time)
-      console.log(objectFound.time)
-      const minutes = objectFound.time.split(':')[1]
-      const hour = objectFound.time.split(':')[0]
-      console.log(minutes)
-      console.log(hour)
+    if (CheckIfTimePassed_VAR) {
+      console.log(`time passed !!`)
+      //open no Delete Or Camcel Tor Swal - only payment
+      if (avilable === false && !afterdate && !isPaid) {
+        swalWithBootstrapButtons
+          .fire({
+            scrollbarPadding: true,
+            title: `<b><span id='span43125'>${time}</span></b><br/><span id='Tafusss'>
+              תפוס
+            </span>`,
+            html: `<div id='IdForTafusContent'> על ידי <b> <a id='nameLinkForProFile' href="/admin/user/${
+              mistaper._id
+            }/edit">${mistaper.name}</a>
+ ל:${clock.tipul.name}</b><br/>    
+               <span id='span4312'>${
+                 mistaper.commentsForTipul ? mistaper.commentsForTipul : ''
+               }</span>  
 
-      if (
-        ClockPlusHalfHour &&
-        ClockPlusHalfHour.avilable &&
-        ClockPlusHour &&
-        ClockPlusHour.avilable &&
-        ClockPlusHourandHalf &&
-        ClockPlusHourandHalf.avilable &&
-        ClockPlus2Hours &&
-        ClockPlus2Hours.avilable &&
-        ClockPlus2HoursandHalf &&
-        ClockPlus2HoursandHalf.avilable
-      ) {
-        setdisplay3(true)
-        setdisplay2andhalf(true)
-        setdisplay2(true)
-        setdisplay1andhalf(true)
-        setdisplay1(true)
 
-        console.log('the next 3 hours   is avilable settinf state...')
-      } else if (
-        ClockPlusHalfHour &&
-        ClockPlusHalfHour.avilable &&
-        ClockPlusHour &&
-        ClockPlusHour.avilable &&
-        ClockPlusHourandHalf &&
-        ClockPlusHourandHalf.avilable &&
-        ClockPlus2Hours &&
-        ClockPlus2Hours.avilable
-      ) {
-        setdisplay3(false)
-        setdisplay2andhalf(true)
-        setdisplay2(true)
-        setdisplay1andhalf(true)
-        setdisplay1(true)
-
-        console.log('the next 2 hours anf half  is avilable settinf state...')
-      } else if (
-        ClockPlusHalfHour &&
-        ClockPlusHalfHour.avilable &&
-        ClockPlusHour &&
-        ClockPlusHour.avilable &&
-        ClockPlusHourandHalf &&
-        ClockPlusHourandHalf.avilable
-      ) {
-        setdisplay3(false)
-        setdisplay2andhalf(false)
-        setdisplay2(true)
-        setdisplay1andhalf(true)
-        setdisplay1(true)
-
-        console.log('the next 2 hours  is avilable settinf state...')
-      } else if (
-        ClockPlusHalfHour &&
-        ClockPlusHalfHour.avilable &&
-        ClockPlusHour &&
-        ClockPlusHour.avilable
-      ) {
-        setdisplay3(false)
-        setdisplay2andhalf(false)
-        setdisplay2(false)
-        setdisplay1andhalf(true)
-        setdisplay1(true)
-        console.log('the  hour  and half is avilable settinf state...')
-      } else if (ClockPlusHalfHour && ClockPlusHalfHour.avilable) {
-        setdisplay3(false)
-        setdisplay2andhalf(false)
-        setdisplay2(false)
-        setdisplay1andhalf(false)
-        setdisplay1(true)
-        console.log('the next  hour is avilablw settinf state...')
-      } else if (ClockPlusHalfHour && !ClockPlusHalfHour.avilable) {
-        console.log('the next  hour is NOT  avilablw settinGS state...')
-        setdisplay1(false)
-        setdisplay3(false)
-        setdisplay2andhalf(false)
-        setdisplay2(false)
-        setdisplay1andhalf(false)
+          </div>`,
+            footer: `<div id='ActionsForUSer101'>
+<div id='CallClientBigBTN'><a
+              
+              href='tel:+972${mistaper.phone} id='smallcall'
+          
+            >
+              <i  class='fas fa-phone-alt'></i>
+            </a></div><div id='SMSBigBTN'><a
+              href='tel:+972${mistaper.phone} id='smallcall'
+            >
+             <i class="fas fa-envelope"></i>
+            </a></div></div>`,
+            imageUrl: mistaper.image,
+            imageWidth: 200,
+            imageHeight: 200,
+            // /0הוסף הברזה ///לא לשכח שהשעות הם 9:01
+            showDenyButton: CheckIfTimePassed(time) === true ? false : true,
+            denyButtonText: 'הברזה',
+            denyButtonColor: 'rgb(194, 0, 0)',
+            showCancelButton: true,
+            cancelButtonText: 'צא',
+            cancelButtonColor: 'rgb(0, 0, 0)',
+            showConfirmButton: isPaid ? false : true,
+            confirmButtonColor: 'rgb(3, 148, 39)',
+            confirmButtonText: 'תשלום',
+          })
+          .then(async (result) => {
+            if (result.isConfirmed) {
+              makeClockPAIDHandler(id, time, date)
+            } else if (result.isDenied) {
+              console.log(`THis User wasent arrive !!`)
+              console.log(`THis User wasent arrive !!`)
+              console.log(`THis User wasent arrive !!`)
+              console.log(`THis User wasent arrive !!`)
+              console.log(`THis User wasent arrive !!`)
+            }
+          })
+      } else if (avilable === false && !afterdate && isPaid) {
+        console.log(`SWALALALALA`)
+        console.log(`SWALALALALA`)
+        console.log(`SWALALALALA`)
+        console.log(`SWALALALALA`)
+        console.log(`SWALALALALA`)
+        showTorHandler(
+          time,
+          date,
+          avilable,
+          mistaper,
+          id,
+          WorkDayid,
+          tipulimList,
+          isPaid,
+          TotalAmmountPaid,
+          paymentMethod,
+          creditLastDigits,
+          ReciptNumber,
+          clock
+        )
+      } else if (avilable === false && afterdate && isPaid) {
+        showTorHandler(
+          time,
+          date,
+          avilable,
+          mistaper,
+          id,
+          WorkDayid,
+          tipulimList,
+          isPaid,
+          TotalAmmountPaid,
+          paymentMethod,
+          creditLastDigits,
+          ReciptNumber,
+          clock
+        )
+      } else if (avilable === true && !afterdate) {
+        Toast.fire({
+          icon: 'error',
+          title: 'שגיאה',
+          text: 'לא ניתן לקבוע תור לשעה שעברה',
+        })
+      } else if (avilable === true && afterdate) {
+        Toast.fire({
+          icon: 'error',
+          title: 'שגיאה',
+          text: 'לא ניתן לקבוע תור ליום שעבר',
+        })
       }
-    }
-    if (afterdate) {
-      console.log(`after date cant eddit TD`)
     } else {
+      console.log(`time  NOT passed !!`)
+
+      console.log(`THE COOSEN CLOCK IS:${ChoosenClock}!!!!`)
+      var elementPos = clockList
+        .map(function (x) {
+          return x._id
+        })
+        .indexOf(id)
+
+      var objectFound = clockList[elementPos]
+      console.log(elementPos)
+      console.log(objectFound)
+
+      var ClockPlusHalfHour = clockList[elementPos + 1]
+      var ClockPlusHour = clockList[elementPos + 2]
+      var ClockPlusHourandHalf = clockList[elementPos + 3]
+      var ClockPlus2Hours = clockList[elementPos + 4]
+      var ClockPlus2HoursandHalf = clockList[elementPos + 5]
+      var ClockPlus3Hours = clockList[elementPos + 6]
+      console.log(elementPos + 1)
+      if (objectFound && objectFound.avilable) {
+        setdisplayhalf(true)
+        console.log(objectFound.time)
+        console.log(objectFound.time)
+        console.log(objectFound.time)
+        const minutes = objectFound.time.split(':')[1]
+        const hour = objectFound.time.split(':')[0]
+        console.log(minutes)
+        console.log(hour)
+
+        if (
+          ClockPlusHalfHour &&
+          ClockPlusHalfHour.avilable &&
+          ClockPlusHour &&
+          ClockPlusHour.avilable &&
+          ClockPlusHourandHalf &&
+          ClockPlusHourandHalf.avilable &&
+          ClockPlus2Hours &&
+          ClockPlus2Hours.avilable &&
+          ClockPlus2HoursandHalf &&
+          ClockPlus2HoursandHalf.avilable
+        ) {
+          setdisplay3(true)
+          setdisplay2andhalf(true)
+          setdisplay2(true)
+          setdisplay1andhalf(true)
+          setdisplay1(true)
+
+          console.log('the next 3 hours   is avilable settinf state...')
+        } else if (
+          ClockPlusHalfHour &&
+          ClockPlusHalfHour.avilable &&
+          ClockPlusHour &&
+          ClockPlusHour.avilable &&
+          ClockPlusHourandHalf &&
+          ClockPlusHourandHalf.avilable &&
+          ClockPlus2Hours &&
+          ClockPlus2Hours.avilable
+        ) {
+          setdisplay3(false)
+          setdisplay2andhalf(true)
+          setdisplay2(true)
+          setdisplay1andhalf(true)
+          setdisplay1(true)
+
+          console.log('the next 2 hours anf half  is avilable settinf state...')
+        } else if (
+          ClockPlusHalfHour &&
+          ClockPlusHalfHour.avilable &&
+          ClockPlusHour &&
+          ClockPlusHour.avilable &&
+          ClockPlusHourandHalf &&
+          ClockPlusHourandHalf.avilable
+        ) {
+          setdisplay3(false)
+          setdisplay2andhalf(false)
+          setdisplay2(true)
+          setdisplay1andhalf(true)
+          setdisplay1(true)
+
+          console.log('the next 2 hours  is avilable settinf state...')
+        } else if (
+          ClockPlusHalfHour &&
+          ClockPlusHalfHour.avilable &&
+          ClockPlusHour &&
+          ClockPlusHour.avilable
+        ) {
+          setdisplay3(false)
+          setdisplay2andhalf(false)
+          setdisplay2(false)
+          setdisplay1andhalf(true)
+          setdisplay1(true)
+          console.log('the  hour  and half is avilable settinf state...')
+        } else if (ClockPlusHalfHour && ClockPlusHalfHour.avilable) {
+          setdisplay3(false)
+          setdisplay2andhalf(false)
+          setdisplay2(false)
+          setdisplay1andhalf(false)
+          setdisplay1(true)
+          console.log('the next  hour is avilablw settinf state...')
+        } else if (ClockPlusHalfHour && !ClockPlusHalfHour.avilable) {
+          console.log('the next  hour is NOT  avilablw settinGS state...')
+          setdisplay1(false)
+          setdisplay3(false)
+          setdisplay2andhalf(false)
+          setdisplay2(false)
+          setdisplay1andhalf(false)
+        }
+      }
       showTorHandler(
         time,
         date,
@@ -1285,7 +1477,20 @@ const AdminSingleWorkDay = ({ history, match }) => {
       )
     }
   }
-
+  const TehreIsSomeClocksNotPassedTime_Function = () => {
+    let ArrOfClocksNotPassedTime = []
+    for (let clock of clockList) {
+      if (!CheckIfTimePassed(clock.time)) {
+        ArrOfClocksNotPassedTime.push(clock.time)
+      }
+    }
+    console.log(`Array Of Clocks NotPassed Time:${ArrOfClocksNotPassedTime}`)
+    if (!ArrOfClocksNotPassedTime.length) {
+      return false
+    } else {
+      return true
+    }
+  }
   //BIG FUNCTION - WHEN CLICK ON TOR PANUI / TOR not Panui Handler
   const showTorHandler = (
     time,
@@ -1302,6 +1507,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
     ReciptNumber,
     clock
   ) => {
+    let CheckIfClockPassed = CheckIfTimePassed(time)
     if (avilable === false && !isPaid) {
       swalWithBootstrapButtons
         .fire({
@@ -1424,7 +1630,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
           showCancelButton: true,
           cancelButtonText: 'צא',
           cancelButtonColor: 'rgb(0, 0, 0)',
-
+          showConfirmButton: afterdate || CheckIfClockPassed ? false : true,
           confirmButtonColor: 'rgb(194, 0, 0)',
           confirmButtonText: 'ביטול תשלום',
         })
@@ -1433,7 +1639,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
             makeClockUnpaidHandler(id, time, date)
           }
         })
-    } else if (avilable === true) {
+    } else if (avilable === true && !afterdate) {
       swalWithBootstrapButtons
         .fire({
           scrollbarPadding: true,
@@ -1929,9 +2135,11 @@ const AdminSingleWorkDay = ({ history, match }) => {
       console.log(workingDay.Dateday)
 
       if (
-        year === workingDay.Dateyear && ////********asp need to be fix */
-        month === workingDay.Datemonth &&
-        day > workingDay.Dateday
+        (year === workingDay.Dateyear && ////********asp need to be fix */
+          month === workingDay.Datemonth &&
+          day > workingDay.Dateday) ||
+        year > workingDay.Dateyear ||
+        (year === workingDay.Dateyear && month > workingDay.Datemonth)
       ) {
         console.log(`Setfterdate TRUE`)
         console.log(`Setfterdate TRUE`)
@@ -2140,8 +2348,12 @@ const AdminSingleWorkDay = ({ history, match }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          {(SHOW_TH_CHHOSE && stateChecked) ||
-          (SHOW_TH_CHHOSE && select_OneTor) ? (
+          {(SHOW_TH_CHHOSE &&
+            stateChecked &&
+            TehreIsSomeClocksNotPassedTime_Function()) ||
+          (SHOW_TH_CHHOSE &&
+            select_OneTor &&
+            TehreIsSomeClocksNotPassedTime_Function()) ? (
             <div onClick={ARE_U_sure_delete_selected} id='DELETE_cirecle'>
               <span id='trash_iconXXX'>
                 <i class='fas fa-trash'></i>
@@ -3173,32 +3385,38 @@ const AdminSingleWorkDay = ({ history, match }) => {
                           >
                             {clock.time}
                           </td>
-                          <td
-                            id={`${
-                              SHOW_TH_CHHOSE
-                                ? 'tableTHdisplayNoneCHOOSEDISPLAY'
-                                : 'tableTHdisplayNoneCHOOSE'
-                            }`}
-                            className='classFOrTHdisplay2'
-                          >
-                            <form>
-                              <input
-                                onClick={() =>
-                                  selectOneTor(
-                                    clock._id,
-                                    clock.avilable,
-                                    clock.mistaper
-                                  )
-                                }
-                                type='checkbox'
-                                id='checkbox'
-                                aria-checked='false'
-                                className='checkboxxx'
-                                value={clock._id}
-                                data-valuetwo={clock._id}
-                              ></input>
-                            </form>{' '}
-                          </td>
+
+                          {!CheckIfTimePassed(clock.time) ? (
+                            <td
+                              id={`${
+                                SHOW_TH_CHHOSE
+                                  ? 'tableTHdisplayNoneCHOOSEDISPLAY'
+                                  : 'tableTHdisplayNoneCHOOSE'
+                              }`}
+                              className='classFOrTHdisplay2'
+                            >
+                              <form>
+                                <input
+                                  onClick={() =>
+                                    selectOneTor(
+                                      clock._id,
+                                      clock.avilable,
+                                      clock.mistaper
+                                    )
+                                  }
+                                  type='checkbox'
+                                  id='checkbox'
+                                  aria-checked='false'
+                                  className='checkboxxx'
+                                  value={clock._id}
+                                  data-valuetwo={clock._id}
+                                  data-value33={clock.avilable}
+                                ></input>
+                              </form>{' '}
+                            </td>
+                          ) : (
+                            <></>
+                          )}
                         </tr>
                       ))}
                   </tbody>
@@ -3461,6 +3679,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
                                   className='checkboxxx'
                                   value={clock._id}
                                   data-valuetwo={clock._id}
+                                  data-value33={clock.avilable}
                                 ></input>
                               </form>{' '}
                             </td>
@@ -3730,6 +3949,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
                                   className='checkboxxx'
                                   value={clock._id}
                                   data-valuetwo={clock._id}
+                                  data-value33={clock.avilable}
                                 ></input>
                               </form>{' '}
                             </td>
@@ -3999,6 +4219,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
                                   className='checkboxxx'
                                   value={clock._id}
                                   data-valuetwo={clock._id}
+                                  data-value33={clock.avilable}
                                 ></input>
                               </form>{' '}
                             </td>
