@@ -68,13 +68,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
   /****date for todaky for recipet Functionality */
   const searchDate = new Date()
   const FormatedSearchDate = moment(searchDate).format()
-  console.log(FormatedSearchDate)
-  console.log(FormatedSearchDate)
-  console.log(FormatedSearchDate)
-  console.log(FormatedSearchDate)
-  console.log(FormatedSearchDate)
-  console.log(FormatedSearchDate)
-  console.log(FormatedSearchDate)
+
   const CalculateMonthmonth = FormatedSearchDate.substring(0, 7)
   const month = CalculateMonthmonth.slice(-2) * 1
   const CalculateDay = FormatedSearchDate.substring(0, 10)
@@ -340,7 +334,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
 
   const FuncTionDeleteAllAvilableTors = () => {
     for (let clock of clockList) {
-      if (clock.avilable) {
+      if (clock.avilable && !CheckIfTimePassed(clock.time)) {
         dispatch(deleteAvilableClocks(WorkDayid, clock._id)).then(
           Swal.fire({
             text: ' מוחק את התורים הזמינים מהמערכת אנא המתן',
@@ -372,25 +366,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
       timer: 8000,
     })
   }
-  const FuncTionDeleteAllATors = () => {
-    for (let clock of clockList) {
-      dispatch(deleteAllClocks(WorkDayid, clock._id)).then(
-        Swal.fire({
-          text: ' מוחק את התורים מהמערכת אנא המתן',
-
-          imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
-          imageWidth: 400,
-          imageHeight: 400,
-          imageAlt: 'Custom image',
-          timer: 3000,
-          background: '#68b4ff00',
-          backdrop: 'rgba(0, 0, 0,0.8)',
-          color: 'rgba(255, 255, 255)',
-          showConfirmButton: false,
-        })
-      )
-    }
-  }
 
   const SwalFuncTionDeleteAllAvilableTors = () => {
     Swal.fire({
@@ -405,22 +380,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         FuncTionDeleteAllAvilableTors()
-      }
-    })
-  }
-  const SwalFuncTionDeleteAllTors = () => {
-    Swal.fire({
-      title: '?האם אתה בטוח שברצונך למחוק את כל השעות מיום עבודה זה',
-      text: `שים לב ביצוע פעולה זאת ימחק את כל התורים להיום שים `,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      cancelButtonText: 'ביטול',
-      confirmButtonText: 'מחק',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        FuncTionDeleteAllATors()
       }
     })
   }
@@ -657,38 +616,47 @@ const AdminSingleWorkDay = ({ history, match }) => {
   }
 
   const deleteHandler23 = (id) => {
-    Swal.fire({
-      title: '?אתה בטוח',
-      text: 'ברגע שתמחק את יום זה כל התורים בתוכו יעלמו ולא יהיה ניתן להשיבם',
-      icon: 'warning',
-      buttons: ['ביטול', 'מחק יום עבודה'],
+    let resultV = CanIdeleteToday_Function()
+    if (!resultV) {
+      Swal.fire({
+        title: '?אתה בטוח',
+        text: 'ברגע שתמחק את יום זה כל התורים בתוכו יעלמו ולא יהיה ניתן להשיבם',
+        icon: 'warning',
+        buttons: ['ביטול', 'מחק יום עבודה'],
 
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      cancelButtonText: 'ביטול',
-      confirmButtonText: 'כן אני בטוח',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(deleteWorkingday(id)).then(
-          Swal.fire({
-            text: ' מוחק את יום העבודה שביקשת אנא המתן',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        cancelButtonText: 'ביטול',
+        confirmButtonText: 'כן אני בטוח',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(deleteWorkingday(id)).then(
+            Swal.fire({
+              text: ' מוחק את יום העבודה שביקשת אנא המתן',
 
-            imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
-            imageWidth: 400,
-            imageHeight: 400,
-            imageAlt: 'Custom image',
-            timer: 8000,
-            background: '#68b4ff00',
-            backdrop: 'rgba(0, 0, 0,0.8)',
-            color: 'rgba(255, 255, 255)',
-            showConfirmButton: false,
-          })
-        )
-      } else {
-        console.log('your workingday is safe')
-      }
-    })
+              imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
+              imageWidth: 400,
+              imageHeight: 400,
+              imageAlt: 'Custom image',
+              timer: 8000,
+              background: '#68b4ff00',
+              backdrop: 'rgba(0, 0, 0,0.8)',
+              color: 'rgba(255, 255, 255)',
+              showConfirmButton: false,
+            })
+          )
+        } else {
+          console.log('your workingday is safe')
+        }
+      })
+    } else {
+      Toast.fire({
+        icon: 'error',
+        title: 'שגיאה',
+        text: 'לא ניתן למחוק יום עבודה שקבועים בו תורים',
+      })
+    }
   }
 
   const swalDeleteChoose = () => {
@@ -706,7 +674,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
         denyButtonText: `מחק את התורים הפנויים`,
         denyButtonColor: 'rgb(222, 0, 0)',
 
-        cancelButtonText: 'מחק את כל התורים',
+        cancelButtonText: 'מחק את יום העבודה',
         cancelButtonColor: 'rgb(222, 0, 0)',
         confirmButtonColor: 'rgb(222, 0, 0)',
         confirmButtonText: 'מחיקה ופינוי תורים לפי בחירה',
@@ -718,12 +686,9 @@ const AdminSingleWorkDay = ({ history, match }) => {
         } else if (result.isDenied) {
           SwalFuncTionDeleteAllAvilableTors()
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          SwalFuncTionDeleteAllTors()
+          deleteHandler23(workingDay._id)
         }
       })
-    document
-      .getElementById('deleteworkingDayBTN')
-      .addEventListener('click', () => deleteHandler23(workingDay._id))
   }
   const OpenSmallScreenOptions_Swal = () => {
     swalWithBootstrapButtons
@@ -732,7 +697,8 @@ const AdminSingleWorkDay = ({ history, match }) => {
         text: `   בחר את סוג הפעולה שברצונך לבצע`,
         icon: 'question',
         color: 'black',
-        showCancelButton: true,
+        showCancelButton: afterdate ? false : true,
+        showConfirmButton: afterdate ? false : true,
         showDenyButton: true,
         denyButtonText: `סכם יום עבודה`,
         denyButtonColor: 'rgb(21, 21, 21)',
@@ -1195,23 +1161,16 @@ const AdminSingleWorkDay = ({ history, match }) => {
 
   const CheckIfTimePassed = (time) => {
     const hourToCheck = time.substring(0, 2)
-    console.log(hourToCheck)
     const minuteToCheck = time.slice(3)
-    console.log(minuteToCheck)
 
     let searchDate2 = new Date()
     let FormatedSearchDate2 = moment(searchDate2).format()
-    console.log(FormatedSearchDate2)
     let CalculateminuteNow = FormatedSearchDate.slice(14)
     let MinuteNow = CalculateminuteNow.substring(0, 2)
     //let MinuteNow = '01'
     let CalculateHourNow = FormatedSearchDate.slice(11)
     let HourNow = CalculateHourNow.substring(0, 2)
     //let HourNow = '09'
-    let timeNow = `${HourNow}:${MinuteNow}`
-    console.log(timeNow)
-    console.log(time)
-
     if (
       HourNow > hourToCheck ||
       (HourNow === hourToCheck && MinuteNow > minuteToCheck)
@@ -1246,6 +1205,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
     if (CheckIfTimePassed_VAR) {
       console.log(`time passed !!`)
       //open no Delete Or Camcel Tor Swal - only payment
+
       if (avilable === false && !afterdate && !isPaid) {
         swalWithBootstrapButtons
           .fire({
@@ -1301,11 +1261,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
             }
           })
       } else if (avilable === false && !afterdate && isPaid) {
-        console.log(`SWALALALALA`)
-        console.log(`SWALALALALA`)
-        console.log(`SWALALALALA`)
-        console.log(`SWALALALALA`)
-        console.log(`SWALALALALA`)
         showTorHandler(
           time,
           date,
@@ -1351,6 +1306,13 @@ const AdminSingleWorkDay = ({ history, match }) => {
         })
       }
     } else {
+      if (afterdate && !isPaid && avilable) {
+        Toast.fire({
+          icon: 'error',
+          title: 'שגיאה',
+          text: 'לא ניתן לקבוע תור ליום שעבר',
+        })
+      }
       console.log(`time  NOT passed !!`)
 
       console.log(`THE COOSEN CLOCK IS:${ChoosenClock}!!!!`)
@@ -1361,9 +1323,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
         .indexOf(id)
 
       var objectFound = clockList[elementPos]
-      console.log(elementPos)
-      console.log(objectFound)
-
       var ClockPlusHalfHour = clockList[elementPos + 1]
       var ClockPlusHour = clockList[elementPos + 2]
       var ClockPlusHourandHalf = clockList[elementPos + 3]
@@ -1475,6 +1434,19 @@ const AdminSingleWorkDay = ({ history, match }) => {
         ReciptNumber,
         clock
       )
+    }
+  }
+  const CanIdeleteToday_Function = () => {
+    let arr = []
+    for (let clock of clockList) {
+      if (!clock.avilable) {
+        arr.push(clock.time)
+      }
+    }
+    if (!arr.length) {
+      return false
+    } else {
+      return true
     }
   }
   const TehreIsSomeClocksNotPassedTime_Function = () => {
@@ -1897,7 +1869,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
   }
 
   let returnClassNameForCheckedTR = (avilable) => {
-    console.log(avilable)
     if (!avilable) {
       return 'green'
     } else {
@@ -2127,20 +2098,15 @@ const AdminSingleWorkDay = ({ history, match }) => {
   //USE EFFECT  FOR RECIPT CREATING-IF PAST? - STATUS
   useEffect(() => {
     if (workingDay) {
-      console.log(year)
-      console.log(month)
-      console.log(day)
-      console.log(workingDay.Dateyear)
-      console.log(workingDay.Datemonth)
-      console.log(workingDay.Dateday)
-
       if (
-        (year === workingDay.Dateyear && ////********asp need to be fix */
+        (year === workingDay.Dateyear &&
           month === workingDay.Datemonth &&
           day > workingDay.Dateday) ||
         year > workingDay.Dateyear ||
         (year === workingDay.Dateyear && month > workingDay.Datemonth)
       ) {
+        console.log(`Setfterdate TRUE`)
+        console.log(`Setfterdate TRUE`)
         console.log(`Setfterdate TRUE`)
         console.log(`Setfterdate TRUE`)
         console.log(`Setfterdate TRUE`)
@@ -2164,7 +2130,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
       let arrfor2hoursandhalf = []
       let arrfor3hours = []
 
-      console.log(tipulimList)
       for (let tipul of tipulimList) {
         if (tipul.time == 30) {
           arr.push(tipul)
@@ -2205,12 +2170,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
       setArrarrfor2hours(arrfor2hours)
       setArrarrfor2hoursandhalf(arrfor2hoursandhalf)
       setArrarrfor3hours(arrfor3hours)
-      console.log(Arr)
-      console.log(Arrforhour)
-      console.log(Arrarrforhourandhalf)
-      console.log(Arrarrfor2hours)
-      console.log(Arrarrfor2hoursandhalf)
-      console.log(Arrarrfor3hours)
     }
   }, [tipulimList])
 
@@ -2981,22 +2940,15 @@ const AdminSingleWorkDay = ({ history, match }) => {
             <h2 id='headlineme'>יום {workingDay.dayInWeek}</h2>
             <h2 id='dayinWeek'> {workingDay.date}</h2>
           </Col>
-          {!afterdate ? (
-            <div
-              onClick={OpenSmallScreenOptions_Swal}
-              id='SMALL_SCREEN_ACTIONS'
-            >
-              <div id='actionsSmallScreen'>
+          <div onClick={OpenSmallScreenOptions_Swal} id='SMALL_SCREEN_ACTIONS'>
+            <div id='actionsSmallScreen'>
+              {' '}
+              <div id='actions123123div'>
                 {' '}
-                <div id='actions123123div'>
-                  {' '}
-                  <span id='thePlusIcon'>+ פעולות</span>
-                </div>
+                <span id='thePlusIcon'>+ פעולות</span>
               </div>
             </div>
-          ) : (
-            <></>
-          )}
+          </div>
 
           <Col md={12}>
             <div id='smallSicumScreen'>
