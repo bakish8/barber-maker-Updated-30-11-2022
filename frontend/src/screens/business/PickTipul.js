@@ -75,6 +75,7 @@ const PickTipul = ({ history, match }) => {
                       phone=''
                       name={tipul.name}
                       image={tipul.image}
+                      price={tipul.cost}
                     ></TreatmentItem>
                   </div>
                 ))}

@@ -31,7 +31,10 @@ import Nahel from '../components/Nahel/Nahel'
 import Tilt from 'react-parallax-tilt'
 import FAQ from '../components/HomePage/FAQ'
 import Testimonials from '../components/BussinesWeWorkWith/Testimonials'
-import { getBusissinesForHomePage } from '../actions/BuissnesActions/Buissnes_User_Actions'
+import {
+  getBuissnesDetailsfornav,
+  getBusissinesForHomePage,
+} from '../actions/BuissnesActions/Buissnes_User_Actions'
 const HomeScreen = ({ match, history }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1
@@ -41,8 +44,12 @@ const HomeScreen = ({ match, history }) => {
   const { loading, error, products, page, pages } = productList
   const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
   const { userGoogleInfo, Gsuccess } = userGoogleLogin
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading: userInfoloading, error: userInfoerror, userInfo } = userLogin
   const GetAllBusiness = useSelector((state) => state.GetAllBusiness)
   const { alllBusiness } = GetAllBusiness
+
+  const [Linki, setLinki] = useState(0)
 
   //functions for scroll highet
   const fixScrollHighetForBarberSystem = () => {
@@ -61,7 +68,28 @@ const HomeScreen = ({ match, history }) => {
     if (!alllBusiness) {
       dispatch(getBusissinesForHomePage())
     }
-  }, [alllBusiness])
+    if (userInfo && userInfo.WorkingIn != 0) {
+      console.log(`user is ADMIN`)
+      console.log(`user is ADMIN`)
+      console.log(`user is ADMIN`)
+      console.log(`user is ADMIN`)
+      console.log(`user is ADMIN`)
+      console.log(`user is ADMIN`)
+      console.log(`user is ADMIN`)
+      console.log(`user is ADMIN`)
+      console.log(`user is ADMIN`)
+      console.log(userInfo)
+      console.log(userInfo.workingIn)
+      setLinki(userInfo.workingIn)
+    } else if (userInfo && userInfo.ClientOfBusiness) {
+      console.log(userInfo.ClientOfBusiness)
+      console.log(userInfo.ClientOfBusiness)
+      console.log(userInfo.ClientOfBusiness)
+      console.log(userInfo.ClientOfBusiness)
+
+      setLinki(userInfo.ClientOfBusiness)
+    }
+  }, [userInfo])
 
   //redirect if userGoogleInfo with Bussines Id accsepted
   // useEffect(() => {
@@ -76,19 +104,26 @@ const HomeScreen = ({ match, history }) => {
   //     }
   //   }
   // }, [userGoogleInfo])
-
+  const MoveMeNow = () => {
+    console.log(`Clicked`)
+    dispatch(getBuissnesDetailsfornav(Linki))
+    history.push(`/business/${Linki}`)
+  }
   return (
     <>
       <Meta />
-
-      <Link to='/picksapar' className='call-to-us'>
-        <div className='call-to-us__label'>
-          <div className='callTousFIXED2'>
-            <span id='callTousFIXED'> קבע </span>
-            <span id='callTousFIXED'> תור </span>
+      {Linki != 0 ? (
+        <button onClick={() => MoveMeNow()} className='call-to-us'>
+          <div className='call-to-us__label'>
+            <div className='callTousFIXED2'>
+              <span id='callTousFIXED'> למספרה </span>
+              <span id='callTousFIXED'> שלי </span>
+            </div>
           </div>
-        </div>
-      </Link>
+        </button>
+      ) : (
+        <></>
+      )}
       <OpenVirtualBarberShop />
       <EmailMeTheDeetsComponent />
       <FAQ />

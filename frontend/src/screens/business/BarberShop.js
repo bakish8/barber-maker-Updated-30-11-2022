@@ -6,6 +6,7 @@ import ImageTWO from '../../components/HomePage/ImageTWO'
 import Aos from 'aos'
 import 'aos/dist/aos.css' ////add AOS effects
 import Swal from 'sweetalert2'
+import { Link } from 'react-router-dom'
 //add nav bar only spesific barber cab make actions
 const BarberShop = ({ history, match }) => {
   const BussinesID = match.params.id
@@ -61,6 +62,14 @@ const BarberShop = ({ history, match }) => {
 
   return (
     <>
+      <Link to={`/business/${BussinesID}/picksapar`} className='call-to-us'>
+        <div className='call-to-us__label'>
+          <div className='callTousFIXED2'>
+            <span id='callTousFIXED'> קבע </span>
+            <span id='callTousFIXED'> תור </span>
+          </div>
+        </div>
+      </Link>
       {business && success && (
         <div>
           <div>

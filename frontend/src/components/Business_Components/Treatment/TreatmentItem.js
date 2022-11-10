@@ -16,8 +16,11 @@ const TreatmentItem = (props) => {
               <i id='userIMGifNotimage1' class='fas fa-user-clock'></i>
             )}
           </div>
-          <div className='user-item1__info'>
-            <h3>{props.name}</h3>
+          <div className='user-item1__info333'>
+            <h4>{props.name}</h4>
+          </div>
+          <div className='TreatmentPrice'>
+            <div className='PriceTextt'>{props.price}₪</div>
           </div>
         </Link>
       </Card>
