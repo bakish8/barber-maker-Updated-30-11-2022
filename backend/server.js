@@ -91,7 +91,7 @@ passport.use(
           { withCredentials: true }
         )
         .then((res) => {
-          if (res.ok) {
+          if (res) {
             console.log(
               `respond is : ____________________________________________`
             )
