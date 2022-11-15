@@ -103,11 +103,11 @@ passport.use(
               return birthdayReturned
             } else {
               console.log(`Error Getting Birth Day Deets ... `)
-              return `Error Getting Birth Day Deets ... `
+              return null
             }
           })
       }
-      Bday = GetBdayGoogleDeets()
+      let Bday = GetBdayGoogleDeets()
 
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
@@ -147,7 +147,6 @@ app.get(
 )
 app.get(
   '/api/google/callback', // development + production
-  //'https://www.barber-maker.com/api/google/callback', // production
   passport.authenticate('google', {
     failureRedirect: '/login', // Fix to redirect to bussines page ...
   }),
@@ -206,9 +205,6 @@ app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 )
 app.get('/getgoogleuser', (req, res) => {
-  console.log(req.user)
-  console.log(req.user)
-
   res.status(207)
   res.send(req.user)
 })
