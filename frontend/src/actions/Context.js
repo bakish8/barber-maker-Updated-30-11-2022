@@ -18,7 +18,7 @@ export default function Context(props) {
       console.log(` ____________________________________________`)
       console.log(` ____________________________________________`)
 
-      //dispatch(Googlelogin(res.data.email))
+      dispatch(Googlelogin(res.data.email))
     })
   }, [dispatch])
 

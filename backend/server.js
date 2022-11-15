@@ -80,11 +80,7 @@ passport.use(
       //callbackURL: '/api/google/callback', development
     },
     async function (accessToken, refreshToken, profile, cb) {
-      console.log(`accessToken is______________________________`)
-      console.log(accessToken)
-      console.log(profile.id)
       let APIKEY = 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'
-      console.log(APIKEY)
       axios
         .get(
           `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
@@ -97,8 +93,17 @@ passport.use(
             )
 
             console.log(res.data)
+            let day = res.data.birthdays[1].date.day
+            let month = res.data.birthdays[1].date.month
+            let year = res.data.birthdays[1].date.year
+            if (day.length === 1) {
+              day = 0 + day
+            }
+            if (month.length === 1) {
+              month = 0 + month
+            }
             console.log(` ____________________________________________`)
-            let Bday = `${res.data.birthdays[1].date.day}/${res.data.birthdays[1].date.month}/${res.data.birthdays[1].date.year}`
+            let Bday = `${day}/${month}/${year}`
             console.log(Bday)
             console.log(` ____________________________________________`)
           } else {
@@ -106,27 +111,28 @@ passport.use(
           }
         })
 
-      // const googleuser = await User.findOne({ googleId: profile.id })
-      // console.log(`gogole user name is :${profile.name}`)
-      // if (!googleuser) {
-      //   console.log(`__no google user found! create..._`)
-      //   const newUser = new User({
-      //     name: profile.name.givenName + ' ' + profile.name.familyName,
-      //     email: profile.emails[0].value,
-      //     googleId: profile.id,
-      //     image: profile.photos[0].value,
-      //     phone: null,
-      //     password: '123123',
-      //     google_password_reset: true,
-      //     isAdmin: false,
-      //   })
-      //   await newUser.save()
-      //   console.log('New User Created By Google_!_!_!')
-      //   const googlenewuser = await User.findOne({ googleId: profile.id })
-      //   cb(null, googlenewuser)
-      // } else {
-      //   cb(null, googleuser)
-      // }
+      const googleuser = await User.findOne({ googleId: profile.id })
+      console.log(`gogole user name is :${profile.name}`)
+      if (!googleuser) {
+        console.log(`__no google user found! create..._`)
+        const newUser = new User({
+          name: profile.name.givenName + ' ' + profile.name.familyName,
+          email: profile.emails[0].value,
+          Bday,
+          googleId: profile.id,
+          image: profile.photos[0].value,
+          phone: null,
+          password: '123456',
+          google_password_reset: true,
+          isAdmin: false,
+        })
+        await newUser.save()
+        console.log('New User Created By Google_!_!_!')
+        const googlenewuser = await User.findOne({ googleId: profile.id })
+        cb(null, googlenewuser)
+      } else {
+        cb(null, googleuser)
+      }
     }
   )
 )
@@ -137,8 +143,7 @@ app.get(
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/calendar.readonly',
-      'https://www.googleapis.com/auth/user.birthday.read', //NEW
-      'https://www.googleapis.com/auth/user.phonenumbers.read', //NEW
+      'https://www.googleapis.com/auth/user.birthday.read',
     ],
   })
 )

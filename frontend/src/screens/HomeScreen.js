@@ -60,6 +60,18 @@ const HomeScreen = ({ match, history }) => {
     })
   }
 
+  let day = '1'
+  let month = '5'
+
+  if (day.length === 1) {
+    day = 0 + day
+  }
+  if (month.length === 1) {
+    month = 0 + month
+  }
+  console.log(day)
+  console.log(month)
+
   //USE EFFECT  for Aos Effects
   useEffect(() => {
     Aos.init({ duration: 500 })
