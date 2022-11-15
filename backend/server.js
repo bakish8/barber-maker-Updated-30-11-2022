@@ -91,23 +91,21 @@ passport.use(
           { withCredentials: true }
         )
         .then((res) => {
-          if (res) {
+          if (res.ok) {
             console.log(
               `respond is : ____________________________________________`
             )
-            console.log(
-              `respond is : ____________________________________________`
-            )
+
             console.log(res.data)
-            console.log(res.data.birthdays)
-            console.log(res.data.birthdays[0])
-            console.log(res.data.birthdays[1])
+            console.log(` ____________________________________________`)
+            console.log(res.data.birthdays[1].date.year)
+            console.log(res.data.birthdays[1].date.month)
+            console.log(res.data.birthdays[1].date.day)
             console.log(` ____________________________________________`)
             console.log(` ____________________________________________`)
           } else {
             console.log(`ERRRRRRRRRRRRRRRRRRROOOOOOOOOOOOORRRRRRRRRRRRRR`)
           }
-          //dispatch(Googlelogin(res.data.email))
         })
 
       // const googleuser = await User.findOne({ googleId: profile.id })
