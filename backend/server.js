@@ -98,7 +98,7 @@ passport.use(
             console.log(
               `respond is : ____________________________________________`
             )
-            console.log(res.birthdays)
+            console.log(res)
             console.log(` ____________________________________________`)
             console.log(` ____________________________________________`)
           } else {
