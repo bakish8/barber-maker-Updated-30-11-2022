@@ -18,6 +18,8 @@ import {
 import './LoginScreen.css'
 import moment from 'moment'
 import { io } from 'socket.io-client'
+import DatePicker, { DateObject } from 'react-multi-date-picker'
+import gregorian_ar from 'react-date-object/locales/gregorian_ar'
 
 var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
 var hasNumber = /\d/
@@ -25,10 +27,28 @@ var regName = /^[a-zA-Zא-ת]+ [a-zA-Zא-ת]+$/
 
 const BussinesRegisterScreen = ({ location, history, match }) => {
   const BussinesID = match.params.id
+  const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+  const weekDays = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'שבת']
+  const months = [
+    'ינואר',
+    'פבואר',
+    'מרץ',
+    'אפריל',
+    'מאי',
+    'יוני',
+    'יולי',
+    'אוגוסט',
+    'ספטמבר',
+    'אוקטובר',
+    'נובמבר',
+    'דצמבר',
+  ]
 
+  const [DateOfBirth, setDateOfBirth] = useState({ format: 'DD/MM/YYYY' })
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [Bday, setBday] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [socket, setSocket] = useState(null)
@@ -183,14 +203,34 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
         text: 'שדה השם הוא שדה חובה נא להזין את השם המלא שלך בעברית או באנגלית חשוב שהשם לא יכלול מספרים או אותיות מיוחידות כמו:?!@#$%^&*) ',
       })
     } else {
-      dispatch(register_client(name, email, phone, password, image, BussinesID))
+      dispatch(
+        register_client(
+          name,
+          email,
+          phone,
+          password,
+          image,
+          BussinesID,
+          DateOfBirth.gregorian
+        )
+      )
     }
   }
   const GoogleSigninsubmitHandler = () => {
     window.open('http://localhost:5000/api/google', '_self')
     console.log('ggggggggggggggggggooogle Login TRY')
   }
-
+  const convert = (date, format = DateOfBirth.format) => {
+    let object = { date, format }
+    setDateOfBirth({
+      gregorian: new DateObject(object).format(),
+      jsDate: date.toDate(),
+      ...object,
+    })
+    console.log(DateOfBirth.gregorian)
+    console.log(DateOfBirth.gregorian)
+    console.log(DateOfBirth.gregorian)
+  }
   return (
     <>
       <div class='login-box'>
@@ -233,6 +273,26 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
                     onChange={(e) => setPhone(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
+              </div>
+              <div className='user-box'>
+                <DatePicker
+                  onChange={convert}
+                  id='BdayPicker'
+                  format='DD/MM/YYYY'
+                  months={months}
+                  weekDays={weekDays}
+                  locale={gregorian_ar}
+                  placeholder='תאריך לידה'
+                  digits={digits}
+                  mapDays={({ date, today }) => {
+                    let props = {}
+                    let result = date.toDays() - today.toDays()
+                    if (result === -1) props.title = 'אתמול'
+                    if (result === 0) props.title = 'היום'
+                    if (result === 1) props.title = 'מחר'
+                    return props
+                  }}
+                ></DatePicker>
               </div>
               <div className='user-box'>
                 <Form.Group controlId='password'>

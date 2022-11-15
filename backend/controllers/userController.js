@@ -165,7 +165,8 @@ const authGoogleUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, phone, password, image, businessid } = req.body
+  const { name, email, phone, password, image, businessid, DateOfBirth } =
+    req.body
   const userExists = await User.findOne({ email })
   console.log(` ${businessid}...searching...`)
 
@@ -213,6 +214,7 @@ const registerUser = asyncHandler(async (req, res) => {
         firstname,
         lastname,
         email,
+        Bday: DateOfBirth,
         phone,
         password,
         image: 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif',
@@ -228,6 +230,7 @@ const registerUser = asyncHandler(async (req, res) => {
           firstname: firstname,
           lastname: lastname,
           email: user.email,
+          Bday: user.Bday,
           phone: user.phone,
           isAdmin: user.isAdmin,
           isAdminOfAdmins: user.isAdminOfAdmins,
@@ -247,6 +250,7 @@ const registerUser = asyncHandler(async (req, res) => {
         firstname,
         lastname,
         email,
+        Bday: DateOfBirth,
         phone,
         password,
         image,
@@ -262,6 +266,7 @@ const registerUser = asyncHandler(async (req, res) => {
           firstname: firstname,
           lastname: lastname,
           email: user.email,
+          Bday: user.Bday,
           phone: user.phone,
           isAdmin: user.isAdmin,
           isAdminOfAdmins: user.isAdminOfAdmins,
@@ -288,6 +293,7 @@ const registerUser = asyncHandler(async (req, res) => {
         firstname,
         lastname,
         email,
+        Bday: DateOfBirth,
         phone,
         password,
         image: 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif',
@@ -301,6 +307,7 @@ const registerUser = asyncHandler(async (req, res) => {
           firstname: firstname,
           lastname: lastname,
           email: user.email,
+          Bday: user.Bday,
           phone: user.phone,
           isAdmin: user.isAdmin,
           isAdminOfAdmins: user.isAdminOfAdmins,
@@ -320,6 +327,8 @@ const registerUser = asyncHandler(async (req, res) => {
         firstname,
         lastname,
         email,
+        Bday: DateOfBirth,
+
         phone,
         password,
         image,
@@ -333,6 +342,7 @@ const registerUser = asyncHandler(async (req, res) => {
           firstname: firstname,
           lastname: lastname,
           email: user.email,
+          Bday: user.Bday,
           phone: user.phone,
           isAdmin: user.isAdmin,
           isAdminOfAdmins: user.isAdminOfAdmins,

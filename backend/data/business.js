@@ -23,7 +23,7 @@ const business = [
     },
     websiteColors: 'black+blue',
     image: 'https://www.barber-maker.com/static/media/mistaper2.48fa0c62.jpg',
-    logo: 'https://i.ibb.co/p4cpnjV/AVIHAY-MEIR-HAITSTYLE-ARTIST.png',
+    logo: 'https://i.ibb.co/pP1vFcX/AVIHAY-MEIR-HAITSTYLE-ARTIST-V2.png',
     logoNameOnNav: false,
     phone: '0545200623',
     businessOwner: null,

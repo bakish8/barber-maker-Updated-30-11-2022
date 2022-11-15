@@ -17,6 +17,10 @@
   position: relative;
 }
 
+
+#BdayPicker{
+margin-top: 15px;
+}
 .login-box .user-box input {
   width: 100%;
   padding: 10px 0;

@@ -465,7 +465,13 @@ export const TREATMENTSListAction = (id) => async (dispatch, getState) => {
 }
 
 export const register_client =
-  (name, email, phone, password, image, businessid) => async (dispatch) => {
+  (name, email, phone, password, image, businessid, DateOfBirth) =>
+  async (dispatch) => {
+    console.log(DateOfBirth)
+    console.log(DateOfBirth)
+    console.log(DateOfBirth)
+    console.log(DateOfBirth)
+    console.log(DateOfBirth)
     try {
       dispatch({
         type: BUSINESS_USER_REGISTER_REQUEST,
@@ -479,7 +485,7 @@ export const register_client =
 
       const { data } = await axios.post(
         '/api/users',
-        { name, email, phone, password, image, businessid },
+        { name, email, phone, password, image, businessid, DateOfBirth },
         config
       )
 
