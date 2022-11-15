@@ -87,7 +87,7 @@ passport.use(
       console.log(APIKEY)
       axios
         .get(
-          `https://people.googleapis.com/v1/people/${profile.id}?personFields=${birthdays}&key=${APIKEY}&access_token=${accessToken}`,
+          `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
           { withCredentials: true }
         )
         .then((res) => {
