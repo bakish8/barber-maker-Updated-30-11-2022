@@ -82,6 +82,25 @@ passport.use(
       console.log(accessToken)
       console.log(accessToken)
       console.log(accessToken)
+
+ app.get(`https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw&access_token=${accessToken}` ).then((res) => {
+      console.log(`respond is : ____________________________________________`)
+      console.log(`respond is : ____________________________________________`)
+      console.log(`respond is : ____________________________________________`)
+      console.log(`respond is : ____________________________________________`)
+      console.log(`respond is : ____________________________________________`)
+      console.log(`respond is : ____________________________________________`)
+      console.log(res)
+      console.log(` ____________________________________________`)
+      console.log(` ____________________________________________`)
+      console.log(` ____________________________________________`)
+      console.log(` ____________________________________________`)
+      console.log(` ____________________________________________`)
+      console.log(` ____________________________________________`)
+      console.log(` ____________________________________________`)
+      console.log(` ____________________________________________`)
+
+
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
       if (!googleuser) {
