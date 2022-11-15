@@ -80,36 +80,34 @@ passport.use(
       //callbackURL: '/api/google/callback', development
     },
     async function (accessToken, refreshToken, profile, cb) {
-      let APIKEY = 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'
-      axios
-        .get(
-          `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
-          { withCredentials: true }
-        )
-        .then((res) => {
-          if (res) {
-            console.log(
-              `respond is : ____________________________________________`
-            )
-
-            console.log(res.data)
-            let day = res.data.birthdays[1].date.day
-            let month = res.data.birthdays[1].date.month
-            let year = res.data.birthdays[1].date.year
-            if (day.length === 1) {
-              day = 0 + day
+      let GetBdayGoogleDeets = async () => {
+        let APIKEY = 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'
+        await axios
+          .get(
+            `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
+            { withCredentials: true }
+          )
+          .then((res) => {
+            if (res) {
+              let day = res.data.birthdays[1].date.day
+              let month = res.data.birthdays[1].date.month
+              let year = res.data.birthdays[1].date.year
+              if (day.length === 1) {
+                day = 0 + day
+              }
+              if (month.length === 1) {
+                month = 0 + month
+              }
+              let birthdayReturned = `${day}/${month}/${year}`
+              console.log(birthdayReturned)
+              return birthdayReturned
+            } else {
+              console.log(`Error Getting Birth Day Deets ... `)
+              return `Error Getting Birth Day Deets ... `
             }
-            if (month.length === 1) {
-              month = 0 + month
-            }
-            console.log(` ____________________________________________`)
-            let Bday = `${day}/${month}/${year}`
-            console.log(Bday)
-            console.log(` ____________________________________________`)
-          } else {
-            console.log(`ERRRRRRRRRRRRRRRRRRROOOOOOOOOOOOORRRRRRRRRRRRRR`)
-          }
-        })
+          })
+      }
+      Bday = GetBdayGoogleDeets()
 
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
