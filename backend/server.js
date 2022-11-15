@@ -98,10 +98,8 @@ passport.use(
 
             console.log(res.data)
             console.log(` ____________________________________________`)
-            console.log(res.data.birthdays[1].date.year)
-            console.log(res.data.birthdays[1].date.month)
-            console.log(res.data.birthdays[1].date.day)
-            console.log(` ____________________________________________`)
+            let Bday = `${res.data.birthdays[1].date.day}/${res.data.birthdays[1].date.month}/${res.data.birthdays[1].date.year}`
+            console.log(Bday)
             console.log(` ____________________________________________`)
           } else {
             console.log(`ERRRRRRRRRRRRRRRRRRROOOOOOOOOOOOORRRRRRRRRRRRRR`)
@@ -140,6 +138,7 @@ app.get(
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/calendar.readonly',
       'https://www.googleapis.com/auth/user.birthday.read', //NEW
+      'https://www.googleapis.com/auth/user.phonenumbers.read', //NEW
     ],
   })
 )
