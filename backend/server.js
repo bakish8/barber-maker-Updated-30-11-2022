@@ -78,6 +78,10 @@ passport.use(
       //callbackURL: '/api/google/callback', development
     },
     async function (accessToken, refreshToken, profile, cb) {
+      console.log(`accessToken is______________________________`)
+      console.log(accessToken)
+      console.log(accessToken)
+      console.log(accessToken)
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
       if (!googleuser) {
