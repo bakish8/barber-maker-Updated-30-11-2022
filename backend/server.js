@@ -81,14 +81,6 @@ passport.use(
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
       if (!googleuser) {
-        fetch(
-          `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays,&access_token=${accessToken}`
-        ).then((response) =>
-          console.log(
-            `response IS ______________________________________________________________________${response}`
-          )
-        )
-
         console.log(`__no google user found! create..._`)
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
