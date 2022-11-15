@@ -31,6 +31,8 @@ import http from 'http'
 const SSocket = Socket
 import User from './models/userModel.js'
 import cors from 'cors'
+import axios from 'axios'
+
 let random = Math.floor(Math.random() * 100000000000) + 1 // RANDOM FOR SESSION
 const app = express()
 app.use(express.json())
@@ -80,57 +82,53 @@ passport.use(
     async function (accessToken, refreshToken, profile, cb) {
       console.log(`accessToken is______________________________`)
       console.log(accessToken)
-      console.log(accessToken)
-      console.log(accessToken)
-
-      app
+      console.log(profile.id)
+      let APIKEY = 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'
+      console.log(APIKEY)
+      axios
         .get(
-          `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw&access_token=${accessToken}`
+          `https://people.googleapis.com/v1/people/${profile.id}?personFields=${birthdays}&key=${APIKEY}&access_token=${accessToken}`,
+          { withCredentials: true }
         )
         .then((res) => {
-          console.log(
-            `respond is : ____________________________________________`
-          )
-          console.log(
-            `respond is : ____________________________________________`
-          )
-          console.log(
-            `respond is : ____________________________________________`
-          )
-          console.log(
-            `respond is : ____________________________________________`
-          )
-          console.log(res)
-          console.log(` ____________________________________________`)
-          console.log(` ____________________________________________`)
-          console.log(` ____________________________________________`)
-          console.log(` ____________________________________________`)
-          console.log(` ____________________________________________`)
-          console.log(` ____________________________________________`)
-          console.log(` ____________________________________________`)
-          console.log(` ____________________________________________`)
+          if (res) {
+            console.log(
+              `respond is : ____________________________________________`
+            )
+            console.log(
+              `respond is : ____________________________________________`
+            )
+            console.log(res)
+            console.log(` ____________________________________________`)
+            console.log(` ____________________________________________`)
+          } else {
+            console.log(`ERRRRRRRRRRRRRRRRRRROOOOOOOOOOOOORRRRRRRRRRRRRR`)
+          }
+
+          //dispatch(Googlelogin(res.data.email))
         })
-      const googleuser = await User.findOne({ googleId: profile.id })
-      console.log(`gogole user name is :${profile.name}`)
-      if (!googleuser) {
-        console.log(`__no google user found! create..._`)
-        const newUser = new User({
-          name: profile.name.givenName + ' ' + profile.name.familyName,
-          email: profile.emails[0].value,
-          googleId: profile.id,
-          image: profile.photos[0].value,
-          phone: null,
-          password: '123123',
-          google_password_reset: true,
-          isAdmin: false,
-        })
-        await newUser.save()
-        console.log('New User Created By Google_!_!_!')
-        const googlenewuser = await User.findOne({ googleId: profile.id })
-        cb(null, googlenewuser)
-      } else {
-        cb(null, googleuser)
-      }
+
+      // const googleuser = await User.findOne({ googleId: profile.id })
+      // console.log(`gogole user name is :${profile.name}`)
+      // if (!googleuser) {
+      //   console.log(`__no google user found! create..._`)
+      //   const newUser = new User({
+      //     name: profile.name.givenName + ' ' + profile.name.familyName,
+      //     email: profile.emails[0].value,
+      //     googleId: profile.id,
+      //     image: profile.photos[0].value,
+      //     phone: null,
+      //     password: '123123',
+      //     google_password_reset: true,
+      //     isAdmin: false,
+      //   })
+      //   await newUser.save()
+      //   console.log('New User Created By Google_!_!_!')
+      //   const googlenewuser = await User.findOne({ googleId: profile.id })
+      //   cb(null, googlenewuser)
+      // } else {
+      //   cb(null, googleuser)
+      // }
     }
   )
 )
