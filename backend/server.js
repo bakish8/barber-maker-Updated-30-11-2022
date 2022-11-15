@@ -81,6 +81,14 @@ passport.use(
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
       if (!googleuser) {
+        fetch(
+          `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays,&access_token=${accessToken}`
+        ).then((response) =>
+          console.log(
+            `response IS ______________________________________________________________________${response}`
+          )
+        )
+
         console.log(`__no google user found! create..._`)
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
@@ -109,6 +117,7 @@ app.get(
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/calendar.readonly',
+      'https://www.googleapis.com/auth/user.birthday.read', //NEW
     ],
   })
 )
@@ -116,10 +125,10 @@ app.get(
   '/api/google/callback', // development + production
   //'https://www.barber-maker.com/api/google/callback', // production
   passport.authenticate('google', {
-    failureRedirect: '/login',
+    failureRedirect: '/login', // Fix to redirect to bussines page ...
   }),
   function (req, res) {
-    res.redirect('/') //production //
+    res.redirect('/') //production // Fix to redirect to bussines page ...
   }
 )
 // ██╗███╗   ██╗████████╗███████╗██████╗ ██╗   ██╗ █████╗ ██╗
