@@ -98,13 +98,15 @@ passport.use(
             console.log(
               `respond is : ____________________________________________`
             )
-            console.log(res)
+            console.log(res.data)
+            console.log(res.data.birthdays)
+            console.log(res.data.birthdays[0])
+            console.log(res.data.birthdays[1])
             console.log(` ____________________________________________`)
             console.log(` ____________________________________________`)
           } else {
             console.log(`ERRRRRRRRRRRRRRRRRRROOOOOOOOOOOOORRRRRRRRRRRRRR`)
           }
-
           //dispatch(Googlelogin(res.data.email))
         })
 
