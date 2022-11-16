@@ -33,8 +33,6 @@ import User from './models/userModel.js'
 import cors from 'cors'
 import axios from 'axios'
 
-let BussinesIDforGoogleNewUser = ''
-
 let random = Math.floor(Math.random() * 100000000000) + 1 // RANDOM FOR SESSION
 const app = express()
 app.use(express.json())
@@ -151,17 +149,23 @@ passport.use(
   )
 )
 
-app.get(
-  `/api/google`,
-  passport.authenticate('google', {
-    scope: [
-      'https://www.googleapis.com/auth/userinfo.profile',
-      'https://www.googleapis.com/auth/userinfo.email',
-      'https://www.googleapis.com/auth/calendar.readonly',
-      'https://www.googleapis.com/auth/user.birthday.read',
-    ],
-  })
-)
+// app.get(
+//   `/api/google`,
+//   passport.authenticate('google', {
+//     scope: [
+//       'https://www.googleapis.com/auth/userinfo.profile',
+//       'https://www.googleapis.com/auth/userinfo.email',
+//       'https://www.googleapis.com/auth/calendar.readonly',
+//       'https://www.googleapis.com/auth/user.birthday.read',
+//     ],
+//   })
+// )
+
+app.get(`/api/google`, (req, res) => {
+  res.status(207)
+  console.log(req)
+})
+
 app.get(
   '/api/google/callback', // development + production
   passport.authenticate('google', {
