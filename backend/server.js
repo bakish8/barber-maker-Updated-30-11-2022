@@ -86,7 +86,7 @@ passport.use(
           `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
           { withCredentials: true }
         )
-        .then((res) => {
+        .then(async (res) => {
           if (res) {
             let day = res.data.birthdays[1].date.day
             let month = res.data.birthdays[1].date.month
@@ -99,40 +99,40 @@ passport.use(
             }
             let birthdayReturned = `${day}/${month}/${year}`
             console.log(birthdayReturned)
+
+            console.log(
+              `__________________ ________________ _________________ _____________________`
+            )
+            console.log(birthdayReturned)
+            console.log(
+              `__________________ ________________ _________________ _____________________`
+            )
+            const googleuser = await User.findOne({ googleId: profile.id })
+            console.log(`gogole user name is :${profile.name}`)
+            if (!googleuser) {
+              console.log(`__no google user found! create..._`)
+              const newUser = new User({
+                name: profile.name.givenName + ' ' + profile.name.familyName,
+                email: profile.emails[0].value,
+                Bday: birthdayReturned,
+                googleId: profile.id,
+                image: profile.photos[0].value,
+                phone: null,
+                password: '123456',
+                google_password_reset: true,
+                isAdmin: false,
+              })
+              await newUser.save()
+              console.log('New User Created By Google_!_!_!')
+              const googlenewuser = await User.findOne({ googleId: profile.id })
+              cb(null, googlenewuser)
+            } else {
+              cb(null, googleuser)
+            }
           } else {
             console.log(`Error Getting Birth Day Deets ... `)
           }
         })
-
-      console.log(
-        `__________________ ________________ _________________ _____________________`
-      )
-      console.log(birthdayReturned)
-      console.log(
-        `__________________ ________________ _________________ _____________________`
-      )
-      const googleuser = await User.findOne({ googleId: profile.id })
-      console.log(`gogole user name is :${profile.name}`)
-      if (!googleuser) {
-        console.log(`__no google user found! create..._`)
-        const newUser = new User({
-          name: profile.name.givenName + ' ' + profile.name.familyName,
-          email: profile.emails[0].value,
-          Bday: birthdayReturned,
-          googleId: profile.id,
-          image: profile.photos[0].value,
-          phone: null,
-          password: '123456',
-          google_password_reset: true,
-          isAdmin: false,
-        })
-        await newUser.save()
-        console.log('New User Created By Google_!_!_!')
-        const googlenewuser = await User.findOne({ googleId: profile.id })
-        cb(null, googlenewuser)
-      } else {
-        cb(null, googleuser)
-      }
     }
   )
 )
