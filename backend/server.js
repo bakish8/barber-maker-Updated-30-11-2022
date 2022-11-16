@@ -80,9 +80,9 @@ passport.use(
       //callbackURL: '/api/google/callback', development
     },
     async function (accessToken, refreshToken, profile, cb) {
-      let GetBdayGoogleDeets = async () => {
+      let GetBdayGoogleDeets = () => {
         let APIKEY = 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'
-        await axios
+        axios
           .get(
             `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
             { withCredentials: true }
