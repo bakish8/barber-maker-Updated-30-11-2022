@@ -92,17 +92,15 @@ passport.use(
             let month = res.data.birthdays[1].date.month
             let year = res.data.birthdays[1].date.year
             if (day.length === 1) {
-              day = '0' + `${day}`
+              day = day.toString().padStart(2, '0')
             }
             if (month.length === 1) {
-              month = '0' + `${month}`
+              month = month.toString().padStart(2, '0')
             }
             console.log(day)
             console.log(month)
 
-            let birthdayReturned = `${day.length === 1 ? '0' + day : day}/${
-              month.length === 1 ? '0' + month : month
-            }/${year}`
+            let birthdayReturned = `${day}/${month}/${year}`
             console.log(birthdayReturned)
 
             console.log(
