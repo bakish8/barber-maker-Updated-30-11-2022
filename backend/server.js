@@ -92,10 +92,10 @@ passport.use(
             let month = res.data.birthdays[1].date.month
             let year = res.data.birthdays[1].date.year
             if (day.length === 1) {
-              day = '0' + day
+              day = '0' + `${day}`
             }
             if (month.length === 1) {
-              month = '0' + month
+              month = '0' + `${month}`
             }
             console.log(day)
             console.log(month)
