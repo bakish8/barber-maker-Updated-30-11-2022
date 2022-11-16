@@ -1,7 +1,7 @@
 //****need To Bring Back Admin ID and Only AFTER registeration !!!*/
 
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { Form, Button, Row, Col } from 'react-bootstrap'
@@ -68,10 +68,19 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     GetAdminName
   const redirect = `/business/${BussinesID}`
 
+  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
+  const { userGoogleInfo, Gsuccess } = userGoogleLogin
+  const prevLocation = useLocation()
+
+  useEffect(() => {
+    if (Gsuccess) {
+      history.push(`/${prevLocation}`)
+    }
+  }, [Gsuccess])
+
   useEffect(() => {
     setSocket(io())
   }, [])
-
   console.log(`socket:${socket}`)
   useEffect(() => {
     if (userInfo) {

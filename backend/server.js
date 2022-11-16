@@ -149,23 +149,17 @@ passport.use(
   )
 )
 
-// app.get(
-//   `/api/google`,
-//   passport.authenticate('google', {
-//     scope: [
-//       'https://www.googleapis.com/auth/userinfo.profile',
-//       'https://www.googleapis.com/auth/userinfo.email',
-//       'https://www.googleapis.com/auth/calendar.readonly',
-//       'https://www.googleapis.com/auth/user.birthday.read',
-//     ],
-//   })
-// )
-
-app.get(`/api/google`, (req, res) => {
-  res.status(207)
-  console.log(req)
-})
-
+app.get(
+  `/api/google`,
+  passport.authenticate('google', {
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/calendar.readonly',
+      'https://www.googleapis.com/auth/user.birthday.read',
+    ],
+  })
+)
 app.get(
   '/api/google/callback', // development + production
   passport.authenticate('google', {
