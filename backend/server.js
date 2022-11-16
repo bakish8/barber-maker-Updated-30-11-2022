@@ -100,7 +100,9 @@ passport.use(
             console.log(day)
             console.log(month)
 
-            let birthdayReturned = `${day}/${month}/${year}`
+            let birthdayReturned = `${day.length === 1 ? '0' + day : day}/${
+              month.length === 1 ? '0' + month : month
+            }/${year}`
             console.log(birthdayReturned)
 
             console.log(
