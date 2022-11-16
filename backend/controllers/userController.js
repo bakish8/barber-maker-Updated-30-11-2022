@@ -388,11 +388,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
   if (user) {
     //****להמשיך לעדכן עדכון תמונה בהמשך  */
-    user.name = req.body.name || user.name
-    user.firstname = req.body.name.split(' ')[0] || user.firstname
-    user.lastname = req.body.name.split(' ')[1] || user.lastname
-    user.email = req.body.email || user.email
-    user.phone = req.body.phone || user.phone
+    user.name = req.body.name ? req.body.name : user.name
+    user.firstname = req.body.name
+      ? req.body.name.split(' ')[0]
+      : user.firstname
+    user.lastname = req.body.name ? req.body.name.split(' ')[1] : user.lastname
+    user.email = req.body.email ? req.body.email : user.email
+    user.phone = req.body.phone ? req.body.phone : user.phone
 
     if (req.body.password) {
       user.password = req.body.password
@@ -460,14 +462,14 @@ const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)
 
   if (user) {
-    user.name = req.body ? req.body.name : user.name
-    user.firstname = req.body ? req.body.name.split(' ')[0] : user.firstname
-    user.lastname = req.body ? req.body.name.split(' ')[1] : user.lastname
-    user.email = req.body ? req.body.email : user.email
-    user.phone = req.body ? req.body.phone : user.phone
-    user.image = req.body ? req.body.image : user.image
-    user.isAdmin = req.body ? req.body.isAdmin : user.isAdmin
-    user.WorkingIn = req.body ? req.body.BusinessId : user.WorkingIn
+    user.name = req.body.name || user.name
+    user.firstname = req.body.name.split(' ')[0] || user.firstname
+    user.lastname = req.body.name.split(' ')[1] || user.lastname
+    user.email = req.body.email || user.email
+    user.phone = req.body.phone || user.phone
+    user.image = req.body.image || user.image
+    user.isAdmin = req.body.isAdmin
+    user.WorkingIn = req.body.BusinessId
 
     const updatedUser = await user.save()
 
