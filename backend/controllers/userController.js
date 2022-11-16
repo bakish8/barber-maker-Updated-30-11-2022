@@ -460,14 +460,14 @@ const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)
 
   if (user) {
-    user.name = req.body.name || user.name
-    user.firstname = req.body.name.split(' ')[0] || user.firstname
-    user.lastname = req.body.name.split(' ')[1] || user.lastname
-    user.email = req.body.email || user.email
-    user.phone = req.body.phone || user.phone
-    user.image = req.body.image || user.image
-    user.isAdmin = req.body.isAdmin
-    user.WorkingIn = req.body.BusinessId
+    user.name = req.body ? req.body.name : user.name
+    user.firstname = req.body ? req.body.name.split(' ')[0] : user.firstname
+    user.lastname = req.body ? req.body.name.split(' ')[1] : user.lastname
+    user.email = req.body ? req.body.email : user.email
+    user.phone = req.body ? req.body.phone : user.phone
+    user.image = req.body ? req.body.image : user.image
+    user.isAdmin = req.body ? req.body.isAdmin : user.isAdmin
+    user.WorkingIn = req.body ? req.body.BusinessId : user.WorkingIn
 
     const updatedUser = await user.save()
 
