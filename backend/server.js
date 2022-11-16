@@ -151,14 +151,8 @@ passport.use(
   )
 )
 
-app.get('/getgoogleuser', (req, res) => {
-  res.status(207)
-  res.send(req.user)
-})
-
-app.get(`/api/google`, (req, res) => {
-  console.log(`req_____________________ - - -- - -_______ _ _ _ __-----------`)
-  console.log(req)
+app.get(
+  `/api/google`,
   passport.authenticate('google', {
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
@@ -167,7 +161,7 @@ app.get(`/api/google`, (req, res) => {
       'https://www.googleapis.com/auth/user.birthday.read',
     ],
   })
-})
+)
 app.get(
   '/api/google/callback', // development + production
   passport.authenticate('google', {
