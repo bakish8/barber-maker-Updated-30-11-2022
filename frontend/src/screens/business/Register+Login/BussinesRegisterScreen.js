@@ -217,7 +217,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     }
   }
   const GoogleSigninsubmitHandler = () => {
-    window.open(`http://localhost:5000/api/google/${BussinesID}`, '_self')
+    window.open('http://localhost:5000/api/google', '_self')
   }
   const convert = (date, format = DateOfBirth.format) => {
     let object = { date, format }

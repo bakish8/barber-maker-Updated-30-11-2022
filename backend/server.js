@@ -83,12 +83,6 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, cb) {
       let APIKEY = 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'
-      console.log(BussinesIDforGoogleNewUser)
-      console.log(BussinesIDforGoogleNewUser)
-      console.log(BussinesIDforGoogleNewUser)
-      console.log(BussinesIDforGoogleNewUser)
-      console.log(BussinesIDforGoogleNewUser)
-      console.log(BussinesIDforGoogleNewUser)
       axios
         .get(
           `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
@@ -156,8 +150,15 @@ passport.use(
     }
   )
 )
-app.get(
-  `/api/google/:id`,
+
+app.get('/getgoogleuser', (req, res) => {
+  res.status(207)
+  res.send(req.user)
+})
+
+app.get(`/api/google`, (req, res) => {
+  console.log(`req_____________________ - - -- - -_______ _ _ _ __-----------`)
+  console.log(req)
   passport.authenticate('google', {
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
@@ -166,7 +167,7 @@ app.get(
       'https://www.googleapis.com/auth/user.birthday.read',
     ],
   })
-)
+})
 app.get(
   '/api/google/callback', // development + production
   passport.authenticate('google', {
