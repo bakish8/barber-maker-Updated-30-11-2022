@@ -108,7 +108,13 @@ passport.use(
           })
       }
       let Bday = GetBdayGoogleDeets()
-
+      console.log(
+        `__________________ ________________ _________________ _____________________`
+      )
+      console.log(Bday)
+      console.log(
+        `__________________ ________________ _________________ _____________________`
+      )
       const googleuser = await User.findOne({ googleId: profile.id })
       console.log(`gogole user name is :${profile.name}`)
       if (!googleuser) {
