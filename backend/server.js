@@ -88,6 +88,7 @@ passport.use(
         )
         .then(async (res) => {
           if (res) {
+            // if res for Bday is OK calculate and Register Bday
             let day = res.data.birthdays[1].date.day.toString()
             let month = res.data.birthdays[1].date.month.toString()
             let year = res.data.birthdays[1].date.year
@@ -97,27 +98,36 @@ passport.use(
             if (month.length === 1) {
               month = month.toString().padStart(2, '0')
             }
-            console.log(day)
-            console.log(month)
-
             let birthdayReturned = `${day}/${month}/${year}`
-            console.log(birthdayReturned)
-
-            console.log(
-              `__________________ ________________ _________________ _____________________`
-            )
-            console.log(birthdayReturned)
-            console.log(
-              `__________________ ________________ _________________ _____________________`
-            )
             const googleuser = await User.findOne({ googleId: profile.id })
             console.log(`gogole user name is :${profile.name}`)
-            if (!googleuser) {
+            if (!googleuser && birthdayReturned) {
               console.log(`__no google user found! create..._`)
               const newUser = new User({
                 name: profile.name.givenName + ' ' + profile.name.familyName,
                 email: profile.emails[0].value,
                 Bday: birthdayReturned,
+                googleId: profile.id,
+                image: profile.photos[0].value,
+                phone: null,
+                password: birthdayReturned,
+                google_password_reset: true,
+                isAdmin: false,
+              })
+              await newUser.save()
+              console.log('New User Created By Google_!_!_!')
+              const googlenewuser = await User.findOne({ googleId: profile.id })
+              cb(null, googlenewuser)
+            } else {
+              cb(null, googleuser)
+            }
+          } else {
+            // if res for Bday is NOT  OK Register Without Bday
+            if (!googleuser) {
+              console.log(`__no google user found! create..._`)
+              const newUser = new User({
+                name: profile.name.givenName + ' ' + profile.name.familyName,
+                email: profile.emails[0].value,
                 googleId: profile.id,
                 image: profile.photos[0].value,
                 phone: null,
@@ -132,7 +142,6 @@ passport.use(
             } else {
               cb(null, googleuser)
             }
-          } else {
             console.log(`Error Getting Birth Day Deets ... `)
           }
         })
@@ -159,6 +168,21 @@ app.get(
     res.redirect('/') //production // Fix to redirect to bussines page ...
   }
 )
+app.get(`/api/business_new_google_user`),
+  (req, res) => {
+    console.log(
+      `______________________________________REQ BODY_________________________________________`
+    )
+    console.log(
+      `______________________________________REQ BODY_________________________________________`
+    )
+    console.log(
+      `______________________________________REQ BODY_________________________________________`
+    )
+    console.log(req)
+    console.log(req.body)
+  }
+
 // ██╗███╗   ██╗████████╗███████╗██████╗ ██╗   ██╗ █████╗ ██╗
 // ██║████╗  ██║╚══██╔══╝██╔════╝██╔══██╗██║   ██║██╔══██╗██║
 // ██║██╔██╗ ██║   ██║   █████╗  ██████╔╝██║   ██║███████║██║

@@ -216,7 +216,8 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
       )
     }
   }
-  const GoogleSigninsubmitHandler = () => {
+  const GoogleSigninsubmitHandler = async () => {
+    await axios.post(`/api/business_new_google_user`, { BussinesID })
     window.open('http://localhost:5000/api/google', '_self')
     console.log('ggggggggggggggggggooogle Login TRY')
   }
