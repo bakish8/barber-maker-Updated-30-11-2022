@@ -88,8 +88,8 @@ passport.use(
         )
         .then(async (res) => {
           if (res) {
-            let day = res.data.birthdays[1].date.day
-            let month = res.data.birthdays[1].date.month
+            let day = res.data.birthdays[1].date.day.toString()
+            let month = res.data.birthdays[1].date.month.toString()
             let year = res.data.birthdays[1].date.year
             if (day.length === 1) {
               day = day.toString().padStart(2, '0')
