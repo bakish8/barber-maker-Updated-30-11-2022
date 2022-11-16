@@ -85,6 +85,7 @@ import {
   BUILD_RESET_PAGE_FOR_PHONE_REDUCER,
   SendTorSMS_RESET_Reducer,
   INITIAL_PASSWORD_REDUCER,
+  BusssinesGoogleLoginReducer,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -145,6 +146,7 @@ const reducer = combineReducers({
   confirmMyTor: confirmTorReducer,
   AvilableTors: avilableTorsReducer,
   Tors: TorsReducer,
+  BusssinesGoogleLoginR: BusssinesGoogleLoginReducer,
   MyTorim: MyTorimListMyReducer,
   CancelTor: cancelTorReducer,
   Payment: PayTorReducer,

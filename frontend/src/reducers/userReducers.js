@@ -1,4 +1,7 @@
 import {
+  BUSSINES_GOOGLE_LOGIN_REQUEST,
+  BUSSINES_GOOGLE_LOGIN_SUCCESS,
+  BUSSINES_GOOGLE_LOGIN_FAIL,
   SEND_RESET_SMS_TOR_RESET,
   SEND_RESET_SMS_TOR_REQUEST,
   SEND_RESET_SMS_TOR_SUCCESS,
@@ -1314,6 +1317,27 @@ export const RegisterNewTipulReducer = (state = {}, action) => {
         newTipulsuccess: false,
         newTipulloading: false,
         newTipulerror: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const BusssinesGoogleLoginReducer = (state = {}, action) => {
+  switch (action.type) {
+    case BUSSINES_GOOGLE_LOGIN_REQUEST:
+      return { loading: true }
+    case BUSSINES_GOOGLE_LOGIN_SUCCESS:
+      return {
+        success: true,
+        loading: false,
+        newTipul: action.payload,
+      }
+    case BUSSINES_GOOGLE_LOGIN_FAIL:
+      return {
+        success: false,
+        loading: false,
+        error: action.payload,
       }
     default:
       return state

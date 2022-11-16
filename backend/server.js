@@ -33,6 +33,8 @@ import User from './models/userModel.js'
 import cors from 'cors'
 import axios from 'axios'
 
+let BussinesIDforGoogleNewUser = ''
+
 let random = Math.floor(Math.random() * 100000000000) + 1 // RANDOM FOR SESSION
 const app = express()
 app.use(express.json())
@@ -81,6 +83,12 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, cb) {
       let APIKEY = 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'
+      console.log(BussinesIDforGoogleNewUser)
+      console.log(BussinesIDforGoogleNewUser)
+      console.log(BussinesIDforGoogleNewUser)
+      console.log(BussinesIDforGoogleNewUser)
+      console.log(BussinesIDforGoogleNewUser)
+      console.log(BussinesIDforGoogleNewUser)
       axios
         .get(
           `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
@@ -168,20 +176,16 @@ app.get(
     res.redirect('/') //production // Fix to redirect to bussines page ...
   }
 )
-app.get(`/api/business_new_google_user`),
-  (req, res) => {
-    console.log(
-      `______________________________________REQ BODY_________________________________________`
-    )
-    console.log(
-      `______________________________________REQ BODY_________________________________________`
-    )
-    console.log(
-      `______________________________________REQ BODY_________________________________________`
-    )
-    console.log(req)
-    console.log(req.body)
-  }
+
+app.post('/api/business_new_google_user', (req, res) => {
+  const { BussinesID } = req.body
+
+  BussinesIDforGoogleNewUser = BussinesID
+  console.log(`BussinesIDforGoogleNewUser :${BussinesIDforGoogleNewUser}`)
+  res.json({
+    BussinesIDforGoogleNewUser,
+  })
+})
 
 // ██╗███╗   ██╗████████╗███████╗██████╗ ██╗   ██╗ █████╗ ██╗
 // ██║████╗  ██║╚══██╔══╝██╔════╝██╔══██╗██║   ██║██╔══██╗██║

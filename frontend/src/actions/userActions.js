@@ -1,6 +1,9 @@
 import axios from 'axios'
 
 import {
+  BUSSINES_GOOGLE_LOGIN_REQUEST,
+  BUSSINES_GOOGLE_LOGIN_SUCCESS,
+  BUSSINES_GOOGLE_LOGIN_FAIL,
   SEND_WHATSAPP_TOR_REQUEST,
   SEND_WHATSAPP_TOR_SUCCESS,
   SEND_WHATSAPP_TOR_FAIL,
@@ -301,6 +304,37 @@ export const emailLogin = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_LOGIN_EMAIL_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+export const BusssinesGoogleLogin = (BussinesID) => async (dispatch) => {
+  try {
+    dispatch({
+      type: BUSSINES_GOOGLE_LOGIN_REQUEST,
+    })
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+    const { data } = await axios.post(
+      '/api/business_new_google_user',
+      { BussinesID },
+      config
+    )
+
+    dispatch({
+      type: BUSSINES_GOOGLE_LOGIN_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: BUSSINES_GOOGLE_LOGIN_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
