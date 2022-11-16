@@ -165,8 +165,7 @@ app.get(
       'https://www.googleapis.com/auth/calendar.readonly',
       'https://www.googleapis.com/auth/user.birthday.read',
     ],
-  }),
-  console.log(`dfsfsdfsdfffffffffffffffffffff`)
+  })
 )
 app.get(
   '/api/google/callback', // development + production
