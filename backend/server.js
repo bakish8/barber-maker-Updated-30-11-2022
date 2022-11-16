@@ -80,38 +80,34 @@ passport.use(
       //callbackURL: '/api/google/callback', development
     },
     async function (accessToken, refreshToken, profile, cb) {
-      let GetBdayGoogleDeets = () => {
-        let APIKEY = 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'
-        axios
-          .get(
-            `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
-            { withCredentials: true }
-          )
-          .then((res) => {
-            if (res) {
-              let day = res.data.birthdays[1].date.day
-              let month = res.data.birthdays[1].date.month
-              let year = res.data.birthdays[1].date.year
-              if (day.length === 1) {
-                day = 0 + day
-              }
-              if (month.length === 1) {
-                month = 0 + month
-              }
-              let birthdayReturned = `${day}/${month}/${year}`
-              console.log(birthdayReturned)
-              return birthdayReturned
-            } else {
-              console.log(`Error Getting Birth Day Deets ... `)
-              return null
+      let APIKEY = 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'
+      axios
+        .get(
+          `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
+          { withCredentials: true }
+        )
+        .then((res) => {
+          if (res) {
+            let day = res.data.birthdays[1].date.day
+            let month = res.data.birthdays[1].date.month
+            let year = res.data.birthdays[1].date.year
+            if (day.length === 1) {
+              day = 0 + day
             }
-          })
-      }
-      let Bday = GetBdayGoogleDeets()
+            if (month.length === 1) {
+              month = 0 + month
+            }
+            let birthdayReturned = `${day}/${month}/${year}`
+            console.log(birthdayReturned)
+          } else {
+            console.log(`Error Getting Birth Day Deets ... `)
+          }
+        })
+
       console.log(
         `__________________ ________________ _________________ _____________________`
       )
-      console.log(Bday)
+      console.log(birthdayReturned)
       console.log(
         `__________________ ________________ _________________ _____________________`
       )
@@ -122,7 +118,7 @@ passport.use(
         const newUser = new User({
           name: profile.name.givenName + ' ' + profile.name.familyName,
           email: profile.emails[0].value,
-          Bday,
+          Bday: birthdayReturned,
           googleId: profile.id,
           image: profile.photos[0].value,
           phone: null,
