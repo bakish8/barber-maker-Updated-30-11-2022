@@ -9,11 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../../../components/Message'
 import Loader from '../../../components/Loader'
 import FormContainer from '../../../components/FormContainer'
-import {
-  BusssinesGoogleLogin,
-  CreatelNotifications,
-  register,
-} from '../../../actions/userActions'
+import { CreatelNotifications, register } from '../../../actions/userActions'
 import {
   getAdminName,
   getBuissnesDetails,
@@ -70,14 +66,6 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
   const GetAdminName = useSelector((state) => state.GetAdminName)
   const { AdmiNameloading, AdmiName, AdmiNamesuccess, AdmiNameerror } =
     GetAdminName
-  const BusssinesGoogleLoginR = useSelector(
-    (state) => state.BusssinesGoogleLoginR
-  )
-  const {
-    loading: loadings,
-    success: successs,
-    error: errors,
-  } = BusssinesGoogleLoginR
   const redirect = `/business/${BussinesID}`
 
   useEffect(() => {
@@ -151,20 +139,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
         },
       })
     }
-    if (successs) {
-      console.log(`sucsssesssssssssssss`)
-      window.open('http://localhost:5000/api/google', '_self')
-    }
-  }, [
-    history,
-    userInfo,
-    redirect,
-    message,
-    success,
-    socket,
-    AdmiName,
-    successs,
-  ])
+  }, [history, userInfo, redirect, message, success, socket, AdmiName])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -242,10 +217,8 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     }
   }
   const GoogleSigninsubmitHandler = () => {
-    dispatch(BusssinesGoogleLogin(BussinesID))
-    // window.open('http://localhost:5000/api/google', '_self')
+    window.open(`http://localhost:5000/api/google/${BussinesID}`, '_self')
   }
-
   const convert = (date, format = DateOfBirth.format) => {
     let object = { date, format }
     setDateOfBirth({

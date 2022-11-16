@@ -157,7 +157,7 @@ passport.use(
   )
 )
 app.get(
-  '/api/google',
+  `/api/google/:id`,
   passport.authenticate('google', {
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
@@ -165,7 +165,8 @@ app.get(
       'https://www.googleapis.com/auth/calendar.readonly',
       'https://www.googleapis.com/auth/user.birthday.read',
     ],
-  })
+  }),
+  console.log(`dfsfsdfsdfffffffffffffffffffff`)
 )
 app.get(
   '/api/google/callback', // development + production
@@ -176,16 +177,6 @@ app.get(
     res.redirect('/') //production // Fix to redirect to bussines page ...
   }
 )
-
-app.post('/api/business_new_google_user', (req, res) => {
-  const { BussinesID } = req.body
-
-  BussinesIDforGoogleNewUser = BussinesID
-  console.log(`BussinesIDforGoogleNewUser :${BussinesIDforGoogleNewUser}`)
-  res.json({
-    BussinesIDforGoogleNewUser,
-  })
-})
 
 // ██╗███╗   ██╗████████╗███████╗██████╗ ██╗   ██╗ █████╗ ██╗
 // ██║████╗  ██║╚══██╔══╝██╔════╝██╔══██╗██║   ██║██╔══██╗██║
