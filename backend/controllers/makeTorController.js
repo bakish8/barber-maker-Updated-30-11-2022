@@ -28,9 +28,6 @@ const GetTipulDeets = asyncHandler(async (req, res) => {
 })
 
 const getSaparim = asyncHandler(async (req, res) => {
-  console.log(`Getting saparim`)
-  console.log(`Getting saparim`)
-  console.log(`Getting saparim`)
   const sapars = await User.find({ isAdmin: true })
   res.json(sapars)
 })
@@ -43,10 +40,8 @@ const pickedDate = asyncHandler(async (req, res) => {
     owner: id,
   })
   if (existingWorkingDay) {
-    console.log('this working day is already exirs')
     res.status(201).json(existingWorkingDay)
   } else {
-    console.log('אין תורים פנויים ביום זה ')
     res.status(403)
     throw new Error('אין תורים פנויים ביום זה')
   }
@@ -152,27 +147,6 @@ const confirmTor = asyncHandler(async (req, res) => {
     console.log(`user Client OF business is 0 Now Changing to ${BussinesID}`)
     user.ClientOfBusiness = BussinesID
     await user.save()
-  } else {
-    console.log(`user He Is Already Client of Bussiness....`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
-    console.log(`user.ClientOfBusiness ${user.ClientOfBusiness}`)
   }
   const tipul = await Tipul.findById(Tipulid)
   if (tipul.time === 30) {
@@ -200,11 +174,8 @@ const confirmTor = asyncHandler(async (req, res) => {
     }
   } else if (tipul.time === 60) {
     const minutes = clock.time.split(':')[1]
-    console.log(minutes)
     const hour = parseInt(clock.time.split(':')[0])
-    console.log(hour)
     const hourPLUSone = hour + 1
-    console.log(hourPLUSone)
 
     if (minutes === '00') {
       const ClockToExtend = `${hourPLUSone}:00`
@@ -216,8 +187,6 @@ const confirmTor = asyncHandler(async (req, res) => {
         owner: clock.owner,
       })
       if (existingClock && workingDay) {
-        console.log(`Existing Clock:${existingClock}`)
-        console.log(`Existing workingDay:${workingDay}`)
         if (existingClock.avilable) {
           clock.time = `${clock.time}-${ClockToExtend}`
           clock.isMultipleClock = true
@@ -225,10 +194,7 @@ const confirmTor = asyncHandler(async (req, res) => {
           clock.MultipleClocksArray.push(existingClock.time)
 
           await clock.save()
-          console.log(`Existing Clock id:${existingClock._id}`)
-          console.log(`Existing Clock avilabelty:${existingClock.avilable}`)
-          console.log(`Existing Clock date:${existingClock.date}`)
-          console.log(`Existing Clock time:${existingClock.time}`)
+
           const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
             $pull: { torim: existingClock._id },
           })
@@ -264,8 +230,6 @@ const confirmTor = asyncHandler(async (req, res) => {
           'סוג התור שבחרת דורש לפחות שעה צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
         )
       }
-
-      console.log('00! 00! 00 !')
     } else if (minutes === '30') {
       const ClockToExtend = `${hourPLUSone}:30`
       const ClockToDelete = `${hourPLUSone}:00`
@@ -276,18 +240,13 @@ const confirmTor = asyncHandler(async (req, res) => {
         owner: clock.owner,
       })
       if (existingClock && workingDay) {
-        console.log(`Existing Clock:${existingClock}`)
-        console.log(`Existing workingDay:${workingDay}`)
         if (existingClock.avilable) {
           clock.time = `${clock.time}-${ClockToExtend}`
           clock.isMultipleClock = true
           clock.MultipleClocksArray.push(existingClock.time)
 
           await clock.save()
-          console.log(`Existing Clock id:${existingClock._id}`)
-          console.log(`Existing Clock avilabelty:${existingClock.avilable}`)
-          console.log(`Existing Clock date:${existingClock.date}`)
-          console.log(`Existing Clock time:${existingClock.time}`)
+
           const owner = await WorkingDay.findByIdAndUpdate(workingDay._id, {
             $pull: { torim: existingClock._id },
           })
@@ -324,8 +283,6 @@ const confirmTor = asyncHandler(async (req, res) => {
           'סוג התור שבחרת דורש לפחות שעה צור שעות עבודה פנויות לאחר השעה שבחרת על מנת להכניס את תור זה למערכת'
         )
       }
-
-      console.log('30! 30! 30 !')
     }
   } else if (tipul.time === 90) {
     const minutes = clock.time.split(':')[1]
@@ -883,16 +840,11 @@ const confirmTor = asyncHandler(async (req, res) => {
 const CancelTor = asyncHandler(async (req, res) => {
   var populateQuery = [{ path: 'owner' }, { path: 'mistaper', select: 'name' }]
   const clock = await Clock.findById(req.params.id).populate(populateQuery)
-  console.log(clock)
   const user = await User.findById(req.params.uid)
   const workingday = await WorkingDay.findById(clock.owner._id)
 
   if (clock && user) {
-    console.log(clock.time)
-    console.log(clock.isMultipleClock)
     const time1 = clock.time.split('-')[0]
-    console.log(time1)
-
     if (clock.isMultipleClock) {
       for (let clockToBuiledBack of clock.MultipleClocksArray) {
         const clockBuild = await new Clock({
@@ -964,11 +916,9 @@ const showAvilableTors = asyncHandler(async (req, res) => {
     avilable: true,
     isPending: true,
   }).populate('owner')
-  console.log(clocks)
   if (clocks) {
     res.json(clocks)
   } else {
-    console.log('sadsad')
     res.status(404)
     throw new Error('workingday not found')
   }
@@ -980,7 +930,6 @@ const showAvilableTorsForOneHour = asyncHandler(async (req, res) => {
     avilable: true,
     isPending: true,
   })
-  console.log(clocks)
   if (clocks) {
     let counter1 = 0
     let counter2 = 1
@@ -992,17 +941,9 @@ const showAvilableTorsForOneHour = asyncHandler(async (req, res) => {
         const hour = time1.split(':')[0]
         const hourPLUSone = parseInt(hour) + 1
 
-        console.log(time1)
-        console.log(hour)
-        console.log(hourPLUSone)
-        console.log(minutes)
-
         let time2 = clocks[counter2].time
         const minutes2 = time2.split(':')[1]
         const hour2 = time2.split(':')[0]
-        console.log(time2)
-        console.log(hour2)
-        console.log(minutes2)
 
         if (
           (hour === hour2 && minutes === '00' && minutes2 === '30') ||
@@ -1014,10 +955,8 @@ const showAvilableTorsForOneHour = asyncHandler(async (req, res) => {
         counter2++
       }
     }
-    console.log(arr)
     res.json(arr)
   } else {
-    console.log('sadsad')
     res.status(404)
     throw new Error('workingday not found')
   }
@@ -1028,7 +967,6 @@ const showAvilableTorsForOneHALFHour = asyncHandler(async (req, res) => {
     avilable: true,
     isPending: true,
   })
-  console.log(clocks)
   if (clocks) {
     let counter1 = 0
     let counter2 = 1
@@ -1047,9 +985,6 @@ const showAvilableTorsForOneHALFHour = asyncHandler(async (req, res) => {
         const minutes3 = time3.split(':')[1]
         const hour3 = time3.split(':')[0]
 
-        console.log(`time 1 :${time1} hour1:${hour} min1:${minutes}`)
-        console.log(`time 2 :${time2} hour2:${hour2} min2:${minutes2}`)
-        console.log(`time 3 :${time3} hour3:${hour3} min3:${minutes3}`)
         if (
           (hourPLUSone == hour3 &&
             hourPLUSone == hour2 &&
@@ -1069,10 +1004,8 @@ const showAvilableTorsForOneHALFHour = asyncHandler(async (req, res) => {
         counter3++
       }
     }
-    console.log(arr)
     res.json(arr)
   } else {
-    console.log('sadsad')
     res.status(404)
     throw new Error('workingday not found')
   }
@@ -1083,7 +1016,6 @@ const showAvilableTorsFor2Hours = asyncHandler(async (req, res) => {
     avilable: true,
     isPending: true,
   })
-  console.log(clocks)
   if (clocks) {
     let counter1 = 0
     let counter2 = 1
@@ -1106,14 +1038,6 @@ const showAvilableTorsFor2Hours = asyncHandler(async (req, res) => {
         let time4 = clocks[counter4].time
         const minutes4 = time4.split(':')[1]
         const hour4 = time4.split(':')[0]
-
-        console.log(
-          ` hour plus one is :${hourPLUSone} hour plus one is :${hourPLUSTwo}`
-        )
-        console.log(`time 1 :${time1} hour1:${hour} min1:${minutes}`)
-        console.log(`time 2 :${time2} hour2:${hour2} min2:${minutes2}`)
-        console.log(`time 3 :${time3} hour3:${hour3} min3:${minutes3}`)
-        console.log(`time 4 :${time4} hour4:${hour4} min4:${minutes4}`)
 
         if (
           (hourPLUSone == hour2 &&
@@ -1139,10 +1063,8 @@ const showAvilableTorsFor2Hours = asyncHandler(async (req, res) => {
         counter4++
       }
     }
-    console.log(arr)
     res.json(arr)
   } else {
-    console.log('sadsad')
     res.status(404)
     throw new Error('workingday not found')
   }
@@ -1153,7 +1075,6 @@ const showAvilableTorsFor2HoursHALF = asyncHandler(async (req, res) => {
     avilable: true,
     isPending: true,
   })
-  console.log(clocks)
   if (clocks) {
     let counter1 = 0
     let counter2 = 1
@@ -1181,15 +1102,6 @@ const showAvilableTorsFor2HoursHALF = asyncHandler(async (req, res) => {
         let time5 = clocks[counter5].time
         const minutes5 = time5.split(':')[1]
         const hour5 = time5.split(':')[0]
-
-        console.log(
-          ` hour plus one is :${hourPLUSone} hour plus one is :${hourPLUSTwo}hour plus one is :${hourPLUSTree}`
-        )
-        console.log(`time 1 :${time1} hour1:${hour} min1:${minutes}`)
-        console.log(`time 2 :${time2} hour2:${hour2} min2:${minutes2}`)
-        console.log(`time 3 :${time3} hour3:${hour3} min3:${minutes3}`)
-        console.log(`time 4 :${time4} hour4:${hour4} min4:${minutes4}`)
-        console.log(`time 5 :${time5} hour5:${hour5} min5:${minutes5}`)
 
         if (
           (hourPLUSone == hour2 &&
@@ -1220,10 +1132,8 @@ const showAvilableTorsFor2HoursHALF = asyncHandler(async (req, res) => {
         counter5++
       }
     }
-    console.log(arr)
     res.json(arr)
   } else {
-    console.log('sadsad')
     res.status(404)
     throw new Error('workingday not found')
   }
@@ -1268,16 +1178,6 @@ const showAvilableTorsFor3Hours = asyncHandler(async (req, res) => {
         const minutes6 = time6.split(':')[1]
         const hour6 = time6.split(':')[0]
 
-        console.log(
-          ` hour plus one is :${hourPLUSone} hour plus one is :${hourPLUSTwo}hour plus one is :${hourPLUSTree}`
-        )
-        console.log(`time 1 :${time1} hour1:${hour} min1:${minutes}`)
-        console.log(`time 2 :${time2} hour2:${hour2} min2:${minutes2}`)
-        console.log(`time 3 :${time3} hour3:${hour3} min3:${minutes3}`)
-        console.log(`time 4 :${time4} hour4:${hour4} min4:${minutes4}`)
-        console.log(`time 5 :${time5} hour5:${hour5} min5:${minutes5}`)
-        console.log(`time 6 :${time6} hour6:${hour6} min6:${minutes6}`)
-
         if (
           (hourPLUSone == hour2 &&
             hourPLUSone == hour3 &&
@@ -1312,10 +1212,8 @@ const showAvilableTorsFor3Hours = asyncHandler(async (req, res) => {
         counter6++
       }
     }
-    console.log(arr)
     res.json(arr)
   } else {
-    console.log('sadsad')
     res.status(404)
     throw new Error('workingday not found')
   }
@@ -1372,24 +1270,13 @@ const SendSMS = asyncHandler(async (req, res) => {
 })
 
 const Send_WHATSAPP_message = asyncHandler(async (req, res) => {
-  console.log(req.body)
-  //  const { id, uid } = req.body
   const { id, uid, BusinessId } = req.body
-  console.log(`______________________________________________`)
-  console.log(`id:${id}`)
-  console.log(`______________________________________________`)
-  console.log(` user id:${uid}`)
-  console.log(`______________________________________________`)
-  console.log(` Business id:${BusinessId}`)
+
   const clock = await Clock.findById(id).populate('owner')
   const user = await User.findById(uid)
   const BusinessFound = await Business.findById(BusinessId) //****new */
   // if (clock && user) {
   if (clock && user && BusinessFound) {
-    console.log(`______________________________________________`)
-    console.log(`user:${uid}`)
-    console.log(`______________________________________________`)
-    console.log(`clock:${clock}`)
     try {
       client.messages
         .create({
@@ -1424,7 +1311,6 @@ const SendSMSforReset = asyncHandler(async (req, res) => {
   var theRandomNumber = (Math.floor(Math.random() * 10000) + 10000)
     .toString()
     .substring(1) //geneate 4 digit number for confirmation
-  console.log(theRandomNumber)
   const phone = req.params.phone
   const user = await User.findOne({ phone: phone })
   client.messages
@@ -1446,10 +1332,8 @@ const DeleteTipul = asyncHandler(async (req, res) => {
     })
     await BussinesFound.save()
     await TipulFound.remove()
-    console.log('הטיפול הוסר בהצלחה')
     res.json({ message: 'הטיפול הוסר בהצלחה' })
   } else {
-    console.log('הטיפול לא נמצא')
     res.status(404)
     throw new Error('הטיפול לא נמצא')
   }
@@ -1459,14 +1343,6 @@ const UpdateTipul = asyncHandler(async (req, res) => {
 
   const TipulFound = await Tipul.findById(TipulID)
   if (TipulFound) {
-    console.log(`TIPUL FOUND READT FOR UPDATE!!`)
-    console.log(`TIPUL FOUND READT FOR UPDATE!!`)
-    console.log(`TIPUL FOUND READT FOR UPDATE!!`)
-    console.log(`TIPUL FOUND READT FOR UPDATE!!`)
-    console.log(`TIPUL FOUND READT FOR UPDATE!!`)
-    console.log(TipulFound)
-    console.log(TipulID)
-    console.log(TipulName)
     TipulFound.name = TipulName
     TipulFound.time = TipulTime
     TipulFound.cost = TipulCost
@@ -1481,7 +1357,6 @@ const UpdateTipul = asyncHandler(async (req, res) => {
       image: updatedTipul.image,
     })
   } else {
-    console.log('הטיפול לא נמצא')
     res.status(404)
     throw new Error('הטיפול לא נמצא')
   }
