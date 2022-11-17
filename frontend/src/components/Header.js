@@ -100,7 +100,7 @@ const Header = ({ socket, match }) => {
     setShowInitialGooglePassWordModel(true)
   }
 
-  const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2) //Context
+  let { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2) //Context
 
   useEffect(() => {
     if (userGoogleInfo && Gsuccess) {
