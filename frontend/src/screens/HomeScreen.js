@@ -43,8 +43,6 @@ const HomeScreen = ({ match, history }) => {
 
   const productList = useSelector((state) => state.productList) //מושכים מהפרוקדט רדיוסר מההצהרה שלנו את הארור האפשרי את המוצרים ואת הטעינה
   const { loading, error, products, page, pages } = productList
-  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
-  const { userGoogleInfo, Gsuccess } = userGoogleLogin
   const userLogin = useSelector((state) => state.userLogin)
   const { loading: userInfoloading, error: userInfoerror, userInfo } = userLogin
   const GetAllBusiness = useSelector((state) => state.GetAllBusiness)

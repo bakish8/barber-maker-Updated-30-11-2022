@@ -4,16 +4,18 @@ import { Googlelogin, login } from './userActions'
 import axios from 'axios'
 
 export const myContext = createContext({})
+export const myContext_2 = createContext({})
 
 export default function Context(props) {
   const [userObject, setuserObject] = useState()
+
   const dispatch = useDispatch()
+  /////TRY TO CREATE A REDUCER +STORE ACTION AND USE EFFECT FOR DISPACHING G
 
   useEffect(() => {
     axios.get('/getgoogleuser', { withCredentials: true }).then((res) => {
-      if (res.data.email) {
-        dispatch(Googlelogin(res.data.email))
-      }
+      console.log(res)
+      dispatch(Googlelogin(res.data.email))
     })
   }, [dispatch])
 
@@ -21,4 +23,3 @@ export default function Context(props) {
     <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
   )
 }
-/////TRY TO CREATE A REDUCER +STORE ACTION AND USE EFFECT FOR DISPACHING G
