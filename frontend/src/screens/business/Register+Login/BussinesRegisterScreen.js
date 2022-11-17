@@ -28,7 +28,6 @@ var regName = /^[a-zA-Zא-ת]+ [a-zA-Zא-ת]+$/
 
 const BussinesRegisterScreen = ({ location, history, match }) => {
   const BussinesID = match.params.id
-
   const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2)
   setBussinesGoogleID(BussinesID)
 
@@ -347,7 +346,6 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
                   src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
                 ></img>
               </btn>
-              <btn>GOOGLE ID:{bussinesGoogleID}</btn>
             </Form>
           </div>
         </FormContainer>
