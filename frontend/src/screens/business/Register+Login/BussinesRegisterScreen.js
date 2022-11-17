@@ -221,9 +221,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     }
   }
   const GoogleSigninsubmitHandler = () => {
-    if (bussinesGoogleID.length) {
-      window.open('http://localhost:5000/api/google', '_self')
-    }
+    window.open('http://localhost:5000/api/google', '_self')
   }
   const convert = (date, format = DateOfBirth.format) => {
     let object = { date, format }
