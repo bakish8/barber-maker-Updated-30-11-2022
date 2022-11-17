@@ -110,12 +110,12 @@ const HomeScreen = ({ match, history }) => {
       console.log(
         `redirect opretion is :${Gsuccess} if GoogleLogin Came From Bussines Page ${bussinesGoogleID}`
       )
-      let BID = bussinesGoogleID
-      setBussinesGoogleID(undefined)
-      history.push(`/business/${BID}`)
+      //let BID = bussinesGoogleID
+      //setBussinesGoogleID(undefined)
+      //history.push(`/business/${BID}`)
       //history.push(`/business/${bussinesGoogleID}`)
     }
-  }, [Gsuccess, bussinesGoogleID])
+  }, [Gsuccess])
 
   const MoveMeNow = () => {
     console.log(`Clicked`)
