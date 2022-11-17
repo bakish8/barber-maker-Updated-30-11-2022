@@ -73,7 +73,6 @@ const HomeScreen = ({ match, history }) => {
   console.log(day)
   console.log(month)
 
-  //USE EFFECT  for Aos Effects
   useEffect(() => {
     console.log(`bussinesGoogleID is :${bussinesGoogleID}`)
     console.log(`bussinesGoogleID is :${bussinesGoogleID}`)
@@ -86,8 +85,10 @@ const HomeScreen = ({ match, history }) => {
     console.log(`Gsuccess is :${Gsuccess}`)
     console.log(`Gsuccess is :${Gsuccess}`)
     console.log(`Gsuccess is :${Gsuccess}`)
+    //USE EFFECT  for Aos Effects
     Aos.init({ duration: 500 })
   }, [])
+  //USE EFFECT redirect if userGoogleInfo with Bussines Id accsepted
   useEffect(() => {
     if (!alllBusiness) {
       dispatch(getBusissinesForHomePage())
@@ -102,23 +103,17 @@ const HomeScreen = ({ match, history }) => {
     }
   }, [userInfo])
 
-  //redirect if userGoogleInfo with Bussines Id accsepted
-  // useEffect(() => {
-  //   if (userGoogleInfo) {
-  //     if (userGoogleInfo.WorkingIn) {
-  //       history.push(`/business/${userGoogleInfo.workingIn}`)
-  //     } else if (
-  //       userGoogleInfo.ClientOfBusiness &&
-  //       userGoogleInfo.ClientOfBusiness != 0
-  //     ) {
-  //       history.push(`/business/${userGoogleInfo.ClientOfBusiness}`)
-  //     }
-  //   }
-  // }, [userGoogleInfo])
-  const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2)
+  //USE EFFECT redirect if GoogleLogin Came From Bussines Page .
+  const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2) //Context
   useEffect(() => {
     if (Gsuccess && bussinesGoogleID != undefined) {
-      history.push(`/business/${bussinesGoogleID}`)
+      console.log(
+        `redirect opretion is :${Gsuccess} if GoogleLogin Came From Bussines Page ${bussinesGoogleID}`
+      )
+      let BID = bussinesGoogleID
+      setBussinesGoogleID(undefined)
+      history.push(`/business/${BID}`)
+      //history.push(`/business/${bussinesGoogleID}`)
     }
   }, [Gsuccess, bussinesGoogleID])
 
