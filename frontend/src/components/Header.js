@@ -19,6 +19,7 @@ import {
   getBuissnesDetailsfornav,
 } from '../actions/BuissnesActions/Buissnes_User_Actions'
 import CoolNavBarBussines from './CoolNavBar/CoolNavBarBussines'
+import { myContext_2 } from '../actions/GoogleContext'
 
 moment.locale('he')
 const Header = ({ socket, match }) => {
@@ -99,11 +100,19 @@ const Header = ({ socket, match }) => {
     setShowInitialGooglePassWordModel(true)
   }
 
+  const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2) //Context
+
   useEffect(() => {
     if (userGoogleInfo && Gsuccess) {
       window.onload = function () {
+        console.log(`________________________________${bussinesGoogleID}`)
+        console.log(`________________________________${bussinesGoogleID}`)
+        console.log(`________________________________${bussinesGoogleID}`)
+        console.log(`________________________________${bussinesGoogleID}`)
+        console.log(`________________________________${bussinesGoogleID}`)
+        console.log(`________________________________${bussinesGoogleID}`)
         if (!window.location.hash) {
-          //  window.location = window.location + '#loaded'
+          window.location = window.location + '#loaded'
           window.location
             .reload()
             .then(console.log(`google Info user has come ....!`))

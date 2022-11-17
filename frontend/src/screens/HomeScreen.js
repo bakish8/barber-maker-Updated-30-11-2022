@@ -74,17 +74,6 @@ const HomeScreen = ({ match, history }) => {
   console.log(month)
 
   useEffect(() => {
-    console.log(`bussinesGoogleID is :${bussinesGoogleID}`)
-    console.log(`bussinesGoogleID is :${bussinesGoogleID}`)
-    console.log(`bussinesGoogleID is :${bussinesGoogleID}`)
-    console.log(`bussinesGoogleID is :${bussinesGoogleID}`)
-    console.log(`Gsuccess is :${Gsuccess}`)
-    console.log(`Gsuccess is :${Gsuccess}`)
-    console.log(`Gsuccess is :${Gsuccess}`)
-    console.log(`Gsuccess is :${Gsuccess}`)
-    console.log(`Gsuccess is :${Gsuccess}`)
-    console.log(`Gsuccess is :${Gsuccess}`)
-    console.log(`Gsuccess is :${Gsuccess}`)
     //USE EFFECT  for Aos Effects
     Aos.init({ duration: 500 })
   }, [])
@@ -102,20 +91,6 @@ const HomeScreen = ({ match, history }) => {
       setLinki(userInfo.ClientOfBusiness)
     }
   }, [userInfo])
-
-  //USE EFFECT redirect if GoogleLogin Came From Bussines Page .
-  const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2) //Context
-  useEffect(() => {
-    if (Gsuccess && bussinesGoogleID != undefined) {
-      console.log(
-        `redirect opretion is :${Gsuccess} if GoogleLogin Came From Bussines Page ${bussinesGoogleID}`
-      )
-      //let BID = bussinesGoogleID
-      //setBussinesGoogleID(undefined)
-      //history.push(`/business/${BID}`)
-      //history.push(`/business/${bussinesGoogleID}`)
-    }
-  }, [Gsuccess])
 
   const MoveMeNow = () => {
     console.log(`Clicked`)
