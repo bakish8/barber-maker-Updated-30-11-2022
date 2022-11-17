@@ -75,6 +75,17 @@ const HomeScreen = ({ match, history }) => {
 
   //USE EFFECT  for Aos Effects
   useEffect(() => {
+    console.log(`bussinesGoogleID is :${bussinesGoogleID}`)
+    console.log(`bussinesGoogleID is :${bussinesGoogleID}`)
+    console.log(`bussinesGoogleID is :${bussinesGoogleID}`)
+    console.log(`bussinesGoogleID is :${bussinesGoogleID}`)
+    console.log(`Gsuccess is :${Gsuccess}`)
+    console.log(`Gsuccess is :${Gsuccess}`)
+    console.log(`Gsuccess is :${Gsuccess}`)
+    console.log(`Gsuccess is :${Gsuccess}`)
+    console.log(`Gsuccess is :${Gsuccess}`)
+    console.log(`Gsuccess is :${Gsuccess}`)
+    console.log(`Gsuccess is :${Gsuccess}`)
     Aos.init({ duration: 500 })
   }, [])
   useEffect(() => {
@@ -83,23 +94,10 @@ const HomeScreen = ({ match, history }) => {
     }
     if (userInfo && userInfo.WorkingIn != 0) {
       console.log(`user is ADMIN`)
-      console.log(`user is ADMIN`)
-      console.log(`user is ADMIN`)
-      console.log(`user is ADMIN`)
-      console.log(`user is ADMIN`)
-      console.log(`user is ADMIN`)
-      console.log(`user is ADMIN`)
-      console.log(`user is ADMIN`)
-      console.log(`user is ADMIN`)
-      console.log(userInfo)
       console.log(userInfo.workingIn)
       setLinki(userInfo.workingIn)
     } else if (userInfo && userInfo.ClientOfBusiness) {
       console.log(userInfo.ClientOfBusiness)
-      console.log(userInfo.ClientOfBusiness)
-      console.log(userInfo.ClientOfBusiness)
-      console.log(userInfo.ClientOfBusiness)
-
       setLinki(userInfo.ClientOfBusiness)
     }
   }, [userInfo])
@@ -119,10 +117,10 @@ const HomeScreen = ({ match, history }) => {
   // }, [userGoogleInfo])
   const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2)
   useEffect(() => {
-    if (Gsuccess && bussinesGoogleID != '') {
+    if (Gsuccess && bussinesGoogleID != undefined) {
       history.push(`/business/${bussinesGoogleID}`)
     }
-  }, [Gsuccess])
+  }, [Gsuccess, bussinesGoogleID])
 
   const MoveMeNow = () => {
     console.log(`Clicked`)

@@ -27,8 +27,11 @@ var hasNumber = /\d/
 var regName = /^[a-zA-Zא-ת]+ [a-zA-Zא-ת]+$/
 
 const BussinesRegisterScreen = ({ location, history, match }) => {
-  const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2)
   const BussinesID = match.params.id
+
+  const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2)
+  setBussinesGoogleID(BussinesID)
+
   const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   const weekDays = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'שבת']
   const months = [
@@ -219,7 +222,6 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     }
   }
   const GoogleSigninsubmitHandler = () => {
-    setBussinesGoogleID(BussinesID)
     if (bussinesGoogleID.length) {
       window.open('http://localhost:5000/api/google', '_self')
     }
