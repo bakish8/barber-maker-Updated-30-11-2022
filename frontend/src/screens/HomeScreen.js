@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' //מה שישחליט מה לשגר
 import { Row, Col } from 'react-bootstrap'
@@ -35,7 +35,6 @@ import {
   getBuissnesDetailsfornav,
   getBusissinesForHomePage,
 } from '../actions/BuissnesActions/Buissnes_User_Actions'
-import { myContext_2 } from '../actions/GoogleContext'
 const HomeScreen = ({ match, history }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1
@@ -43,6 +42,8 @@ const HomeScreen = ({ match, history }) => {
 
   const productList = useSelector((state) => state.productList) //מושכים מהפרוקדט רדיוסר מההצהרה שלנו את הארור האפשרי את המוצרים ואת הטעינה
   const { loading, error, products, page, pages } = productList
+  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
+  const { userGoogleInfo, Gsuccess } = userGoogleLogin
   const userLogin = useSelector((state) => state.userLogin)
   const { loading: userInfoloading, error: userInfoerror, userInfo } = userLogin
   const GetAllBusiness = useSelector((state) => state.GetAllBusiness)

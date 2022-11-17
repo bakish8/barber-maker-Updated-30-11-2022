@@ -104,7 +104,7 @@ const Header = ({ socket, match }) => {
     if (userGoogleInfo && Gsuccess) {
       window.onload = function () {
         if (!window.location.hash) {
-          //  window.location = window.location + '#loaded'
+          window.location = window.location + '#loaded'
           window.location
             .reload()
             .then(console.log(`google Info user has come ....!`))

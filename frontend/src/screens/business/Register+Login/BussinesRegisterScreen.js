@@ -1,6 +1,6 @@
 //****need To Bring Back Admin ID and Only AFTER registeration !!!*/
 
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
@@ -20,7 +20,6 @@ import moment from 'moment'
 import { io } from 'socket.io-client'
 import DatePicker, { DateObject } from 'react-multi-date-picker'
 import gregorian_ar from 'react-date-object/locales/gregorian_ar'
-import { myContext_2 } from '../../../actions/GoogleContext'
 
 var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
 var hasNumber = /\d/
@@ -28,9 +27,6 @@ var regName = /^[a-zA-Zא-ת]+ [a-zA-Zא-ת]+$/
 
 const BussinesRegisterScreen = ({ location, history, match }) => {
   const BussinesID = match.params.id
-  const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2)
-  setBussinesGoogleID(BussinesID)
-
   const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   const weekDays = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'שבת']
   const months = [
