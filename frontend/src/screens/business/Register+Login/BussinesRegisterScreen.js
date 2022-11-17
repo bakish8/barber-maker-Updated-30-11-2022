@@ -1,7 +1,7 @@
 //****need To Bring Back Admin ID and Only AFTER registeration !!!*/
 
-import React, { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { Form, Button, Row, Col } from 'react-bootstrap'
@@ -20,12 +20,14 @@ import moment from 'moment'
 import { io } from 'socket.io-client'
 import DatePicker, { DateObject } from 'react-multi-date-picker'
 import gregorian_ar from 'react-date-object/locales/gregorian_ar'
+import { myContext_2 } from '../../../actions/GoogleContext'
 
 var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
 var hasNumber = /\d/
 var regName = /^[a-zA-Zא-ת]+ [a-zA-Zא-ת]+$/
 
 const BussinesRegisterScreen = ({ location, history, match }) => {
+  const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2)
   const BussinesID = match.params.id
   const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   const weekDays = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'שבת']
@@ -68,19 +70,10 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     GetAdminName
   const redirect = `/business/${BussinesID}`
 
-  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
-  const { userGoogleInfo, Gsuccess } = userGoogleLogin
-  const prevLocation = useLocation()
-
-  useEffect(() => {
-    if (Gsuccess) {
-      history.push(`/${prevLocation}`)
-    }
-  }, [Gsuccess])
-
   useEffect(() => {
     setSocket(io())
   }, [])
+
   console.log(`socket:${socket}`)
   useEffect(() => {
     if (userInfo) {
@@ -226,7 +219,10 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     }
   }
   const GoogleSigninsubmitHandler = () => {
-    window.open('http://localhost:5000/api/google', '_self')
+    setBussinesGoogleID(BussinesID)
+    if (bussinesGoogleID.length) {
+      window.open('http://localhost:5000/api/google', '_self')
+    }
   }
   const convert = (date, format = DateOfBirth.format) => {
     let object = { date, format }
@@ -349,6 +345,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
                   src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
                 ></img>
               </btn>
+              <btn>GOOGLE ID:{bussinesGoogleID}</btn>
             </Form>
           </div>
         </FormContainer>

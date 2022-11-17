@@ -7,12 +7,15 @@ import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import Context from './actions/Context' ///do somthing with google user to stop error ecrty page
+import GoogleContext from './actions/GoogleContext' ///do somthing with google user to stop error ecrty page
 
 ReactDOM.render(
   <Provider store={store}>
-    <Context>
-      <App />
-    </Context>
+    <GoogleContext>
+      <Context>
+        <App />
+      </Context>
+    </GoogleContext>
   </Provider>,
   document.getElementById('root')
 )

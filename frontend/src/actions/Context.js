@@ -8,7 +8,6 @@ export const myContext = createContext({})
 export default function Context(props) {
   const [userObject, setuserObject] = useState()
   const dispatch = useDispatch()
-  /////TRY TO CREATE A REDUCER +STORE ACTION AND USE EFFECT FOR DISPACHING G
 
   useEffect(() => {
     axios.get('/getgoogleuser', { withCredentials: true }).then((res) => {
@@ -21,3 +20,4 @@ export default function Context(props) {
     <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
   )
 }
+/////TRY TO CREATE A REDUCER +STORE ACTION AND USE EFFECT FOR DISPACHING G

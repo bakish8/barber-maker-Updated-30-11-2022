@@ -35,6 +35,7 @@ import {
   getBuissnesDetailsfornav,
   getBusissinesForHomePage,
 } from '../actions/BuissnesActions/Buissnes_User_Actions'
+import { myContext_2 } from '../actions/GoogleContext'
 const HomeScreen = ({ match, history }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1
@@ -116,6 +117,13 @@ const HomeScreen = ({ match, history }) => {
   //     }
   //   }
   // }, [userGoogleInfo])
+  const { bussinesGoogleID, setBussinesGoogleID } = useContext(myContext_2)
+  useEffect(() => {
+    if (Gsuccess && bussinesGoogleID != '') {
+      history.push(`/business/${bussinesGoogleID}`)
+    }
+  }, [Gsuccess])
+
   const MoveMeNow = () => {
     console.log(`Clicked`)
     dispatch(getBuissnesDetailsfornav(Linki))
