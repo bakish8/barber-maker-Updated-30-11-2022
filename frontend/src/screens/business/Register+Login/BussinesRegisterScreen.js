@@ -79,27 +79,12 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
   console.log(`socket:${socket}`)
   useEffect(() => {
     if (userInfo) {
-      console.log(`userInfo is : .....`)
-      console.log(`userInfo is : ....`)
-      console.log(`userInfo is : ..`)
-      console.log(`userInfo is : .`)
-      console.log(userInfo)
       let NOW = moment()
       let now = NOW.toDate()
 
       dispatch(getAdminName(BussinesID))
       /*/**add if business foudn user bussines owner */
       if (AdmiName) {
-        console.log(`AdmiName is Found :${AdmiName.name}`)
-        console.log(`admin Id is Found :${AdmiName.id}`)
-        console.log(`admin Id is Found :${AdmiName.id}`)
-        console.log(`admin Id is Found :${AdmiName.id}`)
-        console.log(`admin Id is Found :${AdmiName.id}`)
-        console.log(`admin Id is Found :${AdmiName.id}`)
-        console.log(`admin Id is Found :${AdmiName.id}`)
-        console.log(`admin Id is Found :${AdmiName.id}`)
-        console.log(`admin Id is Found :${AdmiName.id}`)
-
         dispatch(
           CreatelNotifications(
             null,
@@ -123,12 +108,10 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
           })
         }
 
-        console.log(`redirect:${redirect}`)
         history.push(redirect)
       }
     }
     if (success === false) {
-      console.log(error)
       Swal.fire({
         title: 'משהו השתבש',
         text: error,
@@ -220,9 +203,11 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
       )
     }
   }
+
   const GoogleSigninsubmitHandler = () => {
-    window.open('http://localhost:5000/api/google', '_self')
+    window.open('https://www.barber-maker.com/api/google', '_self')
   }
+
   const convert = (date, format = DateOfBirth.format) => {
     let object = { date, format }
     setDateOfBirth({
@@ -230,9 +215,6 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
       jsDate: date.toDate(),
       ...object,
     })
-    console.log(DateOfBirth.gregorian)
-    console.log(DateOfBirth.gregorian)
-    console.log(DateOfBirth.gregorian)
   }
   return (
     <>

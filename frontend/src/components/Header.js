@@ -22,17 +22,8 @@ import CoolNavBarBussines from './CoolNavBar/CoolNavBarBussines'
 
 moment.locale('he')
 const Header = ({ socket, match }) => {
-  console.log(window.location)
-  console.log(window.location.hostname)
-  console.log(window.location.host)
-
-  console.log(window.location.pathname.split('/')[0])
-  console.log(window.location.pathname.split('/')[1])
-  console.log(window.location.pathname.split('/')[-1])
-
   /****Fix in a way that getiing _id from sucsses bussines for nav and not fard coded because the changes of the url*/
   let Firstlocation = window.location.pathname.split('/')[1]
-  //console.log(`window location is:${Firstlocation}`)
   const BusinessId = window.location.pathname.split('/')[2]
 
   const dispatch = useDispatch()
@@ -154,8 +145,6 @@ const Header = ({ socket, match }) => {
     date,
     now,
   }) => {
-    console.log(`created at :${now}`)
-    console.log(`created at :${now}`)
     let action
     if (type === 1) {
       action = 'ביטל'
@@ -190,7 +179,6 @@ const Header = ({ socket, match }) => {
         </>
       )
     } else if (type === 3) {
-      console.log(type)
       return (
         <>
           <div className='notificationBLUE'>
@@ -223,8 +211,6 @@ const Header = ({ socket, match }) => {
       //setFirstlocationIsBusiness(true)
     }
     if (socket && socket != null) {
-      console.log(' SOCKET ! ! !')
-
       socket.on('getNotification', (data) => {
         console.log('getNotification SOCKET ! ! !')
         setNotificationss((prev) => [...prev, data])
@@ -284,11 +270,6 @@ const Header = ({ socket, match }) => {
   useEffect(() => {
     if (userInfo && user_connected_success) {
       console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
-      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
-      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
-      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
-      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
-      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
       if (userInfo.workingIn) {
         dispatch(getBuissnesDetailsfornav(userInfo.workingIn))
       }
@@ -300,12 +281,6 @@ const Header = ({ socket, match }) => {
 
   useEffect(() => {
     if (Rsuccess) {
-      console.log(`user ${RuserInfo.name} is Registerd Now`)
-      console.log(`user ${RuserInfo.name} is Registerd Now`)
-      console.log(`user ${RuserInfo.name} is Registerd Now`)
-      console.log(`user ${RuserInfo.name} is Registerd Now`)
-      console.log(`user ${RuserInfo.name} is Registerd Now`)
-      console.log(`user ${RuserInfo.name} is Registerd Now`)
       console.log(`user ${RuserInfo.name} is Registerd Now`)
     }
   }, [Rsuccess])
@@ -358,8 +333,6 @@ const Header = ({ socket, match }) => {
           setstateForActiveAdminLINK(false)
           setstateForActiveCARTLINK(false)
         }
-      } else {
-        console.log('')
       }
       if (success_cancel_noti) {
         console.log('dispatching GetNotifications') /***** */

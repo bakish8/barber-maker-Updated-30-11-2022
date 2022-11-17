@@ -10,21 +10,17 @@ const JWT_SECRET = process.env.JWT_SECRET
 const resetPageReload = asyncHandler(async (req, res) => {
   console.log('reset Page load!!!')
   const { id, token } = req.params
-  console.log(`id:${id}`)
-  console.log(`token:${token}`)
   const userFound = await User.findOne({ _id: id })
   if (userFound) {
     const NewSecret = JWT_SECRET + userFound.password
     try {
       const payload = jwt.verify(token, NewSecret)
       if (payload) {
-        console.log(`payload:${payload}`)
         res.status(200).json(userFound)
       } else {
         res.status(404).json('errory soosrry!')
       }
     } catch (err) {
-      console.log(err)
       res.status(405).json(err)
     }
   }
@@ -34,8 +30,6 @@ const resetPageReload = asyncHandler(async (req, res) => {
 const ctrateResetPage = asyncHandler(async (req, res) => {
   console.log('create Reset Page!!!')
   const { email } = req.body
-  console.log(`email ${email}`)
-  console.log(`JWT_SECRET ${JWT_SECRET}`)
   const userFound = await User.findOne({ email })
   if (userFound) {
     const NewSecret = JWT_SECRET + userFound.password
@@ -43,7 +37,6 @@ const ctrateResetPage = asyncHandler(async (req, res) => {
     const token = jwt.sign(payload, NewSecret, { expiresIn: '15m' })
     //const link = `http://localhost:3000/forgot-password/${userFound._id}/${token}` //development
     const link = `https://www.barber-maker.com/forgot-password/${userFound._id}/${token}` //production
-    console.log(link)
     res.status(201).json(link)
   }
 })
@@ -52,8 +45,6 @@ const ctrateResetPage = asyncHandler(async (req, res) => {
 const ctrateResetPageForPhoneReset = asyncHandler(async (req, res) => {
   console.log('create Reset Page for phone reset!!!')
   const { phone } = req.body
-  console.log(`email ${phone}`)
-  console.log(`JWT_SECRET ${JWT_SECRET}`)
   const userFound = await User.findOne({ phone })
   if (userFound) {
     const NewSecret = JWT_SECRET + userFound.password
@@ -61,7 +52,6 @@ const ctrateResetPageForPhoneReset = asyncHandler(async (req, res) => {
     const token = jwt.sign(payload, NewSecret, { expiresIn: '2m' })
     /////////const link = `forgot-password/${userFound._id}/${token}` //development
     const link = `forgot-password/${userFound._id}/${token}` //production
-    console.log(link)
     res.status(201).json(link)
   }
 })
@@ -71,10 +61,8 @@ const ResetPassword = asyncHandler(async (req, res) => {
   const { id } = req.params
   const user = await User.findById(id)
   const { password } = req.body
-  console.log(`pass:${password}`)
   if (user) {
     if (password) {
-      console.log(`pass:${password}`)
       user.password = req.body.password
     }
     const updatedUser = await user.save()
@@ -92,7 +80,6 @@ const InitialPassword = asyncHandler(async (req, res) => {
   const { password } = req.body
   if (user) {
     if (password) {
-      console.log(`pass:${password}`)
       user.password = req.body.password
       user.google_password_reset = false
     }

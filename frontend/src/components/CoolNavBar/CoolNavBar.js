@@ -9,8 +9,6 @@ import './CoolNavBar.css'
 import logo from '../../D.gif'
 import { Link } from 'react-router-dom'
 const CoolNavBar = (props) => {
-  console.log(props.Administrate)
-
   const [isSmall, setisSmall] = useState(false)
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
@@ -24,9 +22,6 @@ const CoolNavBar = (props) => {
     dispatch(logout())
   }
 
-  console.log(userInfo)
-  console.log(userGoogleInfo)
-
   //Maybe this is the problem with reloading check... \
   // ______________________________________________________
   // if (Gsuccess) {
@@ -39,17 +34,11 @@ const CoolNavBar = (props) => {
   // }
 
   const setisSmallFunction = () => {
-    console.log('hgfh')
-    console.log(isSmall)
     setisSmall(!isSmall)
-    console.log(isSmall)
   }
 
   const setisSmallFunctionAndRedirectHome = () => {
-    console.log('hgfh')
-    console.log(isSmall)
     setisSmall(!isSmall)
-    console.log(isSmall)
   }
 
   return (

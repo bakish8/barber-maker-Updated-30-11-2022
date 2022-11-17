@@ -10,28 +10,12 @@ import Business from '../models/Business.js'
 //PHONE
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
-  console.log(email)
-  console.log(email)
-  console.log(email)
-  console.log(email)
-  console.log(email)
-  console.log(email)
-  console.log(email)
-  console.log(email)
-  console.log(email)
-  console.log(email)
+
   const user = await User.findOne({ phone: email }) //need to be fixed  is phone all the way
-  console.log(user)
 
   if (user && (await user.matchPassword(password))) {
     console.log(`user password match`)
-
     if (user.WorkingIn) {
-      console.log(user.WorkingIn)
-      console.log(user.WorkingIn)
-      console.log(user.WorkingIn)
-      console.log(user.WorkingIn)
-      console.log(user.WorkingIn)
       res.json({
         _id: user._id,
         name: user.name,
@@ -58,7 +42,6 @@ const authUser = asyncHandler(async (req, res) => {
         ClientOfBusiness: user.ClientOfBusiness, //***NEW */
       })
     } else {
-      console.log(`Fuck with em and get some money!`)
       res.json({
         _id: user._id,
         name: user.name,
@@ -82,8 +65,6 @@ const authUser = asyncHandler(async (req, res) => {
 // @access  Public
 const authUserBYphone = asyncHandler(async (req, res) => {
   const { email, password } = req.body
-  console.log(email)
-  console.log(email)
   const user = await User.findOne({ email })
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -175,33 +156,6 @@ const registerUser = asyncHandler(async (req, res) => {
     console.log(`business Id is ${businessid}...searching...`)
     const business = await Business.findById(businessid).populate('clients')
 
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
-    console.log(`_Business !!!!!!!${business}`)
     if (userExists) {
       res.status(400)
       throw new Error('המשתמש כבר קיים במערכת')
@@ -280,7 +234,6 @@ const registerUser = asyncHandler(async (req, res) => {
       }
     }
   } else {
-    console.log(`business is  a 0`)
     if (userExists) {
       res.status(400)
       throw new Error('המשתמש כבר קיים במערכת')

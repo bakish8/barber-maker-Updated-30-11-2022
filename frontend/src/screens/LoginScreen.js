@@ -77,28 +77,22 @@ const LoginScreen = ({ location, history }) => {
 
   useEffect(() => {
     if (emailToSendTo != '') {
-      console.log(emailToSendTo)
     }
     if (userInfo || userInfoEmail) {
       if (userInfo) {
         if (userInfo.workingIn) {
-          console.log(userInfo.workingIn)
           history.push(`/business/${userInfo.workingIn}`)
         } else if (
           userInfo.ClientOfBusiness &&
           userInfo.ClientOfBusiness != 0
         ) {
-          console.log(userInfo.ClientOfBusiness)
           history.push(`/business/${userInfo.ClientOfBusiness}`)
         } else {
           history.push(redirect)
         }
       }
     }
-    if (successuserfound) {
-      console.log('susses!')
-      console.log('userfound')
-    }
+
     if (pagesuccess) {
       console.log('pagesuccess susses!')
       console.log(`page :${page}`)
@@ -113,9 +107,6 @@ const LoginScreen = ({ location, history }) => {
     }
     if (successSend) {
       console.log(send)
-      console.log(send)
-      console.log(PhoneToSendTo)
-      console.log(PhoneToSendTo)
       console.log(PhoneToSendTo)
       SetSHOW_ME_VARIFICATION(true)
     }
@@ -146,27 +137,9 @@ const LoginScreen = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log(email)
-    console.log(email)
-    console.log(email)
-    console.log(email)
-    console.log(email)
     dispatch(emailLogin(email, password)) //send to actions and fowerd as email
   }
   const submitHandler2 = (e) => {
-    console.log(phone)
-    console.log(phone)
-    console.log(phone)
-    console.log(phone)
-    console.log(phone)
-    console.log(password)
-    console.log(password)
-    console.log(password)
-    console.log(password)
-    console.log(password)
-    console.log(password)
-    console.log(password)
-    console.log(password)
     e.preventDefault()
     dispatch(login(phone, password)) //send to actions and fowerd as email needto be fixed to phone fron action
   }
@@ -178,10 +151,9 @@ const LoginScreen = ({ location, history }) => {
       'https://www.barber-maker.com/api/google',
       '_self'
     )
-    console.log('ggggggggggggggggggooogle Login TRY')
+    console.log('gooogle Login TRY')
   }
   const Swal_I_Forgot_My_Pass = () => {
-    console.log('Swal_I_Forgot_My_Pass')
     Swal.fire({
       title: 'שחזור סיסמה',
       text: `ניתן לשחזר את הסיסמה באמצעות הנייד או האימייל `,
@@ -209,14 +181,11 @@ const LoginScreen = ({ location, history }) => {
 
           preConfirm: async (email) => {
             setemailToSendTo(email)
-            console.log(email)
             return await fetch(`/api/search/email/${email}`)
               .then((response) => {
                 if (!response.ok) {
                   throw new Error(response.statusText)
                 } else {
-                  console.log(response)
-                  console.log(response.url)
                   dispatch(Create15PortForResetPASSWORD(email))
                   //axios.post('/api/forgot-password', { email })
                 }
@@ -269,13 +238,11 @@ const LoginScreen = ({ location, history }) => {
           },
           preConfirm: async (phone) => {
             SetPhoneToSendTo(phone)
-            console.log(phone)
             return await fetch(`/api/search/phones/${phone}`)
               .then((response) => {
                 if (!response.ok) {
                   throw new Error(response.statusText)
                 } else {
-                  console.log(response)
                   /****here create a auth sms to phone  */
                   dispatch(Send_RESET_PASS_SMS(phone))
                 }
