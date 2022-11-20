@@ -1,6 +1,9 @@
 import axios from 'axios'
 
 import {
+  USER_GOOGLE_REGISTER_REQUEST,
+  USER_GOOGLE_REGISTER_SUCCESS,
+  USER_GOOGLE_REGISTER_FAIL,
   SEND_WHATSAPP_TOR_REQUEST,
   SEND_WHATSAPP_TOR_SUCCESS,
   SEND_WHATSAPP_TOR_FAIL,
@@ -344,17 +347,7 @@ export const Googlelogin = (email) => async (dispatch) => {
 }
 
 export const logout = (Bid) => async (dispatch, req, res) => {
-  console.log(Bid)
-  console.log(Bid)
-  console.log(Bid)
-  console.log(Bid)
-  console.log(Bid)
-  console.log(Bid)
-  console.log(Bid)
-
   if (Bid) {
-    console.log(`BidBidBidBidBidBidBid`)
-    console.log(`BidBidBidBidBidBidBid`)
     document.location.href = `/business/${Bid}/login`
   } else {
     document.location.href = '/login'
@@ -373,18 +366,6 @@ export const logout = (Bid) => async (dispatch, req, res) => {
 
 export const registerByADMIN =
   (name, email, phone, password, image, businessid) => async (dispatch) => {
-    console.log(name)
-    console.log(email)
-    console.log(phone)
-    console.log(password)
-    console.log(image)
-    console.log(`_______________________________`)
-    console.log(`_______________________________`)
-    console.log(`_______________________________`)
-    console.log(`_______________________________`)
-    console.log(`_______________________________`)
-    console.log(`_______________________________`)
-    console.log(`_______________________________`)
     try {
       dispatch({
         type: USER_REGISTERByADMIN_REQUEST,
@@ -454,6 +435,34 @@ export const register =
       })
     }
   }
+export const registerGoogle = (businessid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_GOOGLE_REGISTER_REQUEST,
+    })
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const { data } = await axios.post('/api/users', { businessid }, config)
+
+    dispatch({
+      type: USER_GOOGLE_REGISTER_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_GOOGLE_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
 
 export const getUserDetails = (id) => async (dispatch, getState) => {
   try {

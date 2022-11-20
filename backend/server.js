@@ -167,7 +167,7 @@ app.get(
   }),
 
   function (req, res) {
-    console.log(`failureRedirect : ${failureRedirect},
+    console.log(`,
 req ______________________________:${req}
 res ------------------------------:${res}
 `)
