@@ -184,10 +184,12 @@ const BusinessLoginScreen = ({ location, history, match }) => {
         type: USER_GOOGLE_REGISTER_RESET,
       })
       console.log(`register_google_user_success !!! !!!`)
-      window.open(
-        'http://localhost:5000/api/google',
-        '_self'
-      ) /**development  */
+      window.open('https://www.barber-maker.com/api/google', '_self')
+
+      // window.open(
+      //   'http://localhost:5000/api/google',
+      //   '_self'
+      // ) /**development  */
     }
   }, [register_google_user_success])
 
