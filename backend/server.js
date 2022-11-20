@@ -165,7 +165,12 @@ app.get(
   passport.authenticate('google', {
     failureRedirect: '/login', // Fix to redirect to bussines page ...
   }),
+
   function (req, res) {
+    console.log(`failureRedirect : ${failureRedirect},
+req ______________________________:${req}
+res ------------------------------:${res}
+`)
     res.redirect('/') //production // Fix to redirect to bussines page ...
   }
 )
