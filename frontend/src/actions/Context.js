@@ -15,7 +15,7 @@ export default function Context(props) {
       console.log(res)
       dispatch(Googlelogin(res.data.email))
     })
-  }, [dispatch])
+  }, [])
 
   return (
     <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
