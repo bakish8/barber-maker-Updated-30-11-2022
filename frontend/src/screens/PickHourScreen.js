@@ -48,12 +48,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
   console.log('_____________')
   const [user, setUser] = useState('')
 
-  /******************************************** */
-  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
-  const { userGoogleInfo, Gsuccess } = userGoogleLogin
-  console.log(userGoogleInfo)
-  /******************************************** */
-
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
   const workingDaySingle = useSelector((state) => state.workingDaySingle)
