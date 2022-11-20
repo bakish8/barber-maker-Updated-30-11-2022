@@ -102,6 +102,7 @@ const Header = ({ socket, match }) => {
 
   useEffect(() => {
     if (userGoogleInfo && Gsuccess) {
+      window.location.reload()
       window.onload = function () {
         if (!window.location.hash) {
           window.location = window.location + '#loaded'
@@ -113,7 +114,7 @@ const Header = ({ socket, match }) => {
     } else {
       console.log('No succses on google login ')
     }
-  }, [Gsuccess])
+  }, [Gsuccess, userGoogleInfo])
 
   const ClickOnAdmin = () => {
     setstateForActiveAdminLINK(!stateForActiveAdminLINK)
