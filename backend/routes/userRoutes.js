@@ -13,7 +13,6 @@ import {
   registerNewTipul,
   updateUserComments,
   authUserBYphone,
-  Register_GoogleUser,
 } from '../controllers/userController.js'
 
 import { protect, admin, isUserAUTH } from '../middleware/authMiddleware.js'
@@ -21,7 +20,6 @@ import { protect, admin, isUserAUTH } from '../middleware/authMiddleware.js'
 router.route('/').post(registerUser).get(protect, admin, getUsers)
 router.post('/login', authUser)
 router.post('/emaillogin', authUserBYphone)
-router.post('/google', Register_GoogleUser) //Registeration
 router.post('/googlelogin', authGoogleUser)
 router
   .route('/profile')

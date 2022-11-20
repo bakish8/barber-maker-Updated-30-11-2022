@@ -1009,6 +1009,20 @@ const AdminWorkingDays = ({ history, match }) => {
   // ██╔══██╗██╔══╝     ██║   ██║   ██║██╔══██╗██║╚██╗██║
   // ██║  ██║███████╗   ██║   ╚██████╔╝██║  ██║██║ ╚████║
   // ╚═╝  ╚═╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
+      // <Col md={12}>
+      //   <Route
+      //     render={({ history }) => (
+      //       <Speech history={history} tipulimList={tipulimList} />
+      //     )}
+      //   />
+      // </Col>
+
+//Copy this: and add Speech
+      // <Col md={12}>
+      //   <Link id='goback' onClick={() => history.goBack()}>
+      //     <i class='fas fa-angle-double-right'></i>
+      //   </Link>
+
 
   return (
     <>
@@ -1188,13 +1202,7 @@ const AdminWorkingDays = ({ history, match }) => {
           />
         </form>
       )}
-      <Col md={12}>
-        <Route
-          render={({ history }) => (
-            <Speech history={history} tipulimList={tipulimList} />
-          )}
-        />
-      </Col>
+
       <Col md={12}>
         <Link id='goback' onClick={() => history.goBack()}>
           <i class='fas fa-angle-double-right'></i>

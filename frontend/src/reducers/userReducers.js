@@ -254,10 +254,6 @@ import {
   TIPUL_UPDATE_SUCCESS,
   TIPUL_UPDATE_FAIL,
   TIPUL_UPDATE_RESET,
-  USER_GOOGLE_REGISTER_REQUEST,
-  USER_GOOGLE_REGISTER_SUCCESS,
-  USER_GOOGLE_REGISTER_FAIL,
-  USER_GOOGLE_REGISTER_RESET,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -301,21 +297,6 @@ export const userGoogleLoginReducer = (state = {}, action) => {
       return {}
     case USER_GOOGLE_LOGIN_RESET:
       return { Gsuccess: false }
-    default:
-      return state
-  }
-}
-
-export const register_Google_Waited_USER_Reducer = (state = {}, action) => {
-  switch (action.type) {
-    case USER_GOOGLE_REGISTER_REQUEST:
-      return { loading: true }
-    case USER_GOOGLE_REGISTER_SUCCESS:
-      return { success: true, loading: false, Info: action.payload }
-    case USER_GOOGLE_REGISTER_FAIL:
-      return { loading: false, error: action.payload }
-    case USER_GOOGLE_REGISTER_RESET:
-      return { success: false }
     default:
       return state
   }

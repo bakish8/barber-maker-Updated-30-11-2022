@@ -73,11 +73,8 @@ const HomeScreen = ({ match, history }) => {
   console.log(month)
 
   useEffect(() => {
-    if (Gsuccess && userGoogleInfo && userGoogleInfo.ClientOfBusiness) {
-      console.log(
-        `userGoogleInfo:__________________________________________________________${userGoogleInfo.ClientOfBusiness}`
-      )
-      history.push(`business/${userGoogleInfo.ClientOfBusiness}`)
+    if (Gsuccess && userGoogleInfo) {
+      history.goBack()
     }
   }, [Gsuccess, userGoogleInfo])
   useEffect(() => {

@@ -2282,21 +2282,22 @@ const AdminSingleWorkDay = ({ history, match }) => {
   // ██╔══██╗██╔══╝     ██║   ██║   ██║██╔══██╗██║╚██╗██║
   // ██║  ██║███████╗   ██║   ╚██████╔╝██║  ██║██║ ╚████║
   // ╚═╝  ╚═╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
+
+  //Voice Listner
+  // <Col md={12}>
+  //   <Route
+  //     render={({ history }) => (
+  //       <Speech history={history} match={match} tipulimList={tipulimList} />
+  //     )}
+  //   />
+  // </Col>
+  // <Col md={12}>
+  //   <Link id='goback' onClick={() => history.goBack()}>
+  //     <i className='fas fa-angle-double-right'></i>
+  //   </Link>
+  // </Col>
   return (
     <Row>
-      <Col md={12}>
-        <Route
-          render={({ history }) => (
-            <Speech history={history} match={match} tipulimList={tipulimList} />
-          )}
-        />
-      </Col>
-      <Col md={12}>
-        <Link id='goback' onClick={() => history.goBack()}>
-          <i className='fas fa-angle-double-right'></i>
-        </Link>
-      </Col>
-
       {loadingSingle ? (
         <Loader />
       ) : errorSingle ? (

@@ -1,9 +1,6 @@
 import axios from 'axios'
 
 import {
-  USER_GOOGLE_REGISTER_REQUEST,
-  USER_GOOGLE_REGISTER_SUCCESS,
-  USER_GOOGLE_REGISTER_FAIL,
   SEND_WHATSAPP_TOR_REQUEST,
   SEND_WHATSAPP_TOR_SUCCESS,
   SEND_WHATSAPP_TOR_FAIL,
@@ -435,38 +432,6 @@ export const register =
       })
     }
   }
-export const registerGoogle = (businessid) => async (dispatch) => {
-  try {
-    dispatch({
-      type: USER_GOOGLE_REGISTER_REQUEST,
-    })
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-
-    const { data } = await axios.post(
-      '/api/users/google',
-      { businessid },
-      config
-    )
-
-    dispatch({
-      type: USER_GOOGLE_REGISTER_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: USER_GOOGLE_REGISTER_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
-  }
-}
 
 export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
