@@ -74,20 +74,13 @@ const HomeScreen = ({ match, history }) => {
 
   useEffect(() => {
     if (Gsuccess && userGoogleInfo) {
-      let URL = history.goBack()
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
-      console.log(URL)
+      const roleBack = localStorage.getItem('roll-back-business')
+        ? localStorage.getItem('roll-back-business')
+        : null
+      if (roleBack != null) {
+        localStorage.removeItem('roll-back-business')
+        history.push(roleBack)
+      }
     }
   }, [Gsuccess, userGoogleInfo])
   useEffect(() => {

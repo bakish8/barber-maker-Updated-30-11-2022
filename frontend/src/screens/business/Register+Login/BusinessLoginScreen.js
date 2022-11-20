@@ -22,8 +22,10 @@ import Verfy4Digits from '../../../components/Verfy4Digits/Verfy4Digits.js'
 import { SEND_RESET_SMS_TOR_RESET } from '../../../constants/userConstants'
 import { getBuissnesDetails } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
 const BusinessLoginScreen = ({ location, history, match }) => {
+  const BusinessId = window.location.pathname.split('/')[2]
+  let URLL = `/business/${BusinessId}`
+  localStorage.setItem('roll-back-business', URLL)
   const BussinesID = match.params.id
-
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
