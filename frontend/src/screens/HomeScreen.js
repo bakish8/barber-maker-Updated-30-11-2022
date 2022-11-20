@@ -74,7 +74,20 @@ const HomeScreen = ({ match, history }) => {
 
   useEffect(() => {
     if (Gsuccess && userGoogleInfo) {
-      history.goBack()
+      let URL = history.goBack()
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
+      console.log(URL)
     }
   }, [Gsuccess, userGoogleInfo])
   useEffect(() => {
