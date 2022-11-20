@@ -85,6 +85,7 @@ import {
   BUILD_RESET_PAGE_FOR_PHONE_REDUCER,
   SendTorSMS_RESET_Reducer,
   INITIAL_PASSWORD_REDUCER,
+  register_Google_Waited_USER_Reducer,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -203,7 +204,7 @@ const reducer = combineReducers({
   GetBusinessDetailsfordesign: GetBusinessDetailsReducerfordesign,
   BusinessWorkersList: BusinessWorkersListReducer,
   BusinessTreatmentsList: BusinessTreatmentsListReducer,
-
+  register_Google_Waited_USER: register_Google_Waited_USER_Reducer,
   ClientRegister: ClientRegisterReducer,
 
   BussinesuserList: BussinesuserListReducer,

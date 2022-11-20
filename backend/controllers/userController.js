@@ -310,6 +310,49 @@ const registerUser = asyncHandler(async (req, res) => {
     }
   }
 })
+const Register_GoogleUser = asyncHandler(async (req, res) => {
+  const { businessid } = req.body
+  if (businessid != 0) {
+    const business = await Business.findById(businessid).populate('clients')
+    if (business) {
+      const user = await User.create({
+        name: 'awaited',
+        firstname: 'awaited',
+        lastname: 'awaited',
+        email: 'awaited@gmail.com',
+        Bday: '01/01/2000',
+        phone: '0500000000',
+        password: '000000',
+        image: 'https://i.ibb.co/HN0g1wx/animation-200-kyoiyjcb.gif',
+        ClientOfBusiness: businessid,
+      })
+
+      if (user) {
+        business.clients.push(user)
+        await business.save()
+        res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          firstname: firstname,
+          lastname: lastname,
+          email: user.email,
+          Bday: user.Bday,
+          phone: user.phone,
+          isAdmin: user.isAdmin,
+          isAdminOfAdmins: user.isAdminOfAdmins,
+          image: user.image,
+          ClientOfBusiness: businessid,
+        })
+      } else {
+        res.status(400)
+        throw new Error('אחד מהפרטים שגוי נסה שנית')
+      }
+    }
+  } else {
+    res.status(400)
+    throw new Error('No Bussines Found in by ID...')
+  }
+})
 
 // @desc    Get user profile
 // @route   GET /api/users/profile
@@ -495,4 +538,5 @@ export {
   updateUser,
   registerNewTipul,
   updateUserComments,
+  Register_GoogleUser,
 }

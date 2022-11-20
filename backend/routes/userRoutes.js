@@ -1,4 +1,5 @@
 import express from 'express'
+import { register_Google_Waited_USER_Reducer } from '../../frontend/src/reducers/userReducers.js'
 const router = express.Router()
 import {
   authUser,
@@ -20,6 +21,7 @@ import { protect, admin, isUserAUTH } from '../middleware/authMiddleware.js'
 router.route('/').post(registerUser).get(protect, admin, getUsers)
 router.post('/login', authUser)
 router.post('/emaillogin', authUserBYphone)
+router.post('/google', register_Google_Waited_USER_Reducer) //Registeration
 router.post('/googlelogin', authGoogleUser)
 router
   .route('/profile')

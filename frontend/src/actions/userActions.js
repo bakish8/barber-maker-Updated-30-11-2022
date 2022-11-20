@@ -447,7 +447,11 @@ export const registerGoogle = (businessid) => async (dispatch) => {
       },
     }
 
-    const { data } = await axios.post('/api/users', { businessid }, config)
+    const { data } = await axios.post(
+      '/api/users/google',
+      { businessid },
+      config
+    )
 
     dispatch({
       type: USER_GOOGLE_REGISTER_SUCCESS,

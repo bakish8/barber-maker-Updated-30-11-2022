@@ -176,13 +176,16 @@ const BusinessLoginScreen = ({ location, history, match }) => {
   }
 
   const GoogleSigninsubmitHandler = () => {
+    dispatch(registerGoogle(BussinesID))
+    //USE AFTER EFFECT AFTER CREATE A WAITED USER ....
+
     //window.open('http://localhost:5000/api/google', '_self')/**development  */
-    window.open(
-      /**production  */
-      'https://www.barber-maker.com/api/google',
-      '_self'
-    )
-    console.log('ggggggggggggggggggooogle Login TRY')
+
+    // window.open(
+    //   /**production  */
+    //   'https://www.barber-maker.com/api/google',
+    //   '_self'
+    // )
   }
   const Swal_I_Forgot_My_Pass = () => {
     console.log('Swal_I_Forgot_My_Pass')

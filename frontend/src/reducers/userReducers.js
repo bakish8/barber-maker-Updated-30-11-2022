@@ -308,11 +308,11 @@ export const userGoogleLoginReducer = (state = {}, action) => {
 export const register_Google_Waited_USER_Reducer = (state = {}, action) => {
   switch (action.type) {
     case USER_GOOGLE_REGISTER_REQUEST:
-      return { Gloading: true }
+      return { loading: true }
     case USER_GOOGLE_REGISTER_SUCCESS:
-      return { Gsuccess: true, Gloading: false, userGoogleInfo: action.payload }
+      return { success: true, loading: false, Info: action.payload }
     case USER_GOOGLE_REGISTER_FAIL:
-      return { Gloading: false, Gerror: action.payload }
+      return { loading: false, error: action.payload }
     default:
       return state
   }
