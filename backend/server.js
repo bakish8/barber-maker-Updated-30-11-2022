@@ -32,6 +32,7 @@ const SSocket = Socket
 import User from './models/userModel.js'
 import cors from 'cors'
 import axios from 'axios'
+import expressAsyncHandler from 'express-async-handler'
 
 let random = Math.floor(Math.random() * 100000000000) + 1 // RANDOM FOR SESSION
 const app = express()
@@ -103,19 +104,36 @@ passport.use(
             console.log(`gogole user name is :${profile.name}`)
             if (!googleuser && birthdayReturned) {
               console.log(`__no google user found! create..._`)
-              const newUser = new User({
-                name: profile.name.givenName + ' ' + profile.name.familyName,
-                email: profile.emails[0].value,
-                Bday: birthdayReturned,
-                googleId: profile.id,
-                image: profile.photos[0].value,
-                phone: null,
-                password: birthdayReturned,
-                google_password_reset: true,
-                isAdmin: false,
+
+              expressAsyncHandler(async (req, res) => {
+                const user = await User.findOne({ phone: '500000000' })
+                if (user) {
+                  ;(user.name =
+                    profile.name.givenName + ' ' + profile.name.familyName),
+                    (user.email = profile.emails[0].value),
+                    (user.Bday = birthdayReturned),
+                    (user.googleId = profile.id),
+                    (user.image = profile.photos[0].value),
+                    (user.phone = '0507777777'),
+                    (user.password = birthdayReturned),
+                    (user.google_password_reset = true),
+                    (user.isAdmin = false)
+                  const updatedUser = await user.save()
+                }
               })
-              await newUser.save()
-              console.log('New User Created By Google_!_!_!')
+              // const newUser = new User({
+              //   name: profile.name.givenName + ' ' + profile.name.familyName,
+              //   email: profile.emails[0].value,
+              //   Bday: birthdayReturned,
+              //   googleId: profile.id,
+              //   image: profile.photos[0].value,
+              //   phone: null,
+              //   password: birthdayReturned,
+              //   google_password_reset: true,
+              //   isAdmin: false,
+              // })
+              // await newUser.save()
+              console.log('New User Updated By Google_!_!_!')
               const googlenewuser = await User.findOne({ googleId: profile.id })
               cb(null, googlenewuser)
             } else {
@@ -126,7 +144,7 @@ passport.use(
             if (!googleuser) {
               console.log(`__no google user found! create..._`)
               const newUser = new User({
-                name: profile.name.givenName + ' ' + profile.name.familyName,
+                name: profile.name.givenName + ' ' + profile.name.familyName, ////FIX
                 email: profile.emails[0].value,
                 googleId: profile.id,
                 image: profile.photos[0].value,

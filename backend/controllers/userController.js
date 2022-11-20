@@ -319,7 +319,7 @@ const Register_GoogleUser = asyncHandler(async (req, res) => {
         name: 'awaited',
         firstname: 'awaited',
         lastname: 'awaited',
-        email: 'awaited@gmail.com',
+        email: `${Math.floor(Math.random() * (+100 + 1 - +1)) + +1}@gmail.com`,
         Bday: '01/01/2000',
         phone: '0500000000',
         password: '000000',
