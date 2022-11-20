@@ -101,9 +101,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
 
   useEffect(() => {
     dispatch(getBuissnesDetails(BussinesID))
-    dispatch({
-      type: USER_GOOGLE_REGISTER_RESET,
-    })
   }, [dispatch])
 
   useEffect(() => {
@@ -183,6 +180,9 @@ const BusinessLoginScreen = ({ location, history, match }) => {
 
   useEffect(() => {
     if (register_google_user_success) {
+      dispatch({
+        type: USER_GOOGLE_REGISTER_RESET,
+      })
       console.log(`register_google_user_success !!! !!!`)
       window.open(
         'http://localhost:5000/api/google',
