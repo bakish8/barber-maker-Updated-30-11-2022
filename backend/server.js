@@ -124,7 +124,6 @@ passport.use(
                 isAdmin: false,
                 ClientOfBusiness: awaitedUser.ClientOfBusiness,
               })
-              await awaitedUser.remove()
               await newUser.save()
               business.clients.push(newUser)
               await business.save()

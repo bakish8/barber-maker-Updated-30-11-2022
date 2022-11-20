@@ -75,8 +75,9 @@ const HomeScreen = ({ match, history }) => {
   useEffect(() => {
     if (userGoogleInfo) {
       console.log(
-        `userGoogleInfo:__________________________________________________________${userGoogleInfo}`
+        `userGoogleInfo:__________________________________________________________${userGoogleInfo.ClientOfBusiness}`
       )
+      history.push(`business/${userGoogleInfo.ClientOfBusiness}`)
     }
   }, [userGoogleInfo])
   useEffect(() => {
