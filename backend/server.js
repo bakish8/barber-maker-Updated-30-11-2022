@@ -99,48 +99,78 @@ passport.use(
               month = month.toString().padStart(2, '0')
             }
             let birthdayReturned = `${day}/${month}/${year}`
-            const googleuser = await User.findOne({ googleId: profile.id })
-            console.log(`gogole user name is :${profile.name}`)
-            if (!googleuser && birthdayReturned) {
-              console.log(`__no google user found! create..._`)
-              const newUser = new User({
-                name: profile.name.givenName + ' ' + profile.name.familyName,
-                email: profile.emails[0].value,
-                Bday: birthdayReturned,
-                googleId: profile.id,
-                image: profile.photos[0].value,
-                phone: null,
-                password: birthdayReturned,
-                isAdmin: false,
-              })
-              await newUser.save()
-              console.log('New User Created By Google_!_!_!')
-              const googlenewuser = await User.findOne({ googleId: profile.id })
-              cb(null, googlenewuser)
+
+            const ExistedMailUser = await User.findOne({
+              email: profile.emails[0].value,
+            })
+            if (ExistedMailUser) {
+              if (!ExistedMailUser.googleId) {
+                ExistedMailUser.googleId = profile.id
+                await ExistedMailUser.save()
+              }
+              if (!ExistedMailUser.Bday) {
+                ExistedMailUser.Bday = birthdayReturned
+                await ExistedMailUser.save()
+              }
+              cb(null, ExistedMailUser)
             } else {
-              cb(null, googleuser)
+              const googleuser = await User.findOne({ googleId: profile.id })
+              console.log(`gogole user name is :${profile.name}`)
+              if (!googleuser && birthdayReturned) {
+                console.log(`__no google user found! create..._`)
+                const newUser = new User({
+                  name: profile.name.givenName + ' ' + profile.name.familyName,
+                  email: profile.emails[0].value,
+                  Bday: birthdayReturned,
+                  googleId: profile.id,
+                  image: profile.photos[0].value,
+                  phone: null,
+                  password: birthdayReturned,
+                  isAdmin: false,
+                })
+                await newUser.save()
+                console.log('New User Created By Google_!_!_!')
+                const googlenewuser = await User.findOne({
+                  googleId: profile.id,
+                })
+                cb(null, googlenewuser)
+              } else {
+                cb(null, googleuser)
+              }
             }
           } else {
             // if res for Bday is NOT  OK Register Without Bday
-            if (!googleuser) {
-              console.log(`__no google user found! create..._`)
-              const newUser = new User({
-                name: profile.name.givenName + ' ' + profile.name.familyName,
-                email: profile.emails[0].value,
-                googleId: profile.id,
-                image: profile.photos[0].value,
-                phone: null,
-                password: '123456',
-                isAdmin: false,
-              })
-              await newUser.save()
-              console.log('New User Created By Google_!_!_!')
-              const googlenewuser = await User.findOne({ googleId: profile.id })
-              cb(null, googlenewuser)
+            const ExistedMailUser = await User.findOne({
+              email: profile.emails[0].value,
+            })
+            if (ExistedMailUser) {
+              if (!ExistedMailUser.googleId) {
+                ExistedMailUser.googleId = profile.id
+                await ExistedMailUser.save()
+              }
+              cb(null, ExistedMailUser)
             } else {
-              cb(null, googleuser)
+              if (!googleuser) {
+                console.log(`__no google user found! create..._`)
+                const newUser = new User({
+                  name: profile.name.givenName + ' ' + profile.name.familyName,
+                  email: profile.emails[0].value,
+                  googleId: profile.id,
+                  image: profile.photos[0].value,
+                  phone: null,
+                  password: '123456',
+                  isAdmin: false,
+                })
+                await newUser.save()
+                console.log('New User Created By Google_!_!_!')
+                const googlenewuser = await User.findOne({
+                  googleId: profile.id,
+                })
+                cb(null, googlenewuser)
+              } else {
+                cb(null, googleuser)
+              }
             }
-            console.log(`Error Getting Birth Day Deets ... `)
           }
         })
     }
