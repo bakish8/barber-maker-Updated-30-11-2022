@@ -15,8 +15,8 @@ const CoolNavBarBussines = (props) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  // const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
-  // const { userGoogleInfo, Gsuccess } = userGoogleLogin
+  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
+  const { userGoogleInfo, Gsuccess } = userGoogleLogin
 
   const logoutHandler = () => {
     setisSmallFunction()
@@ -24,7 +24,8 @@ const CoolNavBarBussines = (props) => {
   }
 
   console.log(userInfo)
-  // console.log(userGoogleInfo)
+  console.log(userGoogleInfo)
+
   //Maybe this is the problem with reloading check... \
   // ______________________________________________________
   // if (Gsuccess) {

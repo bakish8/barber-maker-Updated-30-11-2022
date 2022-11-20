@@ -68,9 +68,8 @@ const Header = ({ socket, match }) => {
   const [ShowInitialGooglePassWordModel, setShowInitialGooglePassWordModel] =
     useState(false)
   const [Administrate, setAdministrate] = useState(false)
-  // const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
-  // const { userGoogleInfo, Gsuccess } = userGoogleLogin
-  const userGoogleInfo = useContext(myContext)
+  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
+  const { userGoogleInfo, Gsuccess } = userGoogleLogin
 
   const GetBusinessDetailsfornav = useSelector(
     (state) => state.GetBusinessDetailsfornav
@@ -102,7 +101,7 @@ const Header = ({ socket, match }) => {
   }
 
   useEffect(() => {
-    if (userGoogleInfo) {
+    if (userGoogleInfo && Gsuccess) {
       window.onload = function () {
         if (!window.location.hash) {
           window.location = window.location + '#loaded'
@@ -114,7 +113,7 @@ const Header = ({ socket, match }) => {
     } else {
       console.log('No succses on google login ')
     }
-  }, [userGoogleInfo])
+  }, [Gsuccess])
 
   const ClickOnAdmin = () => {
     setstateForActiveAdminLINK(!stateForActiveAdminLINK)

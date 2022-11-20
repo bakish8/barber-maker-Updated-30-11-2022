@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' //מה שישחליט מה לשגר
 import { Row, Col } from 'react-bootstrap'
@@ -39,11 +39,11 @@ const HomeScreen = ({ match, history }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1
   const dispatch = useDispatch() //הגדרת שיגור
-  const userGoogleInfo = useContext(myContext)
+
   const productList = useSelector((state) => state.productList) //מושכים מהפרוקדט רדיוסר מההצהרה שלנו את הארור האפשרי את המוצרים ואת הטעינה
   const { loading, error, products, page, pages } = productList
-  // const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
-  // const { userGoogleInfo, Gsuccess } = userGoogleLogin
+  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
+  const { userGoogleInfo, Gsuccess } = userGoogleLogin
   const userLogin = useSelector((state) => state.userLogin)
   const { loading: userInfoloading, error: userInfoerror, userInfo } = userLogin
   const GetAllBusiness = useSelector((state) => state.GetAllBusiness)
@@ -73,13 +73,13 @@ const HomeScreen = ({ match, history }) => {
   console.log(month)
 
   useEffect(() => {
-    if (userGoogleInfo && userGoogleInfo.ClientOfBusiness) {
+    if (Gsuccess && userGoogleInfo && userGoogleInfo.ClientOfBusiness) {
       console.log(
         `userGoogleInfo:__________________________________________________________${userGoogleInfo.ClientOfBusiness}`
       )
       history.push(`business/${userGoogleInfo.ClientOfBusiness}`)
     }
-  }, [userGoogleInfo])
+  }, [Gsuccess, userGoogleInfo])
   useEffect(() => {
     //USE EFFECT  for Aos Effects
     Aos.init({ duration: 500 })
