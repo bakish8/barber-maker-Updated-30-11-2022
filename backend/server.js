@@ -87,7 +87,7 @@ passport.use(
           { withCredentials: true }
         )
         .then(async (res) => {
-          if (res.data.birthdays) {
+          if (res.data.birthdays[1].date) {
             // if res for Bday is OK calculate and Register Bday
             let day = res.data.birthdays[1].date.day.toString()
             let month = res.data.birthdays[1].date.month.toString()
