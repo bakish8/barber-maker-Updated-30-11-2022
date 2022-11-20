@@ -52,9 +52,6 @@ import AdminNotificationsSettings from './screens/business/admin/AdminNotificati
 import AdminDesignSettingsScreen from './screens/business/admin/AdminDesignSettingsScreen'
 
 const App = () => {
-  const userObject = useContext(myContext)
-  console.log(userObject)
-
   const [socket, setSocket] = useState(null)
 
   useEffect(() => {
