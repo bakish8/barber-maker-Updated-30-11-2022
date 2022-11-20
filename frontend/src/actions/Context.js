@@ -18,7 +18,5 @@ export default function Context(props) {
     })
   }, [dispatch])
 
-  return (
-    <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
-  )
+  return <myContext.Provider>{props.children}</myContext.Provider>
 }
