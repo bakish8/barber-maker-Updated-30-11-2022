@@ -87,7 +87,7 @@ passport.use(
           { withCredentials: true }
         )
         .then(async (res) => {
-          if (res.data.birthdays[1].date) {
+          if (res.data.birthdays[1]) {
             // if res for Bday is OK calculate and Register Bday
             let day = res.data.birthdays[1].date.day.toString()
             let month = res.data.birthdays[1].date.month.toString()
@@ -150,6 +150,7 @@ passport.use(
               }
               cb(null, ExistedMailUser)
             } else {
+              const googleuser = await User.findOne({ googleId: profile.id })
               if (!googleuser) {
                 console.log(`__no google user found! create..._`)
                 const newUser = new User({
