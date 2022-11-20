@@ -33,6 +33,7 @@ import User from './models/userModel.js'
 import cors from 'cors'
 import axios from 'axios'
 import expressAsyncHandler from 'express-async-handler'
+import Business from './models/Business.js'
 
 let random = Math.floor(Math.random() * 100000000000) + 1 // RANDOM FOR SESSION
 const app = express()
@@ -104,7 +105,13 @@ passport.use(
             console.log(`gogole user name is :${profile.name}`)
             const awaitedUser = await User.findOne({ name: 'awaited' })
             if (!googleuser && birthdayReturned && awaitedUser) {
-              console.log(`__no google user found! create..._`)
+              console.log(
+                `__no google user found! create One ,set Pass as Bday , make client Of Bussines if Registerd Or Loggin With Bussiness Page..._`
+              )
+              let business = await Business.findById(
+                awaitedUser.ClientOfBusiness
+              ).populate('clients')
+
               const newUser = new User({
                 name: profile.name.givenName + ' ' + profile.name.familyName,
                 email: profile.emails[0].value,
@@ -117,7 +124,10 @@ passport.use(
                 isAdmin: false,
                 ClientOfBusiness: awaitedUser.ClientOfBusiness,
               })
+              await awaitedUser.remove()
               await newUser.save()
+              business.clients.push(newUser)
+              await business.save()
               console.log('New User Updated By Google_!_!_!')
               const googlenewuser = await User.findOne({ googleId: profile.id })
               cb(null, googlenewuser)

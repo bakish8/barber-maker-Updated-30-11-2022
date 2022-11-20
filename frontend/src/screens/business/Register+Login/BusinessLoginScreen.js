@@ -20,7 +20,10 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 import emailjs from 'emailjs-com'
 import Verfy4Digits from '../../../components/Verfy4Digits/Verfy4Digits.js'
-import { SEND_RESET_SMS_TOR_RESET } from '../../../constants/userConstants'
+import {
+  SEND_RESET_SMS_TOR_RESET,
+  USER_GOOGLE_REGISTER_RESET,
+} from '../../../constants/userConstants'
 import { getBuissnesDetails } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
 const BusinessLoginScreen = ({ location, history, match }) => {
   const BussinesID = match.params.id
@@ -98,6 +101,9 @@ const BusinessLoginScreen = ({ location, history, match }) => {
 
   useEffect(() => {
     dispatch(getBuissnesDetails(BussinesID))
+    dispatch({
+      type: USER_GOOGLE_REGISTER_RESET,
+    })
   }, [dispatch])
 
   useEffect(() => {

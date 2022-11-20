@@ -257,6 +257,7 @@ import {
   USER_GOOGLE_REGISTER_REQUEST,
   USER_GOOGLE_REGISTER_SUCCESS,
   USER_GOOGLE_REGISTER_FAIL,
+  USER_GOOGLE_REGISTER_RESET,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -313,6 +314,8 @@ export const register_Google_Waited_USER_Reducer = (state = {}, action) => {
       return { success: true, loading: false, Info: action.payload }
     case USER_GOOGLE_REGISTER_FAIL:
       return { loading: false, error: action.payload }
+    case USER_GOOGLE_REGISTER_RESET:
+      return { success: false }
     default:
       return state
   }

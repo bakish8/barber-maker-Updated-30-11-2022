@@ -73,6 +73,13 @@ const HomeScreen = ({ match, history }) => {
   console.log(month)
 
   useEffect(() => {
+    if (userGoogleInfo) {
+      console.log(
+        `userGoogleInfo:__________________________________________________________${userGoogleInfo}`
+      )
+    }
+  }, [userGoogleInfo])
+  useEffect(() => {
     //USE EFFECT  for Aos Effects
     Aos.init({ duration: 500 })
   }, [])
