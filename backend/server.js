@@ -102,37 +102,22 @@ passport.use(
             let birthdayReturned = `${day}/${month}/${year}`
             const googleuser = await User.findOne({ googleId: profile.id })
             console.log(`gogole user name is :${profile.name}`)
-            if (!googleuser && birthdayReturned) {
+            const awaitedUser = await User.findOne({ name: 'awaited' })
+            if (!googleuser && birthdayReturned && awaitedUser) {
               console.log(`__no google user found! create..._`)
-
-              expressAsyncHandler(async (req, res) => {
-                const user = await User.findOne({ phone: '500000000' })
-                if (user) {
-                  ;(user.name =
-                    profile.name.givenName + ' ' + profile.name.familyName),
-                    (user.email = profile.emails[0].value),
-                    (user.Bday = birthdayReturned),
-                    (user.googleId = profile.id),
-                    (user.image = profile.photos[0].value),
-                    (user.phone = '0507777777'),
-                    (user.password = birthdayReturned),
-                    (user.google_password_reset = true),
-                    (user.isAdmin = false)
-                  const updatedUser = await user.save()
-                }
+              const newUser = new User({
+                name: profile.name.givenName + ' ' + profile.name.familyName,
+                email: profile.emails[0].value,
+                Bday: birthdayReturned,
+                googleId: profile.id,
+                image: profile.photos[0].value,
+                phone: null,
+                password: birthdayReturned,
+                google_password_reset: true,
+                isAdmin: false,
+                ClientOfBusiness: awaitedUser.ClientOfBusiness,
               })
-              // const newUser = new User({
-              //   name: profile.name.givenName + ' ' + profile.name.familyName,
-              //   email: profile.emails[0].value,
-              //   Bday: birthdayReturned,
-              //   googleId: profile.id,
-              //   image: profile.photos[0].value,
-              //   phone: null,
-              //   password: birthdayReturned,
-              //   google_password_reset: true,
-              //   isAdmin: false,
-              // })
-              // await newUser.save()
+              await newUser.save()
               console.log('New User Updated By Google_!_!_!')
               const googlenewuser = await User.findOne({ googleId: profile.id })
               cb(null, googlenewuser)
