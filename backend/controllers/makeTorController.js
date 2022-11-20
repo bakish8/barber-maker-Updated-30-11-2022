@@ -147,6 +147,9 @@ const confirmTor = asyncHandler(async (req, res) => {
     console.log(`user Client OF business is 0 Now Changing to ${BussinesID}`)
     user.ClientOfBusiness = BussinesID
     await user.save()
+    const Businesss = await Business.findById(businessid).populate('clients')
+    Businesss.clients.push(user)
+    await Businesss.save()
   }
   const tipul = await Tipul.findById(Tipulid)
   if (tipul.time === 30) {
