@@ -13,17 +13,13 @@ import {
   Create15PortForResetPASSWORD,
   Create15PortForResetPASSWORD_withPhone,
   Send_RESET_PASS_SMS,
-  registerGoogle,
 } from '../../../actions/userActions'
 import './LoginScreen.css'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import emailjs from 'emailjs-com'
 import Verfy4Digits from '../../../components/Verfy4Digits/Verfy4Digits.js'
-import {
-  SEND_RESET_SMS_TOR_RESET,
-  USER_GOOGLE_REGISTER_RESET,
-} from '../../../constants/userConstants'
+import { SEND_RESET_SMS_TOR_RESET } from '../../../constants/userConstants'
 import { getBuissnesDetails } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
 const BusinessLoginScreen = ({ location, history, match }) => {
   const BussinesID = match.params.id
@@ -49,15 +45,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
     success,
     error: BussinesError,
   } = GetBusinessDetails
-  const register_Google_Waited_USER = useSelector(
-    (state) => state.register_Google_Waited_USER
-  )
-  const {
-    loading: register_google_user_loading,
-    info,
-    success: register_google_user_success,
-    error: register_google_user_error,
-  } = register_Google_Waited_USER
 
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
@@ -178,25 +165,10 @@ const BusinessLoginScreen = ({ location, history, match }) => {
     }
   }, [error, errorEmail])
 
-  useEffect(() => {
-    if (register_google_user_success) {
-      dispatch({
-        type: USER_GOOGLE_REGISTER_RESET,
-      })
-      console.log(`register_google_user_success !!! !!!`)
-      window.open('https://www.barber-maker.com/api/google', '_self')
-
-      // window.open(
-      //   'http://localhost:5000/api/google',
-      //   '_self'
-      // ) /**development  */
-    }
-  }, [register_google_user_success])
-
   const submitHandler = (e) => {
     e.preventDefault()
     console.log(email)
-    dispatch(emailLogin(email, password)) //send to actions and fowerd as email...
+    dispatch(emailLogin(email, password)) //send to actions and fowerd as email
   }
   const submitHandler2 = (e) => {
     e.preventDefault()
@@ -204,16 +176,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
   }
 
   const GoogleSigninsubmitHandler = () => {
-    dispatch(registerGoogle(BussinesID))
-    //USE AFTER EFFECT AFTER CREATE A WAITED USER ....
-
-    //window.open('http://localhost:5000/api/google', '_self')/**development  */
-
-    // window.open(
-    //   /**production  */
-    //   'https://www.barber-maker.com/api/google',
-    //   '_self'
-    // )
+    window.open('https://www.barber-maker.com/api/google', '_self')
   }
   const Swal_I_Forgot_My_Pass = () => {
     console.log('Swal_I_Forgot_My_Pass')
