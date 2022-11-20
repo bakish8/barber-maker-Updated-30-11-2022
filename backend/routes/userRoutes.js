@@ -14,6 +14,7 @@ import {
   registerNewTipul,
   updateUserComments,
   authUserBYphone,
+  register_Google_Waited_USER_Reducer,
 } from '../controllers/userController.js'
 
 import { protect, admin, isUserAUTH } from '../middleware/authMiddleware.js'
