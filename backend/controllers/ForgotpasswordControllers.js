@@ -81,7 +81,6 @@ const InitialPassword = asyncHandler(async (req, res) => {
   if (user) {
     if (password) {
       user.password = req.body.password
-      user.google_password_reset = false
     }
     const updatedUser = await user.save()
     res.json({

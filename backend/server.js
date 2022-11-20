@@ -120,7 +120,6 @@ passport.use(
                 image: profile.photos[0].value,
                 phone: null,
                 password: birthdayReturned,
-                google_password_reset: true,
                 isAdmin: false,
                 ClientOfBusiness: awaitedUser.ClientOfBusiness,
               })
@@ -144,7 +143,6 @@ passport.use(
                 image: profile.photos[0].value,
                 phone: null,
                 password: '123456',
-                google_password_reset: true,
                 isAdmin: false,
               })
               await newUser.save()

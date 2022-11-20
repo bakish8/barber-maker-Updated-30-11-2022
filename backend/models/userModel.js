@@ -37,10 +37,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    google_password_reset: {
-      type: Boolean,
-      required: false,
-    },
+
     isAdmin: {
       type: Boolean,
       required: true,

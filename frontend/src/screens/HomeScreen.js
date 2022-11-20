@@ -77,9 +77,8 @@ const HomeScreen = ({ match, history }) => {
       console.log(
         `userGoogleInfo:__________________________________________________________${userGoogleInfo.ClientOfBusiness}`
       )
-      history.push(`business/${userGoogleInfo.ClientOfBusiness}`)
     }
-  }, [userGoogleInfo])
+  }, [Gsuccess])
   useEffect(() => {
     //USE EFFECT  for Aos Effects
     Aos.init({ duration: 500 })
