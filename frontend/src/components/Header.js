@@ -276,8 +276,10 @@ const Header = ({ socket, match }) => {
       if (userInfo.ClientOfBusiness) {
         dispatch(getBuissnesDetailsfornav(userInfo.ClientOfBusiness))
       }
-      if (!userInfo.ClientOfBusiness && !userInfo.workingIn && BusinessId) {
-        dispatch(getBuissnesDetailsfornav(BusinessId))
+      if (localStorage.getItem('roll-back-business') != null) {
+        let roleBack = localStorage.getItem('roll-back-business')
+        localStorage.removeItem('roll-back-business')
+        dispatch(getBuissnesDetailsfornav(roleBack))
       }
     }
   }, [userInfo])
