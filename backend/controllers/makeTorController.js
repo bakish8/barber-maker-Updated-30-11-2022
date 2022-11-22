@@ -144,7 +144,6 @@ const confirmTor = asyncHandler(async (req, res) => {
   //**make user without a barbershop a client after First TIME */
 
   if ((user && user.ClientOfBusiness == '0') || !user.ClientOfBusiness) {
-    console.log(`user Client OF business is 0 Now Changing to ${BussinesID}`)
     user.ClientOfBusiness = BussinesID
     await user.save()
     const Businesss = await Business.findById(businessid).populate('clients')
@@ -1147,7 +1146,6 @@ const showAvilableTorsFor3Hours = asyncHandler(async (req, res) => {
     avilable: true,
     isPending: true,
   })
-  console.log(clocks)
   if (clocks) {
     let counter1 = 0
     let counter2 = 1

@@ -69,7 +69,6 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
     }
 
     if (error || newTipulerror) {
-      console.log(error)
       Swal.fire({
         title: 'משהו השתבש',
         text: newTipulerror,
@@ -162,10 +161,7 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
       })
     } else {
       setShowNewTipulDialog(false)
-      console.log(TipulName)
-      console.log(TipulTime)
-      console.log(TipulCost)
-      console.log(TipulImage)
+
       dispatch(
         registerNewTipul(
           TipulName,
@@ -179,7 +175,6 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
     }
   }
   const ClickOnTipulHandler = (tipul) => {
-    console.log(tipul._id)
     setTipulName(tipul.name)
     setTipulTime(tipul.time)
     setTipulCost(tipul.cost)
@@ -192,11 +187,6 @@ const AdminNewTipulScreen = ({ location, history, match }) => {
 
   const UpdateTipulHandler = () => {
     setShowEdditOrDeleteTipulDialog(false)
-
-    console.log(TipulName)
-    console.log(TipulCost)
-    console.log(TipulImage)
-    console.log(TipulTime)
 
     Swal.fire({
       title: '?אתה בטוח',

@@ -8,7 +8,6 @@ import Backdrop from '../UIelements/Backdrop'
 import './CoolNavBar.css'
 import { Link } from 'react-router-dom'
 const CoolNavBarBussines = (props) => {
-  console.log(props.Administrate)
   const [isSmall, setisSmall] = useState(false)
   const [Propsi, setPropsi] = useState(false)
   const dispatch = useDispatch()
@@ -23,9 +22,6 @@ const CoolNavBarBussines = (props) => {
     dispatch(logout(props.businessId ? props.businessId : ''))
   }
 
-  console.log(userInfo)
-  console.log(userGoogleInfo)
-
   //Maybe this is the problem with reloading check... \
   // ______________________________________________________
   // if (Gsuccess) {
@@ -37,33 +33,18 @@ const CoolNavBarBussines = (props) => {
   // }
 
   const setisSmallFunction = () => {
-    console.log('hgfh')
-    console.log(isSmall)
     setisSmall(!isSmall)
-    console.log(isSmall)
   }
 
   const setisSmallFunctionAndRedirectHome = () => {
-    console.log('hgfh')
-    console.log(isSmall)
     setisSmall(!isSmall)
-    console.log(isSmall)
   }
 
   useEffect(() => {
     if (props) {
-      console.log(props)
       setPropsi(true)
     } else {
       setPropsi(false)
-    }
-    if (props.Administrate) {
-      console.log(`props.Administrate`)
-      console.log(props.Administrate)
-
-      console.log(`________________________________________`)
-    } else {
-      console.log(props.Administrate)
     }
   }, [props])
 

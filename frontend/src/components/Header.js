@@ -269,11 +269,11 @@ const Header = ({ socket, match }) => {
       if (userInfo.ClientOfBusiness) {
         dispatch(getBuissnesDetailsfornav(userInfo.ClientOfBusiness))
       }
-      if (localStorage.getItem('roll-back-business') != null) {
-        let roleBack = localStorage.getItem('roll-back-business')
-        localStorage.removeItem('roll-back-business')
-        dispatch(getBuissnesDetailsfornav(roleBack))
-      }
+    } else if (userInfo) {
+      console.log(
+        `______________________${userInfo.name}________im Here ${BusinessId}_________________`
+      )
+      dispatch(getBuissnesDetailsfornav(BusinessId))
     }
   }, [userInfo])
 

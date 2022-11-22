@@ -78,6 +78,7 @@ const HomeScreen = ({ match, history }) => {
         ? localStorage.getItem('roll-back-business')
         : null
       if (roleBack != null) {
+        localStorage.removeItem('roll-back-business')
         history.push(`/business/${roleBack}`)
       }
     }
@@ -93,7 +94,6 @@ const HomeScreen = ({ match, history }) => {
     }
     if (userInfo && userInfo.WorkingIn != 0) {
       console.log(`user is ADMIN`)
-      console.log(userInfo.workingIn)
       setLinki(userInfo.workingIn)
     } else if (userInfo && userInfo.ClientOfBusiness) {
       console.log(userInfo.ClientOfBusiness)

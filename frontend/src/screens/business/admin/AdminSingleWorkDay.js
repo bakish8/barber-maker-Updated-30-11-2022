@@ -414,7 +414,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
       })
   }
   const ARE_U_sure_PINUI_selected = () => {
-    console.log(ArrayOfSelectedTors)
     Swal.fire({
       title: '?אתה בטוח',
       text: `?האם אתה בטוח שברצונך לפנות את השעות המסומנות`,
@@ -426,13 +425,11 @@ const AdminSingleWorkDay = ({ history, match }) => {
       confirmButtonText: 'כן אני בטוח',
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('dispatcching action')
         if (!ArrayOfSelectedTors.length) {
           console.log('array is emty please choose')
         } else {
           for (let i of ArrayOfSelectedTors) {
             if (!i.uid) {
-              console.log('אי אפשר לפננות כי אין מה התור פנוי המשך הלאה')
             } else {
               let id = i.id
               let uid = i.uid
@@ -489,15 +486,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
 
   const FunctionForFilteringTheCheched = (id) => {
     let Index = ArrayOfSelectedTors.findIndex((x) => x.id === id)
-    console.log(Index)
-    console.log(Index)
-    console.log(Index)
-    console.log(Index)
-
     ArrayOfSelectedTors.splice(Index, 1)
-
-    console.log('after Function')
-    console.log(ArrayOfSelectedTors)
   }
 
   const selectAllTors = () => {
@@ -525,24 +514,12 @@ const AdminSingleWorkDay = ({ history, match }) => {
           console.log('לא מוסיף קיים כבר')
         }
       }
-      console.log(ArrayOfSelectedTors)
-      console.log(ArrayOfSelectedTors)
-      console.log(ArrayOfSelectedTors)
-      console.log(ArrayOfSelectedTors)
-      console.log(ArrayOfSelectedTors)
 
       for (let clocki of ArrayOfSelectedTors) {
         if (clocki.avilablety == 'false') {
-          console.log(clocki.avilablety)
-          console.log(clocki.avilablety)
-          console.log(clocki.avilablety)
-          console.log(clocki.avilablety)
-          console.log(clocki.avilablety)
-          console.log(clocki.avilablety)
           ClocksNotAvilable.push(clocki)
         }
       }
-      console.log(ClocksNotAvilable)
 
       if (ClocksNotAvilable.length) {
         setStateForPinuiBTN(true)
@@ -576,7 +553,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
     } else {
       console.log(' not includes')
       if (!avilable) {
-        console.log(mistaper._id)
         const uid = mistaper._id
 
         ArrayOfSelectedTors.push({ id: id, uid: uid })
@@ -591,7 +567,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
           setselect_OneTor(false)
         } else {
           setselect_OneTor(true)
-          console.log(`ArrayOfSelectedTors : ${ArrayOfSelectedTors}`)
         }
       }
     }
@@ -609,7 +584,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
     setstateChecked(false)
     setselect_OneTor(false)
     setArrayOfSelectedTors([])
-    console.log(ArrayOfSelectedTors)
     for (let checkbox of checkboxes) {
       checkbox.checked = false
     }
@@ -646,8 +620,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
               showConfirmButton: false,
             })
           )
-        } else {
-          console.log('your workingday is safe')
         }
       })
     } else {
@@ -769,17 +741,11 @@ const AdminSingleWorkDay = ({ history, match }) => {
       setTipulId(value1)
     })
 
-    console.log(`thetipul TIME is:${TipulTime}`)
-
     let SelectTime = select.value.split(',')[1]
     setTipulTime(SelectTime)
-    console.log(`!!!!!!!!!!!!!!!!:${SelectTime}`)
-    console.log(`!!!!!!!!!!!!!!!!!!!!!:${TipulTime}`)
 
     let SelectValue = select.value.split(',')[0]
     setTipulId(SelectValue)
-    console.log(`thetipul id is:${TipulId}`)
-    console.log(`thet coosen clock id is:${ChoosenClock}`)
     handleCloseShowChooseTipul()
 
     swalWithBootstrapButtons
@@ -928,8 +894,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
           color: 'rgba(255, 255, 255)',
           showConfirmButton: false,
         }).then(handleOpen1day())
-      } else {
-        console.log('u choose not create a report  ')
       }
     })
   }
@@ -958,9 +922,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
   const submitHandler2 = (e) => {
     setSHOWsmallSCreenPick2_CLOSE()
     e.preventDefault()
-    console.log(WorkDayid)
-    console.log(time)
-    console.log(time2)
     dispatch(createClocks(WorkDayid, time, time2, sapar)).then(
       Swal.fire({
         text: 'מוסיף תורים למערכת אנא המתן',
@@ -1203,9 +1164,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
     let CheckIfTimePassed_VAR = CheckIfTimePassed(time)
 
     if (CheckIfTimePassed_VAR) {
-      console.log(`time passed !!`)
       //open no Delete Or Camcel Tor Swal - only payment
-
       if (avilable === false && !afterdate && !isPaid) {
         swalWithBootstrapButtons
           .fire({
@@ -1253,10 +1212,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
             if (result.isConfirmed) {
               makeClockPAIDHandler(id, time, date)
             } else if (result.isDenied) {
-              console.log(`THis User wasent arrive !!`)
-              console.log(`THis User wasent arrive !!`)
-              console.log(`THis User wasent arrive !!`)
-              console.log(`THis User wasent arrive !!`)
               console.log(`THis User wasent arrive !!`)
             }
           })

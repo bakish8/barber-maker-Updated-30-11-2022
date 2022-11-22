@@ -31,20 +31,11 @@ const BarberShop = ({ history, match }) => {
   }, [dispatch])
 
   useEffect(() => {
-    if (business) {
-      console.log(business)
-      console.log(business.image)
-    } else {
-      console.log(`error`)
-    }
-  }, [history, userInfo, business])
-  useEffect(() => {
     Aos.init({ duration: 700 })
   }, [])
 
   useEffect(() => {
     if (success_design_settings) {
-      console.log(' Update Made succsessfully ! ! !')
       window.location.reload()
       Swal.fire({
         position: 'top-end',

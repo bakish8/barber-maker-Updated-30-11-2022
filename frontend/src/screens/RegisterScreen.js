@@ -46,7 +46,6 @@ const RegisterScreen = ({ location, history }) => {
       history.push(redirect)
     }
     if (success === false) {
-      console.log(error)
       Swal.fire({
         title: 'משהו השתבש',
         text: error,
@@ -130,7 +129,6 @@ const RegisterScreen = ({ location, history }) => {
   }
   const GoogleSigninsubmitHandler = () => {
     window.open('http://localhost:5000/api/google', '_self')
-    console.log('ggggggggggggggggggooogle Login TRY')
   }
 
   return (
