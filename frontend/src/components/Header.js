@@ -105,9 +105,7 @@ const Header = ({ socket, match }) => {
       window.onload = function () {
         if (!window.location.hash) {
           window.location = window.location + '#loaded'
-          window.location
-            .reload()
-            .then(console.log(`google Info user has come ....!`))
+          window.location.reload()
         }
       }
     } else {
@@ -201,7 +199,6 @@ const Header = ({ socket, match }) => {
   }
 
   useEffect(() => {
-    //if (Firstlocation === 'business') {
     if (
       !window.location.host === 'barber-maker.com:3000' ||
       Firstlocation === 'business'
@@ -269,6 +266,12 @@ const Header = ({ socket, match }) => {
   }, [successEmail, Rsuccess])
 
   useEffect(() => {
+    console.log(window.location)
+    console.log(window.location.href)
+    console.log(window.location.pathname)
+    console.log(window.location)
+    console.log(window.location.href)
+    console.log(window.location.pathname)
     if (userInfo && user_connected_success) {
       console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
       if (userInfo.workingIn) {
