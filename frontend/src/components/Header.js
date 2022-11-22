@@ -263,11 +263,17 @@ const Header = ({ socket, match }) => {
 
   useEffect(() => {
     if (userInfo && user_connected_success) {
+      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
       if (userInfo.workingIn) {
         dispatch(getBuissnesDetailsfornav(userInfo.workingIn))
       }
       if (userInfo.ClientOfBusiness) {
         dispatch(getBuissnesDetailsfornav(userInfo.ClientOfBusiness))
+      }
+      if (localStorage.getItem('roll-back-business') != null) {
+        let roleBack = localStorage.getItem('roll-back-business')
+        localStorage.removeItem('roll-back-business')
+        dispatch(getBuissnesDetailsfornav(roleBack))
       }
     }
   }, [userInfo])

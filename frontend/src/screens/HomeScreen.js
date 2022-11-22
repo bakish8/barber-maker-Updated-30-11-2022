@@ -79,6 +79,8 @@ const HomeScreen = ({ match, history }) => {
         : null
       if (roleBack != null) {
         localStorage.removeItem('roll-back-business')
+        localStorage.setItem('refresh', true)
+
         history.push(`/business/${roleBack}`)
       }
     }

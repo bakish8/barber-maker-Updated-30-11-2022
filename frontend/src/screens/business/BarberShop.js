@@ -34,12 +34,11 @@ const BarberShop = ({ history, match }) => {
     Aos.init({ duration: 700 })
   }, [])
 
-  useEffect(() => {
-    if (success) {
-      console.log(`success`)
-      window.location.reload()
-    }
-  }, [])
+  let refresh = localStorage.getItem('refresh')
+  if (refresh) {
+    window.location.reload()
+    localStorage.removeItem('refresh')
+  }
 
   useEffect(() => {
     if (success_design_settings) {
