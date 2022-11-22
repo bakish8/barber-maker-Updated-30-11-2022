@@ -269,11 +269,6 @@ const Header = ({ socket, match }) => {
       if (userInfo.ClientOfBusiness) {
         dispatch(getBuissnesDetailsfornav(userInfo.ClientOfBusiness))
       }
-    } else if (userInfo) {
-      console.log(
-        `______________________${userInfo.name}________im Here ${BusinessId}_________________`
-      )
-      dispatch(getBuissnesDetailsfornav(BusinessId))
     }
   }, [userInfo])
 

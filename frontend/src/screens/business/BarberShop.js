@@ -35,6 +35,13 @@ const BarberShop = ({ history, match }) => {
   }, [])
 
   useEffect(() => {
+    if (success) {
+      console.log(`success`)
+      window.location.reload()
+    }
+  }, [success])
+
+  useEffect(() => {
     if (success_design_settings) {
       window.location.reload()
       Swal.fire({

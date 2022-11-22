@@ -51,7 +51,6 @@ import { USER_LOGIN_SUCCESS } from '../../constants/userConstants'
 import { logout } from '../userActions'
 
 export const getBuissnesDetails = (id) => async (dispatch, getState) => {
-  console.log(`getting ${id} buissness details... `)
   try {
     dispatch({
       type: BUSINESS_DETAILS_REQUEST,
@@ -136,23 +135,11 @@ export const getAdminName = (id) => async (dispatch, getState) => {
 }
 
 export const getBuissnesDetailsfornav = (id) => async (dispatch) => {
-  console.log(`getBuissnesDetailsfornav`)
   try {
     dispatch({
       type: BUSINESS_DETAILS_FORNAV_REQUEST,
     })
-    // const {
-    //   userLogin: { userInfo },
-    // } = getState()
-
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // }
-
     const { data } = await axios.get(`/api/business/${id}/fornav`)
-
     dispatch({
       type: BUSINESS_DETAILS_FORNAV_SUCCESS,
       payload: data,
@@ -209,7 +196,6 @@ export const getBuissnesDetailsforDesign = (id) => async (dispatch) => {
 }
 
 export const getBuissnesSettings = (id) => async (dispatch) => {
-  console.log(`getBuissnesDetailsfornav`)
   try {
     dispatch({
       type: BUSINESS_SETTINGS_REQUEST,
