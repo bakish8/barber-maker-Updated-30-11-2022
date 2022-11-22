@@ -37,7 +37,9 @@ const BarberShop = ({ history, match }) => {
   useEffect(() => {
     if (success) {
       console.log(`success`)
-      window.location.reload()
+      window.onload = function () {
+        window.location.reload()
+      }
     }
   }, [success])
 
