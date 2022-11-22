@@ -24,7 +24,6 @@ moment.locale('he')
 const Header = ({ socket, match }) => {
   /****Fix in a way that getiing _id from sucsses bussines for nav and not fard coded because the changes of the url*/
   let Firstlocation = window.location.pathname.split('/')[1]
-  //console.log(`window location is:${Firstlocation}`)
   const BusinessId = window.location.pathname.split('/')[2]
 
   const dispatch = useDispatch()
@@ -105,9 +104,7 @@ const Header = ({ socket, match }) => {
       window.onload = function () {
         if (!window.location.hash) {
           window.location = window.location + '#loaded'
-          window.location
-            .reload()
-            .then(console.log(`google Info user has come ....!`))
+          window.location.reload()
         }
       }
     } else {
@@ -205,10 +202,7 @@ const Header = ({ socket, match }) => {
       !window.location.host === 'barber-maker.com:3000' ||
       Firstlocation === 'business'
     ) {
-      console.log(' we are in Barber-Maker.com or localHost 3000 ! ! !')
-      //getting buissnes details
       dispatch(getBuissnesDetailsfornav(BusinessId))
-      //setFirstlocationIsBusiness(true)
     }
     if (socket && socket != null) {
       socket.on('getNotification', (data) => {
@@ -269,7 +263,6 @@ const Header = ({ socket, match }) => {
 
   useEffect(() => {
     if (userInfo && user_connected_success) {
-      console.log(`user ${userInfo.name} is connected sussscfully!!!!!`)
       if (userInfo.workingIn) {
         dispatch(getBuissnesDetailsfornav(userInfo.workingIn))
       }
@@ -285,26 +278,11 @@ const Header = ({ socket, match }) => {
   }, [userInfo])
 
   useEffect(() => {
-    if (Rsuccess) {
-      console.log(`user ${RuserInfo.name} is Registerd Now`)
-    }
-  }, [Rsuccess])
-
-  useEffect(() => {
-    if (notificationss) {
-      console.log(`notificationss`)
-      console.log(notificationss)
-    }
     if (user_connected_success && userInfo && userInfo.isAdmin) {
-      console.log(`user connected succssessfully! dispatch GetNotifications`)
       dispatch(GetNotifications(userInfo._id)) /////Fix
     }
 
     if (userInfo && GetBusinessDetailssuccess) {
-      console.log('_____________________________________________________')
-      console.log(`userInfo._workingIn : ${userInfo.workingIn}`)
-      console.log(`BusinessId is : ${business.id}`)
-      console.log('_____________________________________________________')
       if (business.id === userInfo.workingIn) {
         setAdministrate(true)
       } else {
@@ -338,9 +316,6 @@ const Header = ({ socket, match }) => {
           setstateForActiveAdminLINK(false)
           setstateForActiveCARTLINK(false)
         }
-      }
-      if (success_cancel_noti) {
-        console.log('dispatching GetNotifications') /***** */
       }
     })
   }, [one, two, trhee, success_cancel_noti, make_all_watch])

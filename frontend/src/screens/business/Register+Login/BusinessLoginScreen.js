@@ -93,34 +93,19 @@ const BusinessLoginScreen = ({ location, history, match }) => {
   }, [dispatch])
 
   useEffect(() => {
-    if (emailToSendTo != '') {
-      console.log(emailToSendTo)
-    }
     if (userInfo || userInfoEmail) {
       history.push(redirect)
     }
-    if (successuserfound) {
-      console.log('susses!')
-      console.log('userfound')
-    }
+
     if (pagesuccess) {
-      console.log('pagesuccess susses!')
-      console.log(`page :${page}`)
       sendEmail()
     }
     if (successPhone) {
-      console.log('success Phone susses!')
-      console.log(`successPhone  :${pagePhone}`)
       let PAGEPHONE = pagePhone
       dispatch({ type: SEND_RESET_SMS_TOR_RESET })
       history.push(PAGEPHONE)
     }
     if (successSend) {
-      console.log(send)
-      console.log(send)
-      console.log(PhoneToSendTo)
-      console.log(PhoneToSendTo)
-      console.log(PhoneToSendTo)
       SetSHOW_ME_VARIFICATION(true)
     }
     if (word) {
@@ -169,7 +154,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log(email)
     dispatch(emailLogin(email, password)) //send to actions and fowerd as email
   }
   const submitHandler2 = (e) => {
@@ -181,7 +165,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
     window.open('https://www.barber-maker.com/api/google', '_self')
   }
   const Swal_I_Forgot_My_Pass = () => {
-    console.log('Swal_I_Forgot_My_Pass')
     Swal.fire({
       title: 'שחזור סיסמה',
       text: `ניתן לשחזר את הסיסמה באמצעות הנייד או האימייל `,
@@ -209,14 +192,11 @@ const BusinessLoginScreen = ({ location, history, match }) => {
 
           preConfirm: async (email) => {
             setemailToSendTo(email)
-            console.log(email)
             return await fetch(`/api/search/email/${email}`)
               .then((response) => {
                 if (!response.ok) {
                   throw new Error(response.statusText)
                 } else {
-                  console.log(response)
-                  console.log(response.url)
                   dispatch(Create15PortForResetPASSWORD(email))
                   //axios.post('/api/forgot-password', { email })
                 }
@@ -254,7 +234,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
         //   showConfirmButton: false,
         // })
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        console.log('your workingday is safe')
         Swal.fire({
           title: 'שחזור באמצעות הנייד',
           text: `הזן את הנייד אליו ישלח קוד חד פעמי לשחזור הסיסמה  `,
@@ -269,7 +248,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
           },
           preConfirm: async (phone) => {
             SetPhoneToSendTo(phone)
-            console.log(phone)
             return await fetch(`/api/search/phones/${phone}`)
               ////******** */   dispatch(Create15PortForResetPASSWORD(email))
 
@@ -277,7 +255,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
                 if (!response.ok) {
                   throw new Error(response.statusText)
                 } else {
-                  console.log(response)
                   /****here create a auth sms to phone  */
                   dispatch(Send_RESET_PASS_SMS(phone))
                 }

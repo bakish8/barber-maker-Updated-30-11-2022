@@ -18,14 +18,6 @@ const AppointmentsMake = asyncHandler(async (req, res) => {
   const year = clock.owner.Dateyear
   const month = clock.owner.Datemonth - 1
   const day = clock.owner.Dateday
-  console.log(`hour:${hour}`)
-  console.log(`minute:${minute}`)
-  console.log(`hour:${hour}`)
-  console.log(`minute:${minute}`)
-  console.log(`hour:${hour}`)
-  console.log(`minute:${minute}`)
-  console.log(`hour:${hour}`)
-  console.log(`minute:${minute}`)
   const m3 = moment({
     year: `${year}`,
     month: `${month}`,
@@ -65,18 +57,12 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
       'Dateday Datemonth Dateyear dayInWeek'
     )
     let user = await User.findById(req.params.uid)
-    console.log(clock.time)
     const hour1 = clock.time.substring(0, 2)
     const hour = parseInt(hour1) //- 2
     const minute = clock.time.slice(-2)
     const year = clock.owner.Dateyear
     const month = clock.owner.Datemonth - 1
     const day = clock.owner.Dateday
-    console.log(`hour:${hour}`)
-    console.log(`minute:${minute}`)
-    console.log(`year:${year}`)
-    console.log(`month:${month}`)
-    console.log(`day:${day}`)
     let m1 = moment({
       year: `${year}`,
       month: `${month}`,
@@ -86,7 +72,6 @@ const BookMEonGoogleCalenderControllerAction = asyncHandler(
       second: 0,
       millisecond: 0,
     }).tz('Asia/Jerusalem')
-    console.log(`m1 Time ---BookMEonGoogleCalenderControllerAction---:${m1}`)
     BookmeOnGoogleCalender(m1, user.email)
   }
 )

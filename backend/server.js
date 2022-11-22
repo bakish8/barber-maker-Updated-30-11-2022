@@ -115,9 +115,7 @@ passport.use(
               cb(null, ExistedMailUser)
             } else {
               const googleuser = await User.findOne({ googleId: profile.id })
-              console.log(`gogole user name is :${profile.name}`)
               if (!googleuser && birthdayReturned) {
-                console.log(`__no google user found! create..._`)
                 const newUser = new User({
                   name: profile.name.givenName + ' ' + profile.name.familyName,
                   email: profile.emails[0].value,
@@ -129,7 +127,6 @@ passport.use(
                   isAdmin: false,
                 })
                 await newUser.save()
-                console.log('New User Created By Google_!_!_!')
                 const googlenewuser = await User.findOne({
                   googleId: profile.id,
                 })
@@ -152,7 +149,6 @@ passport.use(
             } else {
               const googleuser = await User.findOne({ googleId: profile.id })
               if (!googleuser) {
-                console.log(`__no google user found! create..._`)
                 const newUser = new User({
                   name: profile.name.givenName + ' ' + profile.name.familyName,
                   email: profile.emails[0].value,
@@ -163,7 +159,6 @@ passport.use(
                   isAdmin: false,
                 })
                 await newUser.save()
-                console.log('New User Created By Google_!_!_!')
                 const googlenewuser = await User.findOne({
                   googleId: profile.id,
                 })

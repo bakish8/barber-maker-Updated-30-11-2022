@@ -8,7 +8,6 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 //loading details + check if token is Verfied after email send + send email user to load in temp page
 const resetPageReload = asyncHandler(async (req, res) => {
-  console.log('reset Page load!!!')
   const { id, token } = req.params
   const userFound = await User.findOne({ _id: id })
   if (userFound) {
@@ -28,7 +27,6 @@ const resetPageReload = asyncHandler(async (req, res) => {
 
 //create Reset Page For Email Reset
 const ctrateResetPage = asyncHandler(async (req, res) => {
-  console.log('create Reset Page!!!')
   const { email } = req.body
   const userFound = await User.findOne({ email })
   if (userFound) {
@@ -43,7 +41,6 @@ const ctrateResetPage = asyncHandler(async (req, res) => {
 
 //create Reset Page For Email Reset
 const ctrateResetPageForPhoneReset = asyncHandler(async (req, res) => {
-  console.log('create Reset Page for phone reset!!!')
   const { phone } = req.body
   const userFound = await User.findOne({ phone })
   if (userFound) {

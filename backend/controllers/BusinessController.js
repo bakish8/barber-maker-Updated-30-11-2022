@@ -7,10 +7,8 @@ import User from '../models/userModel.js'
 const getBusinessDetailsPage = asyncHandler(async (req, res) => {
   console.log('Spesific Business Page load From Business Controller !!!')
   const { id } = req.params
-  console.log(`id:${id}`)
   const BusinessFound = await Business.findOne({ _id: id })
   if (BusinessFound) {
-    console.log(BusinessFound)
     res.json({
       _id: BusinessFound._id,
       name: BusinessFound.businessName,
@@ -32,12 +30,7 @@ const getBusinessDetailsPage = asyncHandler(async (req, res) => {
 
 //GetAllBusinessForHomePage
 const GetAllBusinessForHomePage = asyncHandler(async (req, res) => {
-  console.log('Get All Business DEETS For HomePage !!!')
   const Found = await Business.find({})
-  console.log(`Found*****************************`)
-  console.log(`Found*****************************`)
-  console.log(`Found*****************************`)
-  console.log(Found)
   if (Found) {
     //****Fix when add More business by RUN  aFunction  thats create  aarray of obj and thne res JSON this ... */
     res.json([
@@ -54,45 +47,14 @@ const GetAllBusinessForHomePage = asyncHandler(async (req, res) => {
   }
 })
 const getAdminNameForSocket = asyncHandler(async (req, res) => {
-  console.log(' Finging business and then admin name!!!')
   const { id } = req.params
-  console.log(`id:${id}`)
   const BusinessFound = await Business.findOne({ _id: id })
   if (BusinessFound) {
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
-    console.log(`BusinessFound`)
     if (BusinessFound.businessOwner) {
       const AdminFound = await User.findOne({
         _id: BusinessFound.businessOwner,
       })
       if (AdminFound) {
-        console.log(AdminFound.name)
-        console.log(AdminFound.name)
-        console.log(AdminFound.name)
-        console.log(AdminFound.name)
-        console.log(AdminFound.name)
-        console.log(AdminFound.name)
-        console.log(AdminFound.name)
-        console.log(AdminFound.name)
-        console.log(AdminFound.name)
-        console.log(AdminFound.name)
-
         res.json({
           name: AdminFound.name,
           id: AdminFound._id,
@@ -115,7 +77,6 @@ const getBusinessDesignSettings = asyncHandler(async (req, res) => {
   const { id } = req.params
   const BusinessFound = await Business.findOne({ _id: id })
   if (BusinessFound) {
-    console.log(`Return Business Design Deetails`)
     res.json({
       name: BusinessFound.businessName,
       location: BusinessFound.location,
@@ -132,12 +93,9 @@ const getBusinessDesignSettings = asyncHandler(async (req, res) => {
 })
 
 const getBusinessSettings = asyncHandler(async (req, res) => {
-  console.log('Spesific Business Page load From Business Controller !!!')
   const { id } = req.params
-  console.log(`id:${id}`)
   const BusinessFound = await Business.findOne({ _id: id })
   if (BusinessFound) {
-    console.log(BusinessFound)
     res.json({
       settings: BusinessFound.settings,
     })
@@ -181,7 +139,6 @@ const registerNewTipulForBussines = asyncHandler(async (req, res) => {
     throw new Error(' the business not found')
   } else {
     let tipulimArr = BusinessFound.tipulim
-    console.log(tipulimArr)
     let CheckArr = []
     for (let tipul of tipulimArr) {
       if (tipul.name === name) {
@@ -189,7 +146,6 @@ const registerNewTipulForBussines = asyncHandler(async (req, res) => {
       }
     }
     if (CheckArr.includes(name)) {
-      console.log(`tipulimArr  includes ${name}`)
       throw new Error(`כבר קיים טיפול בשם זה: ${name}`)
     } else {
       if (name && time && cost && BussinesId) {
@@ -224,8 +180,6 @@ const getreatments = asyncHandler(async (req, res) => {
   )
   if (BusinessFound) {
     BusinessFound
-    console.log(`BusinessFound tipulim is : ${BusinessFound.tipulim}`)
-
     res.json(BusinessFound.tipulim)
   } else {
     console.log(`Error Business Not Found`)
@@ -240,7 +194,6 @@ const BussinesUserList = asyncHandler(async (req, res) => {
   if (Users) {
     res.json(Users)
   } else {
-    console.log(`Error getting bussines users`)
     res.status(404)
     throw new Error(' the business not found')
   }
@@ -248,10 +201,8 @@ const BussinesUserList = asyncHandler(async (req, res) => {
 
 const adminSideRegistaration = asyncHandler(async (req, res) => {
   const { name, email, phone, password, businessid } = req.body
-  console.log('phone')
   const userExists = await User.findOne({ email })
   const business = await Business.findById(businessid).populate('clients')
-  console.log(`______________________________Business !!!!!!!${business}`)
   if (userExists) {
     res.status(400)
     throw new Error('המשתמש כבר קיים במערכת')
@@ -302,12 +253,6 @@ const UpdateBussinesSettingsController = asyncHandler(async (req, res) => {
   const Businesss = await Business.findById(BussinesID)
 
   if (Businesss) {
-    console.log('___________________________________________________')
-    console.log(BookUSERSongooglCalender)
-    console.log('___________________________________________________')
-    console.log('___________________________________________________')
-    console.log('___________________________________________________')
-    console.log(Businesss.settings)
     Businesss.settings.sendSMSClientSide = sendSMSClientSide_CheckBox_state
     Businesss.settings.sendWhatsappClientSide =
       sendWhatsappClientSide_CheckBox_state
@@ -359,18 +304,6 @@ const UpdateBussinesDesigenSettings = asyncHandler(async (req, res) => {
   const Businesss = await Business.findById(id)
 
   if (Businesss) {
-    console.log('___________________________________________________')
-    console.log(Businesss)
-    console.log('___________________________________________________')
-    console.log('___________________________________________________')
-    console.log('___________________________________________________')
-    console.log(name)
-    console.log(location)
-    console.log(businessNameOnNavState)
-    console.log(colors)
-    console.log(logo)
-    console.log(MainPic)
-
     Businesss.businessName = name
     Businesss.location.name = location
     Businesss.location.lat = lat

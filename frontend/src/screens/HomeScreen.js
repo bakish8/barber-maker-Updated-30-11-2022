@@ -78,7 +78,7 @@ const HomeScreen = ({ match, history }) => {
         ? localStorage.getItem('roll-back-business')
         : null
       if (roleBack != null) {
-        history.push(`$/business/${roleBack}`)
+        history.push(`/business/${roleBack}`)
       }
     }
   }, [Gsuccess, userGoogleInfo])
