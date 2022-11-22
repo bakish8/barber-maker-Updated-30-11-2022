@@ -238,10 +238,6 @@ import {
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
 export const login = (email, password) => async (dispatch) => {
-  console.log(email, password)
-  console.log(email, password)
-  console.log(email, password)
-  console.log(email, password)
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,
@@ -276,8 +272,6 @@ export const login = (email, password) => async (dispatch) => {
 }
 export const emailLogin = (email, password) => async (dispatch) => {
   try {
-    console.log(email)
-    console.log('action')
     dispatch({
       type: USER_LOGIN_EMAIL_REQUEST,
     })
@@ -812,7 +806,6 @@ export const listWorkingDaysFORthisWEEK = () => async (dispatch, getState) => {
   }
 }
 export const nextSevenDays = () => async (dispatch, getState) => {
-  console.log(`action`)
   try {
     dispatch({
       type: LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_REQUEST,
@@ -848,9 +841,6 @@ export const nextSevenDays = () => async (dispatch, getState) => {
 }
 
 export const listOneWorkingDay = () => async (dispatch, getState) => {
-  console.log('action')
-  console.log('action')
-  console.log('action')
   dispatch({ type: WORKING_DAY_DELETE_RESET })
 
   try {
@@ -890,15 +880,6 @@ export const listOneWorkingDay = () => async (dispatch, getState) => {
 }
 
 export const getTomorrowWorkday = () => async (dispatch, getState) => {
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
-  console.log('tomorrow')
   dispatch({ type: WORKING_DAY_DELETE_RESET })
   try {
     dispatch({
@@ -1169,10 +1150,6 @@ export const deleteSelectedClocks = (id, cid) => async (dispatch, getState) => {
   }
 }
 export const deleteAvilableClocks = (id, cid) => async (dispatch, getState) => {
-  console.log(id)
-  console.log(cid)
-  console.log(cid)
-  console.log(cid)
   try {
     dispatch({
       type: CLOCK_DELETE_AVILABLE_REQUEST,
@@ -1803,9 +1780,6 @@ export const SendTorSMS =
 export const SendTorWhatsapp =
   (id, uid, BusinessId) => async (dispatch, getState) => {
     //export const SendTorWhatsapp = (id, uid) => async (dispatch, getState) => {
-    console.log('whatsappppp!!!')
-    console.log('whatsappppp!!!')
-    console.log('whatsappppp!!!')
     try {
       dispatch({
         type: SEND_WHATSAPP_TOR_REQUEST,
@@ -2419,12 +2393,6 @@ export const SpecificTipulDeetsAction = (id) => async (dispatch, getState) => {
 export const updateTipul =
   (TipulID, TipulName, TipulCost, TipulImage, TipulTime) =>
   async (dispatch, getState) => {
-    console.log(TipulID)
-    console.log(TipulName)
-    console.log(TipulCost)
-    console.log(TipulImage)
-    console.log(TipulTime)
-    console.log(`______________________`)
     try {
       dispatch({
         type: TIPUL_UPDATE_REQUEST,
@@ -2534,7 +2502,6 @@ export const SearchOneUserAction = (id) => async (dispatch) => {
   }
 }
 export const SearchOneUserBYEMAIL = (email) => async (dispatch, getState) => {
-  console.log('action!!')
   try {
     dispatch({
       type: ONE_USER_SEARCH_BY_EMAIL_REQUEST,
@@ -2569,8 +2536,6 @@ export const SearchOneUserBYEMAIL = (email) => async (dispatch, getState) => {
 }
 export const Create15PortForResetPASSWORD = (email) => async (dispatch) => {
   try {
-    console.log(email)
-
     dispatch({
       type: RESET_PASSWORD_PAGE_REQUEST,
     })
@@ -2598,8 +2563,6 @@ export const Create15PortForResetPASSWORD = (email) => async (dispatch) => {
 export const Create15PortForResetPASSWORD_withPhone =
   (phone) => async (dispatch) => {
     try {
-      console.log(phone)
-
       dispatch({
         type: RESET_PASSWORD_WITH_PHONE_PAGE_REQUEST,
       })
@@ -2625,24 +2588,6 @@ export const Create15PortForResetPASSWORD_withPhone =
   }
 
 export const Next7Daysss = (id) => async (dispatch, getState) => {
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-  console.log('Next7Daysss')
-
-  console.log(`action`)
   try {
     dispatch({
       type: LIST_WORKING_DAYS_FOR_NEXT_7_DAYS_REQUEST,
@@ -2679,21 +2624,6 @@ export const Next7Daysss = (id) => async (dispatch, getState) => {
 
 export const FindClockByWorkID_and_time =
   (id, time) => async (dispatch, getState) => {
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`id id id :${id}`)
-    console.log(`timr:${time}`)
     try {
       dispatch({
         type: FIND_CLOCK_BY_WORKDAY_ID_AND_CLOCKTIME_REQUEST,
@@ -2768,8 +2698,6 @@ export const List_of_Potential_Users_By_FirstNameActionSearch =
 
 export const RESET_PASSWORD_PAGE_ACTION =
   (id, token) => async (dispatch, getState) => {
-    console.log(`id:${id}`)
-    console.log(`token:${id}`)
     try {
       dispatch({
         type: RESET_PASSWORD_PAGE_GET_REQUEST,
@@ -2795,9 +2723,6 @@ export const RESET_PASSWORD_PAGE_ACTION =
   }
 export const RESET_MY_PASSWORD_ACTION =
   (id, token, password) => async (dispatch, getState) => {
-    console.log(`id:${id}`)
-    console.log(`token:${token}`)
-    console.log(`password:${password}`)
     try {
       dispatch({
         type: RESET_MY_PASSWORD_REQUEST,
@@ -2854,8 +2779,6 @@ export const INITIAL_PASSWORD_ACTION =
 export const CreatelNotifications =
   (id, date, time, dayInWeek, adminid, userid, sapar_id, type, now) =>
   async (dispatch) => {
-    console.log(type)
-
     try {
       dispatch({
         type: CREATE_CANCEL_NOTI_REQUEST,
@@ -2886,7 +2809,6 @@ export const CreatelNotifications =
   }
 export const GetNotifications = (admin) => async (dispatch, getState) => {
   try {
-    console.log('dispatching GetNotifications!!!!')
     dispatch({
       type: CANCEL_NOTI_LIST_REQUEST,
     })
@@ -2924,7 +2846,6 @@ export const GetNotifications = (admin) => async (dispatch, getState) => {
 export const Watch_All_Notifications =
   (admin) => async (dispatch, getState) => {
     try {
-      console.log('dispatching!!!!')
       dispatch({
         type: MAKE_ALL_BE_WATCH_REQUEST,
       })

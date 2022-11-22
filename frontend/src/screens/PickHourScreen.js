@@ -103,10 +103,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const handleNotification = (type, sapar, time, dayInWeek, date) => {
     let NOW = moment()
     let now = NOW.toDate()
-    console.log(`type:::${type}`)
-    console.log(`sapar name:::${sapar}`)
-    console.log(`time:::${time}`)
-    console.log(`dayInWeek:::${dayInWeek}`)
 
     if (socket) {
       socket.emit('sendNotification', {
@@ -146,21 +142,14 @@ const SingleWorkDayScreen = ({ history, match }) => {
 
   useEffect(() => {
     if (tipulimDeets && tipulimDeets.time === 60) {
-      console.log(tipulimDeets.time)
       dispatch(AvilableWorkingDayTorsForOneHourTipul(WorkDayid))
     } else if (tipulimDeets && tipulimDeets.time === 90) {
-      console.log(tipulimDeets.time)
       dispatch(AvilableWorkingDayTorsForOneHourHALFTipul(WorkDayid))
     } else if (tipulimDeets && tipulimDeets.time === 120) {
-      console.log(tipulimDeets.time)
       dispatch(AvilableWorkingDayTorsFor2horsTipul(WorkDayid))
-      console.log(clockListFor2Hour)
     } else if (tipulimDeets && tipulimDeets.time === 150) {
-      console.log(tipulimDeets.time)
       dispatch(AvilableWorkingDayTorsFor2horsHALFTipul(WorkDayid))
-      console.log(clockListFor2HourandHALF)
     } else if (tipulimDeets && tipulimDeets.time === 180) {
-      console.log(tipulimDeets.time)
       dispatch(AvilableWorkingDayTorsFor3hours(WorkDayid))
     }
   }, [dispatch, tipulimDeets])

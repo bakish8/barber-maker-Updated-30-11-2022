@@ -14,23 +14,13 @@ const UserListFilter = (props) => {
   const { loading, error, users } = BussinesuserList
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-
-  const handleCloseShowUserFilter = () => {
-    console.log('closing!')
-  }
-
   const [ShowUserFilter, setShowUserFilter] = useState(false)
   const [stateFORshowingModal, setstateFORshowingModal] = useState(true)
-
   const result = document.getElementById('UserFilterresult')
   const filter = document.getElementById('UserFilterfilter')
   const listItems = []
 
   const functiondeLaRoma = (user) => {
-    console.log(user)
-    console.log(user)
-    console.log(user)
-    console.log(user)
     props.changeWord(user)
   }
 
@@ -41,7 +31,6 @@ const UserListFilter = (props) => {
         const li = document.createElement('li')
         li.addEventListener('onclick', console.log('ddddddddddd'))
         li.onclick = function (e) {
-          console.log(user._id)
           functiondeLaRoma(user._id)
         }
         listItems.push(li)

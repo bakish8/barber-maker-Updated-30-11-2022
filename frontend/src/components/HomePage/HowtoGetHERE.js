@@ -33,17 +33,12 @@ const HowtoGetHERE = (props) => {
   //USE EFFECT  for Aos Effects
   useEffect(() => {
     if (props.location) {
-      console.log(props.websiteColors)
       let lat = props.location.lat
       let lng = props.location.lng
-      console.log(lat)
-      console.log(lng)
+
       let position = { lat, lng }
       let center = position
-      console.log(position)
-      console.log(center)
-      console.log(position1)
-      console.log(BaseLocation)
+
       setPosition(position)
       setCenter(center)
     }

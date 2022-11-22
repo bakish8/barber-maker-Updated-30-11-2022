@@ -8,11 +8,6 @@ import moment from 'moment-timezone'
 
 const CancelNotificationMaker = asyncHandler(async (req, res) => {
   const { id, date, time, dayInWeek, adminid, userid, type, now } = req.body //admin id is meant name here
-  console.log(now)
-  console.log(now)
-  console.log(now)
-  console.log(now)
-  console.log(now)
 
   const Admin_ID = req.params.id
   const clock = await Clock.findById(id)
@@ -21,10 +16,6 @@ const CancelNotificationMaker = asyncHandler(async (req, res) => {
   //const admin = await User.findOne({ name: adminid })
   if (clock && user && admin) {
     if (type == 1) {
-      //cancel type
-      console.log(
-        'creating ... .... ... ... ... cancel type 1 notification !!!'
-      )
       const cancelNotification = await CancelNotification.create({
         content: `${user.name} ביטל את התור שלו/ה בשעה ${time} ביום ${dayInWeek} בתאריך ${date}`,
         clock,
@@ -39,9 +30,6 @@ const CancelNotificationMaker = asyncHandler(async (req, res) => {
       })
       res.status(201).json(cancelNotification)
     } else if (type == 2) {
-      console.log(
-        'creating ... .... ... ... ... make tor  type 2 notification !!!'
-      )
       const makeNotification = await CancelNotification.create({
         content: `${user.name} קבע תור בשעה ${time} ביום ${dayInWeek} בתאריך ${date}`,
         clock,
@@ -57,9 +45,6 @@ const CancelNotificationMaker = asyncHandler(async (req, res) => {
       res.status(201).json(makeNotification)
     }
   } else if (user && admin && type == 3) {
-    console.log(
-      'creating ... .... ... ... ... register new user  type 3 notification !!!'
-    )
     const makeNotification = await CancelNotification.create({
       content: null,
       clock,
@@ -78,7 +63,6 @@ const CancelNotificationMaker = asyncHandler(async (req, res) => {
 
 //Get all notifications for a spesific admin
 const getNotifications = asyncHandler(async (req, res) => {
-  console.log('finding cancel notifications!!!')
   const searchDate = new Date()
   const FormatedSearchDate = moment(searchDate).format()
   const CalculateMonthmonth = FormatedSearchDate.substring(0, 7)
@@ -93,7 +77,6 @@ const getNotifications = asyncHandler(async (req, res) => {
 
 //make all notifications WATCH for a spesific admin
 const MakeAllWatch = asyncHandler(async (req, res) => {
-  console.log('finding cancel notifications!!!')
   const Admin_ID = req.params.id
   const CancelNotificationUnWatch = await CancelNotification.updateMany(
     {

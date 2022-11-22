@@ -37,11 +37,9 @@ const BarberShop = ({ history, match }) => {
   useEffect(() => {
     if (success) {
       console.log(`success`)
-      window.onload = function () {
-        window.location.reload()
-      }
+      window.location.reload()
     }
-  }, [success])
+  }, [])
 
   useEffect(() => {
     if (success_design_settings) {

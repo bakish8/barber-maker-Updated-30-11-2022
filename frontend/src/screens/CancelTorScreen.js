@@ -33,9 +33,6 @@ const CancelTorScreen = ({ history }) => {
 
   //Socket Notification Function
   const handleNotification = (type, sapar, time, dayInWeek) => {
-    console.log(`time:::${sapar}`)
-    console.log(`time:::${time}`)
-    console.log(`dayInWeek:::${dayInWeek}`)
     if (socket) {
       console.log(`sockeeetttt: ${socket}`)
       socket.emit('sendNotification', {
@@ -85,7 +82,6 @@ const CancelTorScreen = ({ history }) => {
 
   const submitHandler = (id, time, date, sapar, dayInWeek, sapar_id) => {
     const uid = userInfo._id
-    console.log(sapar_id)
     Swal.fire({
       title: `?לבטל את תור זה`,
       text: `?שלום ${userInfo.name} ,האם אתה בטוח שברצונך לבטל תור זה `,

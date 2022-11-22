@@ -26,10 +26,6 @@ const UserFilterForUserList_SCREEN = (props) => {
   const listItems = []
 
   const functiondeLaRoma = (user) => {
-    console.log(user)
-    console.log(user)
-    console.log(user)
-    console.log(user)
     props.changeWord(user)
   }
 

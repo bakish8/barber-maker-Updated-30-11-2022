@@ -144,10 +144,8 @@ const getWorkingDayForTOMORROW = asyncHandler(async (req, res) => {
       .populate('mistaper')
       .populate('tipul')
     if (workingdays) {
-      console.log(`workingday found~!`)
       res.json(workingdays)
     } else {
-      console.log(`workingday NOT found~!`)
       const workingdays2 = await WorkingDay.findOne({
         owner: req.user._id,
         Datemonth: monthPlusOne,
@@ -158,7 +156,6 @@ const getWorkingDayForTOMORROW = asyncHandler(async (req, res) => {
         .populate('mistaper')
         .populate('tipul')
       if (workingdays2) {
-        console.log(`workingday found~!`)
         res.json(workingdays2)
       } else {
         console.log(
@@ -276,12 +273,6 @@ const getWorkingDaysForThisWEEK = asyncHandler(async (req, res) => {
     const dayMinus4 = workingday.Dateday - 4
     const dayMinus5 = workingday.Dateday - 5
     const dayMinus6 = workingday.Dateday - 6
-    console.log(dayMinus1)
-    console.log(dayMinus1)
-    console.log(dayMinus1)
-    console.log(dayMinus1)
-    console.log(dayMinus1)
-    console.log(dayMinus1)
     if (dayInWeek === 'ראשון') {
       //יחזיר את השישה ימים הבאים
       const workingdays = await WorkingDay.find({
@@ -434,11 +425,6 @@ const getWorkingDaysForThisWEEK = asyncHandler(async (req, res) => {
       },
     })
     if (workingday) {
-      console.log(workingday)
-      console.log(workingday)
-      console.log(workingday)
-      console.log(workingday)
-
       const workingdays = await WorkingDay.find({
         dayInWeek: { $nin: ['שבת'] },
         owner: req.user._id,
@@ -465,15 +451,12 @@ const deleteWorkingDay = asyncHandler(async (req, res) => {
   const workingday = await WorkingDay.findById(req.params.id)
 
   const CancelClocksArray = workingday.torim //** */
-  console.log(CancelClocksArray)
 
   for (let Clock_id of CancelClocksArray) {
     const clock = await Clock.findById(Clock_id).populate('mistaper')
     if (clock) {
       if (clock.avilable === false) {
-        console.log(clock.mistaper)
         const mistaper = await User.findById(clock.mistaper._id)
-        console.log(mistaper.torim)
         var index = mistaper.torim.indexOf(clock._id)
         mistaper.torim.splice(index, 1)
         await mistaper.save()
@@ -519,11 +502,9 @@ const getWorkingDayById2 = asyncHandler(async (req, res) => {
 
     .populate('owner name')
 
-  console.log(clocks)
   if (clocks) {
     res.json(clocks)
   } else {
-    console.log('sadsad')
     res.status(404)
     throw new Error('workingday not found')
   }
@@ -542,11 +523,9 @@ const getCLOCKSForTHISdayRECIPT = asyncHandler(async (req, res) => {
     console.log('לא נמצאו שעות ששולמו ליום הספציפי הזה')
   }
 
-  console.log(clocks)
   if (clocks) {
     res.json(clocks)
   } else {
-    console.log('sadsad')
     res.status(404)
     throw new Error('workingday not found')
   }
@@ -599,9 +578,6 @@ const getCLOCKSForTodayRECIPT = asyncHandler(async (req, res) => {
 })
 
 const getCLOCKSForThisWeekRECIPT = asyncHandler(async (req, res) => {
-  console.log(`GETTING CLOCK LISR RECIPT FOR THIS WEEK CONTROLLER CONSOLE LOG`)
-  console.log(`GETTING CLOCK LISR RECIPT FOR THIS WEEK CONTROLLER CONSOLE LOG`)
-  console.log(`GETTING CLOCK LISR RECIPT FOR THIS WEEK CONTROLLER CONSOLE LOG`)
   // ליום  הנוכי הזה יחזיר את התורים המשולמים ליום אחד'
   const searchDate = new Date()
   const FormatedSearchDate = moment(searchDate).format()
@@ -700,11 +676,6 @@ const getCLOCKSForThisWeekRECIPT = asyncHandler(async (req, res) => {
       }
       res.json(arr.flat())
     } else if (dayInWeek === 'שלישי') {
-      console.log(`SHLISHI`)
-      console.log(`SHLISHI`)
-      console.log(`SHLISHI`)
-      console.log(`SHLISHI`)
-
       const workingdays = await WorkingDay.find({
         dayInWeek: { $nin: ['שבת'] },
         owner: req.user._id,
@@ -931,9 +902,6 @@ const addClock = asyncHandler(async (req, res) => {
       console.log('קיים עבר תור בשעה זו')
     }
   } else {
-    console.log(time)
-    console.log(time2)
-    console.log(sapar)
     if (time > time2) {
       console.log('u did a mistake end time should be after end time')
     } else {
@@ -949,7 +917,6 @@ const addClock = asyncHandler(async (req, res) => {
           }).format('HH:mm')
         )
       }
-      console.log(hours)
       let torim = [{}]
 
       for (const hour of hours) {
@@ -1077,16 +1044,9 @@ const deleteSELECTEDclocksforthisday = asyncHandler(async (req, res) => {
       await owner.save()
       await clock.remove()
     } else {
-      console.log(owner.numAvilableTorim)
-      console.log(owner.numAvilableTorim - 1)
       owner.numTorim = owner.torim.length - 1
       owner.numAvilableTorim = owner.numAvilableTorim - 1
       await clock.remove()
-      console.log('111111111111111111111111111111111111111111')
-      console.log(owner.numAvilableTorim)
-      console.log(owner.numAvilableTorim)
-      console.log(owner.numAvilableTorim)
-      console.log(owner.numAvilableTorim)
       await owner.save()
     }
     res.json({ message: 'clock removed' })
