@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import Header from './components/Header'
@@ -49,10 +49,25 @@ import AdminUserList from './screens/business/admin/AdminUserList'
 import AdminEditUserScreen from './screens/business/admin/AdminEditUserScreen'
 import AdminNotificationsSettings from './screens/business/admin/AdminNotificationsSettings'
 import AdminDesignSettingsScreen from './screens/business/admin/AdminDesignSettingsScreen'
+import { myContext } from './actions/Context'
+let googleUser = useContext(myContext)
 
 const App = () => {
   const [socket, setSocket] = useState(null)
 
+  useEffect(() => {
+    console.log(googleUser)
+    console.log(googleUser)
+    console.log(googleUser)
+    console.log(googleUser)
+    console.log(googleUser)
+    console.log(googleUser)
+    console.log(googleUser)
+    console.log(googleUser)
+    console.log(googleUser)
+    console.log(googleUser)
+    console.log(googleUser)
+  }, [googleUser])
   useEffect(() => {
     setSocket(io())
   }, [])
