@@ -126,6 +126,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
   const [wordname, setWordName] = useState('') /***** */
   const [wordphone, setWordphone] = useState('') /***** */
   const [wordImage, setWordImage] = useState('') /***** */
+  const [SameDay, setSameDay] = useState(false) /***** */
 
   const [
     StateForSwalDeleteingAllAVILABLEtorim,
@@ -1160,12 +1161,27 @@ const AdminSingleWorkDay = ({ history, match }) => {
     setChoosenClock(id)
     setChoosenClockTIME(time)
     setChoosenClockDATE(date)
+    if (!afterdate) {
+      showTorHandler(
+        time,
+        date,
+        avilable,
+        mistaper,
+        id,
+        WorkDayid,
+        tipulimList,
+        isPaid,
+        TotalAmmountPaid,
+        paymentMethod,
+        creditLastDigits,
+        ReciptNumber,
+        clock
+      )
+    }
 
     let CheckIfTimePassed_VAR = CheckIfTimePassed(time)
-
     if (CheckIfTimePassed_VAR) {
-      //open no Delete Or Camcel Tor Swal - only payment
-      if (avilable === false && !afterdate && !isPaid) {
+      if (avilable === false && afterdate && !isPaid) {
         swalWithBootstrapButtons
           .fire({
             scrollbarPadding: true,
@@ -1215,22 +1231,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
               console.log(`THis User wasent arrive !!`)
             }
           })
-      } else if (avilable === false && !afterdate && isPaid) {
-        showTorHandler(
-          time,
-          date,
-          avilable,
-          mistaper,
-          id,
-          WorkDayid,
-          tipulimList,
-          isPaid,
-          TotalAmmountPaid,
-          paymentMethod,
-          creditLastDigits,
-          ReciptNumber,
-          clock
-        )
       } else if (avilable === false && afterdate && isPaid) {
         showTorHandler(
           time,
@@ -1247,7 +1247,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
           ReciptNumber,
           clock
         )
-      } else if (avilable === true && !afterdate) {
+      } else if (avilable === true && !afterdate && SameDay) {
         Toast.fire({
           icon: 'error',
           title: 'שגיאה',
@@ -1261,13 +1261,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
         })
       }
     } else {
-      if (afterdate && !isPaid && avilable) {
-        Toast.fire({
-          icon: 'error',
-          title: 'שגיאה',
-          text: 'לא ניתן לקבוע תור ליום שעבר',
-        })
-      }
       console.log(`time  NOT passed !!`)
 
       console.log(`THE COOSEN CLOCK IS:${ChoosenClock}!!!!`)
@@ -2061,16 +2054,19 @@ const AdminSingleWorkDay = ({ history, match }) => {
         (year === workingDay.Dateyear && month > workingDay.Datemonth)
       ) {
         console.log(`Setfterdate TRUE`)
-        console.log(`Setfterdate TRUE`)
-        console.log(`Setfterdate TRUE`)
-        console.log(`Setfterdate TRUE`)
-        console.log(`Setfterdate TRUE`)
         Setfterdate(true)
       } else {
         console.log(`Setfterdate FALSE`)
-        console.log(`Setfterdate FALSE`)
-        console.log(`Setfterdate FALSE`)
         Setfterdate(false)
+      }
+      if (
+        year === workingDay.Dateyear &&
+        month === workingDay.Datemonth &&
+        day === workingDay.Dateday
+      ) {
+        setSameDay(true)
+      } else {
+        setSameDay(false)
       }
     }
   }, [workingDay])

@@ -25,6 +25,7 @@ import {
   AvilableWorkingDayTorsFor3hours,
   CreatelNotifications,
   SendTorWhatsapp,
+  WorkingDayTors,
 } from '../../actions/userActions.js'
 import { getBuissnesSettings } from '../../actions/BuissnesActions/Buissnes_User_Actions'
 
@@ -58,8 +59,10 @@ const PickTime = ({ history, match }) => {
   const { userInfo } = userLogin
   const workingDaySingle = useSelector((state) => state.workingDaySingle)
   const { workingDay, loadingSingle, errorSingle } = workingDaySingle
-  const AvilableTors = useSelector((state) => state.AvilableTors)
-  const { loading, error, clockList } = AvilableTors
+  //const AvilableTors = useSelector((state) => state.AvilableTors)
+  //const { loading, error, clockList } = AvilableTors
+  const Tors = useSelector((state) => state.Tors)
+  const { loading, error, clockList } = Tors
   const confirmMyTor = useSelector((state) => state.confirmMyTor)
   const { success: confirmsuccess, confirm } = confirmMyTor
   const SEND_SMS = useSelector((state) => state.SEND_SMS)
@@ -109,6 +112,31 @@ const PickTime = ({ history, match }) => {
   const { loadingFor3Hours, clockListFor3Hours, errorFor3Hours } =
     avilableTorsFor3Hours
 
+  const CheckIfTimePassed = (time) => {
+    const hourToCheck = time.substring(0, 2)
+    const minuteToCheck = time.slice(3)
+    console.log(hourToCheck)
+    console.log(minuteToCheck)
+    let searchDate2 = new Date()
+    let FormatedSearchDate = moment(searchDate2).format()
+    let CalculateminuteNow = FormatedSearchDate.slice(14)
+    let MinuteNow = CalculateminuteNow.substring(0, 2)
+    //let MinuteNow = '01'
+    let CalculateHourNow = FormatedSearchDate.slice(11)
+    let HourNow = CalculateHourNow.substring(0, 2)
+    //let HourNow = '09'
+    if (
+      HourNow > hourToCheck ||
+      (HourNow === hourToCheck && MinuteNow > minuteToCheck)
+    ) {
+      console.log(true)
+      return true
+    } else {
+      console.log(false)
+      return false
+    }
+  }
+
   const handleNotification = (type, sapar, time, dayInWeek, date) => {
     let NOW = moment()
     let now = NOW.toDate()
@@ -130,6 +158,12 @@ const PickTime = ({ history, match }) => {
   }
 
   useEffect(() => {
+    if (clockList) {
+      console.log(clockList)
+    }
+  }, [clockList])
+
+  useEffect(() => {
     setSocket(io())
   }, [])
   console.log(`socket:${socket}`)
@@ -145,7 +179,9 @@ const PickTime = ({ history, match }) => {
   useEffect(() => {
     if (userInfo) {
       dispatch(workingDayDetails(WorkDayid))
-      dispatch(AvilableWorkingDayTors(WorkDayid))
+      // dispatch(AvilableWorkingDayTors(WorkDayid))
+      dispatch(WorkingDayTors(WorkDayid))
+
       dispatch(SpecificTipulDeetsAction(Tipulid))
       dispatch(getBuissnesSettings(BussinesID))
     } else {
@@ -330,39 +366,43 @@ const PickTime = ({ history, match }) => {
                   {clockList.length != 0 && tipulimDeets.time === 30 ? (
                     clockList
                       .sort((a, b) => {
-                        const dateA = new Date(` ${a.time}`).valueOf()
-                        const dateB = new Date(` ${b.time}`).valueOf()
-                        if (dateA > dateB) {
-                          return -1 // return -1 here for DESC order
+                        const TimeA = ` ${a.time}`.valueOf()
+                        const TimeB = ` ${b.time}`.valueOf()
+                        if (TimeA > TimeB) {
+                          return 1 // return -1 here for DESC order
                         }
-                        return 1 // return 1 here for DESC Order
+                        return -1 // return 1 here for DESC Order
                       })
 
-                      .map((clock) => (
-                        <div id='clockbtndiv' className='scaleAbit'>
-                          <Button
-                            id='clockbtn'
-                            key={clock._id}
-                            onClick={() =>
-                              submitHandler(
-                                clock._id,
-                                clock.time,
-                                clock.date,
-                                clock.sapar,
-                                clock.owner.dayInWeek,
-                                clock.owner.owner
-                              )
-                            }
-                            //onClick={() => openOKHandler(clock.time)}
-                          >
-                            <img
-                              id='clcktimeimg'
-                              src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                            />
-                            <div id='clcktime'> {clock.time}</div>
-                          </Button>
-                        </div>
-                      ))
+                      .map((clock) =>
+                        clock.avilable && !CheckIfTimePassed(clock.time) ? (
+                          <div id='clockbtndiv' className='scaleAbit'>
+                            <Button
+                              id='clockbtn'
+                              key={clock._id}
+                              onClick={() =>
+                                submitHandler(
+                                  clock._id,
+                                  clock.time,
+                                  clock.date,
+                                  clock.sapar,
+                                  clock.owner.dayInWeek,
+                                  clock.owner.owner
+                                )
+                              }
+                              //onClick={() => openOKHandler(clock.time)}
+                            >
+                              <img
+                                id='clcktimeimg'
+                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                              />
+                              <div id='clcktime'> {clock.time}</div>
+                            </Button>
+                          </div>
+                        ) : (
+                          <></>
+                        )
+                      )
                   ) : clockListForOneHour &&
                     clockListForOneHour.length != 0 &&
                     tipulimDeets.time === 60 ? (
