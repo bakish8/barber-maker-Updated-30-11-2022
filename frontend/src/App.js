@@ -56,17 +56,19 @@ const App = () => {
   const [socket, setSocket] = useState(null)
 
   useEffect(() => {
-    console.log(googleUser)
-    console.log(googleUser)
-    console.log(googleUser)
-    console.log(googleUser)
-    console.log(googleUser)
-    console.log(googleUser)
-    console.log(googleUser)
-    console.log(googleUser)
-    console.log(googleUser)
-    console.log(googleUser)
-    console.log(googleUser)
+    if (googleUser) {
+      console.log(googleUser)
+      console.log(googleUser)
+      console.log(googleUser)
+      console.log(googleUser)
+      console.log(googleUser)
+      console.log(googleUser)
+      console.log(googleUser)
+      console.log(googleUser)
+      console.log(googleUser)
+      console.log(googleUser)
+      console.log(googleUser)
+    }
   }, [googleUser])
   useEffect(() => {
     setSocket(io())
