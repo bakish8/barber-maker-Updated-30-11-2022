@@ -250,9 +250,11 @@ app.get('/getgoogleuser', (req, res) => {
   res.send(req.user)
 })
 
-app.post('/logout', (req, res) => {
-  res.status(307)
-  req.logOut()
+app.get('/logout', (req, res) => {
+  if (req.user) {
+    req.logout()
+    res.send('succsses')
+  }
 })
 //Upload
 const __dirname = path.resolve()

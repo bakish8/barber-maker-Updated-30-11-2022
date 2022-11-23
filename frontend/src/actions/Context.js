@@ -11,7 +11,10 @@ export default function Context(props) {
   useEffect(() => {
     axios.get('/getgoogleuser', { withCredentials: true }).then((res) => {
       console.log(res.data)
-      setuserObject(res.data)
+      if (res.data.email) {
+        setuserObject(res.data)
+        dispatch(Googlelogin(res.data.email))
+      }
     })
   }, [])
 

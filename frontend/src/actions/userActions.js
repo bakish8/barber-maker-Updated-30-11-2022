@@ -355,7 +355,7 @@ export const logout = (Bid) => async (dispatch, req, res) => {
   dispatch({ type: ORDER_LIST_MY_RESET })
   dispatch({ type: TORIM_LIST_MY_RESET })
   dispatch({ type: USER_LIST_RESET }) //**להוסיף את כל הריסטים בעת התנתקות */
-  await axios.post('/logout')
+  await axios.get('/logout')
 }
 
 export const registerByADMIN =
