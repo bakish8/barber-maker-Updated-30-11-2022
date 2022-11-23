@@ -1,22 +1,26 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Googlelogin, login } from './userActions'
+import { Googlelogin, googleuserResponse, login } from './userActions'
 import axios from 'axios'
+import { GOOGLE_USER_LOGIN_EMAIL_RESET } from '../constants/userConstants'
 export const myContext = createContext({})
 
 export default function Context(props) {
   const [userObject, setuserObject] = useState()
-  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
-  const { userGoogleInfo, Gsuccess } = userGoogleLogin
+  const googleuserResponses = useSelector((state) => state.googleuserResponses)
+  const { RuserGoogleInfo, GRsuccess } = googleuserResponses
   const dispatch = useDispatch()
-
   useEffect(() => {
-    if (!Gsuccess) {
-      axios.get('/getgoogleuser', { withCredentials: true }).then((res) => {
-        dispatch(Googlelogin(res.data.email))
+    dispatch(googleuserResponse)
+    // axios.get('/getgoogleuser', { withCredentials: true }).then((res) => {
+    //   dispatch(Googlelogin(res.data.email))
+    if (GRsuccess && RuserGoogleInfo) {
+      dispatch({
+        type: GOOGLE_USER_LOGIN_EMAIL_RESET,
       })
+      dispatch(Googlelogin(RuserGoogleInfo.data.email))
     }
-  }, [Gsuccess])
+  }, [GRsuccess])
 
   return (
     <myContext.Provider value={userObject}>{props.children}</myContext.Provider>

@@ -1,6 +1,9 @@
 import axios from 'axios'
 
 import {
+  GOOGLE_USER_LOGIN_EMAIL_REQUEST,
+  GOOGLE_USER_LOGIN_EMAIL_SUCCESS,
+  GOOGLE_USER_LOGIN_EMAIL_FAIL,
   SEND_WHATSAPP_TOR_REQUEST,
   SEND_WHATSAPP_TOR_SUCCESS,
   SEND_WHATSAPP_TOR_FAIL,
@@ -973,6 +976,28 @@ export const workingDayDetails = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: WORKING_DAY_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+export const googleuserResponse = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: GOOGLE_USER_LOGIN_EMAIL_REQUEST,
+    })
+
+    const { data } = axios.get('/getgoogleuser', { withCredentials: true })
+
+    dispatch({
+      type: GOOGLE_USER_LOGIN_EMAIL_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: GOOGLE_USER_LOGIN_EMAIL_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

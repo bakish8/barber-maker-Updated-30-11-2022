@@ -85,6 +85,7 @@ import {
   BUILD_RESET_PAGE_FOR_PHONE_REDUCER,
   SendTorSMS_RESET_Reducer,
   INITIAL_PASSWORD_REDUCER,
+  googleuserResponseReducer,
 } from './reducers/userReducers'
 import {
   orderCreateReducer,
@@ -168,6 +169,7 @@ const reducer = combineReducers({
   Weekly_REPORTS_LIST: Weekly_REPORTS_LIST_Reducer,
   MONTHLY_REPORTS_LIST: MONTHLY_REPORTS_LIST_Reducer,
   GET_REPORT_DEETS_BY_ID: GET_REPORT_DEETS_BY_ID_Reducer,
+  googleuserResponses: googleuserResponseReducer,
   RegisterNewTipulStore: RegisterNewTipulReducer,
   TipulUpdate: TipulUpdateReducer,
   TipulDelete: TipulDeleteReducer,
