@@ -182,7 +182,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
   const ClocksReciptOneDay = useSelector((state) => state.ClocksReciptOneDay)
   const { result1day } = ClocksReciptOneDay
 
-  const [afterdate, Setfterdate] = useState(false) //**caclculate if passed date for day state */
+  const [afterdate, SetAfterdate] = useState(false) //**caclculate if passed date for day state */
 
   const ONE_WORKING_DAY = useSelector((state) => state.ONE_WORKING_DAY)
   const { onesuccess, oneworkingdays } = ONE_WORKING_DAY
@@ -1161,27 +1161,16 @@ const AdminSingleWorkDay = ({ history, match }) => {
     setChoosenClock(id)
     setChoosenClockTIME(time)
     setChoosenClockDATE(date)
-    if (!afterdate) {
-      showTorHandler(
-        time,
-        date,
-        avilable,
-        mistaper,
-        id,
-        WorkDayid,
-        tipulimList,
-        isPaid,
-        TotalAmmountPaid,
-        paymentMethod,
-        creditLastDigits,
-        ReciptNumber,
-        clock
-      )
-    }
 
     let CheckIfTimePassed_VAR = CheckIfTimePassed(time)
-    if (CheckIfTimePassed_VAR) {
-      if (avilable === false && afterdate && !isPaid) {
+    if (afterdate) {
+      if (avilable) {
+        Toast.fire({
+          icon: 'error',
+          title: 'שגיאה',
+          text: 'לא ניתן לקבוע תור ליום שעבר',
+        })
+      } else if (!avilable && !isPaid && CheckIfTimePassed_VAR) {
         swalWithBootstrapButtons
           .fire({
             scrollbarPadding: true,
@@ -1231,7 +1220,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
               console.log(`THis User wasent arrive !!`)
             }
           })
-      } else if (avilable === false && afterdate && isPaid) {
+      } else if (!avilable && isPaid) {
         showTorHandler(
           time,
           date,
@@ -1247,22 +1236,33 @@ const AdminSingleWorkDay = ({ history, match }) => {
           ReciptNumber,
           clock
         )
-      } else if (avilable === true && !afterdate && SameDay) {
-        Toast.fire({
-          icon: 'error',
-          title: 'שגיאה',
-          text: 'לא ניתן לקבוע תור לשעה שעברה',
-        })
-      } else if (avilable === true && afterdate) {
-        Toast.fire({
-          icon: 'error',
-          title: 'שגיאה',
-          text: 'לא ניתן לקבוע תור ליום שעבר',
-        })
+      } else if (avilable && SameDay) {
+        showTorHandler(
+          time,
+          date,
+          avilable,
+          mistaper,
+          id,
+          WorkDayid,
+          tipulimList,
+          isPaid,
+          TotalAmmountPaid,
+          paymentMethod,
+          creditLastDigits,
+          ReciptNumber,
+          clock
+        )
       }
+    } else if (avilable && SameDay && CheckIfTimePassed_VAR) {
+      console.log(`!!!!!!!!!!!!!!!!!!!!!!!`)
+
+      Toast.fire({
+        icon: 'error',
+        title: 'שגיאה',
+        text: 'לא ניתן לקבוע תור לשעה שעברה',
+      })
     } else {
       console.log(`time  NOT passed !!`)
-
       console.log(`THE COOSEN CLOCK IS:${ChoosenClock}!!!!`)
       var elementPos = clockList
         .map(function (x) {
@@ -1428,7 +1428,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
     clock
   ) => {
     let CheckIfClockPassed = CheckIfTimePassed(time)
-    if (avilable === false && !isPaid) {
+    if (!avilable && !isPaid) {
       swalWithBootstrapButtons
         .fire({
           scrollbarPadding: true,
@@ -1509,7 +1509,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
             }
           }
         })
-    } else if (avilable === false && isPaid === true) {
+    } else if (!avilable && isPaid) {
       swalWithBootstrapButtons
         .fire({
           scrollbarPadding: true,
@@ -1570,7 +1570,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
           imageHeight: 115,
           imageAlt: 'לקוח',
           color: 'red',
-
           showDenyButton: true,
           denyButtonColor: 'rgb(194, 0, 0)',
           denyButtonText: `מחק תור זה`,
@@ -1583,7 +1582,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
         .then((result) => {
           if (result.isConfirmed) {
             dispatch(TREATMENTSListAction(BusinessId))
-
             setChoosenClockTIME(time)
             setSHOWchooseTipul(true)
             CHOOSEB()
@@ -2053,11 +2051,11 @@ const AdminSingleWorkDay = ({ history, match }) => {
         year > workingDay.Dateyear ||
         (year === workingDay.Dateyear && month > workingDay.Datemonth)
       ) {
-        console.log(`Setfterdate TRUE`)
-        Setfterdate(true)
+        console.log(`SetAfterdate TRUE`)
+        SetAfterdate(true)
       } else {
-        console.log(`Setfterdate FALSE`)
-        Setfterdate(false)
+        console.log(`SetAfterdate FALSE`)
+        SetAfterdate(false)
       }
       if (
         year === workingDay.Dateyear &&
@@ -2116,6 +2114,8 @@ const AdminSingleWorkDay = ({ history, match }) => {
       }
       console.log(arr)
       setArr(arr)
+      console.log(Arr)
+
       setArrforhour(arrforhour)
       setArrarrforhourandhalf(arrforhourandhalf)
       setArrarrfor2hours(arrfor2hours)
