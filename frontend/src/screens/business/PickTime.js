@@ -40,6 +40,7 @@ while (date.getMinutes() % 15 !== 0) {
 
 const PickTime = ({ history, match }) => {
   const BussinesID = match.params.id
+  const [afterdate, Setfterdate] = useState(false) //**caclculate if passed date for day state */
 
   const dispatch = useDispatch()
   const [socket, setSocket] = useState(null)
