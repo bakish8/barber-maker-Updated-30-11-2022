@@ -28,7 +28,7 @@ export default function Context(props) {
       })
       dispatch(Googlelogin(RuserGoogleInfo.res.data.email))
     }
-  }, [GRsuccess])
+  }, [GRsuccess, RuserGoogleInfo])
 
   return (
     <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
