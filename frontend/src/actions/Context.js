@@ -6,12 +6,12 @@ import { GOOGLE_USER_LOGIN_EMAIL_RESET } from '../constants/userConstants'
 export const myContext = createContext({})
 const googleuserResponses = useSelector((state) => state.googleuserResponses)
 const { RuserGoogleInfo, GRsuccess } = googleuserResponses
-export default function Context(props) {
-  const [userObject, setuserObject] = useState()
+const [userObject, setuserObject] = useState()
 
+export default function Context(props) {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(googleuserResponse)
+    dispatch(googleuserResponse())
     // axios.get('/getgoogleuser', { withCredentials: true }).then((res) => {
     //   dispatch(Googlelogin(res.data.email))
     if (GRsuccess && RuserGoogleInfo) {
