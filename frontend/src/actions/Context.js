@@ -15,10 +15,18 @@ export default function Context(props) {
     // axios.get('/getgoogleuser', { withCredentials: true }).then((res) => {
     //   dispatch(Googlelogin(res.data.email))
     if (GRsuccess && RuserGoogleInfo) {
+      console.log(RuserGoogleInfo)
+      console.log(RuserGoogleInfo.res)
+      console.log(RuserGoogleInfo)
+      console.log(RuserGoogleInfo).res.data
+      console.log(RuserGoogleInfo)
+      console.log(RuserGoogleInfo)
+      console.log(RuserGoogleInfo)
+
       dispatch({
         type: GOOGLE_USER_LOGIN_EMAIL_RESET,
       })
-      dispatch(Googlelogin(RuserGoogleInfo.data.email))
+      dispatch(Googlelogin(RuserGoogleInfo.res.data.email))
     }
   }, [GRsuccess])
 
