@@ -21,7 +21,6 @@ export default function Context(props) {
       console.log(RuserGoogleInfo).res.data
       console.log(RuserGoogleInfo)
       console.log(RuserGoogleInfo)
-      console.log(RuserGoogleInfo)
 
       dispatch({
         type: GOOGLE_USER_LOGIN_EMAIL_RESET,
