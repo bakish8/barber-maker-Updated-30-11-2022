@@ -207,17 +207,16 @@ const BusinessLoginScreen = ({ location, history, match }) => {
           },
         }).then(async (result) => {
           if (result.isConfirmed) {
-            //  sendEmail(e).then(
+            sendEmail(e).then(
+              //if user found in used then send email with link
+              Swal.fire({
+                imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
+                title: `האימייל נשלח בהצלחה`,
+                showConfirmButton: false,
 
-            //if user found in used then send email with link
-            Swal.fire({
-              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
-              title: `האימייל נשלח בהצלחה`,
-              showConfirmButton: false,
-
-              timer: 5000,
-            })
-            //)
+                timer: 5000,
+              })
+            )
           }
         })
 
@@ -249,8 +248,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
           preConfirm: async (phone) => {
             SetPhoneToSendTo(phone)
             return await fetch(`/api/search/phones/${phone}`)
-              ////******** */   dispatch(Create15PortForResetPASSWORD(email))
-
+            dispatch(Create15PortForResetPASSWORD(email))
               .then((response) => {
                 if (!response.ok) {
                   throw new Error(response.statusText)
