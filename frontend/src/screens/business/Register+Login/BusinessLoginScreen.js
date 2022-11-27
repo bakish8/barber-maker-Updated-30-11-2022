@@ -248,7 +248,8 @@ const BusinessLoginScreen = ({ location, history, match }) => {
           preConfirm: async (phone) => {
             SetPhoneToSendTo(phone)
             return await fetch(`/api/search/phones/${phone}`)
-            dispatch(Create15PortForResetPASSWORD(email))
+              ////******** */   dispatch(Create15PortForResetPASSWORD(email))
+
               .then((response) => {
                 if (!response.ok) {
                   throw new Error(response.statusText)
