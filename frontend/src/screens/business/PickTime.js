@@ -149,6 +149,12 @@ const PickTime = ({ history, match }) => {
   }
 
   useEffect(() => {
+    if (clockList) {
+      console.log(clockList)
+    }
+  }, [clockList])
+
+  useEffect(() => {
     setSocket(io())
   }, [])
   console.log(`socket:${socket}`)
@@ -164,9 +170,7 @@ const PickTime = ({ history, match }) => {
   useEffect(() => {
     if (userInfo) {
       dispatch(workingDayDetails(WorkDayid))
-      // dispatch(AvilableWorkingDayTors(WorkDayid))
       dispatch(WorkingDayTors(WorkDayid))
-
       dispatch(SpecificTipulDeetsAction(Tipulid))
       dispatch(getBuissnesSettings(BussinesID))
     } else {
@@ -204,11 +208,9 @@ const PickTime = ({ history, match }) => {
         `we got business settings ......readt to choose between actions!!!`
       )
       if (business_settings.settings.sendSMSClientSide == true) {
-        //sendins costumize Sms massege
         dispatch(SendTorSMS(id, uid, BusinessId))
       }
       if (business_settings.settings.sendWhatsappClientSide == true) {
-        //sending costumize Whatsapp massege
         dispatch(SendTorWhatsapp(id, uid, BusinessId))
       }
       if (business_settings.settings.sendSMSClientSideReminder == true) {
