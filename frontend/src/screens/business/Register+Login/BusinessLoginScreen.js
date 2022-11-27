@@ -198,7 +198,7 @@ const BusinessLoginScreen = ({ location, history, match }) => {
                   throw new Error(response.statusText)
                 } else {
                   dispatch(Create15PortForResetPASSWORD(email))
-                  //axios.post('/api/forgot-password', { email })
+                  axios.post('/api/forgot-password', { email })
                 }
               })
               .catch((error) => {
