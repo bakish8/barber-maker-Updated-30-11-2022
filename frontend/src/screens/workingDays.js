@@ -176,8 +176,6 @@ const WorkingDaysScreen = ({ history }) => {
             color: 'rgba(255, 255, 255)',
             showConfirmButton: false,
           }).then(setopenMonth(true))
-        } else {
-          console.log('your workingday is safe')
         }
       })
     } else if (showTableThisWeek) {
@@ -204,8 +202,6 @@ const WorkingDaysScreen = ({ history }) => {
             color: 'rgba(255, 255, 255)',
             showConfirmButton: false,
           }).then(setOpenweek(true))
-        } else {
-          console.log('your workingday is safe')
         }
       })
     } else if (showTable1Day) {
@@ -232,8 +228,6 @@ const WorkingDaysScreen = ({ history }) => {
             color: 'rgba(255, 255, 255)',
             showConfirmButton: false,
           }).then(setOpen1day(true))
-        } else {
-          console.log('your workingday is safe')
         }
       })
     }
@@ -305,7 +299,6 @@ const WorkingDaysScreen = ({ history }) => {
 
   //העברה לעמוד יום העבודה הספציפי
   const sendMEtoWorkPageFunction = (id) => {
-    console.log(id)
     history.push(`/admin/workingday/${id}`)
   }
 
@@ -385,8 +378,6 @@ const WorkingDaysScreen = ({ history }) => {
             showConfirmButton: false,
           })
         )
-      } else {
-        console.log('your workingday is safe')
       }
     })
   }
@@ -541,21 +532,13 @@ const WorkingDaysScreen = ({ history }) => {
     if (weekworkingdays && weekworkingdays.length != 0) {
       const lastDayOfWeek =
         weekworkingdays && weekworkingdays[weekworkingdays.length - 1].date
-      console.log(`weekworkingdays last day:${lastDayOfWeek}`)
       if (lastDayOfWeek.length === 8) {
-        console.log('8888888888888888888888888888888888888888')
         const Calculate_Month = lastDayOfWeek.substring(0, 3)
         const month_Absulute = Calculate_Month.slice(-1) * 1
-        console.log(month_Absulute)
-        console.log(month)
 
         const Day_Absulute = lastDayOfWeek.substring(0, 1) * 1
-        console.log(Day_Absulute)
-        console.log(day)
 
         const Year_Absulute = lastDayOfWeek.slice(-4) * 1
-        console.log(Year_Absulute)
-        console.log(year)
         if (
           year >= Year_Absulute &&
           month >= month_Absulute &&
@@ -568,12 +551,6 @@ const WorkingDaysScreen = ({ history }) => {
         const month_Absulute = Calculate_Month.slice(-2) * 1
         const Year_Absulute = lastDayOfWeek.slice(-4) * 1
         const Day_Absulute = lastDayOfWeek.substring(0, 2) * 1
-        console.log(Day_Absulute)
-        console.log(month_Absulute)
-        console.log(Year_Absulute)
-        console.log(day)
-        console.log(month)
-        console.log(year)
 
         if (
           year >= Year_Absulute &&
@@ -596,13 +573,6 @@ const WorkingDaysScreen = ({ history }) => {
       const month_Absulute = Calculate_Month.slice(-2)
       const Year_Absulute = lastDayOfWeek.slice(-4)
       const Day_Absulute = lastDayOfWeek.substring(0, 2)
-      console.log(Day_Absulute)
-      console.log(month_Absulute)
-      console.log(Year_Absulute)
-
-      console.log(day)
-      console.log(month)
-      console.log(year)
 
       if (
         year >= Year_Absulute &&

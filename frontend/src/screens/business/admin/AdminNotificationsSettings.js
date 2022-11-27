@@ -99,7 +99,6 @@ const AdminNotificationsSettings = ({ history, match }) => {
   //useEffect
   useEffect(() => {
     if (Ranger) {
-      console.log('Ranger')
       console.log(Ranger.value)
     }
   }, [Ranger])
@@ -114,12 +113,6 @@ const AdminNotificationsSettings = ({ history, match }) => {
   //useEffect
   useEffect(() => {
     if (business && success) {
-      console.log(`________________________________________`)
-      console.log(`______________________BUSINESS__________________`)
-      console.log(`______________________BUSINESS__________________`)
-      console.log(`______________________BUSINESS__________________`)
-      console.log(`________________________________________`)
-
       if (business.settings.sendSMSClientSide) {
         setsendSMSClientSide_CheckBox_state(true)
       }

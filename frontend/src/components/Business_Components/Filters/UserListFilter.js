@@ -29,7 +29,7 @@ const UserListFilter = (props) => {
     if (usersList) {
       for (let user of usersList) {
         const li = document.createElement('li')
-        li.addEventListener('onclick', console.log('ddddddddddd'))
+        li.addEventListener('onclick', console.log('clicked'))
         li.onclick = function (e) {
           functiondeLaRoma(user._id)
         }

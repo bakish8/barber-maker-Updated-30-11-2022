@@ -5,7 +5,6 @@ import User from '../models/userModel.js'
 
 //loading details + check if token is Verfied after email send + send email user to load in temp page
 const getBusinessDetailsPage = asyncHandler(async (req, res) => {
-  console.log('Spesific Business Page load From Business Controller !!!')
   const { id } = req.params
   const BusinessFound = await Business.findOne({ _id: id })
   if (BusinessFound) {
@@ -22,7 +21,6 @@ const getBusinessDetailsPage = asyncHandler(async (req, res) => {
       clients: BusinessFound.clients,
     })
   } else {
-    console.log(`Error Business Not Found`)
     res.status(404)
     throw new Error(' the business not found')
   }
@@ -41,7 +39,6 @@ const GetAllBusinessForHomePage = asyncHandler(async (req, res) => {
       },
     ])
   } else {
-    console.log(`Error Business Not Found`)
     res.status(404)
     throw new Error('ERROR!!!  the business.s was not found')
   }
@@ -60,13 +57,11 @@ const getAdminNameForSocket = asyncHandler(async (req, res) => {
           id: AdminFound._id,
         })
       } else {
-        console.log(`Error Admin Not Found`)
         res.status(404)
         throw new Error(' the Admin not found')
       }
     }
   } else {
-    console.log(`Error Business Not Found`)
     res.status(404)
     throw new Error(' the business not found')
   }
@@ -86,7 +81,6 @@ const getBusinessDesignSettings = asyncHandler(async (req, res) => {
       logoNameOnNav: BusinessFound.logoNameOnNav,
     })
   } else {
-    console.log(`Error Business Not Found`)
     res.status(404)
     throw new Error(' the business not found')
   }
@@ -100,7 +94,6 @@ const getBusinessSettings = asyncHandler(async (req, res) => {
       settings: BusinessFound.settings,
     })
   } else {
-    console.log(`Error Business Not Found`)
     res.status(404)
     throw new Error(' the business not found')
   }
@@ -182,14 +175,12 @@ const getreatments = asyncHandler(async (req, res) => {
     BusinessFound
     res.json(BusinessFound.tipulim)
   } else {
-    console.log(`Error Business Not Found`)
     res.status(404)
     throw new Error(' the business not found')
   }
 })
 
 const BussinesUserList = asyncHandler(async (req, res) => {
-  console.log(`getting specific users for business`)
   const Users = await User.find({ ClientOfBusiness: req.params.id })
   if (Users) {
     res.json(Users)
@@ -222,7 +213,6 @@ const adminSideRegistaration = asyncHandler(async (req, res) => {
   })
 
   if (user) {
-    console.log('user created sucssuusfully')
     business.clients.push(user)
     await business.save()
     res.status(201).json(`user created`)

@@ -67,8 +67,6 @@ const HomeScreen = ({ match, history }) => {
   if (month.length === 1) {
     month = 0 + month
   }
-  console.log(day)
-  console.log(month)
 
   useEffect(() => {
     //USE EFFECT  for Aos Effects
@@ -82,13 +80,11 @@ const HomeScreen = ({ match, history }) => {
       console.log(`user is ADMIN`)
       setLinki(userInfo.workingIn)
     } else if (userInfo && userInfo.ClientOfBusiness) {
-      console.log(userInfo.ClientOfBusiness)
       setLinki(userInfo.ClientOfBusiness)
     }
   }, [userInfo])
 
   const MoveMeNow = () => {
-    console.log(`Clicked`)
     dispatch(getBuissnesDetailsfornav(Linki))
     history.push(`/business/${Linki}`)
   }

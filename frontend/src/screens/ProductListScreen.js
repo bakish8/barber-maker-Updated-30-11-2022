@@ -75,8 +75,6 @@ const ProductListScreen = ({ history, match }) => {
         swal('מוצר זה נמחק בהצלחה מהמערכת', {
           icon: 'success',
         }).then(dispatch(deleteProduct(id)))
-      } else {
-        console.log('your product is safe')
       }
     })
   }

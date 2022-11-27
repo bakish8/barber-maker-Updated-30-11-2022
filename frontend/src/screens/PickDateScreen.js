@@ -80,9 +80,6 @@ const PickDateScreen = ({ location, history, match }) => {
       setMessage('תאריך לא תקין')
     } else {
       dispatch(PICKWorkingDay(dateData, day, id)) //*** */
-      console.log(dateData)
-      console.log(day)
-      console.log(id)
     }
   }
   useEffect(() => {

@@ -12,7 +12,6 @@ import { listOfWorkers } from '../../actions/BuissnesActions/Buissnes_User_Actio
 
 const PickSapar = ({ history, match }) => {
   const businessid = match.params.id
-  console.log(`businessid: ${businessid}`)
   const dispatch = useDispatch()
   const [message, setMessage] = useState(null)
 
@@ -44,7 +43,6 @@ const PickSapar = ({ history, match }) => {
               updateUserProfile({ id: userInfo.id, phone, password: phone })
             )
           } else {
-            console.log(phone.substring(0, 3))
             Swal.fire({
               allowOutsideClick: false,
               confirmButtonText: 'אוקי, הבנתי',

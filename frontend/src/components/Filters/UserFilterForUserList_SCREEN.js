@@ -13,11 +13,6 @@ const UserFilterForUserList_SCREEN = (props) => {
   const { loading, error, users } = userList
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-
-  const handleCloseShowUserFilter = () => {
-    console.log('closing!')
-  }
-
   const [ShowUserFilter, setShowUserFilter] = useState(false)
   const [stateFORshowingModal, setstateFORshowingModal] = useState(true)
 
@@ -34,9 +29,8 @@ const UserFilterForUserList_SCREEN = (props) => {
     if (usersList) {
       for (let user of usersList) {
         const li = document.createElement('li')
-        li.addEventListener('onclick', console.log('ddddddddddd'))
+        li.addEventListener('onclick', console.log('clicked'))
         li.onclick = function (e) {
-          console.log(user._id)
           functiondeLaRoma(user._id)
         }
         listItems.push(li)

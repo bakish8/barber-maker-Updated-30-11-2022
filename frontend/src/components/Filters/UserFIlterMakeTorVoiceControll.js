@@ -19,9 +19,6 @@ const UserFIlterMakeTorVoiceControll = (props) => {
   const [stateFORshowingModal, setstateFORshowingModal] = useState(true)
 
   const functiondeLaRoma = (user, name, phone, image) => {
-    console.log(user)
-    console.log(name)
-    console.log(phone)
     props.changeWord(user)
     props.changeName(name)
     props.changePhone(phone)

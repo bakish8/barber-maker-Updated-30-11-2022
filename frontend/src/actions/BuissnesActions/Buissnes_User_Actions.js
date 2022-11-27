@@ -77,7 +77,6 @@ export const getBuissnesDetails = (id) => async (dispatch, getState) => {
   }
 }
 export const getBusissinesForHomePage = () => async (dispatch, getState) => {
-  console.log(`getting  buissness details for home page ... `)
   try {
     dispatch({
       type: ALL_BUSINESS_REQUEST,
@@ -103,11 +102,6 @@ export const getBusissinesForHomePage = () => async (dispatch, getState) => {
 }
 
 export const getAdminName = (id) => async (dispatch, getState) => {
-  console.log(`getting  with business id :${id} Admin Name details... `)
-  console.log(`getting  with business id :${id} Admin Name details... `)
-  console.log(`getting  with business id :${id} Admin Name details... `)
-  console.log(`getting  with business id :${id} Admin Name details... `)
-  console.log(`getting  with business id :${id} Admin Name details... `)
   try {
     dispatch({
       type: ADMIN_NAME_REQUEST,
@@ -159,7 +153,6 @@ export const getBuissnesDetailsfornav = (id) => async (dispatch) => {
   }
 }
 export const getBuissnesDetailsforDesign = (id) => async (dispatch) => {
-  console.log(`getBuissnesDetailsforDesign`)
   try {
     dispatch({
       type: BUSINESS_DETAILS_FOR_DESIGN_REQUEST,
@@ -337,7 +330,6 @@ export const updateDesignSettings =
     }
   }
 export const FindGeoLocationByName = (name) => async (dispatch) => {
-  console.log(name)
   try {
     dispatch({
       type: GET_LOCATION_GEO_REQUEST,
@@ -355,7 +347,7 @@ export const FindGeoLocationByName = (name) => async (dispatch) => {
     dispatch({
       type: GET_LOCATION_GEO_SUCCESS,
       payload: data,
-    }).then(console.log(data))
+    })
   } catch (error) {
     dispatch({
       type: GET_LOCATION_GEO_FAIL,
@@ -370,7 +362,6 @@ export const FindGeoLocationByName = (name) => async (dispatch) => {
 /*****get a list of workers for a spesific buissness */
 
 export const listOfWorkers = (id) => async (dispatch, getState) => {
-  console.log(`listOfWorkers Action Dispached`)
   try {
     dispatch({
       type: WORKERS_LIST_REQUEST,
@@ -411,9 +402,6 @@ export const listOfWorkers = (id) => async (dispatch, getState) => {
 }
 
 export const TREATMENTSListAction = (id) => async (dispatch, getState) => {
-  console.log(`TREATMENTS List Action`)
-  console.log(`TREATMENTS List Action`)
-  console.log(`TREATMENTS List Action`)
   try {
     dispatch({
       type: TREATMENTS_LIST_REQUEST,

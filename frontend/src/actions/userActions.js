@@ -2641,8 +2641,6 @@ export const List_of_Potential_Users_By_FirstNameActionSearch =
         `/api/search/userslistbyfirst/${id}`,
         config
       )
-      console.log('data:')
-      console.log(data)
 
       dispatch({
         type: POTENTIAL_USERS_SUCCESS,
@@ -2667,8 +2665,6 @@ export const RESET_PASSWORD_PAGE_ACTION =
       })
 
       const { data } = await axios.get(`/api/forgot-password/${id}/${token}`)
-      console.log('data:')
-      console.log(data)
 
       dispatch({
         type: RESET_PASSWORD_PAGE_GET_SUCCESS,
@@ -2694,8 +2690,6 @@ export const RESET_MY_PASSWORD_ACTION =
       const { data } = await axios.put(`/api/forgot-password/${id}/${token}`, {
         password,
       })
-      console.log('data:')
-      console.log(data)
 
       dispatch({
         type: RESET_MY_PASSWORD_SUCCESS,
@@ -2721,8 +2715,6 @@ export const INITIAL_PASSWORD_ACTION =
       const { data } = await axios.put(`/api/forgot-password/${id}`, {
         password,
       })
-      console.log('data:')
-      console.log(data)
 
       dispatch({
         type: INITIAL_PASSWORD_SUCCESS,

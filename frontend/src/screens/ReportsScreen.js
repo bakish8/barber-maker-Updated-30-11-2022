@@ -161,8 +161,6 @@ const ReportsScreen = ({ history }) => {
             color: 'rgba(255, 255, 255)',
             showConfirmButton: false,
           }).then(setopenMonth(true))
-        } else {
-          console.log('your workingday is safe')
         }
       })
     } else if (showTableThisWeek) {
@@ -189,8 +187,6 @@ const ReportsScreen = ({ history }) => {
             color: 'rgba(255, 255, 255)',
             showConfirmButton: false,
           }).then(setOpenweek(true))
-        } else {
-          console.log('your workingday is safe')
         }
       })
     } else if (showTable1Day) {
@@ -217,8 +213,6 @@ const ReportsScreen = ({ history }) => {
             color: 'rgba(255, 255, 255)',
             showConfirmButton: false,
           }).then(setOpen1day(true))
-        } else {
-          console.log('your workingday is safe')
         }
       })
     }
@@ -442,18 +436,10 @@ const ReportsScreen = ({ history }) => {
     if (weekworkingdays && weekworkingdays.length != 0) {
       const lastDayOfWeek =
         weekworkingdays && weekworkingdays[weekworkingdays.length - 1].date
-      console.log(`weekworkingdays last day:${lastDayOfWeek}`)
       const Calculate_Month = lastDayOfWeek.substring(0, 5)
       const month_Absulute = Calculate_Month.slice(-2)
       const Year_Absulute = lastDayOfWeek.slice(-4)
       const Day_Absulute = lastDayOfWeek.substring(0, 2)
-      console.log(Day_Absulute)
-      console.log(month_Absulute)
-      console.log(Year_Absulute)
-
-      console.log(day)
-      console.log(month)
-      console.log(year)
 
       if (
         year >= Year_Absulute &&
@@ -469,18 +455,10 @@ const ReportsScreen = ({ history }) => {
     if (workingdays && workingdays.length != 0) {
       const lastDayOfWeek =
         workingdays && workingdays[workingdays.length - 1].date
-      console.log(`workingdays last day:${lastDayOfWeek}`)
       const Calculate_Month = lastDayOfWeek.substring(0, 5)
       const month_Absulute = Calculate_Month.slice(-2)
       const Year_Absulute = lastDayOfWeek.slice(-4)
       const Day_Absulute = lastDayOfWeek.substring(0, 2)
-      console.log(Day_Absulute)
-      console.log(month_Absulute)
-      console.log(Year_Absulute)
-
-      console.log(day)
-      console.log(month)
-      console.log(year)
 
       if (
         year >= Year_Absulute &&

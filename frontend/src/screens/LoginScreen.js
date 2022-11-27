@@ -106,8 +106,6 @@ const LoginScreen = ({ location, history }) => {
       history.push(PAGEPHONE)
     }
     if (successSend) {
-      console.log(send)
-      console.log(PhoneToSendTo)
       SetSHOW_ME_VARIFICATION(true)
     }
     if (word) {
@@ -214,7 +212,6 @@ const LoginScreen = ({ location, history }) => {
         //   showConfirmButton: false,
         // })
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        console.log('your workingday is safe')
         Swal.fire({
           title: 'שחזור באמצעות הנייד',
           text: `הזן את הנייד אליו ישלח קוד חד פעמי לשחזור הסיסמה  `,

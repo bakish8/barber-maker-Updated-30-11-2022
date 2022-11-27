@@ -75,7 +75,6 @@ AppointmentSchema.statics.sendNotifications = function (callback) {
   //now
   const searchDate = new Date()
   const FormatedSearchDate = moment(searchDate).format()
-  console.log(`FormatedSearchDate Before:${FormatedSearchDate}`)
 
   Appointment.find().then(function (appointments) {
     appointments = appointments.filter(function (appointment) {
@@ -92,10 +91,6 @@ AppointmentSchema.statics.sendNotifications = function (callback) {
   function sendNotifications(appointments) {
     const client = new Twilio(accountSid, authToken)
     appointments.forEach(function (appointment) {
-      console.log(appointment.reminderType)
-      console.log(
-        `Running Worker for OMRI BAKISH ! ! ! CHECK IF WHATSSAPP SMS OR BOTH APPITMENT SETTINGS REMINDER`
-      )
       // Create options to send the message
       const options = {
         to: `+972${appointment.phoneNumber}`,

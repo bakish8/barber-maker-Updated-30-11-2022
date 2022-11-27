@@ -30,11 +30,6 @@ const SmartCounter = () => {
     }
 
     window.addEventListener('scroll', updatePosition)
-
-    console.log(scrollPosition)
-    if (scrollPosition < 3600) {
-      console.log('in this Higet zone dont restart counter!!')
-    }
   }, [scrollPosition])
 
   return (

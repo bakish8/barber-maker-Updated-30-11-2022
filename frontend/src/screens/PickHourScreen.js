@@ -43,9 +43,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const closeOKHandler = () => setShowOK(false)
   const WorkDayid = match.params.id
   const Tipulid = match.params.tipulid
-  console.log(WorkDayid)
-  console.log(Tipulid)
-  console.log('_____________')
   const [user, setUser] = useState('')
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -125,9 +122,6 @@ const SingleWorkDayScreen = ({ history, match }) => {
   useEffect(() => {
     if (userInfo) {
       setUser(userInfo)
-      console.log(
-        `make tor Page user passed to Here is :${user.name} ! ! ! !!!`
-      )
     }
   }, [user])
   useEffect(() => {

@@ -116,7 +116,6 @@ const getWorkingDayForToday = asyncHandler(async (req, res) => {
   }
 })
 const getWorkingDayForTOMORROW = asyncHandler(async (req, res) => {
-  console.log('tomorrow')
   const searchDate = new Date()
   const FormatedSearchDate = moment(searchDate).format()
   const CalculateMonthmonth = FormatedSearchDate.substring(0, 7)
@@ -243,12 +242,9 @@ const getWorkingDaysForThisWEEK = asyncHandler(async (req, res) => {
 
   const CalculateMonthmonth = FormatedSearchDate.substring(0, 7)
   const month = CalculateMonthmonth.slice(-2) * 1
-  console.log(month)
   const CalculateDay = FormatedSearchDate.substring(0, 10)
   const day = CalculateDay.slice(8) * 1
-  console.log(day)
   const year = FormatedSearchDate.substring(0, 4)
-  console.log(year)
 
   //מוצא את היום עם התאריך הזה על מנת להחזיר את הערך של היום בשבוע שלו
 
@@ -832,7 +828,6 @@ const getCLOCKSForThisWeekRECIPT = asyncHandler(async (req, res) => {
       res.json(arr.flat())
     }
   } else {
-    console.log(`LAST CAUSE CONSOLE LOG`)
     res.status(404)
     throw new Error('Error working day recipt for week not found') //New
   }

@@ -469,7 +469,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
       confirmButtonText: 'כן אני בטוח',
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('dispatcching action')
         if (!ArrayOfSelectedTors.length) {
           console.log('array is emty please choose')
         } else {
@@ -1018,8 +1017,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
             Swal.fire('תור זה הוגדר כלא שולם בהצלחה', {
               icon: 'success',
             }).then(dispatch(UNPayMyTor(id))) //** */
-          } else {
-            console.log('your payment is safe')
           }
         })
       }
@@ -1254,8 +1251,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
         )
       }
     } else if (avilable && SameDay && CheckIfTimePassed_VAR) {
-      console.log(`!!!!!!!!!!!!!!!!!!!!!!!`)
-
       Toast.fire({
         icon: 'error',
         title: 'שגיאה',
@@ -1280,14 +1275,9 @@ const AdminSingleWorkDay = ({ history, match }) => {
       console.log(elementPos + 1)
       if (objectFound && objectFound.avilable) {
         setdisplayhalf(true)
-        console.log(objectFound.time)
-        console.log(objectFound.time)
-        console.log(objectFound.time)
+
         const minutes = objectFound.time.split(':')[1]
         const hour = objectFound.time.split(':')[0]
-        console.log(minutes)
-        console.log(hour)
-
         if (
           ClockPlusHalfHour &&
           ClockPlusHalfHour.avilable &&
@@ -1306,7 +1296,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
           setdisplay1andhalf(true)
           setdisplay1(true)
 
-          console.log('the next 3 hours   is avilable settinf state...')
+          console.log('the next 3 hours is avilable settinf state...')
         } else if (
           ClockPlusHalfHour &&
           ClockPlusHalfHour.avilable &&
@@ -1478,9 +1468,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
           } else if (result.isDenied) {
             if (mistaper) {
               const uid = mistaper._id
-              console.log(mistaper._id)
-              console.log(mistaper._id)
-              console.log(mistaper._id)
+
               Swal.fire({
                 title: '?אתה בטוח',
                 text: `ברגע שתהפוך את התור בשעה ${time} זה לזמין לא תהיה לך את האפשרות להחזיר את פרטי המשתמש שסגר את התור בשעה זו`,
@@ -2112,10 +2100,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
           arrfor3hours.push(tipul)
         }
       }
-      console.log(arr)
       setArr(arr)
-      console.log(Arr)
-
       setArrforhour(arrforhour)
       setArrarrforhourandhalf(arrforhourandhalf)
       setArrarrfor2hours(arrfor2hours)

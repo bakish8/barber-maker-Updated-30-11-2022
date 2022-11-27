@@ -36,8 +36,6 @@ const ForgottenPasswordResetByEmail = ({ location, history }) => {
   //use Effect
   useEffect(() => {
     if (id && token) {
-      console.log(`token:${token}`)
-      console.log(`id:${id}`)
       setID(id)
       setTOKEN(token)
       dispatch(RESET_PASSWORD_PAGE_ACTION(id, token))

@@ -18,11 +18,7 @@ const CreditCard = (props) => {
   const [focus, setFocus] = useState('')
 
   const handlePay = () => {
-    console.log(ClockID)
-    console.log(number)
-    console.log(name)
-    console.log(expiry)
-    console.log(cvc)
+    console.log(`clock ${ClockID} is payd with a credit card`)
   }
 
   useEffect(() => {

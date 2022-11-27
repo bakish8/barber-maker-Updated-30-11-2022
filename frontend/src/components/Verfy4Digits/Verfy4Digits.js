@@ -18,9 +18,6 @@ const Verfy4Digits = (props) => {
 
   const codes = document.getElementsByClassName('code-codeInput')
   useEffect(() => {
-    if (props) {
-      console.log(props.send)
-    }
     if (codes) {
       setArr(codes)
     }
@@ -69,7 +66,6 @@ const Verfy4Digits = (props) => {
     } else if (e.key === 'Backspace') {
       setReadyToCheck(false)
 
-      console.log('delete')
       setarrOneValue('')
       setTimeout(() => {
         Arr[0].focus()
@@ -86,7 +82,6 @@ const Verfy4Digits = (props) => {
     } else if (e.key === 'Backspace') {
       setReadyToCheck(false)
 
-      console.log('delete')
       setarr2Value('')
       setTimeout(() => {
         Arr[0].focus()
@@ -103,7 +98,6 @@ const Verfy4Digits = (props) => {
     } else if (e.key === 'Backspace') {
       setReadyToCheck(false)
 
-      console.log('delete')
       setarr3Value('')
       setTimeout(() => {
         Arr[1].focus()
@@ -116,7 +110,6 @@ const Verfy4Digits = (props) => {
       setReadyToCheck(true)
     } else if (e.key === 'Backspace') {
       setReadyToCheck(false)
-      console.log('delete')
       setarr4Value('')
       setTimeout(() => {
         Arr[2].focus()

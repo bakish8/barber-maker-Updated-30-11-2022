@@ -94,10 +94,6 @@ const NewTipulScreen = ({ location, history, match }) => {
         text: 'אנא נסה שנית',
       })
     } else {
-      console.log(TipulName)
-      console.log(TipulTime)
-      console.log(TipulCost)
-      console.log(TipulImage)
       dispatch(
         registerNewTipul(
           TipulName,

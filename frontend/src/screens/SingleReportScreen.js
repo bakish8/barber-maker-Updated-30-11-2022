@@ -10,10 +10,6 @@ import Loader from '../components/Loader'
 const SingleReportScreen = ({ history, match }) => {
   const dispatch = useDispatch()
   const Report_Id = match.params.id
-  console.log(Report_Id)
-  console.log(Report_Id)
-  console.log(Report_Id)
-  console.log(Report_Id)
 
   // ██████╗ ███████╗██████╗ ██╗   ██╗██╗  ██╗    ███████╗████████╗ █████╗ ████████╗███████╗███████╗
   // ██╔══██╗██╔════╝██╔══██╗██║   ██║╚██╗██╔╝    ██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝██╔════╝

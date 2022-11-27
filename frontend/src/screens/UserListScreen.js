@@ -64,8 +64,6 @@ const UserListScreen = ({ history }) => {
         swal('משתמש זה  נמחק בהצלחה מהמערכת', {
           icon: 'success',
         }).then(dispatch(deleteUser(id)))
-      } else {
-        console.log('your user is safe')
       }
     })
   }

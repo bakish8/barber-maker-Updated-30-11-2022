@@ -35,7 +35,6 @@ const AdminMessages = (props) => {
     } else {
       const dayPlus1 = parseInt(day) + 1
       const dayPlus2 = parseInt(day) + 2
-      console.log(dayPlus1)
       if (month == month1 && dayPlus1 == day1) {
         return 'אתמול'
       } else if (month == month1 && dayPlus2 == day1) {
@@ -56,14 +55,10 @@ const AdminMessages = (props) => {
       const day = CalculateDay.slice(8)
       const year = FormatedSearchDate.substring(0, 4)
       const Dateush = `${day}/${month}/${year}`
-      console.log(Dateush)
-      console.log(Dateush)
       setdate(Dateush)
     }
     if (!props.list || !props.list.length) {
       setDisplayME(false)
-    } else {
-      console.log(props.list)
     }
     if (props.list) {
       if (props.list.length) {

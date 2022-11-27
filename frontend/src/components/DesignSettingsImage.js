@@ -58,9 +58,6 @@ const DesignSettingsImage = (props, match) => {
       !window.location.host === 'barber-maker.com:3000' ||
       Firstlocation === 'business'
     ) {
-      console.log(
-        ' we are in Barber-Maker.com or localHost 3000 dispatching   getBuissnesDetailsforDesign ! ! !'
-      )
       dispatch(getBuissnesDetailsforDesign(BusinessId))
     }
   }, [])
@@ -92,28 +89,17 @@ const DesignSettingsImage = (props, match) => {
 
   useEffect(() => {
     if (word != '' || word != word) {
-      console.log(
-        ' we are Going to display previewe for website colors here ! ! !'
-      )
     }
   }, [word])
 
   useEffect(() => {
     if (success_design_settings) {
-      console.log(' Back to home page + refresh ! ! !')
       props.history.push(`/business/${props.BussinessId}`)
     }
   }, [success_design_settings])
 
   useEffect(() => {
     if (businessGeo && successGeo == true && businessGeo.results[0]) {
-      console.log(
-        ` the business Geo lat is ${businessGeo.results[0].geometry.location.lat}! ! !`
-      )
-      console.log(
-        ` the business Geo lng is ${businessGeo.results[0].geometry.location.lng}! ! !`
-      )
-
       /****setting update action with lat and lng for location */
 
       dispatch(
@@ -166,8 +152,6 @@ const DesignSettingsImage = (props, match) => {
         dispatch(FindGeoLocationByName(BusinessLocationName))
 
         /***here was updateDesignsettings */
-      } else {
-        console.log('CANCELATION !!')
       }
     })
   }

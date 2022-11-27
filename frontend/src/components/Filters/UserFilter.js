@@ -8,8 +8,6 @@ import { Modal } from '@material-ui/core'
 import { BussineslistUsers } from '../../actions/BuissnesActions/Buissnes_User_Actions'
 
 const UserFilter = (props) => {
-  console.log(props.ChoosenClock)
-  console.log(props.selectV)
   const dispatch = useDispatch()
 
   const BussinesuserList = useSelector((state) => state.BussinesuserList)
@@ -41,7 +39,6 @@ const UserFilter = (props) => {
         const li = document.createElement('li')
         li.addEventListener('onclick', console.log('ddddddddddd'))
         li.onclick = function (e) {
-          console.log(user._id)
           functiondeLaRoma(user._id, user.name, user.phone, user.image)
         }
         listItems.push(li)
@@ -61,10 +58,6 @@ const UserFilter = (props) => {
   getData()
 
   const filterData = (searchValue) => {
-    console.log(searchValue)
-    console.log(users)
-    console.log(listItems)
-
     listItems.forEach((user) => {
       if (user.innerText.toLowerCase().includes(searchValue.toLowerCase())) {
         user.classList.remove('hide')

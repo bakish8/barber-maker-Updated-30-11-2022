@@ -277,7 +277,6 @@ const Speech = ({ history, match, tipulimList }) => {
       confirmButtonText: 'מחק',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log('succses')
         if (window.location.href.indexOf('torim') > -1) {
           alert('your url contains the name torim')
           await dispatch(listOneWorkingDay)

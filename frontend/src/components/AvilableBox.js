@@ -25,10 +25,6 @@ const AvilableBox = (props) => {
     } else {
       console.log('u ar enot an admin')
     }
-
-    if (props.list) {
-      console.log(props.list)
-    }
   }, [dispatch, userInfo, props.list])
 
   return (
