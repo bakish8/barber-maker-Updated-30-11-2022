@@ -1,9 +1,6 @@
 import axios from 'axios'
 
 import {
-  GOOGLE_USER_LOGIN_EMAIL_REQUEST,
-  GOOGLE_USER_LOGIN_EMAIL_SUCCESS,
-  GOOGLE_USER_LOGIN_EMAIL_FAIL,
   SEND_WHATSAPP_TOR_REQUEST,
   SEND_WHATSAPP_TOR_SUCCESS,
   SEND_WHATSAPP_TOR_FAIL,
@@ -184,9 +181,6 @@ import {
   BookMEonGoogleCalender_REQUEST,
   BookMEonGoogleCalender_SUCCESS,
   BookMEonGoogleCalender_FAIL,
-  USER_GOOGLE_LOGIN_REQUEST,
-  USER_GOOGLE_LOGIN_SUCCESS,
-  USER_GOOGLE_LOGIN_FAIL,
   SEND_Cancel_SMS_TOR_REQUEST,
   SEND_Cancel_SMS_TOR_SUCCESS,
   SEND_Cancel_SMS_TOR_FAIL,
@@ -298,40 +292,6 @@ export const emailLogin = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_LOGIN_EMAIL_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
-  }
-}
-
-export const Googlelogin = (email) => async (dispatch) => {
-  try {
-    dispatch({
-      type: USER_GOOGLE_LOGIN_REQUEST,
-    })
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-    const { data } = await axios.post(
-      '/api/users/googlelogin',
-      { email },
-      config
-    )
-
-    dispatch({
-      type: USER_GOOGLE_LOGIN_SUCCESS,
-      payload: data,
-    })
-
-    localStorage.setItem('userInfo', JSON.stringify(data))
-  } catch (error) {
-    dispatch({
-      type: USER_GOOGLE_LOGIN_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -976,28 +936,6 @@ export const workingDayDetails = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: WORKING_DAY_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
-  }
-}
-export const googleuserResponse = () => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: GOOGLE_USER_LOGIN_EMAIL_REQUEST,
-    })
-
-    const { data } = axios.get('/getgoogleuser', { withCredentials: true })
-
-    dispatch({
-      type: GOOGLE_USER_LOGIN_EMAIL_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: GOOGLE_USER_LOGIN_EMAIL_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

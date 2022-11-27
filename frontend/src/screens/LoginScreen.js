@@ -144,15 +144,6 @@ const LoginScreen = ({ location, history }) => {
     dispatch(login(phone, password)) //send to actions and fowerd as email needto be fixed to phone fron action
   }
 
-  const GoogleSigninsubmitHandler = () => {
-    //window.open('http://localhost:5000/api/google', '_self')/**development  */
-    window.open(
-      /**production  */
-      'https://www.barber-maker.com/api/google',
-      '_self'
-    )
-    console.log('gooogle Login TRY')
-  }
   const Swal_I_Forgot_My_Pass = () => {
     Swal.fire({
       title: 'שחזור סיסמה',
@@ -363,13 +354,6 @@ const LoginScreen = ({ location, history }) => {
                   התחבר באמצעות האימייל{' '}
                 </Button>
 
-                <btn onClick={GoogleSigninsubmitHandler}>
-                  {' '}
-                  <img
-                    className='googleSIgnUP'
-                    src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
-                  ></img>
-                </btn>
                 <Row className='py-3'>
                   <Col>
                     <div className='whiteme'>
@@ -461,13 +445,6 @@ const LoginScreen = ({ location, history }) => {
                     </div>
                   </Col>
                 </Row>
-                <btn onClick={GoogleSigninsubmitHandler}>
-                  {' '}
-                  <img
-                    className='googleSIgnUP'
-                    src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
-                  ></img>
-                </btn>
               </Form>
             </div>
           </FormContainer>

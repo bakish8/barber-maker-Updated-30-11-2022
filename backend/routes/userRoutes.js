@@ -9,7 +9,6 @@ import {
   deleteUser,
   getUserById,
   updateUser,
-  authGoogleUser,
   registerNewTipul,
   updateUserComments,
   authUserBYphone,
@@ -20,7 +19,6 @@ import { protect, admin, isUserAUTH } from '../middleware/authMiddleware.js'
 router.route('/').post(registerUser).get(protect, admin, getUsers)
 router.post('/login', authUser)
 router.post('/emaillogin', authUserBYphone)
-router.post('/googlelogin', authGoogleUser)
 router
   .route('/profile')
   .get(protect, getUserProfile)

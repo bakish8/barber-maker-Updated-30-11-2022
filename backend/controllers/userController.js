@@ -84,52 +84,6 @@ const authUserBYphone = asyncHandler(async (req, res) => {
   }
 })
 
-const authGoogleUser = asyncHandler(async (req, res) => {
-  const { email } = req.body
-  const user = await User.findOne({ email })
-  if (user) {
-    if (user.WorkingIn) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        image: user.image,
-        isAdmin: user.isAdmin,
-        isAdminOfAdmins: user.isAdminOfAdmins,
-        token: generateToken(user._id),
-        WorkingIn: user.WorkingIn,
-      })
-    } else if (user.ClientOfBusiness) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        image: user.image,
-        isAdmin: user.isAdmin,
-        isAdminOfAdmins: user.isAdminOfAdmins,
-        token: generateToken(user._id),
-        ClientOfBusiness: user.ClientOfBusiness,
-      })
-    } else if (!user.WorkingIn && !user.ClientOfBusiness) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        image: user.image,
-        isAdmin: user.isAdmin,
-        isAdminOfAdmins: user.isAdminOfAdmins,
-        token: generateToken(user._id),
-      })
-    }
-  } else {
-    res.status(401)
-    throw new Error('Google LogInFailed')
-  }
-})
-
 // @desc    Register a new user
 // @route   POST /api/users
 // @access  Public
@@ -473,7 +427,6 @@ const registerNewTipul = asyncHandler(async (req, res) => {
 export {
   authUser,
   authUserBYphone,
-  authGoogleUser,
   registerUser,
   getUserProfile,
   updateUserProfile,

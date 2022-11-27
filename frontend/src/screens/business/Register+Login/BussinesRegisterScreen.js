@@ -200,10 +200,6 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     }
   }
 
-  const GoogleSigninsubmitHandler = () => {
-    window.open('https://www.barber-maker.com/api/google', '_self')
-  }
-
   const convert = (date, format = DateOfBirth.format) => {
     let object = { date, format }
     setDateOfBirth({
@@ -315,13 +311,6 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
                 </Col>
                 <br />
               </Row>
-              <btn onClick={GoogleSigninsubmitHandler}>
-                {' '}
-                <img
-                  className='googleSIgnUP'
-                  src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
-                ></img>
-              </btn>
             </Form>
           </div>
         </FormContainer>

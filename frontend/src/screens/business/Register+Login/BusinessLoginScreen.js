@@ -161,9 +161,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
     dispatch(login(phone, password)) //send to actions and fowerd as email needto be fixed to phone fron action
   }
 
-  const GoogleSigninsubmitHandler = () => {
-    window.open('https://www.barber-maker.com/api/google', '_self')
-  }
   const Swal_I_Forgot_My_Pass = () => {
     Swal.fire({
       title: 'שחזור סיסמה',
@@ -357,13 +354,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
                   התחבר באמצעות האימייל{' '}
                 </Button>
 
-                <btn onClick={GoogleSigninsubmitHandler}>
-                  {' '}
-                  <img
-                    className='googleSIgnUP'
-                    src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
-                  ></img>
-                </btn>
                 <Row className='py-3'>
                   <Col>
                     <div className='whiteme'>
@@ -441,13 +431,6 @@ const BusinessLoginScreen = ({ location, history, match }) => {
                     </div>
                   </Col>
                 </Row>
-                <btn onClick={GoogleSigninsubmitHandler}>
-                  {' '}
-                  <img
-                    className='googleSIgnUP'
-                    src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
-                  ></img>
-                </btn>
               </Form>
             </div>
           </FormContainer>

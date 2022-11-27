@@ -24,8 +24,6 @@ import moment from 'moment'
 import notificationsWorker from './intervalWorkers/notificationsWorker.js'
 import relvantTimeWorker from './intervalWorkers/relvantTimeWorker.js'
 import session from 'cookie-session'
-import passport from 'passport'
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import { Server, Socket } from 'socket.io'
 import http from 'http'
 const SSocket = Socket
@@ -53,146 +51,6 @@ app.use(
     resave: false,
     saveUninitialized: false,
   })
-)
-//  ██████╗  ██████╗  ██████╗  ██████╗ ██╗     ███████╗    ██████╗  █████╗ ███████╗███████╗██████╗  ██████╗ ██████╗ ████████╗
-// ██╔════╝ ██╔═══██╗██╔═══██╗██╔════╝ ██║     ██╔════╝    ██╔══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝
-// ██║  ███╗██║   ██║██║   ██║██║  ███╗██║     █████╗      ██████╔╝███████║███████╗███████╗██████╔╝██║   ██║██████╔╝   ██║
-// ██║   ██║██║   ██║██║   ██║██║   ██║██║     ██╔══╝      ██╔═══╝ ██╔══██║╚════██║╚════██║██╔═══╝ ██║   ██║██╔══██╗   ██║
-// ╚██████╔╝╚██████╔╝╚██████╔╝╚██████╔╝███████╗███████╗    ██║     ██║  ██║███████║███████║██║     ╚██████╔╝██║  ██║   ██║
-//  ╚═════╝  ╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝╚══════╝    ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝
-app.use(passport.initialize())
-app.use(passport.session())
-passport.serializeUser((user, done) => {
-  return done(null, user._id)
-})
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, doc) => {
-    return done(null, doc)
-  })
-})
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID:
-        '452001077432-h4lhfoemnipvlbokdtamftv3p7m0rr9f.apps.googleusercontent.com',
-      clientSecret: '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',
-      callbackURL: 'https://www.barber-maker.com/api/google/callback',
-      //callbackURL: '/api/google/callback', development
-    },
-    async function (accessToken, refreshToken, profile, cb) {
-      let APIKEY = 'AIzaSyBynh_gUEZiSiiqejzH8BkbxtUUx5dR4Jw'
-      axios
-        .get(
-          `https://people.googleapis.com/v1/people/${profile.id}?personFields=birthdays&key=${APIKEY}&access_token=${accessToken}`,
-          { withCredentials: true }
-        )
-        .then(async (res) => {
-          if (res.data.birthdays[1]) {
-            // if res for Bday is OK calculate and Register Bday
-            let day = res.data.birthdays[1].date.day.toString()
-            let month = res.data.birthdays[1].date.month.toString()
-            let year = res.data.birthdays[1].date.year
-            if (day.length === 1) {
-              day = day.toString().padStart(2, '0')
-            }
-            if (month.length === 1) {
-              month = month.toString().padStart(2, '0')
-            }
-            let birthdayReturned = `${day}/${month}/${year}`
-
-            const ExistedMailUser = await User.findOne({
-              email: profile.emails[0].value,
-            })
-            if (ExistedMailUser) {
-              if (!ExistedMailUser.googleId) {
-                ExistedMailUser.googleId = profile.id
-                await ExistedMailUser.save()
-              }
-              if (!ExistedMailUser.Bday) {
-                ExistedMailUser.Bday = birthdayReturned
-                await ExistedMailUser.save()
-              }
-              cb(null, ExistedMailUser)
-            } else {
-              const googleuser = await User.findOne({ googleId: profile.id })
-              if (!googleuser && birthdayReturned) {
-                const newUser = new User({
-                  name: profile.name.givenName + ' ' + profile.name.familyName,
-                  email: profile.emails[0].value,
-                  Bday: birthdayReturned,
-                  googleId: profile.id,
-                  image: profile.photos[0].value,
-                  phone: null,
-                  password: birthdayReturned,
-                  isAdmin: false,
-                })
-                await newUser.save()
-                const googlenewuser = await User.findOne({
-                  googleId: profile.id,
-                })
-                cb(null, googlenewuser)
-              } else {
-                cb(null, googleuser)
-              }
-            }
-          } else {
-            // if res for Bday is NOT  OK Register Without Bday
-            const ExistedMailUser = await User.findOne({
-              email: profile.emails[0].value,
-            })
-            if (ExistedMailUser) {
-              if (!ExistedMailUser.googleId) {
-                ExistedMailUser.googleId = profile.id
-                await ExistedMailUser.save()
-              }
-              cb(null, ExistedMailUser)
-            } else {
-              const googleuser = await User.findOne({ googleId: profile.id })
-              if (!googleuser) {
-                const newUser = new User({
-                  name: profile.name.givenName + ' ' + profile.name.familyName,
-                  email: profile.emails[0].value,
-                  googleId: profile.id,
-                  image: profile.photos[0].value,
-                  phone: null,
-                  password: '123456',
-                  isAdmin: false,
-                })
-                await newUser.save()
-                const googlenewuser = await User.findOne({
-                  googleId: profile.id,
-                })
-                cb(null, googlenewuser)
-              } else {
-                cb(null, googleuser)
-              }
-            }
-          }
-        })
-    }
-  )
-)
-
-app.get(
-  `/api/google`,
-  passport.authenticate('google', {
-    scope: [
-      'https://www.googleapis.com/auth/userinfo.profile',
-      'https://www.googleapis.com/auth/userinfo.email',
-      'https://www.googleapis.com/auth/calendar.readonly',
-      'https://www.googleapis.com/auth/user.birthday.read',
-    ],
-  })
-)
-app.get(
-  '/api/google/callback', // development + production
-  passport.authenticate('google', {
-    failureRedirect: '/login', // Fix to redirect to bussines page ...
-  }),
-
-  function (req, res) {
-    res.redirect('/') //production // Fix to redirect to bussines page ...
-  }
 )
 
 // ██╗███╗   ██╗████████╗███████╗██████╗ ██╗   ██╗ █████╗ ██╗
@@ -245,10 +103,6 @@ app.use('/api/appointments', appointmentsRoutes)
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 )
-app.get('/getgoogleuser', (req, res) => {
-  res.status(207)
-  res.send(req.user)
-})
 
 app.get('/logout', (req, res) => {
   if (req.user) {

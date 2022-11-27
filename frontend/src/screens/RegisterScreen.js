@@ -127,9 +127,6 @@ const RegisterScreen = ({ location, history }) => {
       dispatch(register(name, email, phone, password, image, 0))
     }
   }
-  const GoogleSigninsubmitHandler = () => {
-    window.open('http://localhost:5000/api/google', '_self')
-  }
 
   return (
     <>
@@ -214,13 +211,6 @@ const RegisterScreen = ({ location, history }) => {
                 </Col>
                 <br />
               </Row>
-              <btn onClick={GoogleSigninsubmitHandler}>
-                {' '}
-                <img
-                  className='googleSIgnUP'
-                  src='https://i.ibb.co/X3YFxN2/11111111111111111.png'
-                ></img>
-              </btn>
             </Form>
           </div>
         </FormContainer>

@@ -1,8 +1,4 @@
 import {
-  GOOGLE_USER_LOGIN_EMAIL_REQUEST,
-  GOOGLE_USER_LOGIN_EMAIL_SUCCESS,
-  GOOGLE_USER_LOGIN_EMAIL_FAIL,
-  GOOGLE_USER_LOGIN_EMAIL_RESET,
   SEND_RESET_SMS_TOR_RESET,
   SEND_RESET_SMS_TOR_REQUEST,
   SEND_RESET_SMS_TOR_SUCCESS,
@@ -202,10 +198,6 @@ import {
   BookMEonGoogleCalender_REQUEST,
   BookMEonGoogleCalender_SUCCESS,
   BookMEonGoogleCalender_FAIL,
-  USER_GOOGLE_LOGIN_REQUEST,
-  USER_GOOGLE_LOGIN_SUCCESS,
-  USER_GOOGLE_LOGIN_FAIL,
-  USER_GOOGLE_LOGIN_RESET,
   SEND_Cancel_SMS_TOR_REQUEST,
   SEND_Cancel_SMS_TOR_SUCCESS,
   SEND_Cancel_SMS_TOR_FAIL,
@@ -284,44 +276,6 @@ export const userLoginEMAILReducer = (state = {}, action) => {
       return { success: false, loading: false, error: action.payload }
     case USER_LOGOUT:
       return {}
-    default:
-      return state
-  }
-}
-
-export const googleuserResponseReducer = (state = {}, action) => {
-  switch (action.type) {
-    case GOOGLE_USER_LOGIN_EMAIL_REQUEST:
-      return { GRloading: true }
-    case GOOGLE_USER_LOGIN_EMAIL_SUCCESS:
-      return {
-        GRsuccess: true,
-        GRloading: false,
-        RuserGoogleInfo: action.payload,
-      }
-    case GOOGLE_USER_LOGIN_EMAIL_FAIL:
-      return { GRloading: false, GRerror: action.payload }
-    case USER_LOGOUT:
-      return {}
-    case GOOGLE_USER_LOGIN_EMAIL_RESET:
-      return { GRsuccess: false }
-    default:
-      return state
-  }
-}
-
-export const userGoogleLoginReducer = (state = {}, action) => {
-  switch (action.type) {
-    case USER_GOOGLE_LOGIN_REQUEST:
-      return { Gloading: true }
-    case USER_GOOGLE_LOGIN_SUCCESS:
-      return { Gsuccess: true, Gloading: false, userGoogleInfo: action.payload }
-    case USER_GOOGLE_LOGIN_FAIL:
-      return { Gloading: false, Gerror: action.payload }
-    case USER_LOGOUT:
-      return {}
-    case USER_GOOGLE_LOGIN_RESET:
-      return { Gsuccess: false }
     default:
       return state
   }

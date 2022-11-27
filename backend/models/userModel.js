@@ -22,10 +22,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
     },
-    googleId: {
-      type: String,
-      required: false,
-    },
+
     image: {
       type: String,
     },

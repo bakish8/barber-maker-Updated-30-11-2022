@@ -14,9 +14,6 @@ const CoolNavBar = (props) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const userGoogleLogin = useSelector((state) => state.userGoogleLogin)
-  const { userGoogleInfo, Gsuccess } = userGoogleLogin
-
   const logoutHandler = () => {
     setisSmallFunction()
     dispatch(logout())
