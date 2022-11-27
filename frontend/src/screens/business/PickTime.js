@@ -40,6 +40,7 @@ while (date.getMinutes() % 15 !== 0) {
 
 const PickTime = ({ history, match }) => {
   const BussinesID = match.params.id
+  const [afterdate, Setfterdate] = useState(false) //**caclculate if passed date for day state */
 
   const dispatch = useDispatch()
   const [socket, setSocket] = useState(null)
@@ -54,8 +55,6 @@ const PickTime = ({ history, match }) => {
   console.log(Tipulid)
   console.log('_____________')
   const [user, setUser] = useState('')
-  const [afterdate, SetAfterdate] = useState(false) //**caclculate if passed date for day state */
-  const [SameDay, setSameDay] = useState(false) /***** */
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -158,50 +157,6 @@ const PickTime = ({ history, match }) => {
       })
     }
   }
-  // ┌┬┐┌─┐┌┬┐┌─┐   ┬   ┌┬┐┬┌┬┐┌─┐    ┌┐┌┌─┐┬ ┬
-  //  ││├─┤ │ ├┤   ┌┼─   │ ││││├┤     ││││ ││││
-  // ─┴┘┴ ┴ ┴ └─┘  └┘    ┴ ┴┴ ┴└─┘    ┘└┘└─┘└┴┘
-  /****date for todaky for recipet Functionality */
-  const searchDate = new Date()
-  const FormatedSearchDate = moment(searchDate).format()
-
-  const CalculateMonthmonth = FormatedSearchDate.substring(0, 7)
-  const month = CalculateMonthmonth.slice(-2) * 1
-  const CalculateDay = FormatedSearchDate.substring(0, 10)
-  const day = CalculateDay.slice(8) * 1
-  const year = FormatedSearchDate.substring(0, 4) * 1
-  const Calculateminute = FormatedSearchDate.slice(14)
-  const minute = Calculateminute.substring(0, 2)
-  const CalculateHour = FormatedSearchDate.slice(11)
-  const hour = CalculateHour.substring(0, 2)
-  const timeNow = `${hour}:${minute}`
-  const dateNow = `${day}/${month}/${year}`
-  useEffect(() => {
-    if (workingDay) {
-      if (
-        (year === workingDay.Dateyear &&
-          month === workingDay.Datemonth &&
-          day > workingDay.Dateday) ||
-        year > workingDay.Dateyear ||
-        (year === workingDay.Dateyear && month > workingDay.Datemonth)
-      ) {
-        console.log(`SetAfterdate TRUE`)
-        SetAfterdate(true)
-      } else {
-        console.log(`SetAfterdate FALSE`)
-        SetAfterdate(false)
-      }
-      if (
-        year === workingDay.Dateyear &&
-        month === workingDay.Datemonth &&
-        day === workingDay.Dateday
-      ) {
-        setSameDay(true)
-      } else {
-        setSameDay(false)
-      }
-    }
-  }, [workingDay])
 
   useEffect(() => {
     if (clockList) {
@@ -408,505 +363,252 @@ const PickTime = ({ history, match }) => {
 
             <Col md={12}>
               <div>
-                {SameDay ? (
-                  <Table striped bordered hover responsive className='table-sm'>
-                    {clockList.length != 0 && tipulimDeets.time === 30 ? (
-                      clockList
-                        .sort((a, b) => {
-                          const TimeA = ` ${a.time}`.valueOf()
-                          const TimeB = ` ${b.time}`.valueOf()
-                          if (TimeA > TimeB) {
-                            return 1 // return -1 here for DESC order
-                          }
-                          return -1 // return 1 here for DESC Order
-                        })
-                        .map((clock) =>
-                          clock.avilable && !CheckIfTimePassed(clock.time) ? (
-                            <div id='clockbtndiv' className='scaleAbit'>
-                              <Button
-                                id='clockbtn'
-                                key={clock._id}
-                                onClick={() =>
-                                  submitHandler(
-                                    clock._id,
-                                    clock.time,
-                                    clock.date,
-                                    clock.sapar,
-                                    clock.owner.dayInWeek,
-                                    clock.owner.owner
-                                  )
-                                }
-                                //onClick={() => openOKHandler(clock.time)}
-                              >
-                                <img
-                                  id='clcktimeimg'
-                                  src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                                />
-                                <div id='clcktime'> {clock.time}</div>
-                              </Button>
-                            </div>
-                          ) : (
-                            <></>
-                          )
+                <Table striped bordered hover responsive className='table-sm'>
+                  {clockList.length != 0 && tipulimDeets.time === 30 ? (
+                    clockList
+                      .sort((a, b) => {
+                        const TimeA = ` ${a.time}`.valueOf()
+                        const TimeB = ` ${b.time}`.valueOf()
+                        if (TimeA > TimeB) {
+                          return 1 // return -1 here for DESC order
+                        }
+                        return -1 // return 1 here for DESC Order
+                      })
+
+                      .map((clock) =>
+                        clock.avilable && !CheckIfTimePassed(clock.time) ? (
+                          <div id='clockbtndiv' className='scaleAbit'>
+                            <Button
+                              id='clockbtn'
+                              key={clock._id}
+                              onClick={() =>
+                                submitHandler(
+                                  clock._id,
+                                  clock.time,
+                                  clock.date,
+                                  clock.sapar,
+                                  clock.owner.dayInWeek,
+                                  clock.owner.owner
+                                )
+                              }
+                              //onClick={() => openOKHandler(clock.time)}
+                            >
+                              <img
+                                id='clcktimeimg'
+                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                              />
+                              <div id='clcktime'> {clock.time}</div>
+                            </Button>
+                          </div>
+                        ) : (
+                          <></>
                         )
-                    ) : clockListForOneHour &&
-                      clockListForOneHour.length != 0 &&
-                      tipulimDeets.time === 60 ? (
-                      clockListForOneHour
-                        .sort((a, b) => {
-                          const dateA = new Date(` ${a.time}`).valueOf()
-                          const dateB = new Date(` ${b.time}`).valueOf()
-                          if (dateA > dateB) {
-                            return -1 // return -1 here for DESC order
-                          }
-                          return 1 // return 1 here for DESC Order
-                        })
+                      )
+                  ) : clockListForOneHour &&
+                    clockListForOneHour.length != 0 &&
+                    tipulimDeets.time === 60 ? (
+                    clockListForOneHour
+                      .sort((a, b) => {
+                        const dateA = new Date(` ${a.time}`).valueOf()
+                        const dateB = new Date(` ${b.time}`).valueOf()
+                        if (dateA > dateB) {
+                          return -1 // return -1 here for DESC order
+                        }
+                        return 1 // return 1 here for DESC Order
+                      })
 
-                        .map((clock) => (
-                          <div id='clockbtndiv' className='scaleAbit'>
-                            <Button
-                              id='clockbtn'
-                              key={clock._id}
-                              onClick={() =>
-                                submitHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.sapar,
-                                  clock.owner.dayInWeek,
-                                  clock.owner.owner
-                                )
-                              }
-                              //onClick={() => openOKHandler(clock.time)}
-                            >
-                              <img
-                                id='clcktimeimg'
-                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                              />
-                              <div id='clcktime'> {clock.time}</div>
-                            </Button>
-                          </div>
-                        ))
-                    ) : clockListForOneHALFHour &&
-                      clockListForOneHALFHour.length != 0 &&
-                      tipulimDeets.time === 90 ? (
-                      clockListForOneHALFHour
-                        .sort((a, b) => {
-                          const dateA = new Date(` ${a.time}`).valueOf()
-                          const dateB = new Date(` ${b.time}`).valueOf()
-                          if (dateA > dateB) {
-                            return -1 // return -1 here for DESC order
-                          }
-                          return 1 // return 1 here for DESC Order
-                        })
-                        .map((clock) => (
-                          <div id='clockbtndiv' className='scaleAbit'>
-                            <Button
-                              id='clockbtn'
-                              key={clock._id}
-                              onClick={() =>
-                                submitHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.sapar,
-                                  clock.owner.dayInWeek,
-                                  clock.owner.owner
-                                )
-                              }
-                              //onClick={() => openOKHandler(clock.time)}
-                            >
-                              <img
-                                id='clcktimeimg'
-                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                              />
-                              <div id='clcktime'> {clock.time}</div>
-                            </Button>
-                          </div>
-                        ))
-                    ) : clockListFor2Hour &&
-                      clockListFor2Hour.length != 0 &&
-                      tipulimDeets.time === 120 ? (
-                      clockListFor2Hour
-                        .sort((a, b) => {
-                          const dateA = new Date(` ${a.time}`).valueOf()
-                          const dateB = new Date(` ${b.time}`).valueOf()
-                          if (dateA > dateB) {
-                            return -1 // return -1 here for DESC order
-                          }
-                          return 1 // return 1 here for DESC Order
-                        })
+                      .map((clock) => (
+                        <div id='clockbtndiv' className='scaleAbit'>
+                          <Button
+                            id='clockbtn'
+                            key={clock._id}
+                            onClick={() =>
+                              submitHandler(
+                                clock._id,
+                                clock.time,
+                                clock.date,
+                                clock.sapar,
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
+                              )
+                            }
+                            //onClick={() => openOKHandler(clock.time)}
+                          >
+                            <img
+                              id='clcktimeimg'
+                              src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                            />
+                            <div id='clcktime'> {clock.time}</div>
+                          </Button>
+                        </div>
+                      ))
+                  ) : clockListForOneHALFHour &&
+                    clockListForOneHALFHour.length != 0 &&
+                    tipulimDeets.time === 90 ? (
+                    clockListForOneHALFHour
+                      .sort((a, b) => {
+                        const dateA = new Date(` ${a.time}`).valueOf()
+                        const dateB = new Date(` ${b.time}`).valueOf()
+                        if (dateA > dateB) {
+                          return -1 // return -1 here for DESC order
+                        }
+                        return 1 // return 1 here for DESC Order
+                      })
+                      .map((clock) => (
+                        <div id='clockbtndiv' className='scaleAbit'>
+                          <Button
+                            id='clockbtn'
+                            key={clock._id}
+                            onClick={() =>
+                              submitHandler(
+                                clock._id,
+                                clock.time,
+                                clock.date,
+                                clock.sapar,
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
+                              )
+                            }
+                            //onClick={() => openOKHandler(clock.time)}
+                          >
+                            <img
+                              id='clcktimeimg'
+                              src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                            />
+                            <div id='clcktime'> {clock.time}</div>
+                          </Button>
+                        </div>
+                      ))
+                  ) : clockListFor2Hour &&
+                    clockListFor2Hour.length != 0 &&
+                    tipulimDeets.time === 120 ? (
+                    clockListFor2Hour
+                      .sort((a, b) => {
+                        const dateA = new Date(` ${a.time}`).valueOf()
+                        const dateB = new Date(` ${b.time}`).valueOf()
+                        if (dateA > dateB) {
+                          return -1 // return -1 here for DESC order
+                        }
+                        return 1 // return 1 here for DESC Order
+                      })
 
-                        .map((clock) => (
-                          <div id='clockbtndiv' className='scaleAbit'>
-                            <Button
-                              id='clockbtn'
-                              key={clock._id}
-                              onClick={() =>
-                                submitHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.sapar,
-                                  clock.owner.dayInWeek,
-                                  clock.owner.owner
-                                )
-                              }
-                              //onClick={() => openOKHandler(clock.time)}
-                            >
-                              <img
-                                id='clcktimeimg'
-                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                              />
-                              <div id='clcktime'> {clock.time}</div>
-                            </Button>
-                          </div>
-                        ))
-                    ) : clockListFor2HourandHALF &&
-                      clockListFor2HourandHALF.length != 0 &&
-                      tipulimDeets.time === 150 ? (
-                      clockListFor2HourandHALF
-                        .sort((a, b) => {
-                          const dateA = new Date(` ${a.time}`).valueOf()
-                          const dateB = new Date(` ${b.time}`).valueOf()
-                          if (dateA > dateB) {
-                            return -1 // return -1 here for DESC order
-                          }
-                          return 1 // return 1 here for DESC Order
-                        })
+                      .map((clock) => (
+                        <div id='clockbtndiv' className='scaleAbit'>
+                          <Button
+                            id='clockbtn'
+                            key={clock._id}
+                            onClick={() =>
+                              submitHandler(
+                                clock._id,
+                                clock.time,
+                                clock.date,
+                                clock.sapar,
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
+                              )
+                            }
+                            //onClick={() => openOKHandler(clock.time)}
+                          >
+                            <img
+                              id='clcktimeimg'
+                              src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                            />
+                            <div id='clcktime'> {clock.time}</div>
+                          </Button>
+                        </div>
+                      ))
+                  ) : clockListFor2HourandHALF &&
+                    clockListFor2HourandHALF.length != 0 &&
+                    tipulimDeets.time === 150 ? (
+                    clockListFor2HourandHALF
+                      .sort((a, b) => {
+                        const dateA = new Date(` ${a.time}`).valueOf()
+                        const dateB = new Date(` ${b.time}`).valueOf()
+                        if (dateA > dateB) {
+                          return -1 // return -1 here for DESC order
+                        }
+                        return 1 // return 1 here for DESC Order
+                      })
 
-                        .map((clock) => (
-                          <div id='clockbtndiv' className='scaleAbit'>
-                            <Button
-                              id='clockbtn'
-                              key={clock._id}
-                              onClick={() =>
-                                submitHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.sapar,
-                                  clock.owner.dayInWeek,
-                                  clock.owner.owner
-                                )
-                              }
-                              //onClick={() => openOKHandler(clock.time)}
-                            >
-                              <img
-                                id='clcktimeimg'
-                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                              />
-                              <div id='clcktime'> {clock.time}</div>
-                            </Button>
-                          </div>
-                        ))
-                    ) : clockListFor3Hours &&
-                      clockListFor3Hours.length != 0 &&
-                      tipulimDeets.time === 180 ? (
-                      clockListFor3Hours
-                        .sort((a, b) => {
-                          const dateA = new Date(` ${a.time}`).valueOf()
-                          const dateB = new Date(` ${b.time}`).valueOf()
-                          if (dateA > dateB) {
-                            return -1 // return -1 here for DESC order
-                          }
-                          return 1 // return 1 here for DESC Order
-                        })
+                      .map((clock) => (
+                        <div id='clockbtndiv' className='scaleAbit'>
+                          <Button
+                            id='clockbtn'
+                            key={clock._id}
+                            onClick={() =>
+                              submitHandler(
+                                clock._id,
+                                clock.time,
+                                clock.date,
+                                clock.sapar,
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
+                              )
+                            }
+                            //onClick={() => openOKHandler(clock.time)}
+                          >
+                            <img
+                              id='clcktimeimg'
+                              src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                            />
+                            <div id='clcktime'> {clock.time}</div>
+                          </Button>
+                        </div>
+                      ))
+                  ) : clockListFor3Hours &&
+                    clockListFor3Hours.length != 0 &&
+                    tipulimDeets.time === 180 ? (
+                    clockListFor3Hours
+                      .sort((a, b) => {
+                        const dateA = new Date(` ${a.time}`).valueOf()
+                        const dateB = new Date(` ${b.time}`).valueOf()
+                        if (dateA > dateB) {
+                          return -1 // return -1 here for DESC order
+                        }
+                        return 1 // return 1 here for DESC Order
+                      })
 
-                        .map((clock) => (
-                          <div id='clockbtndiv' className='scaleAbit'>
-                            <Button
-                              id='clockbtn'
-                              key={clock._id}
-                              onClick={() =>
-                                submitHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.sapar,
-                                  clock.owner.dayInWeek,
-                                  clock.owner.owner
-                                )
-                              }
-                              //onClick={() => openOKHandler(clock.time)}
-                            >
-                              <img
-                                id='clcktimeimg'
-                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                              />
-                              <div id='clcktime'> {clock.time}</div>
-                            </Button>
-                          </div>
-                        ))
-                    ) : (
-                      <div id='weSorryAllTafus'>
-                        אנו מצטערים, כל התורים תפוסים ביום זה{' '}
-                        <button
-                          onClick={() => history.goBack()}
-                          id='anotherday'
-                        >
-                          קבע תור ליום אחר
-                        </button>
-                      </div>
-                    )}
+                      .map((clock) => (
+                        <div id='clockbtndiv' className='scaleAbit'>
+                          <Button
+                            id='clockbtn'
+                            key={clock._id}
+                            onClick={() =>
+                              submitHandler(
+                                clock._id,
+                                clock.time,
+                                clock.date,
+                                clock.sapar,
+                                clock.owner.dayInWeek,
+                                clock.owner.owner
+                              )
+                            }
+                            //onClick={() => openOKHandler(clock.time)}
+                          >
+                            <img
+                              id='clcktimeimg'
+                              src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
+                            />
+                            <div id='clcktime'> {clock.time}</div>
+                          </Button>
+                        </div>
+                      ))
+                  ) : (
+                    <div id='weSorryAllTafus'>
+                      אנו מצטערים, כל התורים תפוסים ביום זה{' '}
+                      <button onClick={() => history.goBack()} id='anotherday'>
+                        קבע תור ליום אחר
+                      </button>
+                    </div>
+                  )}
 
-                    <Modal
-                      show={showOK}
-                      onCancel={closeOKHandler}
-                      header='רוצה לקבוע תור?'
-                      footer={<Button onClick={closeOKHandler}>CLOSE</Button>}
-                    ></Modal>
-                  </Table>
-                ) : (
-                  <Table striped bordered hover responsive className='table-sm'>
-                    {clockList.length != 0 && tipulimDeets.time === 30 ? (
-                      clockList
-                        .sort((a, b) => {
-                          const TimeA = ` ${a.time}`.valueOf()
-                          const TimeB = ` ${b.time}`.valueOf()
-                          if (TimeA > TimeB) {
-                            return 1 // return -1 here for DESC order
-                          }
-                          return -1 // return 1 here for DESC Order
-                        })
-                        .map((clock) =>
-                          clock.avilable ? (
-                            <div id='clockbtndiv' className='scaleAbit'>
-                              <Button
-                                id='clockbtn'
-                                key={clock._id}
-                                onClick={() =>
-                                  submitHandler(
-                                    clock._id,
-                                    clock.time,
-                                    clock.date,
-                                    clock.sapar,
-                                    clock.owner.dayInWeek,
-                                    clock.owner.owner
-                                  )
-                                }
-                                //onClick={() => openOKHandler(clock.time)}
-                              >
-                                <img
-                                  id='clcktimeimg'
-                                  src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                                />
-                                <div id='clcktime'> {clock.time}</div>
-                              </Button>
-                            </div>
-                          ) : (
-                            <></>
-                          )
-                        )
-                    ) : clockListForOneHour &&
-                      clockListForOneHour.length != 0 &&
-                      tipulimDeets.time === 60 ? (
-                      clockListForOneHour
-                        .sort((a, b) => {
-                          const dateA = new Date(` ${a.time}`).valueOf()
-                          const dateB = new Date(` ${b.time}`).valueOf()
-                          if (dateA > dateB) {
-                            return -1 // return -1 here for DESC order
-                          }
-                          return 1 // return 1 here for DESC Order
-                        })
-
-                        .map((clock) => (
-                          <div id='clockbtndiv' className='scaleAbit'>
-                            <Button
-                              id='clockbtn'
-                              key={clock._id}
-                              onClick={() =>
-                                submitHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.sapar,
-                                  clock.owner.dayInWeek,
-                                  clock.owner.owner
-                                )
-                              }
-                              //onClick={() => openOKHandler(clock.time)}
-                            >
-                              <img
-                                id='clcktimeimg'
-                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                              />
-                              <div id='clcktime'> {clock.time}</div>
-                            </Button>
-                          </div>
-                        ))
-                    ) : clockListForOneHALFHour &&
-                      clockListForOneHALFHour.length != 0 &&
-                      tipulimDeets.time === 90 ? (
-                      clockListForOneHALFHour
-                        .sort((a, b) => {
-                          const dateA = new Date(` ${a.time}`).valueOf()
-                          const dateB = new Date(` ${b.time}`).valueOf()
-                          if (dateA > dateB) {
-                            return -1 // return -1 here for DESC order
-                          }
-                          return 1 // return 1 here for DESC Order
-                        })
-                        .map((clock) => (
-                          <div id='clockbtndiv' className='scaleAbit'>
-                            <Button
-                              id='clockbtn'
-                              key={clock._id}
-                              onClick={() =>
-                                submitHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.sapar,
-                                  clock.owner.dayInWeek,
-                                  clock.owner.owner
-                                )
-                              }
-                              //onClick={() => openOKHandler(clock.time)}
-                            >
-                              <img
-                                id='clcktimeimg'
-                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                              />
-                              <div id='clcktime'> {clock.time}</div>
-                            </Button>
-                          </div>
-                        ))
-                    ) : clockListFor2Hour &&
-                      clockListFor2Hour.length != 0 &&
-                      tipulimDeets.time === 120 ? (
-                      clockListFor2Hour
-                        .sort((a, b) => {
-                          const dateA = new Date(` ${a.time}`).valueOf()
-                          const dateB = new Date(` ${b.time}`).valueOf()
-                          if (dateA > dateB) {
-                            return -1 // return -1 here for DESC order
-                          }
-                          return 1 // return 1 here for DESC Order
-                        })
-
-                        .map((clock) => (
-                          <div id='clockbtndiv' className='scaleAbit'>
-                            <Button
-                              id='clockbtn'
-                              key={clock._id}
-                              onClick={() =>
-                                submitHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.sapar,
-                                  clock.owner.dayInWeek,
-                                  clock.owner.owner
-                                )
-                              }
-                              //onClick={() => openOKHandler(clock.time)}
-                            >
-                              <img
-                                id='clcktimeimg'
-                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                              />
-                              <div id='clcktime'> {clock.time}</div>
-                            </Button>
-                          </div>
-                        ))
-                    ) : clockListFor2HourandHALF &&
-                      clockListFor2HourandHALF.length != 0 &&
-                      tipulimDeets.time === 150 ? (
-                      clockListFor2HourandHALF
-                        .sort((a, b) => {
-                          const dateA = new Date(` ${a.time}`).valueOf()
-                          const dateB = new Date(` ${b.time}`).valueOf()
-                          if (dateA > dateB) {
-                            return -1 // return -1 here for DESC order
-                          }
-                          return 1 // return 1 here for DESC Order
-                        })
-
-                        .map((clock) => (
-                          <div id='clockbtndiv' className='scaleAbit'>
-                            <Button
-                              id='clockbtn'
-                              key={clock._id}
-                              onClick={() =>
-                                submitHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.sapar,
-                                  clock.owner.dayInWeek,
-                                  clock.owner.owner
-                                )
-                              }
-                              //onClick={() => openOKHandler(clock.time)}
-                            >
-                              <img
-                                id='clcktimeimg'
-                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                              />
-                              <div id='clcktime'> {clock.time}</div>
-                            </Button>
-                          </div>
-                        ))
-                    ) : clockListFor3Hours &&
-                      clockListFor3Hours.length != 0 &&
-                      tipulimDeets.time === 180 ? (
-                      clockListFor3Hours
-                        .sort((a, b) => {
-                          const dateA = new Date(` ${a.time}`).valueOf()
-                          const dateB = new Date(` ${b.time}`).valueOf()
-                          if (dateA > dateB) {
-                            return -1 // return -1 here for DESC order
-                          }
-                          return 1 // return 1 here for DESC Order
-                        })
-
-                        .map((clock) => (
-                          <div id='clockbtndiv' className='scaleAbit'>
-                            <Button
-                              id='clockbtn'
-                              key={clock._id}
-                              onClick={() =>
-                                submitHandler(
-                                  clock._id,
-                                  clock.time,
-                                  clock.date,
-                                  clock.sapar,
-                                  clock.owner.dayInWeek,
-                                  clock.owner.owner
-                                )
-                              }
-                              //onClick={() => openOKHandler(clock.time)}
-                            >
-                              <img
-                                id='clcktimeimg'
-                                src='https://i.ibb.co/0n8Y0bk/output-onlinegiftools-1.gif'
-                              />
-                              <div id='clcktime'> {clock.time}</div>
-                            </Button>
-                          </div>
-                        ))
-                    ) : (
-                      <div id='weSorryAllTafus'>
-                        אנו מצטערים, כל התורים תפוסים ביום זה{' '}
-                        <button
-                          onClick={() => history.goBack()}
-                          id='anotherday'
-                        >
-                          קבע תור ליום אחר
-                        </button>
-                      </div>
-                    )}
-
-                    <Modal
-                      show={showOK}
-                      onCancel={closeOKHandler}
-                      header='רוצה לקבוע תור?'
-                      footer={<Button onClick={closeOKHandler}>CLOSE</Button>}
-                    ></Modal>
-                  </Table>
-                )}
+                  <Modal
+                    show={showOK}
+                    onCancel={closeOKHandler}
+                    header='רוצה לקבוע תור?'
+                    footer={<Button onClick={closeOKHandler}>CLOSE</Button>}
+                  ></Modal>
+                </Table>
               </div>
             </Col>
           </>
