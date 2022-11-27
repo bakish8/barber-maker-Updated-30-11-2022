@@ -28,7 +28,6 @@ const authUser = asyncHandler(async (req, res) => {
         workingIn: user.WorkingIn, //***NEW */
       })
     } else if (user.ClientOfBusiness) {
-      console.log(`user client in: ${user.ClientOfBusiness}`)
       res.json({
         _id: user._id,
         name: user.name,
@@ -91,11 +90,8 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, email, phone, password, image, businessid, DateOfBirth } =
     req.body
   const userExists = await User.findOne({ email })
-  console.log(` ${businessid}...searching...`)
 
   if (businessid != 0) {
-    console.log(`business is not a 0`)
-    console.log(`business Id is ${businessid}...searching...`)
     const business = await Business.findById(businessid).populate('clients')
 
     if (userExists) {

@@ -28,7 +28,6 @@ const SmartCounter = () => {
     const updatePosition = () => {
       setPosition(window.scrollY)
     }
-
     window.addEventListener('scroll', updatePosition)
   }, [scrollPosition])
 

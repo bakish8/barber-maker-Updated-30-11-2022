@@ -187,7 +187,6 @@ const Header = ({ socket, match }) => {
     }
     if (socket && socket != null) {
       socket.on('getNotification', (data) => {
-        console.log('getNotification SOCKET ! ! !')
         setNotificationss((prev) => [...prev, data])
         console.log(
           'adding New Notification N O W!!...checking type of Notification For Swal...'

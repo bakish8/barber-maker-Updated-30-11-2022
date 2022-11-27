@@ -1468,7 +1468,6 @@ const AdminSingleWorkDay = ({ history, match }) => {
           } else if (result.isDenied) {
             if (mistaper) {
               const uid = mistaper._id
-
               Swal.fire({
                 title: '?אתה בטוח',
                 text: `ברגע שתהפוך את התור בשעה ${time} זה לזמין לא תהיה לך את האפשרות להחזיר את פרטי המשתמש שסגר את התור בשעה זו`,
