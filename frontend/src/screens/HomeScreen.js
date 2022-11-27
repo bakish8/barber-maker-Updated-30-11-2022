@@ -11,7 +11,6 @@ import Meta from '../components/Meta'
 import { listProducts } from '../actions/productActions' //ייבוא של האקשן עצמו שמביא את אמוצרים.
 import EmailMeTheDeetsComponent from '../components/HomePage/EmailMeTheDeetsComponent'
 import OpenVirtualBarberShop from '../components/HomePage/openVirtualBarberShop'
-import ImageOne from '../components/HomePage/ImageOne'
 import ImageTWO from '../components/HomePage/ImageTWO'
 import ImageThree from '../components/HomePage/ImageThree'
 import ImageFour from '../components/HomePage/ImageFour'

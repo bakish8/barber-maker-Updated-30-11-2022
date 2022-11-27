@@ -16,7 +16,7 @@ import CancelTorItem from '../components/CancelTor/CancelTorItem'
 import { listMyTorim } from '../actions/userActions'
 import { io } from 'socket.io-client'
 
-const CancelTorScreen = ({ history }) => {
+const CancelTorScreen = ({ history, match }) => {
   const BussinesID = match.params.id
   //states
   const dispatch = useDispatch()

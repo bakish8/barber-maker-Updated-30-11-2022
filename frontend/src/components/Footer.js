@@ -6,10 +6,8 @@ const Footer = () => {
     <footer id='footer'>
       <Container>
         <Row>
-          <a id='Copyrights' href='http://omri-protofilio.online/'>
-            <Col className='text-center py-3'>
-              Copyright &copy; Omri Bakish{' '}
-            </Col>
+          <a id='Copyrights' href='https://www.barber-maker.com/'>
+            <Col className='text-center py-3'>&copy;www.barber-maker.com </Col>
           </a>
         </Row>
       </Container>
@@ -18,3 +16,4 @@ const Footer = () => {
 }
 
 export default Footer
+//http://omri-protofilio.online/

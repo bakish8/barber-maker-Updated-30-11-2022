@@ -207,16 +207,17 @@ const BusinessLoginScreen = ({ location, history, match }) => {
           },
         }).then(async (result) => {
           if (result.isConfirmed) {
-            sendEmail(e).then(
-              //if user found in used then send email with link
-              Swal.fire({
-                imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
-                title: `האימייל נשלח בהצלחה`,
-                showConfirmButton: false,
+            //  sendEmail(e).then(
 
-                timer: 5000,
-              })
-            )
+            //if user found in used then send email with link
+            Swal.fire({
+              imageUrl: 'https://i.ibb.co/8sscqJ0/animation-300-kzzdqz4y.gif',
+              title: `האימייל נשלח בהצלחה`,
+              showConfirmButton: false,
+
+              timer: 5000,
+            })
+            //)
           }
         })
 
