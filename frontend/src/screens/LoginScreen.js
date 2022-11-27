@@ -139,7 +139,26 @@ const LoginScreen = ({ location, history }) => {
   }
   const submitHandler2 = (e) => {
     e.preventDefault()
-    dispatch(login(phone, password)) //send to actions and fowerd as email needto be fixed to phone fron action
+    if (phone.length != 10 || phone.substring(0, 2) != '05') {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        },
+      })
+      Toast.fire({
+        icon: 'error',
+        title: ' !המספר אינו תקין ',
+        text: ' יש להזין מספר נייד תקין בעל 10 ספרות וקידומת ישראלית',
+      })
+    } else {
+      dispatch(login(phone, password)) //send to actions and fowerd as email needto be fixed to phone fron action
+    }
   }
 
   const Swal_I_Forgot_My_Pass = () => {
