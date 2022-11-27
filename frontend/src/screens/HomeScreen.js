@@ -48,7 +48,7 @@ const HomeScreen = ({ match, history }) => {
   const GetAllBusiness = useSelector((state) => state.GetAllBusiness)
   const { alllBusiness } = GetAllBusiness
 
-  const [Linki, setLinki] = useState(0)
+  const [Linki, setLinki] = useState('0')
 
   //functions for scroll highet
   const fixScrollHighetForBarberSystem = () => {
@@ -93,7 +93,7 @@ const HomeScreen = ({ match, history }) => {
     if (!alllBusiness) {
       dispatch(getBusissinesForHomePage())
     }
-    if (userInfo && userInfo.WorkingIn != 0) {
+    if (userInfo && userInfo.WorkingIn != null) {
       console.log(`user is ADMIN`)
       setLinki(userInfo.workingIn)
     } else if (userInfo && userInfo.ClientOfBusiness) {
