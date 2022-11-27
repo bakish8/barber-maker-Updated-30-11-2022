@@ -478,22 +478,23 @@ const Header = ({ socket, match }) => {
                       to={
                         GetBusinessDetailssuccess && business
                           ? `/business/${business.id}/picksapar`
-                          : '/picksapar'
+                          : '/'
                       }
                     >
                       <NavDropdown.Item id='centerme'>קבע תור</NavDropdown.Item>
                     </LinkContainer>
-
-                    <LinkContainer
-                      id='usernameactionsNAV'
-                      to={
-                        GetBusinessDetailssuccess && business
-                          ? `/business/${business.id}/cancel`
-                          : '/cancel'
-                      }
-                    >
-                      <NavDropdown.Item id='centerme'>בטל תור</NavDropdown.Item>
-                    </LinkContainer>
+                    {GetBusinessDetailssuccess && business ? (
+                      <LinkContainer
+                        id='usernameactionsNAV'
+                        to={`/business/${business.id}/cancel`}
+                      >
+                        <NavDropdown.Item id='centerme'>
+                          בטל תור
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                    ) : (
+                      ''
+                    )}
 
                     <NavDropdown.Item
                       id='usernameactionsNAV'

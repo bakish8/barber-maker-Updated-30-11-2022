@@ -77,23 +77,9 @@ const CoolNavBar = (props) => {
                     <LinkContainer
                       onClick={setisSmallFunction}
                       id=''
-                      to='/picksapar'
-                    >
-                      <p>קבע תור</p>
-                    </LinkContainer>
-                    <LinkContainer
-                      onClick={setisSmallFunction}
-                      id=''
                       to='/profile'
                     >
                       <p>פרופיל</p>
-                    </LinkContainer>
-                    <LinkContainer
-                      onClick={setisSmallFunction}
-                      id=''
-                      to='/cancel'
-                    >
-                      <p>בטל תור</p>
                     </LinkContainer>
                     <p onClick={logoutHandler}>התנתק</p>
                   </Col>

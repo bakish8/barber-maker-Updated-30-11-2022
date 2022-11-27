@@ -23,10 +23,6 @@ main {
   color: rgb(183, 247, 255);
   text-decoration: none;
 }
-.ImageOne {
-  z-index: -500;
-}
-
 #googleMap {
   margin-left: auto;
   margin-right: auto;

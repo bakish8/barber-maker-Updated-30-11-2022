@@ -17,13 +17,10 @@ import { listMyTorim } from '../actions/userActions'
 import { io } from 'socket.io-client'
 
 const CancelTorScreen = ({ history }) => {
+  const BussinesID = match.params.id
+  //states
   const dispatch = useDispatch()
   const [socket, setSocket] = useState(null)
-  useEffect(() => {
-    setSocket(io())
-  }, [])
-  console.log(`socket:${socket}`)
-
   const userLogin = useSelector((state) => state.userLogin)
   const MyTorim = useSelector((state) => state.MyTorim)
   const { loading: loadingMyTorim, error: errorMyTorim, clocks } = MyTorim
@@ -31,23 +28,15 @@ const CancelTorScreen = ({ history }) => {
   const { cancel } = CancelTor
   const { userInfo } = userLogin
 
-  //Socket Notification Function
-  const handleNotification = (type, sapar, time, dayInWeek) => {
-    if (socket) {
-      console.log(`sockeeetttt: ${socket}`)
-      socket.emit('sendNotification', {
-        senderName: userInfo.name,
-        receiverName: sapar,
-        type,
-        time,
-        dayInWeek,
-      })
-    }
-  }
+  //UseEffects
+
+  useEffect(() => {
+    setSocket(io())
+  }, [])
 
   useEffect(() => {
     if (!userInfo) {
-      history.push('/login')
+      history.push(`/business/${BussinesID}/login`)
     } else {
       dispatch(listMyTorim())
       if (clocks) {
@@ -67,18 +56,32 @@ const CancelTorScreen = ({ history }) => {
             imageUrl: 'https://i.ibb.co/fpZL6Px/animation-300-kym7smbo.gif',
           }).then((result) => {
             if (result.isConfirmed) {
-              history.push('/picksapar')
+              history.push(`/business/${BussinesID}/picksapar`)
             } else if (
               result.dismiss === Swal.DismissReason.cancel ||
               result.dismiss === Swal.DismissReason.backdrop
             ) {
-              history.push('/')
+              history.push(`/business/${BussinesID}`)
             }
           })
         }
       }
     }
   }, [dispatch, history, userInfo, cancel])
+
+  //Socket Notification Function
+  const handleNotification = (type, sapar, time, dayInWeek) => {
+    if (socket) {
+      console.log(`socket: ${socket}`)
+      socket.emit('sendNotification', {
+        senderName: userInfo.name,
+        receiverName: sapar,
+        type,
+        time,
+        dayInWeek,
+      })
+    }
+  }
 
   const submitHandler = (id, time, date, sapar, dayInWeek, sapar_id) => {
     const uid = userInfo._id

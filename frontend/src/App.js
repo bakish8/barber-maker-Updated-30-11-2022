@@ -20,7 +20,6 @@ import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
 import PickDateScreen from './screens/PickDateScreen'
-import PickSaparScreen from './screens/PickSaparScreen'
 import WorkingDaysScreen from './screens/workingDays'
 import SingleWorkDay from './screens/SingleWorkDay'
 import PickHourScreen from './screens/PickHourScreen'
@@ -64,7 +63,6 @@ const App = () => {
         <Container>
           <Route path='/order/:id' component={OrderScreen} />
           <Route path='/shipping' component={ShippingScreen} />
-          <Route path='/picksapar' component={PickSaparScreen} />
           <Route path='/:id/maketor' component={PickDateScreen} />
           <Route
             path='/maketorr/:id/:tipulid'
@@ -78,7 +76,6 @@ const App = () => {
           />
 
           <Route path='/payment' component={PaymentScreen} />
-          <Route path='/cancel' component={CancelTorScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login/' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
