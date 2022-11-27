@@ -23,6 +23,16 @@ main {
   color: rgb(183, 247, 255);
   text-decoration: none;
 }
+#Copyrights2 {
+  color: rgb(122, 122, 122);
+
+  margin: 0 auto;
+  transition: ease-in 0.1s;
+}
+#Copyrights2:hover {
+  color: rgb(72, 182, 255);
+  text-decoration: none;
+}
 #googleMap {
   margin-left: auto;
   margin-right: auto;
