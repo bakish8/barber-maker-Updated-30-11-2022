@@ -3,7 +3,11 @@
 const business = [
   {
     businessName: 'Avihay Meir',
-    location: { name: 'אשקלון סיוון 8', lat: '31.6710', lng: '34.5807' },
+    location: {
+      name: 'אשקלון סיוון 8',
+      lat: '31.670894125490936',
+      lng: '34.58053549072671',
+    },
 
     settings: {
       sendSMSClientSide: true,
