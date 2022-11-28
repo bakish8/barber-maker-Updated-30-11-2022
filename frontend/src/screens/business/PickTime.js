@@ -110,22 +110,34 @@ const PickTime = ({ history, match }) => {
   const { loadingFor3Hours, clockListFor3Hours, errorFor3Hours } =
     avilableTorsFor3Hours
 
-  const CheckIfTimePassed = (time) => {
+  const CheckIfTimePassed = (time, date) => {
     const hourToCheck = time.substring(0, 2)
     const minuteToCheck = time.slice(3)
     let searchDate2 = new Date()
     let FormatedSearchDate = moment(searchDate2).format()
-    let CalculateminuteNow = FormatedSearchDate.slice(14)
-    let MinuteNow = CalculateminuteNow.substring(0, 2)
-    //let MinuteNow = '01'
-    let CalculateHourNow = FormatedSearchDate.slice(11)
-    let HourNow = CalculateHourNow.substring(0, 2)
-    //let HourNow = '09'
-    if (
-      HourNow > hourToCheck ||
-      (HourNow === hourToCheck && MinuteNow > minuteToCheck)
-    ) {
-      return true
+
+    const CalculateMonthmonth = FormatedSearchDate.substring(0, 7)
+    const month = CalculateMonthmonth.slice(-2) * 1
+    const CalculateDay = FormatedSearchDate.substring(0, 10)
+    const day = CalculateDay.slice(8) * 1
+    const year = FormatedSearchDate.substring(0, 4)
+    const dateToCheck = `${day}/${month}/${year}`
+    //const dateToCheck = `1/12/2022`
+    if (date === dateToCheck) {
+      let CalculateminuteNow = FormatedSearchDate.slice(14)
+      let MinuteNow = CalculateminuteNow.substring(0, 2)
+      //let MinuteNow = '31'
+      let CalculateHourNow = FormatedSearchDate.slice(11)
+      let HourNow = CalculateHourNow.substring(0, 2)
+      //let HourNow = '09'
+      if (
+        HourNow > hourToCheck ||
+        (HourNow === hourToCheck && MinuteNow > minuteToCheck)
+      ) {
+        return true
+      } else {
+        return false
+      }
     } else {
       return false
     }
@@ -355,7 +367,8 @@ const PickTime = ({ history, match }) => {
                       })
 
                       .map((clock) =>
-                        clock.avilable && !CheckIfTimePassed(clock.time) ? (
+                        clock.avilable &&
+                        !CheckIfTimePassed(clock.time, clock.date) ? (
                           <div id='clockbtndiv' className='scaleAbit'>
                             <Button
                               id='clockbtn'
