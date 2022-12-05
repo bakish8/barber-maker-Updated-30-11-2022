@@ -11,13 +11,11 @@ import Loader from '../../../components/Loader'
 import FormContainer from '../../../components/FormContainer'
 import { CreatelNotifications, register } from '../../../actions/userActions'
 import {
-  getAdminName,
   getBuissnesDetails,
   register_client,
 } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
 import './LoginScreen.css'
 import moment from 'moment'
-import { io } from 'socket.io-client'
 import DatePicker, { DateObject } from 'react-multi-date-picker'
 import gregorian_ar from 'react-date-object/locales/gregorian_ar'
 
@@ -51,7 +49,6 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
   const [Bday, setBday] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [socket, setSocket] = useState(null)
   const [message, setMessage] = useState(null)
   const dispatch = useDispatch()
   const ClientRegister = useSelector((state) => state.ClientRegister)
@@ -63,49 +60,14 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
     cancel_noti,
     error: errorcancel_noti,
   } = cancelNoti
-  const GetAdminName = useSelector((state) => state.GetAdminName)
-  const { AdmiNameloading, AdmiName, AdmiNamesuccess, AdmiNameerror } =
-    GetAdminName
+
   const redirect = `/business/${BussinesID}`
 
-  useEffect(() => {
-    setSocket(io())
-  }, [])
-
-  console.log(`socket:${socket}`)
   useEffect(() => {
     if (userInfo) {
       let NOW = moment()
       let now = NOW.toDate()
-
-      dispatch(getAdminName(BussinesID))
       /*/**add if business foudn user bussines owner */
-      if (AdmiName) {
-        dispatch(
-          CreatelNotifications(
-            null,
-            null,
-            null,
-            null,
-            AdmiName.name,
-            userInfo._id,
-            AdmiName.id,
-            3,
-            now
-          )
-        )
-        if (socket) {
-          socket.emit('sendNotification', {
-            senderName: userInfo.name,
-            receiverName: AdmiName.name,
-            type: 3,
-            time: '00:00',
-            dayInWeek: 'defult',
-          })
-        }
-
-        history.push(redirect)
-      }
     }
     if (success === false) {
       Swal.fire({
@@ -122,7 +84,7 @@ const BussinesRegisterScreen = ({ location, history, match }) => {
         },
       })
     }
-  }, [history, userInfo, redirect, message, success, socket, AdmiName])
+  }, [history, userInfo, redirect, message, success])
 
   const submitHandler = (e) => {
     e.preventDefault()

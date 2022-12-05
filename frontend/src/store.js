@@ -106,7 +106,6 @@ import {
   GetBusinessDetailsReducerfordesign,
   UpdateBusinessDesignSettingsReducer,
   GetBusinessGeoReducer,
-  GetAdminNameReducer,
   GetAllBusinessReducer,
 } from './reducers/BusinessReducers/Business_User_Reducer'
 
@@ -215,8 +214,6 @@ const reducer = combineReducers({
   UpdateBusinessDesignSettings: UpdateBusinessDesignSettingsReducer,
 
   GetBusinessGeo: GetBusinessGeoReducer,
-
-  GetAdminName: GetAdminNameReducer,
 
   INITIAL_PASSWORD: INITIAL_PASSWORD_REDUCER,
 

@@ -9,6 +9,8 @@ import {
   createReport,
   deleteAllClocks,
   deleteWorkingday,
+  SendTorWhatsapp,
+  SendTorSMS,
 } from '../../../actions/userActions.js' //***למחוק לשנות לקוניפירם מחיקה */
 import React, { useState, useEffect, useRef } from 'react'
 import { Table, Button, Row, Col, Form } from 'react-bootstrap'
@@ -39,7 +41,10 @@ import CreditCard from '../../../components/CreditCard/CreditCard'
 import Cards from 'react-credit-cards'
 import NewsTicker from 'react-advanced-news-ticker'
 import { CONFIRM_TOR_RESET } from '../../../constants/userConstants'
-import { TREATMENTSListAction } from '../../../actions/BuissnesActions/Buissnes_User_Actions'
+import {
+  getBuissnesSettings,
+  TREATMENTSListAction,
+} from '../../../actions/BuissnesActions/Buissnes_User_Actions'
 
 //?
 var date,
@@ -175,6 +180,13 @@ const AdminSingleWorkDay = ({ history, match }) => {
   const handleCloseShowUserFilter = () => {
     setShowUserFilter(false)
   }
+  const GetBusinessSETTINGS = useSelector((state) => state.GetBusinessSETTINGS)
+  const {
+    loading: loading_settings,
+    business: business_settings,
+    success: success_settings,
+    error: error_settings,
+  } = GetBusinessSETTINGS
   const SearchOneUser = useSelector((state) => state.SearchOneUser)
   const { loadinguserfound, userfound, successuserfound, erroruserfound } =
     SearchOneUser
@@ -332,27 +344,31 @@ const AdminSingleWorkDay = ({ history, match }) => {
       behavior: 'smooth',
     })
   }
-
-  const FuncTionDeleteAllAvilableTors = () => {
-    for (let clock of clockList) {
-      if (clock.avilable && !CheckIfTimePassed(clock.time)) {
-        dispatch(deleteAvilableClocks(WorkDayid, clock._id)).then(
-          Swal.fire({
-            text: ' מוחק את התורים הזמינים מהמערכת אנא המתן',
-
-            imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
-            imageWidth: 400,
-            imageHeight: 400,
-            imageAlt: 'Custom image',
-            timer: 3000,
-            background: '#68b4ff00',
-            backdrop: 'rgba(0, 0, 0,0.8)',
-            color: 'rgba(255, 255, 255)',
-            showConfirmButton: false,
-          })
-        )
-      }
+  const EndFunction = (id, uid) => {
+    console.log(`EndFunction`)
+    if (business_settings.settings.sendSMSAdminSide == true) {
+      dispatch(SendTorSMS(id, uid, BusinessId))
     }
+    if (business_settings.settings.sendWhatsappAdminSide == true) {
+      dispatch(SendTorWhatsapp(id, uid, BusinessId))
+    }
+  }
+  const FuncTionDeleteAllAvilableTors = () => {
+    dispatch(deleteAvilableClocks(WorkDayid))
+
+    // Swal.fire({
+    //   text: ' מוחק את התורים הזמינים מהמערכת אנא המתן',
+
+    //   imageUrl: 'https://i.ibb.co/qgNLgcf/BM-SVG-gif-ready.gif',
+    //   imageWidth: 400,
+    //   imageHeight: 400,
+    //   imageAlt: 'Custom image',
+    //   timer: 3000,
+    //   background: '#68b4ff00',
+    //   backdrop: 'rgba(0, 0, 0,0.8)',
+    //   color: 'rgba(255, 255, 255)',
+    //   showConfirmButton: false,
+    // })
   }
 
   const swalsucsses1 = () => {
@@ -945,7 +961,8 @@ const AdminSingleWorkDay = ({ history, match }) => {
     if (e) {
       e.preventDefault()
     }
-    dispatch(createClocks(WorkDayid, '10:00', '19:00', sapar)).then(
+    //*****************************ADDD SETTING FOR DEFULT BUSSINES HOURS*/
+    dispatch(createClocks(WorkDayid, '09:00', '20:30', sapar)).then(
       Swal.fire({
         text: 'מוסיף תורים למערכת אנא המתן',
 
@@ -1935,6 +1952,7 @@ const AdminSingleWorkDay = ({ history, match }) => {
       dispatch(WorkingDayTors(WorkDayid))
       dispatch(ReciptForThisWorkingDay(WorkDayid))
       dispatch(TREATMENTSListAction(BusinessId))
+      dispatch(getBuissnesSettings(BusinessId))
 
       if (word != '') {
         setShowUserFilter(false)
@@ -1969,7 +1987,9 @@ const AdminSingleWorkDay = ({ history, match }) => {
             setdisplay1andhalf(false)
             setdisplay1(false)
             setdisplayhalf(false)
-            dispatch(confirmTor(ChoosenClock, word, TipulId))
+            dispatch(confirmTor(ChoosenClock, word, TipulId)).then(
+              EndFunction(ChoosenClock, word)
+            )
           }
         })
       }

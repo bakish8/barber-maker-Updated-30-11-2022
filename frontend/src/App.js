@@ -30,7 +30,6 @@ import SingleReportScreen from './screens/SingleReportScreen'
 import PrivecyPolicy from './screens/PrivecyPolicy'
 import Admin from './screens/Admin'
 import PickTipulScreen from './screens/PickTipulScreen'
-import { io } from 'socket.io-client'
 import TermsandConditaions from './screens/TermsAndConditions'
 import BarberShop from './screens/business/BarberShop'
 import PickSapar from './screens/business/PickSapar'
@@ -50,15 +49,9 @@ import AdminNotificationsSettings from './screens/business/admin/AdminNotificati
 import AdminDesignSettingsScreen from './screens/business/admin/AdminDesignSettingsScreen'
 
 const App = () => {
-  const [socket, setSocket] = useState(null)
-
-  useEffect(() => {
-    setSocket(io())
-  }, [])
-
   return (
     <Router>
-      <Header socket={socket} />
+      <Header />
       <main className='py-3'>
         <Container>
           <Route path='/order/:id' component={OrderScreen} />

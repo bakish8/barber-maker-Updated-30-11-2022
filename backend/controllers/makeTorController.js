@@ -146,7 +146,8 @@ const confirmTor = asyncHandler(async (req, res) => {
   if ((user && user.ClientOfBusiness == '0') || !user.ClientOfBusiness) {
     user.ClientOfBusiness = BussinesID
     await user.save()
-    const Businesss = await Business.findById(businessid).populate('clients')
+
+    const Businesss = await Business.findById(BussinesID).populate('clients')
     Businesss.clients.push(user)
     await Businesss.save()
   }

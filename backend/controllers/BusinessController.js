@@ -43,29 +43,6 @@ const GetAllBusinessForHomePage = asyncHandler(async (req, res) => {
     throw new Error('ERROR!!!  the business.s was not found')
   }
 })
-const getAdminNameForSocket = asyncHandler(async (req, res) => {
-  const { id } = req.params
-  const BusinessFound = await Business.findOne({ _id: id })
-  if (BusinessFound) {
-    if (BusinessFound.businessOwner) {
-      const AdminFound = await User.findOne({
-        _id: BusinessFound.businessOwner,
-      })
-      if (AdminFound) {
-        res.json({
-          name: AdminFound.name,
-          id: AdminFound._id,
-        })
-      } else {
-        res.status(404)
-        throw new Error(' the Admin not found')
-      }
-    }
-  } else {
-    res.status(404)
-    throw new Error(' the business not found')
-  }
-})
 
 //need to add more Design Elements
 const getBusinessDesignSettings = asyncHandler(async (req, res) => {
@@ -331,6 +308,5 @@ export {
   UpdateBussinesSettingsController,
   getBusinessDesignSettings,
   UpdateBussinesDesigenSettings,
-  getAdminNameForSocket,
   GetAllBusinessForHomePage,
 }

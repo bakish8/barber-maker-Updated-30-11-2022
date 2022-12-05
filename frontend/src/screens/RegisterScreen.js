@@ -10,7 +10,6 @@ import FormContainer from '../components/FormContainer'
 import { CreatelNotifications, register } from '../actions/userActions'
 import './LoginScreen.css'
 import moment from 'moment'
-import { io } from 'socket.io-client'
 
 var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
 var hasNumber = /\d/
@@ -22,7 +21,6 @@ const RegisterScreen = ({ location, history }) => {
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [socket, setSocket] = useState(null)
   const [message, setMessage] = useState(null)
   const dispatch = useDispatch()
   const userRegister = useSelector((state) => state.userRegister)
@@ -36,11 +34,6 @@ const RegisterScreen = ({ location, history }) => {
   } = cancelNoti
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
-  useEffect(() => {
-    setSocket(io())
-  }, [])
-
-  console.log(`socket:${socket}`)
   useEffect(() => {
     if (userInfo) {
       history.push(redirect)
@@ -60,7 +53,7 @@ const RegisterScreen = ({ location, history }) => {
         },
       })
     }
-  }, [history, userInfo, redirect, message, success, socket])
+  }, [history, userInfo, redirect, message, success])
 
   const submitHandler = (e) => {
     e.preventDefault()

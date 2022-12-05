@@ -7,6 +7,47 @@ import moment from 'moment'
 // @desc    Create a product
 // @route   POST /api/products
 // @access  Private/Admin
+
+const CheckIfTimePassed = (time) => {
+  let searchDate = new Date()
+  let FormatedSearchDate = moment(searchDate).format()
+  let hourToCheck = time.substring(0, 2)
+  let minuteToCheck = time.slice(3)
+  let CalculateminuteNow = FormatedSearchDate.slice(14)
+  let MinuteNow = CalculateminuteNow.substring(0, 2)
+  //let MinuteNow = '01'
+  let CalculateHourNow = FormatedSearchDate.slice(11)
+  let HourNow = CalculateHourNow.substring(0, 2)
+  //let HourNow = '09'
+  if (
+    HourNow > hourToCheck ||
+    (HourNow === hourToCheck && MinuteNow > minuteToCheck)
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
+const CheckIfDatePassed = (Dateyear, Datemonth, Dateday) => {
+  let searchDate = new Date()
+  let FormatedSearchDate = moment(searchDate).format()
+  //Date Now
+  let CalculateMonthmonth = FormatedSearchDate.substring(0, 7)
+  let month = CalculateMonthmonth.slice(-2) * 1
+  let CalculateDay = FormatedSearchDate.substring(0, 10)
+  let day = CalculateDay.slice(8) * 1
+  let year = FormatedSearchDate.substring(0, 4) * 1
+  if (
+    (year === Dateyear && month === Datemonth && day > Dateday) ||
+    year > Dateyear ||
+    (year === Dateyear && month > Datemonth)
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
+
 const createWorkingDay = asyncHandler(async (req, res) => {
   const { dateData, day, id, sapar, Dateday, Datemonth, Dateyear } = req.body
   const owner = await User.findById(id).populate('workingdays')
@@ -1004,50 +1045,31 @@ const deleteallclocksforthisday = asyncHandler(async (req, res) => {
   }
 })
 const deleteAVILABLEclocksforthisday = asyncHandler(async (req, res) => {
-  const clock = await Clock.findById(req.params.uid)
   const id = req.params.id
-  if (clock) {
-    const owner = await WorkingDay.findByIdAndUpdate(id, {
-      $pull: { torim: req.params.uid },
-    })
-    owner.numTorim = owner.torim.length - 1
-    owner.numAvilableTorim = 0
-    await owner.save()
-    await clock.remove()
-    res.json({ message: 'clock removed' })
-  } else {
-    res.status(404)
-    throw new Error(`clock not found: ${req.params.cid}`)
-  }
-})
-const deleteSELECTEDclocksforthisday = asyncHandler(async (req, res) => {
-  const clock = await Clock.findById(req.params.cid)
-  const id = req.params.id
-  if (clock) {
-    const owner = await WorkingDay.findByIdAndUpdate(id, {
-      $pull: { torim: clock._id },
-    })
-    await owner.save()
-
-    if (clock.avilable === false) {
-      const mistaper = await User.findById(clock.mistaper._id)
-      var index = mistaper.torim.indexOf(clock._id)
-      mistaper.torim.splice(index, 1)
-      await mistaper.save()
-      owner.numTorim = owner.torim.length - 1
-      owner.numAvilableTorim = owner.numAvilableTorim
-      await owner.save()
-      await clock.remove()
-    } else {
-      owner.numTorim = owner.torim.length - 1
-      owner.numAvilableTorim = owner.numAvilableTorim - 1
-      await clock.remove()
-      await owner.save()
+  const owner = await WorkingDay.findById(id).populate('torim')
+  const Clocks = owner.torim //** */
+  if (!CheckIfDatePassed(owner.Dateyear, owner.Datemonth, owner.Dateday)) {
+    for (let Clock of Clocks) {
+      if (Clock.avilable) {
+        console.log(`clock ${Clock.time} is avilable`)
+        await Clock.remove()
+        owner.numTorim = owner.torim.length - 1
+        owner.numAvilableTorim = 0
+        await owner.save()
+      }
     }
-    res.json({ message: 'clock removed' })
+    res.json({ message: 'avilable clocks removed' })
   } else {
-    res.status(404)
-    throw new Error(`clock not found: ${req.params.cid}`)
+    for (let Clock of Clocks) {
+      if (Clock.avilable && !CheckIfTimePassed(Clock.time)) {
+        console.log(`clock ${Clock.time} is avilable`)
+        await Clock.remove()
+        owner.numTorim = owner.torim.length - 1
+        owner.numAvilableTorim = 0
+        await owner.save()
+      }
+    }
+    res.json({ message: 'avilable clocks removed' })
   }
 })
 
@@ -1071,6 +1093,5 @@ export {
   getCLOCKSForTHISdayRECIPT /*****מחזיר את שעות הקבלה ליום הספציפי */,
   deleteallclocksforthisday,
   deleteAVILABLEclocksforthisday,
-  deleteSELECTEDclocksforthisday,
   getWorkingDayForTOMORROW,
 }

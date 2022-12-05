@@ -14,13 +14,11 @@ import Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
 import CancelTorItem from '../components/CancelTor/CancelTorItem'
 import { listMyTorim } from '../actions/userActions'
-import { io } from 'socket.io-client'
 
 const CancelTorScreen = ({ history, match }) => {
   const BussinesID = match.params.id
   //states
   const dispatch = useDispatch()
-  const [socket, setSocket] = useState(null)
   const userLogin = useSelector((state) => state.userLogin)
   const MyTorim = useSelector((state) => state.MyTorim)
   const { loading: loadingMyTorim, error: errorMyTorim, clocks } = MyTorim
@@ -29,10 +27,6 @@ const CancelTorScreen = ({ history, match }) => {
   const { userInfo } = userLogin
 
   //UseEffects
-
-  useEffect(() => {
-    setSocket(io())
-  }, [])
 
   useEffect(() => {
     if (!userInfo) {
@@ -68,20 +62,6 @@ const CancelTorScreen = ({ history, match }) => {
       }
     }
   }, [dispatch, history, userInfo, cancel])
-
-  //Socket Notification Function
-  const handleNotification = (type, sapar, time, dayInWeek) => {
-    if (socket) {
-      console.log(`socket: ${socket}`)
-      socket.emit('sendNotification', {
-        senderName: userInfo.name,
-        receiverName: sapar,
-        type,
-        time,
-        dayInWeek,
-      })
-    }
-  }
 
   const submitHandler = (id, time, date, sapar, dayInWeek, sapar_id) => {
     const uid = userInfo._id
@@ -124,7 +104,7 @@ const CancelTorScreen = ({ history, match }) => {
                 )
               )
             )
-            .then(handleNotification(1, sapar, time, dayInWeek, date, now))
+
           // .then(history.push('/'))
         )
       } else if (result.dismiss === Swal.DismissReason.cancel) {

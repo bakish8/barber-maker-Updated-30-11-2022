@@ -1058,7 +1058,7 @@ export const deleteAllClocks = (id, cid) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    await axios.delete(`/api/workingday/deleteallclocks/${id}/${cid}`, config)
+    await axios.delete(`/api/workingday/delete/${id}/${cid}`, config)
 
     dispatch({
       type: CLOCK_DELETE_ALL_SUCCESS,
@@ -1077,42 +1077,13 @@ export const deleteAllClocks = (id, cid) => async (dispatch, getState) => {
     })
   }
 }
-export const deleteSelectedClocks = (id, cid) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: CLOCK_DELETE_SELECTED_REQUEST,
-    })
-    const {
-      userLogin: { userInfo },
-    } = getState()
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
-    await axios.delete(
-      `/api/workingday/deleteselectedclocks/${id}/${cid}`,
-      config
-    )
 
-    dispatch({
-      type: CLOCK_DELETE_SELECTED_SUCCESS,
-    })
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message
-    if (message === 'Not authorized, token failed') {
-      dispatch(logout())
-    }
-    dispatch({
-      type: CLOCK_DELETE_SELECTED_FAIL,
-      payload: message,
-    })
-  }
-}
-export const deleteAvilableClocks = (id, cid) => async (dispatch, getState) => {
+export const deleteAvilableClocks = (id) => async (dispatch, getState) => {
+  console.log(`id is:${id}`)
+  console.log(`id is:${id}`)
+  console.log(`id is:${id}`)
+  console.log(`id is:${id}`)
+
   try {
     dispatch({
       type: CLOCK_DELETE_AVILABLE_REQUEST,
@@ -1127,8 +1098,7 @@ export const deleteAvilableClocks = (id, cid) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-
-    await axios.delete(`/api/cancel/${id}/${cid}`, config)
+    await axios.delete(`/api/cancel/deleteavilable/${id}`, config)
 
     dispatch({
       type: CLOCK_DELETE_AVILABLE_SUCCESS,

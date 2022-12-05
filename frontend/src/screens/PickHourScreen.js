@@ -25,8 +25,6 @@ import {
   SendTorWhatsapp,
 } from '../actions/userActions.js'
 
-import { io } from 'socket.io-client'
-
 var date,
   array = []
 date = new Date()
@@ -36,7 +34,6 @@ while (date.getMinutes() % 15 !== 0) {
 
 const SingleWorkDayScreen = ({ history, match }) => {
   const dispatch = useDispatch()
-  const [socket, setSocket] = useState(null)
   const [showOK, setShowOK] = useState(false)
   const [TipilChoosenTime, setTipilChoosenTime] = useState('')
   const openOKHandler = () => setShowOK(true)
@@ -100,24 +97,7 @@ const SingleWorkDayScreen = ({ history, match }) => {
   const handleNotification = (type, sapar, time, dayInWeek, date) => {
     let NOW = moment()
     let now = NOW.toDate()
-
-    if (socket) {
-      socket.emit('sendNotification', {
-        senderName: user.name,
-        receiverName: sapar,
-        type,
-        time,
-        dayInWeek,
-        date,
-        now,
-      })
-    }
   }
-
-  useEffect(() => {
-    setSocket(io())
-  }, [])
-  console.log(`socket:${socket}`)
 
   useEffect(() => {
     if (userInfo) {

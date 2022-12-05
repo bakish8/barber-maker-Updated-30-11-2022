@@ -29,8 +29,6 @@ import {
 } from '../../actions/userActions.js'
 import { getBuissnesSettings } from '../../actions/BuissnesActions/Buissnes_User_Actions'
 
-import { io } from 'socket.io-client'
-
 var date,
   array = []
 date = new Date()
@@ -43,7 +41,6 @@ const PickTime = ({ history, match }) => {
   const [afterdate, Setfterdate] = useState(false) //**caclculate if passed date for day state */
 
   const dispatch = useDispatch()
-  const [socket, setSocket] = useState(null)
   const [showOK, setShowOK] = useState(false)
   const [TipilChoosenTime, setTipilChoosenTime] = useState('')
   const openOKHandler = () => setShowOK(true)
@@ -143,33 +140,11 @@ const PickTime = ({ history, match }) => {
     }
   }
 
-  const handleNotification = (type, sapar, time, dayInWeek, date) => {
-    let NOW = moment()
-    let now = NOW.toDate()
-
-    if (socket) {
-      socket.emit('sendNotification', {
-        senderName: user.name,
-        receiverName: sapar,
-        type,
-        time,
-        dayInWeek,
-        date,
-        now,
-      })
-    }
-  }
-
   useEffect(() => {
     if (clockList) {
       console.log(clockList)
     }
   }, [clockList])
-
-  useEffect(() => {
-    setSocket(io())
-  }, [])
-  console.log(`socket:${socket}`)
 
   useEffect(() => {
     if (userInfo) {
@@ -264,7 +239,7 @@ const PickTime = ({ history, match }) => {
           2,
           now
         )
-      ).then(handleNotification(2, sapar, time, dayInWeek, date))
+      )
     }
   }
   ///
